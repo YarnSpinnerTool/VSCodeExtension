@@ -2,11 +2,20 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "homepage": "https://yarnspinner.dev",
     "repository": "https://github.org/YarnSpinnerTool/YarnSpinnerVSCode",
     "license": "MIT",
+    "keywords": [
+        "yarn spinner", "yarnspinner", "yarn", "game writing", "narrative", "tree", "branch", "branching", "dialog", "dialogue"
+    ],
+    "qna": false,
     "publisher": "SecretLab",
+    "icon": "./icon.png",
+    "galleryBanner": {
+        "color": "#C5E29B",
+        "theme": "light"
+    },
     "engines": {
         "vscode": "^1.38.0"
     },
