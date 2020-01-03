@@ -1,0 +1,40 @@
+{
+    "name": "yarn-spinner",
+    "displayName": "Yarn Spinner",
+    "description": "Adds support for the Yarn Spinner dialogue language.",
+    "version": "0.0.2",
+    "homepage": "https://yarnspinner.dev",
+    "repository": "https://github.org/YarnSpinnerTool/YarnSpinnerVSCode",
+    "license": "MIT",
+    "publisher": "SecretLab",
+    "engines": {
+        "vscode": "^1.38.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "yarnspinner",
+                "aliases": [
+                    "Yarn Spinner",
+                    "yarnspinner",
+                    "Yarn"
+                ],
+                "extensions": [
+                    ".yarn",
+                    ".yarn.txt"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yarnspinner",
+                "scopeName": "source.yarnspinner",
+                "path": "./syntaxes/yarnspinner.tmLanguage.json"
+            }
+        ]
+    }
+}
