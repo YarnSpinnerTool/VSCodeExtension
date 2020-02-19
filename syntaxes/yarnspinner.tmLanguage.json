@@ -41,6 +41,25 @@
 				}
 			]
 		},
+		"inline_expressions": {
+			"begin": "{",
+			"end": "}",
+			"name": "keyword.other",
+			"patterns": [
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#operators"
+				},
+				{
+					"include": "#variables"
+				},
+				{
+					"include": "#numbers"
+				}
+			]
+		},
 
 		"comments": {
 			"patterns": [{
@@ -140,6 +159,9 @@
 				},
 				{
 					"include": "#commands"
+				},
+				{
+					"include": "#inline_expressions"
 				}
 			]
 		},
@@ -155,9 +177,12 @@
 							"name": "keyword.other"
 						},
 						{
+							"include": "#inline_expressions"
+						},
+						{
 							"comment": "Displayed text in an option",
-							"match": "[^|\\]]+",
-							"name": "keyword.control"
+							"match": "[^{|\\]]+",
+							"name": "keyword.control"							
 						}
 					]
 				}
