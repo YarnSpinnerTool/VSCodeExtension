@@ -4,9 +4,6 @@
 
 This extension adds syntax highlighting support for Yarn Spinner code. 
 
-## Release Notes
+To learn more about Yarn Spinner, head to the [official site](https://yarnspinner.dev)!
 
-### 1.0.0
-
-Initial release of this extension.
 
