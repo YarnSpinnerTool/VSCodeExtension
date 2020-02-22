@@ -162,6 +162,9 @@
 				},
 				{
 					"include": "#inline_expressions"
+				},
+				{
+					"include": "#format_functions"
 				}
 			]
 		},
@@ -180,6 +183,9 @@
 							"include": "#inline_expressions"
 						},
 						{
+							"include": "#format_functions"
+						},						
+						{
 							"comment": "Displayed text in an option",
 							"match": "[^{|\\]]+",
 							"name": "keyword.control"							
@@ -187,6 +193,38 @@
 					]
 				}
 			]
+		},
+		"format_functions": {
+			"patterns": [{
+				"begin": "\\[(?!\\[)",
+				"end": "\\]",
+				"name": "keyword.other.format_function",
+				"patterns": [
+					{
+						"include": "#inline_expressions"
+					},
+					{
+						"name": "string.quoted.double.yarnspinner.format_function",
+						"begin": "\"",
+						"end": "\"",
+						"patterns": [
+							{
+								"name": "keyword.other.format_function.placeholder",
+								"match": "%"
+							},
+							{
+								"name": "constant.character.escape.yarnspinner.format_function",
+								"match": "\\\\."
+							}
+						]
+						
+					},
+					{
+						"match": "[^{=\\]]+",
+						"name": "keyword.control"							
+					}
+				]
+			}]
 		}
 	},
 	"scopeName": "source.yarnspinner"

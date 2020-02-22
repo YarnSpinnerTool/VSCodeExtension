@@ -2,7 +2,7 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "homepage": "https://yarnspinner.dev",
     
     "license": "MIT",
