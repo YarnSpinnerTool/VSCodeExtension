@@ -6,7 +6,6 @@ import {
   WebviewPanel,
   Disposable,
   window,
-  TextDocumentContentChangeEvent,
 } from "vscode";
 
 import YarnEditorPanel from "./YarnEditorWebviewPanel";

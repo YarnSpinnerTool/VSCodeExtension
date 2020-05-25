@@ -1,4 +1,11 @@
-import { TextDocument, WebviewPanel, workspace, window } from "vscode";
+import {
+  TextDocument,
+  WebviewPanel,
+  workspace,
+  window,
+  WorkspaceEdit,
+  Range,
+} from "vscode";
 import { writeFile } from "fs";
 
 /**
@@ -11,22 +18,22 @@ import { writeFile } from "fs";
 export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
   webviewPanel.webview.onDidReceiveMessage((message) => {
     switch (message.command) {
-      // this gets sent by "trySaveCurrent" in YarnEditor's data.js
-      case "save":
+      case "documentEdit":
+        console.log("documentEdit", message.data);
         if (!document) {
           window.showErrorMessage("Tried to save without a document!");
           return;
         }
 
-        writeFile(document.fileName, message.data, (e) => {
-          if (e) {
-            window.showErrorMessage(
-              `Error writing ${document.fileName}\n${e.message}`
-            );
-          } else {
-            window.showInformationMessage(`Saved ${document.fileName}`);
-          }
-        });
+        // create a new edit that just replaces the whole document
+        const edit = new WorkspaceEdit();
+        edit.replace(
+          document.uri,
+          new Range(0, 0, (message.data as string).split("\n").length, 0),
+          message.data
+        );
+
+        workspace.applyEdit(edit);
         break;
 
       // we override `window.alert` to send messages here in YarnEditorWebviewPanel

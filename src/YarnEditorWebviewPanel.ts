@@ -166,9 +166,6 @@ export default (
         // since we're editing a specific file, don't show the main menu
         $(".app-menu .dropdown").empty();
 
-        // append our own save button
-        $(".app-menu .dropdown").append('<span class="item" onclick="window.app.data.trySaveCurrent()"><img style="margin:0; padding:0" width="20px" src="${publicResourceUri}/icon.ico"/>&nbsp;Save</span>');
-
         // re-append the settings button
         $(".app-menu .dropdown").append('<span class="item" onclick="window.app.ui.openSettingsDialog()"><img style="margin:0; padding:0" width="20px" src="${publicResourceUri}/images/settings.png"/>&nbsp;Settings</span>');
 
