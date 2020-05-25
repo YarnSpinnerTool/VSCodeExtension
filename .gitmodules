@@ -1,0 +1,4 @@
+[submodule "YarnEditor"]
+	path = YarnEditor
+	url = https://github.com/TranquilMarmot/YarnEditor.git
+	branch = tranquilmarmot/vscode-yarn-spinner

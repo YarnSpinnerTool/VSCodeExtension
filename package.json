@@ -1,49 +1,237 @@
 {
-    "name": "yarn-spinner",
-    "displayName": "Yarn Spinner",
-    "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "1.1.0",
-    "homepage": "https://yarnspinner.dev",
-    
-    "license": "MIT",
-    "keywords": [
-        "yarn spinner", "yarnspinner", "yarn", "game writing", "narrative", "tree", "branch", "branching", "dialog", "dialogue"
-    ],
-    "qna": false,
-    "publisher": "SecretLab",
-    "icon": "icon.png",
-    "galleryBanner": {
-        "color": "#C5E29B",
-        "theme": "light"
-    },
-    "engines": {
-        "vscode": "^1.38.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "yarnspinner",
-                "aliases": [
-                    "Yarn Spinner",
-                    "yarnspinner",
-                    "Yarn"
-                ],
-                "extensions": [
-                    ".yarn",
-                    ".yarn.txt"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+  "name": "yarn-spinner",
+  "displayName": "Yarn Spinner",
+  "description": "Adds support for the Yarn Spinner dialogue language.",
+  "version": "1.1.0",
+  "homepage": "https://yarnspinner.dev",
+  "license": "MIT",
+  "keywords": [
+    "yarn spinner",
+    "yarnspinner",
+    "yarn",
+    "game writing",
+    "narrative",
+    "tree",
+    "branch",
+    "branching",
+    "dialog",
+    "dialogue"
+  ],
+  "qna": false,
+  "publisher": "SecretLab",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#C5E29B",
+    "theme": "light"
+  },
+  "engines": {
+    "vscode": "^1.44.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onCommand:yarnSpinner.start",
+    "onCustomEditor:yarnSpinner.editor"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "yarnspinner",
+        "aliases": [
+          "Yarn Spinner",
+          "yarnspinner",
+          "Yarn"
         ],
-        "grammars": [
-            {
-                "language": "yarnspinner",
-                "scopeName": "source.yarnspinner",
-                "path": "./syntaxes/yarnspinner.tmLanguage.json"
-            }
-        ]
+        "extensions": [
+          ".yarn",
+          ".yarn.txt"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "yarnspinner",
+        "scopeName": "source.yarnspinner",
+        "path": "./syntaxes/yarnspinner.tmLanguage.json"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "yarnSpinner.editor",
+        "displayName": "Yarn Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.yarn"
+          },
+          {
+            "filenamePattern": "*.yarn.txt"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "yarnSpinner.start",
+        "title": "Start Yarn Editor",
+        "category": "Yarn Spinner"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "yarn",
+        "label": "Yarn",
+        "path": "./yarn-icon-theme.json"
+      }
+    ],
+    "configuration": {
+      "title": "Yarn Spinner",
+      "properties": {
+        "yarnSpinner.theme": {
+          "type": "string",
+          "default": "classic",
+          "description": "Theme to use for the Yarn Editor",
+          "enum": [
+            "classic",
+            "blueprint"
+          ]
+        },
+        "yarnSpinner.language": {
+          "type": "string",
+          "default": "en-GB",
+          "description": "Language to use for the Yarn Editor",
+          "enum": [
+            "af-ZA",
+            "id-ID",
+            "ms-MY",
+            "ca-ES",
+            "cs-CZ",
+            "de-DE",
+            "en-GB",
+            "es-ES",
+            "eu-ES",
+            "fr-FR",
+            "gl-ES",
+            "hr_HR",
+            "zu-ZA",
+            "is-IS",
+            "it-IT",
+            "hu-HU",
+            "nl-NL",
+            "nb-NO",
+            "pl-PL",
+            "pt-BR",
+            "ro-RO",
+            "sk-SK",
+            "fi-FI",
+            "sv-SE",
+            "tr-TR",
+            "bg-BG",
+            "ru-RU",
+            "sr-RS",
+            "ko-KR",
+            "cmn-Hans-CN",
+            "ja-JP",
+            "la"
+          ],
+          "enumDescriptions": [
+            "Afrikaans",
+            "Bahasa Indonesia",
+            "Bahasa Melayu",
+            "Català",
+            "Čeština",
+            "Deutsch",
+            "English",
+            "Español",
+            "Euskara",
+            "Français",
+            "Galego",
+            "Hrvatski",
+            "IsiZulu",
+            "Íslenska",
+            "Italiano",
+            "Magyar",
+            "Nederlands",
+            "Norsk bokmål",
+            "Polski",
+            "Português",
+            "Română",
+            "Slovenčina",
+            "Suomi",
+            "Svenska",
+            "Türkçe",
+            "български",
+            "Pусский",
+            "Српски",
+            "한국어",
+            "中文",
+            "日本語",
+            "Lingua latīna"
+          ]
+        },
+        "yarnSpinner.redrawThrottle": {
+          "type": "number",
+          "description": "Delay for redrawing the Yarn Editor (ms)",
+          "default": 50,
+          "minimum": 16,
+          "maximum": 250
+        },
+        "yarnSpinner.spellcheckEnabled": {
+          "type": "boolean",
+          "description": "Whether or not spellcheck is enabled in the Yarn Editor",
+          "default": true
+        },
+        "yarnSpinner.completeTagsEnabled": {
+          "type": "boolean",
+          "description": "Whether or not auto-completing tags in the Yarn Editor is enabled",
+          "default": true
+        },
+        "yarnSpinner.completeWordsEnabled": {
+          "type": "boolean",
+          "description": "Whether or not auto-completing words in the Yarn Editor is enabled",
+          "default": true
+        },
+        "yarnSpinner.overrideDarkThemeNightMode": {
+          "type": "boolean",
+          "description": "If this is false, the Yarn Editor will enable or disable night mode based on your Visual Studio Code theme. If this is true, then the workspace setting value for nightModeEnabled will be used instead.",
+          "default": false
+        },
+        "yarnSpinner.nightModeEnabled": {
+          "type": "boolean",
+          "description": "By default, the Yarn Editor will enable or disable night mode based on your Visual Studio Code theme. To override this, overrideDarkThemeNightMode to true and then set this value to your desired theme.",
+          "default": false
+        },
+        "yarnSpinner.createNodesEnabled": {
+          "type": "boolean",
+          "description": "Whether or not to auto-create nodes in the Yarn Editor",
+          "default": true
+        },
+        "yarnSpinner.markupLanguage": {
+          "type": "string",
+          "description": "Markup language to use in the Yarn Editor",
+          "enum": [
+            "bbcode",
+            "html"
+          ],
+          "default": "bbcode"
+        }
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run yarneditor:build && npm run compile",
+    "yarneditor:build": "rm -rf out && npm run compile && cd YarnEditor && npm install && npm run build && cp -r ./dist ../out",
+    "compile": "tsc -p ./",
+    "lint": "tslint -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.5",
+    "@types/vscode": "^1.45.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.3"
+  }
 }

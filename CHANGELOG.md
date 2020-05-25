@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+
+### Added
+
+- Embedded YarnEditor webview
+
 ## 1.1.0
 
 ### Added
@@ -9,4 +15,3 @@
 ## 1.0.0
 
 - Initial release of this extension.
-
