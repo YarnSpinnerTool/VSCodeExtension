@@ -164,10 +164,7 @@ export default (
       <script>
       window.addEventListener("yarnReady", function(e) {
         // since we're editing a specific file, don't show the main menu
-        $(".app-menu .dropdown").empty();
-
-        // re-append the settings button
-        $(".app-menu .dropdown").append('<span class="item" onclick="window.app.ui.openSettingsDialog()"><img style="margin:0; padding:0" width="20px" src="${publicResourceUri}/images/settings.png"/>&nbsp;Settings</span>');
+        $(".app-menu").empty();
 
         // this all mimic's the YarnEditor's 'data.openFile' function
         e.data.editingName("${document.fileName}");

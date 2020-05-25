@@ -18,6 +18,7 @@ import { writeFile } from "fs";
 export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
   webviewPanel.webview.onDidReceiveMessage((message) => {
     switch (message.command) {
+      //send whenever the document changes; the entire document will be sent in the event
       case "documentEdit":
         console.log("documentEdit", message.data);
         if (!document) {
@@ -33,42 +34,13 @@ export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
           message.data
         );
 
+        // this will mark the document as "dirty" in VSCode which will then handle saving etc.
         workspace.applyEdit(edit);
         break;
 
       // we override `window.alert` to send messages here in YarnEditorWebviewPanel
       case "alert":
         window.showWarningMessage(message.data);
-        break;
-
-      case "changeSetting":
-        // triggered whenever the user changes a setting in the YarnEditor's settings window
-        const { option, newValue } = message.data;
-
-        const yarnSpinnerSettings = workspace.getConfiguration("yarnSpinner");
-
-        // if "overrideDarkThemeNightMode" is not true, we ignore saving "nightModeEnabled"
-        if (
-          yarnSpinnerSettings.get("overrideDarkThemeNightMode") === false &&
-          option === "nightModeEnabled"
-        ) {
-          break;
-        }
-
-        // these always come back as strings, but sometimes we want a boolean or a number...
-        // we try to parse it as JSON to get the proper data type and if that fails, we just use the value (since it's probably a string)
-        let parsedValue;
-        try {
-          parsedValue = JSON.parse(newValue);
-        } catch (e) {
-          parsedValue = newValue;
-        }
-
-        // if the value has changed, save it
-        if (yarnSpinnerSettings.get(option) !== parsedValue) {
-          yarnSpinnerSettings.update(option, parsedValue);
-        }
-
         break;
       default:
         break;
