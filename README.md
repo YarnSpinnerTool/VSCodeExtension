@@ -4,15 +4,11 @@
 
 You can install this extension for Visual Studio Code from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=SecretLab.yarn-spinner).
 
-This extension adds syntax highlighting support for Yarn Spinner code.
+This extension adds syntax highlighting support for Yarn Spinner code and an embedded [YarnEditor](https://github.com/YarnSpinnerTool/YarnEditor) to make it easier to write Yarn scripts alongside your game.
 
 To learn more about Yarn Spinner, head to the [official site](https://yarnspinner.dev)!
 
-This extension also has an embedded [YarnEditor](https://github.com/YarnSpinnerTool/YarnEditor) to make it easier to write Yarn scripts alongside your game.
-
 When installed, clicking on a `.yarn` file in your file explorer will open it in the Yarn Editor.
-
-This is done using a [webview](https://code.visualstudio.com/api/extension-guides/webview) with the [custom editor API](https://code.visualstudio.com/api/extension-guides/custom-editors).
 
 ## Activating the extension
 
@@ -50,6 +46,12 @@ This will check out the `YarnEditor` git submodule, build it, and copy its built
 **Note:** When making changes to the `YarnEditor` folder, `npm run yarneditor:build` must be run for them to be pulled into the extension.
 
 Then, in Visual Studio Code's "Run/Debug" window, click the play button next to "Run Extension" or just hit <kbd>F5</kbd>. This will open another instance of Visual Studio Code with the extension loaded.
+
+### Helpful resources
+
+This extension is done using a [webview](https://code.visualstudio.com/api/extension-guides/webview) with the [custom editor API](https://code.visualstudio.com/api/extension-guides/custom-editors). The VSCode docs are a great starting point before diving into this extension!
+
+Particularly helpful when debugging is being able to [open the devtools for the webview](https://code.visualstudio.com/api/extension-guides/webview#inspecting-and-debugging-webviews).
 
 ### Project Layout
 
