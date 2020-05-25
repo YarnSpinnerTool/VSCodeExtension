@@ -84,13 +84,6 @@
         "category": "Yarn Spinner"
       }
     ],
-    "iconThemes": [
-      {
-        "id": "yarn",
-        "label": "Yarn",
-        "path": "./yarn-icon-theme.json"
-      }
-    ],
     "configuration": {
       "title": "Yarn Spinner",
       "properties": {
