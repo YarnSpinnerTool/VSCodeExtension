@@ -1,6 +1,7 @@
 import { ExtensionContext, commands, ViewColumn, window, Uri } from "vscode";
 import * as path from "path";
 
+import YarnEditorMessageListener from "./YarnEditorMessageListener";
 import YarnEditorPanel from "./YarnEditorWebviewPanel";
 
 /** Command to start a blank instance of the YarnEditor */
@@ -19,5 +20,6 @@ export default (context: ExtensionContext) =>
       }
     );
 
+    YarnEditorMessageListener(panel);
     YarnEditorPanel(panel, context.extensionPath);
   });
