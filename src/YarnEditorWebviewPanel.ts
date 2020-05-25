@@ -75,7 +75,7 @@ export default (
   const yarnSpinnerSettings = workspace.getConfiguration("yarnSpinner");
 
   // if "overrideDarkThemeNightMode" is set to true, then we use the "nightModeEnabled" value
-  // otherwise, we only switch to night mode if the user has a "dark" VSCode theme
+  // otherwise, we automatically switch to night mode if the user has a "dark" VSCode theme
   const nightModeSetting = yarnSpinnerSettings.get("overrideDarkThemeNightMode")
     ? `e.app.settings.nightModeEnabled(${yarnSpinnerSettings.get(
         "nightModeEnabled"
@@ -92,7 +92,7 @@ export default (
     `<head>
       <script>
         // YarnEditor will send events to "window.parent" but that is undefined
-        // in the VSCode webview
+        // in the VSCode webview; by default, browsers will usually set window.parent to window
         window.parent = window;
 
         // this lets the editor know we're in the VSCode extension and opening a file...
@@ -101,7 +101,7 @@ export default (
         window.openingVsCodeFile = ${!!document};
 
         // shove the VSCode API onto the window so it can be used to send events back to the extension
-        // "acquireVsCodeApi" is magically injected into the page by the webview, and can only be called ONCE
+        // the "acquireVsCodeApi" function is magically injected into the page by the webview, and can only be called ONCE
         window.vsCodeApi = acquireVsCodeApi();
 
         // since the webview doesn't do anything when "alert" is called, we override it here to

@@ -20,7 +20,6 @@ export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
     switch (message.command) {
       //send whenever the document changes; the entire document will be sent in the event
       case "documentEdit":
-        console.log("documentEdit", message.data);
         if (!document) {
           window.showErrorMessage("Tried to save without a document!");
           return;

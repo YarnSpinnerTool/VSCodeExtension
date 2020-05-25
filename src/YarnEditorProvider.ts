@@ -6,6 +6,9 @@ import {
   WebviewPanel,
   Disposable,
   window,
+  workspace,
+  ConfigurationChangeEvent,
+  TextDocumentChangeEvent,
 } from "vscode";
 
 import YarnEditorPanel from "./YarnEditorWebviewPanel";
@@ -55,6 +58,14 @@ export class YarnEditorProvider implements CustomTextEditorProvider {
     webviewPanel.webview.options = {
       enableScripts: true,
     };
+
+    // listen to changes to the "yarnSpinner" configuration set
+    // when this changes, we just reload the whole webview since that will set all the settings
+    workspace.onDidChangeConfiguration((event: ConfigurationChangeEvent) => {
+      if (event.affectsConfiguration("yarnSpinner")) {
+        YarnEditorPanel(webviewPanel, this.context.extensionPath, document);
+      }
+    });
 
     // this will listen for events from the editor
     YarnEditorMessageListener(webviewPanel, document);
