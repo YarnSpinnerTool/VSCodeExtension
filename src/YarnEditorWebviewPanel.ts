@@ -77,9 +77,9 @@ export default (
   // if "overrideDarkThemeNightMode" is set to true, then we use the "nightModeEnabled" value
   // otherwise, we only switch to night mode if the user has a "dark" VSCode theme
   const nightModeSetting = yarnSpinnerSettings.get("overrideDarkThemeNightMode")
-    ? `e.app.settings.nightModeEnabled("${yarnSpinnerSettings.get(
+    ? `e.app.settings.nightModeEnabled(${yarnSpinnerSettings.get(
         "nightModeEnabled"
-      )}");`
+      )});`
     : // If the user has a dark VSCode theme, the "body" of the iframe we're in will have this ".vscode-dark" class.
       `if ($('.vscode-dark').length) {
         e.app.settings.nightModeEnabled(true);
