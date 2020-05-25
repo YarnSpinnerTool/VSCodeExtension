@@ -1,4 +1,9 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.gitmodules
 vsc-extension-quickstart.md
+src/
+YarnEditor/
+.eslintrc.json
+tsconfig.json
