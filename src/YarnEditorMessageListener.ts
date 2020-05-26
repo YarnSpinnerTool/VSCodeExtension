@@ -5,8 +5,11 @@ import {
   window,
   WorkspaceEdit,
   Range,
+  ExtensionContext,
+  ConfigurationChangeEvent,
 } from "vscode";
-import { writeFile } from "fs";
+
+import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
 
 /**
  * This will attach an event listener to the given webview that can receive
@@ -15,10 +18,14 @@ import { writeFile } from "fs";
  * @param webviewPanel Panel to attach event listener to
  * @param document Document that webview is currently showing (undefined if showing an editor that's not looking at a document)
  */
-export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
+export default (
+  webviewPanel: WebviewPanel,
+  context: ExtensionContext,
+  document?: TextDocument
+) => {
   webviewPanel.webview.onDidReceiveMessage((message) => {
     switch (message.command) {
-      //send whenever the document changes; the entire document will be sent in the event
+      //sent whenever the document changes; the entire document will be sent in the event
       case "documentEdit":
         if (!document) {
           window.showErrorMessage("Tried to save without a document!");
@@ -45,3 +52,12 @@ export default (webviewPanel: WebviewPanel, document?: TextDocument) =>
         break;
     }
   });
+
+  // listen to changes to the "yarnSpinner" configuration set
+  // when this changes, we just reload the whole webview since that will set all the settings
+  workspace.onDidChangeConfiguration((event: ConfigurationChangeEvent) => {
+    if (event.affectsConfiguration("yarnSpinner")) {
+      YarnEditorWebviewPanel(webviewPanel, context.extensionPath, document);
+    }
+  });
+};

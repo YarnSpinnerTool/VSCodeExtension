@@ -1,5 +1,4 @@
-import { ExtensionContext, commands, ViewColumn, window, Uri } from "vscode";
-import * as path from "path";
+import { ExtensionContext, commands, ViewColumn, window } from "vscode";
 
 import YarnEditorMessageListener from "./YarnEditorMessageListener";
 import YarnEditorPanel from "./YarnEditorWebviewPanel";
@@ -14,12 +13,10 @@ export default (context: ExtensionContext) =>
       ViewColumn.One,
       {
         enableScripts: true, // enable javascript in the webview
-        localResourceRoots: [
-          Uri.file(path.join(context.extensionPath, "out/dist")),
-        ],
+        retainContextWhenHidden: true, // don't kill the editor when switching tabs
       }
     );
 
-    YarnEditorMessageListener(panel);
+    YarnEditorMessageListener(panel, context);
     YarnEditorPanel(panel, context.extensionPath);
   });

@@ -4,27 +4,27 @@
 
 You can install this extension for Visual Studio Code from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=SecretLab.yarn-spinner).
 
-This extension adds syntax highlighting support for Yarn Spinner code and an embedded [YarnEditor](https://github.com/YarnSpinnerTool/YarnEditor) to make it easier to write Yarn scripts alongside your game.
+This extension adds syntax highlighting support for Yarn Spinner code and an embedded [Yarn Editor](https://github.com/YarnSpinnerTool/YarnEditor) to make it easier to write Yarn scripts alongside your game.
 
 To learn more about Yarn Spinner, head to the [official site](https://yarnspinner.dev)!
 
-When installed, clicking on a `.yarn` file in your file explorer will open it in the Yarn Editor.
-
 ## Activating the extension
 
-If you open a `.yarn` file, it should automatically open in the editor. Saving in the editor will also save your `.yarn` file.
+When installed, clicking on a `.yarn` file in your file explorer will open it in the Yarn Editor.
 
 There is also a "Yarn Spinner: Start Yarn Editor" command that can be run via the command pallette (<kbd>F1</kbd>) to open an editor that will then let you open files outside of your workspace.
 
 ## FAQ
 
-### I change my night mode setting but it gets reset when I open a new editor
+### How do I change my editor settings?
 
-By default, the Yarn Editor will pick up your Visual Studio Code theme and, if it's dark, enable night mode.
+Editor settings can be configured via Visual Studio Code's [built-in settings mechanisms](https://code.visualstudio.com/docs/getstarted/settings).
 
-To override this, you'll have to set the "Yarn Spinner: Override Dark Theme Night Mode" (`yarnSpinner.overrideDarkThemeNightMode`) option to true for the extension.
+_Note:_ The editor started with the "Start Yarn Spinner" command will allow you to open the Yarn Editor's built-in settings modal. Changes here will _not_ be persisted to your Visual Studio Code settings.
 
-This can be done by going to File -> Preferences -> Settings (or pressing <kbd>Ctrl</kbd> + <kbd>,</kbd>) and changing the setting for the extension.
+### How do I switch to editing in a text editor?
+
+Click the "More Actions..." `...` in the top-right corner of the editor and select "Reopen With..." to switch between the Yarn Editor and the text editor.
 
 ---
 
@@ -59,17 +59,11 @@ Particularly helpful when debugging is being able to [open the devtools for the 
 
 This is a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that links to the [YarnEditor repo](https://github.com/YarnSpinnerTool/YarnEditor).
 
-When building the extension, YarnEditor is build first and its `dist` copied into the `out` folder (which the extension is built from). This is done by the `npm run yarneditor:build` command.
-
-#### [`yarn-icon-theme.json`](./yarn-icon-theme.json)
-
-This defines the "icon theme" that adds the Yarn logo to `.yarn` and `.yarn.txt` files.
-
-This is referenced in the `contributes.iconThemes` section of [`package.json`](./package.json).
+When building the extension, YarnEditor is built first and its `dist` folder is copied into the `out` folder (which the extension is built from). This is done by the `npm run yarneditor:build` command.
 
 #### [`syntaxes/yarnspinner.tmLanguage.json`](./syntaxes/yarnspinner.tmLanguage.json) and [`language-configuration.json`](./language-configuration.json)
 
-These two files define the syntax highlighting for the Yarn Spinner language.
+These two files define the syntax highlighting for the Yarn Spinner language for the text editor.
 
 These are referenced in `contributions.languages` and `contributions.grammars` in the [`package.json`](./package.json) file.
 
@@ -85,15 +79,15 @@ This file exports a function that is used in [`extension.ts`](./src/extension.ts
 
 `yarnSpinner.start` is defined in the `contibutes.commands` section of [`package.json`](./package.json) and is also listed in the `activationEvents` as an event that activates the extension (`onCommand:yarnSpinner.start`)
 
-This is triggered when the user runs the "Start Yarn Spinner" command via the command palette (<kbd>Ctrl + Shift + P</kbd> or <kbd>F1</kbd>).
+This is triggered when the user runs the "Start Yarn Spinner" command via the command palette (<kbd>Ctrl </kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> or <kbd>F1</kbd>).
 
-When run, this just opens up a webview with the YarnEditor in it. From there, the YarnEditor can be used to open, edit, export, etc. yarn files (this is basically the equivalent of the Electron app).
+When run, this opens up a webview with the YarnEditor in it. From there, the YarnEditor can be used to open, edit, export, etc. yarn files (this is basically the equivalent of the Electron app).
 
 #### [`src/YarnEditorProvider`](./src/YarnEditorProvider.ts) (`onCustomEditor:yarnSpinner.editor` activation event)
 
-This file exports a class that implements the `CustomTextEditorProvider` interface. It provides a [custom text editor](https://code.visualstudio.com/api/extension-guides/custom-editors) that can open yarn files in the VSCode workspace in the YarnEditor.
+This file exports a class that implements the `CustomTextEditorProvider` interface. It provides a [custom text editor](https://code.visualstudio.com/api/extension-guides/custom-editors) that can open yarn files that are in the current VSCode workspace in the YarnEditor.
 
-This class has a static `register` function that is used in [`extension.ts`](./src/extension.ts) to register the `yarnSpinner.editor` view type. This is defined in the `contributes.customEditors` section of [`package.json`](./package.json) and tied to `*.yarn` and `*.yarn.txt` files.
+This class has a static `register` function that is used in [`extension.ts`](./src/extension.ts) to register the `yarnSpinner.editor` view type. This view type is used in the `contributes.customEditors` section of [`package.json`](./package.json) and tied to `*.yarn` and `*.yarn.txt` files.
 
 The `resolveCustomTextEditor` function in this class comes from the `CustomTextEditorProvider` interface and is called when opening a yarn file.
 
@@ -107,6 +101,12 @@ If this is also passed a `TextDocument` (when opening a file using the `YarnEdit
 
 Loading the webview is done by reading in the `index.html` file from the YarnEditor and just shoving it onto the webview.
 
-You'll notice that this also jumps through a lot of hoops to get the editor working properly; this is mainly because VSCode's webviews are _very_ limited in the resources they are able to access. See also the ["Loading local content"](https://code.visualstudio.com/api/extension-guides/webview#loading-local-content) section of the webview extension documentation. This basically has to change it so that anything grabbing resources from the `public` folder have to hit a special URI in the webview to work. It does this by doing a lot of crazy find-and-replaces in the HTML string. In theory that sounds awful but in practice it's fine.
+You'll notice that this also jumps through a lot of hoops to get the editor working properly; this is mainly because VSCode's webviews are _very_ limited in the resources they are able to access. See also the ["Loading local content"](https://code.visualstudio.com/api/extension-guides/webview#loading-local-content) section of the webview extension documentation. This basically has to change it so that anything grabbing resources from the `public` folder have to hit a special URI in the webview to work. It does this by doing a lot of crazy find-and-replaces in the HTML string.
 
 See comments in the file for more information.
+
+#### [`src/YarnEditorMessageListener.ts`](./src/YarnEditorMessageListener.ts)
+
+This file registers a message listener on the webview. The `YarnEditorWebviewPanel` will place a `window.vsCodeApi` object into the webview that can be used to send messages to the extension.
+
+This is used mainly to let the extension know of changes to the currently open yarn file.
