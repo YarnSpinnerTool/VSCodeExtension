@@ -1,6 +1,7 @@
 import { WebviewPanel, Uri, TextDocument, workspace } from "vscode";
 import { readFileSync, readdirSync } from "fs";
 import { join as joinPath } from "path";
+import { YarnEditorMessageTypes } from "./YarnEditorMessageListener";
 
 /**
  * Sets the HTML of the given webview panel to be the yarn editor.
@@ -48,7 +49,7 @@ export default (
         "nightModeEnabled"
       )});`
     : // If the user has a dark VSCode theme, the "body" of the iframe we're in will have this ".vscode-dark" class.
-      `if ($('.vscode-dark').length) {
+      `if ($(".vscode-dark").length) {
         e.app.settings.nightModeEnabled(true);
       }`;
 
@@ -67,7 +68,7 @@ export default (
         // this lets the editor know we're in the VSCode extension and opening a file...
         // this is to get around a bug with the editor adding the "Start" node which was
         // breaking things (because of race conditions)
-        window.openingVsCodeFile = ${!!document};
+        window.editingVsCodeFile = ${!!document};
 
         // shove the VSCode API onto the window so it can be used to send events back to the extension
         // the "acquireVsCodeApi" function is magically injected into the page by the webview, and can only be called ONCE
@@ -77,8 +78,8 @@ export default (
         // send a message back to the extension; this is listened to in YarnEditorMessageListener
         window.alert = function(message) {
           window.vsCodeApi.postMessage({
-            command: 'alert',
-            data: message
+            type: "${YarnEditorMessageTypes.Alert}",
+            payload: message
           });
         };
 
@@ -136,7 +137,7 @@ export default (
         // VSCode handles opening, saving, settings, etc.
         $(".app-menu").empty();
 
-        // this all mimic's the YarnEditor's 'data.openFile' function
+        // this all mimics the YarnEditor's 'data.openFile' function
         e.data.editingName("${document.fileName}");
         e.data.editingType("yarn");
 

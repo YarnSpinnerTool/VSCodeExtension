@@ -110,3 +110,9 @@ See comments in the file for more information.
 This file registers a message listener on the webview. The `YarnEditorWebviewPanel` will place a `window.vsCodeApi` object into the webview that can be used to send messages to the extension.
 
 This is used mainly to let the extension know of changes to the currently open yarn file.
+
+**Things this puts on `window`:**
+
+- `window.editingVsCodeFile`: This will be `true` if we're editing a file that's in the VSCode workspace. If we're running via the "Start Yarn Editor" command, this will be `false`. In normal operation (i.e. the webapp) this will be `undefined`.
+- `window.vsCodeApi`: This is an object acquired by calling `acquireVsCodeApi();` (which is a magic function added by the webview). This is used to call `window.vsCodeApi.postMessage({ type: "Whatever", payload: "Some Data"});` to pass messages from the editor to the extension. The main use for this is letting the extension know that the document that's being edited has changed.
+- `window.getPublicVsCodeWebviewUri`: This is a function that can be passed a path and it will return a fully-qualified URI for a file that lives in the `YarnEditor/src/public` folder. This is needed in the editor to get fully-qualified paths.

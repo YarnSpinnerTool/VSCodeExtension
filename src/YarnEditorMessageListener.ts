@@ -11,6 +11,24 @@ import {
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
 
+/** Types of messages that can be sent from the editor to the extension */
+export enum YarnEditorMessageTypes {
+  /** Sent whenever the document changes; the entire document will be sent in the event */
+  DocumentEdit = "DocumentEdit",
+
+  /** We override `window.alert` to send messages to the extension's event listener */
+  Alert = "Alert",
+}
+
+/** A message sent from the editor to the extension */
+interface EditorMessage {
+  /** The type of the message */
+  type: YarnEditorMessageTypes;
+
+  /** The payload of the message */
+  payload: string;
+}
+
 /**
  * This will attach an event listener to the given webview that can receive
  * events sent to it via `window.vsCodeApi.postMessage` (which is created in YarnEditorWebviewPanel.ts)
@@ -23,35 +41,35 @@ export default (
   context: ExtensionContext,
   document?: TextDocument
 ) => {
-  webviewPanel.webview.onDidReceiveMessage((message) => {
-    switch (message.command) {
-      //sent whenever the document changes; the entire document will be sent in the event
-      case "documentEdit":
-        if (!document) {
-          window.showErrorMessage("Tried to save without a document!");
-          return;
-        }
+  // messages sent with "window.vsCodeApi.postMessage({ type: string, payload: string });" from the editor will end up here
+  webviewPanel.webview.onDidReceiveMessage(
+    ({ type, payload }: EditorMessage) => {
+      switch (type) {
+        case YarnEditorMessageTypes.DocumentEdit:
+          if (!document) {
+            window.showErrorMessage("Tried to save without a document!");
+            return;
+          }
 
-        // create a new edit that just replaces the whole document
-        const edit = new WorkspaceEdit();
-        edit.replace(
-          document.uri,
-          new Range(0, 0, (message.data as string).split("\n").length, 0),
-          message.data
-        );
+          // create a new edit that just replaces the whole document
+          // this will mark the document as "dirty" in VSCode which will then handle saving etc.
+          const edit = new WorkspaceEdit();
+          edit.replace(
+            document.uri,
+            new Range(0, 0, payload.split("\n").length, 0),
+            payload
+          );
+          workspace.applyEdit(edit);
+          break;
 
-        // this will mark the document as "dirty" in VSCode which will then handle saving etc.
-        workspace.applyEdit(edit);
-        break;
-
-      // we override `window.alert` to send messages here in YarnEditorWebviewPanel
-      case "alert":
-        window.showWarningMessage(message.data);
-        break;
-      default:
-        break;
+        case YarnEditorMessageTypes.Alert:
+          window.showWarningMessage(payload);
+          break;
+        default:
+          break;
+      }
     }
-  });
+  );
 
   // listen to changes to the "yarnSpinner" configuration set
   // when this changes, we just reload the whole webview since that will set all the settings

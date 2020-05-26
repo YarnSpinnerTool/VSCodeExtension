@@ -1,6 +1,5 @@
 import {
   ExtensionContext,
-  CancellationToken,
   CustomTextEditorProvider,
   TextDocument,
   WebviewPanel,
@@ -49,8 +48,7 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
    */
   public resolveCustomTextEditor(
     document: TextDocument,
-    webviewPanel: WebviewPanel,
-    token: CancellationToken
+    webviewPanel: WebviewPanel
   ) {
     webviewPanel.webview.options = {
       enableScripts: true,
