@@ -53,11 +53,34 @@ This extension is done using a [webview](https://code.visualstudio.com/api/exten
 
 Particularly helpful when debugging is being able to [open the devtools for the webview](https://code.visualstudio.com/api/extension-guides/webview#inspecting-and-debugging-webviews).
 
+### Releasing
+
+#### Updating YarnEditor
+
+YarnEditor is included via a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that links to the [YarnEditor repo](https://github.com/YarnSpinnerTool/YarnEditor) repo.
+
+To pull in the latest version of YarnEditor, run:
+
+```sh
+git submodule update --remote
+```
+
+This will point the git submodule to the latest commit in the YarnEditor repo (as defined in the `.gitmodules` file).
+
+Pulling the submodule will also mark its reference as changed; the updated reference will need to be committed for this update to stick.
+
+#### Cutting a release
+
+- Bump up the `version` field in `package.json`
+- Add a note to [`CHANGELOG.md`](./CHANGELOG.md) detailing the changes. This will show up in the extension's page.
+- Commit your changes
+- The [vsce tool](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) can be used to bundle and publish a release of the extension. YarnEditor will be built along with the extension via the `vscode:prepublish` script in `package.json`.
+
 ### Project Layout
 
 #### `YarnEditor`
 
-This is a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that links to the [YarnEditor repo](https://github.com/YarnSpinnerTool/YarnEditor).
+This is a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that links to the [YarnEditor repo](https://github.com/YarnSpinnerTool/YarnEditor) repo.
 
 When building the extension, YarnEditor is built first and its `dist` folder is copied into the `out` folder (which the extension is built from). This is done by the `npm run yarneditor:build` command.
 
@@ -105,14 +128,14 @@ You'll notice that this also jumps through a lot of hoops to get the editor work
 
 See comments in the file for more information.
 
-#### [`src/YarnEditorMessageListener.ts`](./src/YarnEditorMessageListener.ts)
-
-This file registers a message listener on the webview. The `YarnEditorWebviewPanel` will place a `window.vsCodeApi` object into the webview that can be used to send messages to the extension.
-
-This is used mainly to let the extension know of changes to the currently open yarn file.
-
 **Things this puts on `window`:**
 
 - `window.editingVsCodeFile`: This will be `true` if we're editing a file that's in the VSCode workspace. If we're running via the "Start Yarn Editor" command, this will be `false`. In normal operation (i.e. the webapp) this will be `undefined`.
 - `window.vsCodeApi`: This is an object acquired by calling `acquireVsCodeApi();` (which is a magic function added by the webview). This is used to call `window.vsCodeApi.postMessage({ type: "Whatever", payload: "Some Data"});` to pass messages from the editor to the extension. The main use for this is letting the extension know that the document that's being edited has changed.
 - `window.getPublicVsCodeWebviewUri`: This is a function that can be passed a path and it will return a fully-qualified URI for a file that lives in the `YarnEditor/src/public` folder. This is needed in the editor to get fully-qualified paths.
+
+#### [`src/YarnEditorMessageListener.ts`](./src/YarnEditorMessageListener.ts)
+
+This file registers a message listener on the webview. The `YarnEditorWebviewPanel` will place a `window.vsCodeApi` object into the webview that can be used to send messages to the extension.
+
+This is used mainly to let the extension know of changes to the currently open yarn file.
