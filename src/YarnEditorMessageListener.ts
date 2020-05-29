@@ -8,6 +8,9 @@ import {
   ExtensionContext,
   ConfigurationChangeEvent,
 } from "vscode";
+import { join } from "path";
+import { tmpdir } from "os";
+import { writeFileSync, watch, readFileSync, mkdirSync, FSWatcher } from "fs";
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
 
@@ -18,6 +21,9 @@ export enum YarnEditorMessageTypes {
 
   /** We override `window.alert` to send messages to the extension's event listener */
   Alert = "Alert",
+
+  /** Called when a node is being opened in a VSCode text editor */
+  OpenNode = "OpenNode",
 }
 
 /** A message sent from the editor to the extension */
@@ -26,7 +32,7 @@ interface EditorMessage {
   type: YarnEditorMessageTypes;
 
   /** The payload of the message */
-  payload: string;
+  payload: any;
 }
 
 /**
@@ -39,6 +45,7 @@ interface EditorMessage {
 export default (
   webviewPanel: WebviewPanel,
   context: ExtensionContext,
+  trackTemporaryFile: (path: string, watcher: FSWatcher) => void,
   document?: TextDocument
 ) => {
   // messages sent with "window.vsCodeApi.postMessage({ type: string, payload: string });" from the editor will end up here
@@ -64,6 +71,49 @@ export default (
 
         case YarnEditorMessageTypes.Alert:
           window.showWarningMessage(payload);
+          break;
+
+        case YarnEditorMessageTypes.OpenNode:
+          const {
+            nodeName,
+            nodeText,
+          }: { nodeName: string; nodeText: string } = payload;
+
+          try {
+            // create a temporary file and write it to disk
+            mkdirSync(join(tmpdir(), "yarnSpinner"), { recursive: true }); // make sure tmp/yarnSpinner directory exists
+            const tmpFilePath = join(
+              tmpdir(),
+              "yarnSpinner",
+              `${nodeName}-${Date.now()}.yarn.node` // add the current date to ensure a unique file
+            ); // .yarnNode files are syntax highlighted
+            writeFileSync(tmpFilePath, nodeText);
+
+            // watch the temporary file
+            // whenever it changes, we send a message back to the editor...
+            // ... which then sends a message back to the extension with the updated document
+            const watcher = watch(tmpFilePath, () => {
+              webviewPanel.webview.postMessage({
+                type: "UpdateNode",
+                payload: {
+                  nodeName,
+                  nodeText: readFileSync(tmpFilePath, "utf8"),
+                },
+              });
+            });
+
+            // this function is used to keep track of files that we create during this
+            // extension's lifetime; these are cleaned up when the extension deactivates
+            trackTemporaryFile(tmpFilePath, watcher);
+
+            // and open it in the editor
+            workspace
+              .openTextDocument(tmpFilePath)
+              .then(window.showTextDocument);
+          } catch (e) {
+            console.error(e);
+          }
+
           break;
         default:
           break;

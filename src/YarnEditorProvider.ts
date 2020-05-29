@@ -6,6 +6,7 @@ import {
   Disposable,
   window,
 } from "vscode";
+import type { FSWatcher } from "fs";
 
 import YarnEditorPanel from "./YarnEditorWebviewPanel";
 import YarnEditorMessageListener from "./YarnEditorMessageListener";
@@ -21,8 +22,11 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
   private static readonly viewType = "yarnSpinner.editor";
 
   /** Register a YarnEditor provider in the extension context. */
-  public static register(context: ExtensionContext): Disposable {
-    const provider = new YarnEditorProvider(context);
+  public static register(
+    context: ExtensionContext,
+    trackTemporaryFile: (path: string, watcher: FSWatcher) => void
+  ): Disposable {
+    const provider = new YarnEditorProvider(context, trackTemporaryFile);
     const providerRegistration = window.registerCustomEditorProvider(
       YarnEditorProvider.viewType,
       provider,
@@ -38,8 +42,14 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
 
   context: ExtensionContext;
 
-  constructor(context: ExtensionContext) {
+  trackTemporaryFile: (path: string, watcher: FSWatcher) => void;
+
+  constructor(
+    context: ExtensionContext,
+    trackTemporaryFile: (path: string, watcher: FSWatcher) => void
+  ) {
     this.context = context;
+    this.trackTemporaryFile = trackTemporaryFile;
   }
 
   /**
@@ -54,7 +64,12 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
       enableScripts: true,
     };
 
-    YarnEditorMessageListener(webviewPanel, this.context, document);
+    YarnEditorMessageListener(
+      webviewPanel,
+      this.context,
+      this.trackTemporaryFile,
+      document
+    );
     YarnEditorPanel(webviewPanel, this.context.extensionPath, document);
   }
 }
