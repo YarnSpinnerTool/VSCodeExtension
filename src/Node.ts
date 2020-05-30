@@ -4,11 +4,11 @@ import { tmpdir } from "os";
 import {
   writeFileSync,
   watch,
-  readFileSync,
   mkdirSync,
   FSWatcher,
   readFile,
 } from "fs";
+import sanitizeFileName from "sanitize-filename";
 
 /** Represents a node in the Yarn file */
 export interface Node {
@@ -94,7 +94,7 @@ export const createTemporaryFileForNode = (
     const tmpFilePath = join(
       tmpdir(),
       "yarnSpinner",
-      `${node.title}-${Date.now()}.yarn.node` // add the current date to ensure a unique file
+      `${sanitizeFileName(node.title)}.${Date.now()}.yarn.node` // add the current date to ensure a unique file
     ); // .yarnNode files are syntax highlighted
 
     writeFileSync(tmpFilePath, createNodeText(node));
@@ -104,7 +104,7 @@ export const createTemporaryFileForNode = (
     // ... which then sends a message back to the extension with the updated document ha
     const watcher = watchTemporaryFileAndUpdateEditorOnChanges(
       tmpFilePath,
-      node.title,
+      node,
       webview
     );
 
@@ -127,7 +127,7 @@ export const createTemporaryFileForNode = (
  */
 const watchTemporaryFileAndUpdateEditorOnChanges = (
   tmpFilePath: string,
-  originalNodeTitle: string,
+  originalNode: Node,
   webview: Webview
 ): FSWatcher =>
   watch(tmpFilePath, () =>
@@ -150,10 +150,16 @@ const watchTemporaryFileAndUpdateEditorOnChanges = (
             payload: {
               // the user could have potentially changed the title of the node in the editor
               // we send along the original title here so the editor knows which one to update
-              originalNodeTitle,
+              originalNodeTitle: originalNode.title,
               ...updatedNode,
             },
           });
+
+          // if the node's title has changed, update the original node's title so that
+          // if the user makes another change, the editor changes the proper node
+          if (originalNode.title !== updatedNode.title) {
+            originalNode.title = updatedNode.title;
+          }
         }
       }
     })
