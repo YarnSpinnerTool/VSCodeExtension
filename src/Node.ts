@@ -1,13 +1,7 @@
 import { Webview, window } from "vscode";
 import { join } from "path";
 import { tmpdir } from "os";
-import {
-  writeFileSync,
-  watch,
-  mkdirSync,
-  FSWatcher,
-  readFile,
-} from "fs";
+import { writeFileSync, watch, mkdirSync, FSWatcher, readFile } from "fs";
 import sanitizeFileName from "sanitize-filename";
 
 /** Represents a node in the Yarn file */
@@ -28,7 +22,7 @@ export interface Node {
 /**
  * Create text to display in a text editor for one specific node.
  * This is used in the case of opening a node in the VSCode text editor.
- * 
+ *
  * The --- and === are required for the node to be considered valid.
  */
 const createNodeText = ({ title, tags, body }: Node): string =>
@@ -120,7 +114,7 @@ export const createTemporaryFileForNode = (
 
 /**
  * Watch a temporary file and send a message to the given webview whenever it changes.
- * 
+ *
  * @param tmpFilePath Full path to temporary file
  * @param originalNodeTitle The original title of the node being edited, in case it changes
  * @param webview Webview to send message to when file changes
