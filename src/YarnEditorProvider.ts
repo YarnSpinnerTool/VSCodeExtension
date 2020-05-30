@@ -5,11 +5,16 @@ import {
   WebviewPanel,
   Disposable,
   window,
+  workspace,
 } from "vscode";
-import type { FSWatcher } from "fs";
+import rimraf from "rimraf";
 
 import YarnEditorPanel from "./YarnEditorWebviewPanel";
 import YarnEditorMessageListener from "./YarnEditorMessageListener";
+import {
+  getTemporaryFolderPath,
+  unwatchTemporaryFilesForDocument,
+} from "./TemporaryFiles";
 
 /**
  * This is a custom text editor provider that will open up `.yarn` files in the Yarn Editor.
@@ -22,11 +27,8 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
   private static readonly viewType = "yarnSpinner.editor";
 
   /** Register a YarnEditor provider in the extension context. */
-  public static register(
-    context: ExtensionContext,
-    trackTemporaryFile: (path: string, watcher: FSWatcher) => void
-  ): Disposable {
-    const provider = new YarnEditorProvider(context, trackTemporaryFile);
+  public static register(context: ExtensionContext): Disposable {
+    const provider = new YarnEditorProvider(context);
     const providerRegistration = window.registerCustomEditorProvider(
       YarnEditorProvider.viewType,
       provider,
@@ -42,15 +44,29 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
 
   context: ExtensionContext;
 
-  trackTemporaryFile: (path: string, watcher: FSWatcher) => void;
-
-  constructor(
-    context: ExtensionContext,
-    trackTemporaryFile: (path: string, watcher: FSWatcher) => void
-  ) {
+  constructor(context: ExtensionContext) {
     this.context = context;
-    this.trackTemporaryFile = trackTemporaryFile;
   }
+
+  /**
+   * Called when the given document is closed in the workspace
+   */
+  onDocumentClosed = (document: TextDocument) => {
+    // first, close any file watchers we have open for this document
+    unwatchTemporaryFilesForDocument(document);
+
+    // delete the temporary folder that we created to edit nodes
+    // this folder isn't guaranteed to actually exist
+    const temporaryFolderPath = getTemporaryFolderPath(document);
+    rimraf(temporaryFolderPath, (e) => {
+      if (e) {
+        console.error(
+          `Error cleaning up temporary directory ${temporaryFolderPath} when closing ${document.uri.toString()}`,
+          e
+        );
+      }
+    });
+  };
 
   /**
    * This is from the CustomTextEditorProvider interface and will be called
@@ -64,12 +80,14 @@ export default class YarnEditorProvider implements CustomTextEditorProvider {
       enableScripts: true,
     };
 
-    YarnEditorMessageListener(
-      webviewPanel,
-      this.context,
-      this.trackTemporaryFile,
-      document
-    );
+    // track when the document that we're editing is closed
+    workspace.onDidCloseTextDocument((e) => {
+      if (e.uri === document.uri) {
+        this.onDocumentClosed(document);
+      }
+    });
+
+    YarnEditorMessageListener(webviewPanel, this.context, document);
     YarnEditorPanel(webviewPanel, this.context.extensionPath, document);
   }
 }

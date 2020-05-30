@@ -8,10 +8,13 @@ import {
   ExtensionContext,
   ConfigurationChangeEvent,
 } from "vscode";
-import { FSWatcher } from "fs";
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
-import { createTemporaryFileForNode, Node } from "./Node";
+import type { Node } from "./Node";
+import {
+  createTemporaryFileForNode,
+  trackTemporaryFile,
+} from "./TemporaryFiles";
 
 /** Types of messages that can be sent from the editor to the extension */
 export enum YarnEditorMessageTypes {
@@ -44,7 +47,6 @@ interface EditorMessage {
 export default (
   webviewPanel: WebviewPanel,
   context: ExtensionContext,
-  trackTemporaryFile: (path: string, watcher: FSWatcher) => void,
   document?: TextDocument
 ) => {
   // messages sent with "window.vsCodeApi.postMessage({ type: string, payload: string });" from the editor will end up here
@@ -73,17 +75,20 @@ export default (
           break;
 
         case YarnEditorMessageTypes.OpenNode:
-          const { path, watcher } = createTemporaryFileForNode(
+          // this will create a temporary file and add a file watcher on it
+          // when the file changes, a message is sent back to the editor
+          const temporaryFile = createTemporaryFileForNode(
             payload as Node,
-            webviewPanel.webview
+            webviewPanel.webview,
+            document
           );
 
-          // this function is used to keep track of files that we create during this
-          // extension's lifetime; these are cleaned up when the extension deactivates
-          trackTemporaryFile(path, watcher);
-
           // and open it in the editor
-          workspace.openTextDocument(path).then(window.showTextDocument);
+          workspace
+            .openTextDocument(temporaryFile.path)
+            .then((doc) =>
+              window.showTextDocument(doc, { preserveFocus: true })
+            );
 
           break;
         default:

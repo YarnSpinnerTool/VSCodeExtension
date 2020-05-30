@@ -233,6 +233,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.5",
+    "@types/rimraf": "^3.0.0",
     "@types/vscode": "^1.44.0",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
@@ -241,6 +242,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "rimraf": "^3.0.2",
     "sanitize-filename": "^1.6.3"
   }
 }
