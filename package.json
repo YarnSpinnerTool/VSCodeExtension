@@ -207,6 +207,11 @@
           "description": "Whether or not to auto-create nodes in the Yarn Editor",
           "default": true
         },
+        "yarnSpinner.alwaysOpenNodesInVisualStudioCodeEditor": {
+          "type": "boolean",
+          "description": "Always open nodes in the Visual Studio Code text editor instead of the build-in Yarn Editor text editor",
+          "default": false
+        },
         "yarnSpinner.markupLanguage": {
           "type": "string",
           "description": "Markup language to use in the Yarn Editor",

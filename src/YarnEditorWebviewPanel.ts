@@ -116,6 +116,9 @@ export default (
           e.app.settings.markupLanguage("${yarnSpinnerSettings.get(
             "markupLanguage"
           )}");
+          e.app.settings.alwaysOpenNodesInVisualStudioCodeEditor(${yarnSpinnerSettings.get(
+            "alwaysOpenNodesInVisualStudioCodeEditor"
+          )});
 
           ${nightModeSetting}
 
