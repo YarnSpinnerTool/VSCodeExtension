@@ -103,7 +103,9 @@ export const createTemporaryFileForNode = (
 
     const tmpFilePath = join(
       tmpFolder,
-      `${sanitizeFileName(node.title)}.yarn.node` // .yarn.node files are syntax highlighted
+      `${sanitizeFileName(node.title)}${
+        document ? "" : `.${new Date().getTime()}` // if we don't have a document, we add the current date in millis to guarantee a unique file name
+      }.yarn.node` // .yarn.node files are syntax highlighted
     );
 
     writeFileSync(tmpFilePath, createNodeText(node));
