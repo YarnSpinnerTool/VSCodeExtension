@@ -10,7 +10,7 @@ import {
 } from "vscode";
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
-import type { Node } from "./Node";
+import type { YarnNode } from "./YarnNode";
 import {
   createTemporaryFileForNode,
   trackTemporaryFile,
@@ -78,7 +78,7 @@ export default (
           // this will create a temporary file and add a file watcher on it
           // when the file changes, a message is sent back to the editor
           const temporaryFile = createTemporaryFileForNode(
-            payload as Node,
+            payload as YarnNode,
             webviewPanel.webview,
             document
           );

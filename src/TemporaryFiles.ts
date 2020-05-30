@@ -12,8 +12,8 @@ import {
 } from "fs";
 import sanitizeFileName from "sanitize-filename";
 
-import type { Node } from "./Node";
-import { createNodeText, parseNodeText } from "./Node";
+import type { YarnNode } from "./YarnNode";
+import { createNodeText, parseNodeText } from "./YarnNode";
 
 export interface TemporaryFile {
   /** Full path to this temporary file */
@@ -91,7 +91,7 @@ export const getTemporaryFolderPath = (document?: TextDocument) => {
  * @returns Object with the temporary file path and the file watcher
  */
 export const createTemporaryFileForNode = (
-  node: Node,
+  node: YarnNode,
   webview: Webview,
   document?: TextDocument
 ): TemporaryFile => {
@@ -143,7 +143,7 @@ export const createTemporaryFileForNode = (
  */
 const watchTemporaryFileAndUpdateEditorOnChanges = (
   tmpFilePath: string,
-  originalNode: Node,
+  originalNode: YarnNode,
   webview: Webview
 ): FSWatcher =>
   watch(tmpFilePath, () =>
