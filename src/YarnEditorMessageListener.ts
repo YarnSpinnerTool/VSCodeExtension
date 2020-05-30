@@ -8,11 +8,10 @@ import {
   ExtensionContext,
   ConfigurationChangeEvent,
 } from "vscode";
-import { join } from "path";
-import { tmpdir } from "os";
-import { writeFileSync, watch, readFileSync, mkdirSync, FSWatcher } from "fs";
+import { FSWatcher } from "fs";
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
+import { createTemporaryFileForNode, Node } from "./Node";
 
 /** Types of messages that can be sent from the editor to the extension */
 export enum YarnEditorMessageTypes {
@@ -74,45 +73,17 @@ export default (
           break;
 
         case YarnEditorMessageTypes.OpenNode:
-          const {
-            nodeName,
-            nodeText,
-          }: { nodeName: string; nodeText: string } = payload;
+          const { path, watcher } = createTemporaryFileForNode(
+            payload as Node,
+            webviewPanel.webview
+          );
 
-          try {
-            // create a temporary file and write it to disk
-            mkdirSync(join(tmpdir(), "yarnSpinner"), { recursive: true }); // make sure tmp/yarnSpinner directory exists
-            const tmpFilePath = join(
-              tmpdir(),
-              "yarnSpinner",
-              `${nodeName}-${Date.now()}.yarn.node` // add the current date to ensure a unique file
-            ); // .yarnNode files are syntax highlighted
-            writeFileSync(tmpFilePath, nodeText);
+          // this function is used to keep track of files that we create during this
+          // extension's lifetime; these are cleaned up when the extension deactivates
+          trackTemporaryFile(path, watcher);
 
-            // watch the temporary file
-            // whenever it changes, we send a message back to the editor...
-            // ... which then sends a message back to the extension with the updated document
-            const watcher = watch(tmpFilePath, () => {
-              webviewPanel.webview.postMessage({
-                type: "UpdateNode",
-                payload: {
-                  nodeName,
-                  nodeText: readFileSync(tmpFilePath, "utf8"),
-                },
-              });
-            });
-
-            // this function is used to keep track of files that we create during this
-            // extension's lifetime; these are cleaned up when the extension deactivates
-            trackTemporaryFile(tmpFilePath, watcher);
-
-            // and open it in the editor
-            workspace
-              .openTextDocument(tmpFilePath)
-              .then(window.showTextDocument);
-          } catch (e) {
-            console.error(e);
-          }
+          // and open it in the editor
+          workspace.openTextDocument(path).then(window.showTextDocument);
 
           break;
         default:
