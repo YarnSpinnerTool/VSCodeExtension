@@ -228,7 +228,7 @@
     "vscode:prepublish": "npm run build",
     "build": "rm -rf out && npm run compile && cd YarnEditor && npm install && npm run build && cp -r ./dist ../out",
     "compile": "tsc -p ./",
-    "lint": "eslint -c .eslintrc.js --ext .ts ./",
+    "lint": "eslint -c .eslintrc.js --ext .ts ./src",
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
