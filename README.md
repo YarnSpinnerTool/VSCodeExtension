@@ -38,14 +38,14 @@ Clone with the `--recurse-submodules` flag to automatically clone the `YarnEdito
 First, you'll need to run:
 
 ```sh
-git submodule init && git submodule update && npm install && npm run yarneditor:build
+git submodule init && git submodule update && npm install
 ```
 
 This will check out the `YarnEditor` git submodule, build it, and copy its built files to the `out/dist` folder in this repo.
 
-**Note:** When making changes to the `YarnEditor` folder, `npm run yarneditor:build` must be run for them to be pulled into the extension.
-
 Then, in Visual Studio Code's "Run/Debug" window, click the play button next to "Run Extension" or just hit <kbd>F5</kbd>. This will open another instance of Visual Studio Code with the extension loaded.
+
+**Note:** Running the extension will also run `npm run build` which can take a while!
 
 ### Helpful resources
 
@@ -82,7 +82,7 @@ Pulling the submodule will also mark its reference as changed; the updated refer
 
 This is a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that links to the [YarnEditor repo](https://github.com/YarnSpinnerTool/YarnEditor) repo.
 
-When building the extension, YarnEditor is built first and its `dist` folder is copied into the `out` folder (which the extension is built from). This is done by the `npm run yarneditor:build` command.
+When building the extension, YarnEditor is built first and its `dist` folder is copied into the `out` folder (which the extension is built from). This is done by the `npm run build` command.
 
 #### [`syntaxes/yarnspinner.tmLanguage.json`](./syntaxes/yarnspinner.tmLanguage.json) and [`language-configuration.json`](./language-configuration.json)
 

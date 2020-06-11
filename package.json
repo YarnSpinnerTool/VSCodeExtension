@@ -225,8 +225,8 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run yarneditor:build",
-    "yarneditor:build": "rm -rf out && npm run compile && cd YarnEditor && npm install && npm run build && cp -r ./dist ../out",
+    "vscode:prepublish": "npm run build",
+    "build": "rm -rf out && npm run compile && cd YarnEditor && npm install && npm run build && cp -r ./dist ../out",
     "compile": "tsc -p ./",
     "lint": "eslint -c .eslintrc.js --ext .ts ./",
     "watch": "tsc -watch -p ./"
