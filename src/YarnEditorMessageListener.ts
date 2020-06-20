@@ -7,6 +7,7 @@ import {
   Range,
   ExtensionContext,
   ConfigurationChangeEvent,
+  ViewColumn,
 } from "vscode";
 
 import YarnEditorWebviewPanel from "./YarnEditorWebviewPanel";
@@ -84,11 +85,12 @@ export default (
           );
 
           // and open it in the editor
-          workspace
-            .openTextDocument(temporaryFile.path)
-            .then((doc) =>
-              window.showTextDocument(doc, { preserveFocus: true })
-            );
+          workspace.openTextDocument(temporaryFile.path).then((doc) =>
+            window.showTextDocument(doc, {
+              preserveFocus: true,
+              viewColumn: ViewColumn.Beside,
+            })
+          );
 
           break;
         default:
