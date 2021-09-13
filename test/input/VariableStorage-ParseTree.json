@@ -1,0 +1,4667 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 5,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 5,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 5,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 5,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 5,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 5,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 5,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 18,
+                          "name": "NUMBER",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 6,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 6,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 6,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 18,
+                          "name": "NUMBER",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 7,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 7,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$num3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 7,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 18,
+                          "name": "NUMBER",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 8,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 8,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 8,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 8,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 8,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 8,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$str1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 8,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 8,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 8,
+                          "column": 18,
+                          "name": "STRING",
+                          "text": "\u0022\u0022"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 8,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 9,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 9,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 9,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 9,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 9,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 9,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$str2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 9,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 9,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 9,
+                          "column": 18,
+                          "name": "STRING",
+                          "text": "\u0022\u0022"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 9,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 10,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 10,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 10,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 10,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 10,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$str3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 10,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 10,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 18,
+                          "name": "STRING",
+                          "text": "\u0022\u0022"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 10,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 13,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 13,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 13,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 13,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 13,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 13,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 13,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "to"
+                    },
+                    {
+                      "line": 13,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 13,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 13,
+                              "column": 15,
+                              "name": "NUMBER",
+                              "text": "1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 13,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 16,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 16,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 16,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 16,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 16,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 16,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 16,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 16,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 16,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 16,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 16,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 16,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 16,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 16,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 16,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 16,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 16,
+                          "column": 24,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 16,
+                      "column": 25,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 18,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 18,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 18,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 18,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 18,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 18,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 18,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "to"
+                    },
+                    {
+                      "line": 18,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 18,
+                          "column": 15,
+                          "name": "OPERATOR_MATHS_SUBTRACTION",
+                          "text": "-"
+                        },
+                        {
+                          "line": 18,
+                          "column": 16,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 18,
+                              "column": 16,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 18,
+                                  "column": 16,
+                                  "name": "NUMBER",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 18,
+                      "column": 17,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 21,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 21,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 21,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 21,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 21,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 21,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 21,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 21,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 21,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 21,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 21,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 21,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 21,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 21,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 21,
+                                  "column": 23,
+                                  "name": "OPERATOR_MATHS_SUBTRACTION",
+                                  "text": "-"
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 24,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 21,
+                                      "column": 24,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 21,
+                                          "column": 24,
+                                          "name": "NUMBER",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 21,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 21,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 24,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 24,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 24,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 24,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 24,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 24,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$str1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 24,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "to"
+                    },
+                    {
+                      "line": 24,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 24,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 24,
+                              "column": 15,
+                              "name": "STRING",
+                              "text": "\u0022foo\u0022"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 24,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 25,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 25,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 25,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 25,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 25,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 25,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 25,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 25,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 25,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 25,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 25,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 25,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$str1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 25,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 25,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 25,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 25,
+                                      "column": 23,
+                                      "name": "STRING",
+                                      "text": "\u0022foo\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 25,
+                          "column": 28,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 25,
+                      "column": 29,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 28,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 28,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 28,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 28,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 28,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 28,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 28,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 28,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 28,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 28,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "45"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 28,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 30,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 30,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 30,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 30,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 30,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 30,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 30,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 30,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 30,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 30,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 30,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 30,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 30,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_ADDITION",
+                          "text": "\u002B"
+                        },
+                        {
+                          "line": 30,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 30,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 30,
+                                  "column": 22,
+                                  "name": "NUMBER",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 30,
+                      "column": 23,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 33,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 33,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 33,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 33,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 33,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 33,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 33,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 33,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 33,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 33,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 33,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 33,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 33,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 33,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 33,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 33,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "46"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 33,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 33,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 35,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 35,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 35,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 35,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 35,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 35,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 35,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 35,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 35,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 35,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 35,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 35,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 35,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_SUBTRACTION",
+                          "text": "-"
+                        },
+                        {
+                          "line": 35,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 35,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 35,
+                                  "column": 22,
+                                  "name": "NUMBER",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 35,
+                      "column": 23,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 38,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 38,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 38,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 38,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 38,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 38,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 38,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 38,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 38,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 38,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 38,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 38,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 38,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 38,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 38,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 38,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "44"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 38,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 38,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 40,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 40,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 40,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 40,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 40,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 40,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 40,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 40,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 40,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 40,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "46"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 40,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 41,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 41,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 41,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 41,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 41,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 41,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 41,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 41,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 41,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 41,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 41,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 41,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 41,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_MULTIPLICATION",
+                          "text": "*"
+                        },
+                        {
+                          "line": 41,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 41,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 41,
+                                  "column": 22,
+                                  "name": "NUMBER",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 41,
+                      "column": 23,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 44,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 44,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 44,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 44,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 44,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 44,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 44,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 44,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 44,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 44,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 44,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 44,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 44,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 44,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 44,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 44,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "92"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 44,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 44,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 46,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 46,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 46,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 46,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 46,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 46,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 46,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 46,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 46,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 46,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 46,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 46,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 46,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_DIVISION",
+                          "text": "/"
+                        },
+                        {
+                          "line": 46,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 46,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 46,
+                                  "column": 22,
+                                  "name": "NUMBER",
+                                  "text": "2"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 46,
+                      "column": 23,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 49,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 49,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 49,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 49,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 49,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 49,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 49,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 49,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 49,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 49,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 49,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 49,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num2"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 49,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 49,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 49,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 49,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "23"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 49,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 49,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 51,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 51,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 51,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 51,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 51,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 51,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 51,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 51,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 51,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 51,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "45"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 51,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 52,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 52,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 52,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 52,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 52,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 52,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 52,
+                      "column": 12,
+                      "name": "OPERATOR_MATHS_ADDITION_EQUALS",
+                      "text": "\u002B="
+                    },
+                    {
+                      "line": 52,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 52,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 52,
+                              "column": 15,
+                              "name": "NUMBER",
+                              "text": "1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 52,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 55,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 55,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 55,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 55,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 55,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 55,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 55,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 55,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 55,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 55,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 55,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 55,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 55,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 55,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 55,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 55,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "46"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 55,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 55,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 57,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 57,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 57,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 57,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 57,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 57,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 57,
+                      "column": 12,
+                      "name": "OPERATOR_MATHS_MULTIPLICATION_EQUALS",
+                      "text": "*="
+                    },
+                    {
+                      "line": 57,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 57,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 57,
+                              "column": 15,
+                              "name": "NUMBER",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 57,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 60,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 60,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 60,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 60,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 60,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 60,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 60,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 60,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 60,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 60,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 60,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 60,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 60,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 60,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 60,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 60,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "92"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 60,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 60,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 62,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 62,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 62,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 62,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 62,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 62,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 62,
+                      "column": 12,
+                      "name": "OPERATOR_MATHS_DIVISION_EQUALS",
+                      "text": "/="
+                    },
+                    {
+                      "line": 62,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 62,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 62,
+                              "column": 15,
+                              "name": "NUMBER",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 62,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 65,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 65,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 65,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 65,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 65,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 65,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 65,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 65,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 65,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 65,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 65,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 65,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 65,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 65,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 65,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 65,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "46"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 65,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 65,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 67,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 67,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 67,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 67,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 67,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 67,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 67,
+                      "column": 12,
+                      "name": "OPERATOR_MATHS_SUBTRACTION_EQUALS",
+                      "text": "-="
+                    },
+                    {
+                      "line": 67,
+                      "column": 15,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 67,
+                          "column": 15,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 67,
+                              "column": 15,
+                              "name": "NUMBER",
+                              "text": "1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 67,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 70,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 70,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 70,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 70,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 70,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 70,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 70,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 70,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 70,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 70,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 70,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 70,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 70,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 70,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 70,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 70,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "45"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 70,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 70,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 73,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 73,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 73,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 73,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 73,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 73,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 73,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 73,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 73,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 73,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "46"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 73,
+                      "column": 16,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 74,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 74,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 74,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 74,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 74,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 74,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 74,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 74,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 74,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 74,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "1"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 74,
+                      "column": 15,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 75,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 75,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 75,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 75,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 75,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 75,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 75,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 75,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 75,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 75,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 75,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 75,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 75,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_ADDITION",
+                          "text": "\u002B"
+                        },
+                        {
+                          "line": 75,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 75,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 75,
+                                  "column": 22,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 75,
+                                      "column": 22,
+                                      "name": "VAR_ID",
+                                      "text": "$num2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 75,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 78,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 78,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 78,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 78,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 78,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 78,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 78,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 78,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 78,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 78,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 78,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 78,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 78,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 78,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 78,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 78,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "47"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 78,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 78,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 80,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 80,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 80,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 80,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 80,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 80,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 80,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 80,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 80,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 80,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 80,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 80,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 80,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_SUBTRACTION",
+                          "text": "-"
+                        },
+                        {
+                          "line": 80,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 80,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 80,
+                                  "column": 22,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 80,
+                                      "column": 22,
+                                      "name": "VAR_ID",
+                                      "text": "$num2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 80,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 83,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 83,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 83,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 83,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 83,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 83,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 83,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 83,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 83,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 83,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 83,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 83,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 83,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 83,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 83,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 83,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "45"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 83,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 83,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 85,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 85,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 85,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 85,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 85,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 85,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 85,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 85,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 85,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 85,
+                              "column": 14,
+                              "name": "NUMBER",
+                              "text": "2"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 85,
+                      "column": 15,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 86,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 86,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 86,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 86,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 86,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 86,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 86,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 86,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 86,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 86,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 86,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 86,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 86,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_MULTIPLICATION",
+                          "text": "*"
+                        },
+                        {
+                          "line": 86,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 86,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 86,
+                                  "column": 22,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 86,
+                                      "column": 22,
+                                      "name": "VAR_ID",
+                                      "text": "$num2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 86,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 89,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 89,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 89,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 89,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 89,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 89,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 89,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 89,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 89,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 89,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 89,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 89,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 89,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 89,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 89,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 89,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "92"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 89,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 89,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 91,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 91,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 91,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 91,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 91,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 91,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$num3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 91,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 91,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 91,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 91,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 91,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 91,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$num1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 91,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_DIVISION",
+                          "text": "/"
+                        },
+                        {
+                          "line": 91,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 91,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 91,
+                                  "column": 22,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 91,
+                                      "column": 22,
+                                      "name": "VAR_ID",
+                                      "text": "$num2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 91,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 94,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 94,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 94,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 94,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 94,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 94,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 94,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 94,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 94,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 94,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 94,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 94,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$num3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 94,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 94,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 94,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 94,
+                                      "column": 23,
+                                      "name": "NUMBER",
+                                      "text": "23"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 94,
+                          "column": 25,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 94,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 97,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 97,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 97,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 97,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 97,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 97,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$str1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 97,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 97,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 97,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 97,
+                              "column": 14,
+                              "name": "STRING",
+                              "text": "\u0022foo\u0022"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 97,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 98,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 98,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 98,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 98,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 98,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 98,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$str2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 98,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 98,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 98,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 98,
+                              "column": 14,
+                              "name": "STRING",
+                              "text": "\u0022bar\u0022"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 98,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 99,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 99,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 99,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 99,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 99,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 99,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$str3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 99,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 99,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 99,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 99,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 99,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 99,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$str1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 99,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_ADDITION",
+                          "text": "\u002B"
+                        },
+                        {
+                          "line": 99,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 99,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 99,
+                                  "column": 22,
+                                  "name": "STRING",
+                                  "text": "\u0022bar\u0022"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 99,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 102,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 102,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 102,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 102,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 102,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 102,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 102,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 102,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 102,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 102,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 102,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 102,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$str3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 102,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 102,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 102,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 102,
+                                      "column": 23,
+                                      "name": "STRING",
+                                      "text": "\u0022foobar\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 102,
+                          "column": 31,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 102,
+                      "column": 32,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 104,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 104,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 104,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 104,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 104,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 104,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$str3"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 104,
+                      "column": 12,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 104,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 104,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 104,
+                              "column": 14,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 104,
+                                  "column": 14,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 104,
+                                      "column": 14,
+                                      "name": "VAR_ID",
+                                      "text": "$str1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 104,
+                          "column": 20,
+                          "name": "OPERATOR_MATHS_ADDITION",
+                          "text": "\u002B"
+                        },
+                        {
+                          "line": 104,
+                          "column": 22,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 104,
+                              "column": 22,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 104,
+                                  "column": 22,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 104,
+                                      "column": 22,
+                                      "name": "VAR_ID",
+                                      "text": "$str2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 104,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 107,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 107,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 107,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 107,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 107,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 107,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 107,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 107,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 107,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 107,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 107,
+                                      "column": 14,
+                                      "name": "variable",
+                                      "children": [
+                                        {
+                                          "line": 107,
+                                          "column": 14,
+                                          "name": "VAR_ID",
+                                          "text": "$str3"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 107,
+                              "column": 20,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 107,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 107,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 107,
+                                      "column": 23,
+                                      "name": "STRING",
+                                      "text": "\u0022foobar\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 107,
+                          "column": 31,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 107,
+                      "column": 32,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 109,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

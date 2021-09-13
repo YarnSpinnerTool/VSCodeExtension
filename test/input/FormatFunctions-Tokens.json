@@ -1,0 +1,2006 @@
+[
+  {
+    "line": 1,
+    "column": 0,
+    "name": "ID",
+    "text": "title"
+  },
+  {
+    "line": 1,
+    "column": 5,
+    "name": "HEADER_DELIMITER",
+    "text": ": "
+  },
+  {
+    "line": 1,
+    "column": 7,
+    "name": "REST_OF_LINE",
+    "text": "Start"
+  },
+  {
+    "line": 1,
+    "column": 12,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 2,
+    "column": 0,
+    "name": "BODY_START",
+    "text": "---"
+  },
+  {
+    "line": 2,
+    "column": 3,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 3,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 4,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 4,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 4,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 4,
+    "column": 18,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 4,
+    "column": 20,
+    "name": "STRING",
+    "text": "\u0022\u0022"
+  },
+  {
+    "line": 4,
+    "column": 22,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 4,
+    "column": 24,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 5,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 5,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 5,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 5,
+    "column": 15,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 5,
+    "column": 17,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 5,
+    "column": 18,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 5,
+    "column": 20,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 6,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 6,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 6,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 6,
+    "column": 15,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 6,
+    "column": 17,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 6,
+    "column": 18,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 6,
+    "column": 20,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 7,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 7,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 7,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$race_position"
+  },
+  {
+    "line": 7,
+    "column": 25,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 7,
+    "column": 27,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 7,
+    "column": 28,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 7,
+    "column": 30,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 8,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 9,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Case selection",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 9,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 10,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 10,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 10,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 10,
+    "column": 14,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 10,
+    "column": 17,
+    "name": "STRING",
+    "text": "\u0022male\u0022"
+  },
+  {
+    "line": 10,
+    "column": 23,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 10,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 11,
+    "column": 0,
+    "name": "TEXT",
+    "text": "S"
+  },
+  {
+    "line": 11,
+    "column": 1,
+    "name": "TEXT",
+    "text": "elect: [select value="
+  },
+  {
+    "line": 11,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 11,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 11,
+    "column": 30,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 11,
+    "column": 31,
+    "name": "TEXT",
+    "text": " male=\u0022male\u0022 female=\u0022female\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 11,
+    "column": 73,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 11,
+    "column": 74,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 11,
+    "column": 75,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 12,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 13,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 13,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 13,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 13,
+    "column": 14,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 13,
+    "column": 17,
+    "name": "STRING",
+    "text": "\u0022female\u0022"
+  },
+  {
+    "line": 13,
+    "column": 25,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 13,
+    "column": 27,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 14,
+    "column": 0,
+    "name": "TEXT",
+    "text": "S"
+  },
+  {
+    "line": 14,
+    "column": 1,
+    "name": "TEXT",
+    "text": "elect: [select value="
+  },
+  {
+    "line": 14,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 14,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 14,
+    "column": 30,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 14,
+    "column": 31,
+    "name": "TEXT",
+    "text": " male=\u0022male\u0022 female=\u0022female\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 14,
+    "column": 73,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 14,
+    "column": 74,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 14,
+    "column": 75,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 15,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 16,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 16,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 16,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 16,
+    "column": 14,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 16,
+    "column": 17,
+    "name": "STRING",
+    "text": "\u0022other\u0022"
+  },
+  {
+    "line": 16,
+    "column": 24,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 16,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 17,
+    "column": 0,
+    "name": "TEXT",
+    "text": "S"
+  },
+  {
+    "line": 17,
+    "column": 1,
+    "name": "TEXT",
+    "text": "elect: [select value="
+  },
+  {
+    "line": 17,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 17,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 17,
+    "column": 30,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 17,
+    "column": 31,
+    "name": "TEXT",
+    "text": " male=\u0022male\u0022 female=\u0022female\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 17,
+    "column": 73,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 17,
+    "column": 74,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 17,
+    "column": 75,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 18,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 19,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Cardinal pluralisation",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 19,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 20,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 20,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 20,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 20,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 20,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 20,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 20,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 21,
+    "column": 0,
+    "name": "TEXT",
+    "text": "P"
+  },
+  {
+    "line": 21,
+    "column": 1,
+    "name": "TEXT",
+    "text": "lural: [plural value="
+  },
+  {
+    "line": 21,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 21,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 21,
+    "column": 27,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 21,
+    "column": 28,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 21,
+    "column": 84,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 21,
+    "column": 85,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 21,
+    "column": 86,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 22,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 23,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 23,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 23,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 23,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 23,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 23,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 23,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 24,
+    "column": 0,
+    "name": "TEXT",
+    "text": "P"
+  },
+  {
+    "line": 24,
+    "column": 1,
+    "name": "TEXT",
+    "text": "lural: [plural value="
+  },
+  {
+    "line": 24,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 24,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 24,
+    "column": 27,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 24,
+    "column": 28,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 24,
+    "column": 84,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 24,
+    "column": 85,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 24,
+    "column": 86,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 25,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 26,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 26,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 26,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 26,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 26,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "3"
+  },
+  {
+    "line": 26,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 26,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 27,
+    "column": 0,
+    "name": "TEXT",
+    "text": "P"
+  },
+  {
+    "line": 27,
+    "column": 1,
+    "name": "TEXT",
+    "text": "lural: [plural value="
+  },
+  {
+    "line": 27,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 27,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 27,
+    "column": 27,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 27,
+    "column": 28,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 27,
+    "column": 84,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 27,
+    "column": 85,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 27,
+    "column": 86,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 28,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 29,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 29,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 29,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 29,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 29,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "4"
+  },
+  {
+    "line": 29,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 29,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 30,
+    "column": 0,
+    "name": "TEXT",
+    "text": "P"
+  },
+  {
+    "line": 30,
+    "column": 1,
+    "name": "TEXT",
+    "text": "lural: [plural value="
+  },
+  {
+    "line": 30,
+    "column": 22,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 30,
+    "column": 23,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 30,
+    "column": 27,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 30,
+    "column": 28,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 30,
+    "column": 84,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 30,
+    "column": 85,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 30,
+    "column": 86,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 31,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 32,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Ordinal pluralisation",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 32,
+    "column": 24,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 33,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 33,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 33,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 33,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 33,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 33,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 33,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 34,
+    "column": 0,
+    "name": "TEXT",
+    "text": "O"
+  },
+  {
+    "line": 34,
+    "column": 1,
+    "name": "TEXT",
+    "text": "rdinal: [ordinal value="
+  },
+  {
+    "line": 34,
+    "column": 24,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 34,
+    "column": 25,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 34,
+    "column": 29,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 34,
+    "column": 30,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 34,
+    "column": 86,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 34,
+    "column": 87,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 34,
+    "column": 88,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 35,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 36,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 36,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 36,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 36,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 36,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 36,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 36,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 37,
+    "column": 0,
+    "name": "TEXT",
+    "text": "O"
+  },
+  {
+    "line": 37,
+    "column": 1,
+    "name": "TEXT",
+    "text": "rdinal: [ordinal value="
+  },
+  {
+    "line": 37,
+    "column": 24,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 37,
+    "column": 25,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 37,
+    "column": 29,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 37,
+    "column": 30,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 37,
+    "column": 86,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 37,
+    "column": 87,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 37,
+    "column": 88,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 38,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 39,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 39,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 39,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 39,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 39,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "3"
+  },
+  {
+    "line": 39,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 39,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 40,
+    "column": 0,
+    "name": "TEXT",
+    "text": "O"
+  },
+  {
+    "line": 40,
+    "column": 1,
+    "name": "TEXT",
+    "text": "rdinal: [ordinal value="
+  },
+  {
+    "line": 40,
+    "column": 24,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 40,
+    "column": 25,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 40,
+    "column": 29,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 40,
+    "column": 30,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 40,
+    "column": 86,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 40,
+    "column": 87,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 40,
+    "column": 88,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 41,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 42,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 42,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 42,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 42,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 42,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "4"
+  },
+  {
+    "line": 42,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 42,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 43,
+    "column": 0,
+    "name": "TEXT",
+    "text": "O"
+  },
+  {
+    "line": 43,
+    "column": 1,
+    "name": "TEXT",
+    "text": "rdinal: [ordinal value="
+  },
+  {
+    "line": 43,
+    "column": 24,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 43,
+    "column": 25,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 43,
+    "column": 29,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 43,
+    "column": 30,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 43,
+    "column": 86,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 43,
+    "column": 87,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 43,
+    "column": 88,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 44,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 45,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 45,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 45,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 45,
+    "column": 14,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 45,
+    "column": 17,
+    "name": "STRING",
+    "text": "\u0022other\u0022"
+  },
+  {
+    "line": 45,
+    "column": 24,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 45,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 46,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 46,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 46,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 46,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 46,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 46,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 46,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 47,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 47,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 47,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 47,
+    "column": 11,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 47,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 47,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 47,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 48,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 49,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Value insertion",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 49,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 50,
+    "column": 0,
+    "name": "TEXT",
+    "text": "["
+  },
+  {
+    "line": 50,
+    "column": 1,
+    "name": "TEXT",
+    "text": "select value="
+  },
+  {
+    "line": 50,
+    "column": 14,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 50,
+    "column": 15,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 50,
+    "column": 22,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 50,
+    "column": 23,
+    "name": "TEXT",
+    "text": " male=\u0022male: %\u0022 female=\u0022female: %\u0022 other=\u0022other: %\u0022"
+  },
+  {
+    "line": 50,
+    "column": 74,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 50,
+    "column": 75,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 50,
+    "column": 76,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 51,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 52,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 52,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 52,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$race_position"
+  },
+  {
+    "line": 52,
+    "column": 21,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 52,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "3"
+  },
+  {
+    "line": 52,
+    "column": 24,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 52,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 53,
+    "column": 0,
+    "name": "TEXT",
+    "text": "M"
+  },
+  {
+    "line": 53,
+    "column": 1,
+    "name": "TEXT",
+    "text": "ae: Wow, I came [ordinal value="
+  },
+  {
+    "line": 53,
+    "column": 32,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 53,
+    "column": 33,
+    "name": "VAR_ID",
+    "text": "$race_position"
+  },
+  {
+    "line": 53,
+    "column": 47,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 53,
+    "column": 48,
+    "name": "TEXT",
+    "text": " one=\u0022%st\u0022 two=\u0022%nd\u0022 few=\u0022%rd\u0022 other=\u0022%th\u0022"
+  },
+  {
+    "line": 53,
+    "column": 90,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 53,
+    "column": 91,
+    "name": "TEXT",
+    "text": "]!"
+  },
+  {
+    "line": 53,
+    "column": 93,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 54,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 55,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Options",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 55,
+    "column": 10,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 56,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 57,
+    "column": 0,
+    "name": "SHORTCUT_ARROW",
+    "text": "-\u003E"
+  },
+  {
+    "line": 57,
+    "column": 3,
+    "name": "TEXT",
+    "text": "["
+  },
+  {
+    "line": 57,
+    "column": 4,
+    "name": "TEXT",
+    "text": "select value="
+  },
+  {
+    "line": 57,
+    "column": 17,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 57,
+    "column": 18,
+    "name": "VAR_ID",
+    "text": "$gender"
+  },
+  {
+    "line": 57,
+    "column": 25,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 57,
+    "column": 26,
+    "name": "TEXT",
+    "text": " male=\u0022male\u0022 female=\u0022female\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 57,
+    "column": 68,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 57,
+    "column": 69,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 57,
+    "column": 70,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 58,
+    "column": 0,
+    "name": "SHORTCUT_ARROW",
+    "text": "-\u003E"
+  },
+  {
+    "line": 58,
+    "column": 3,
+    "name": "TEXT",
+    "text": "["
+  },
+  {
+    "line": 58,
+    "column": 4,
+    "name": "TEXT",
+    "text": "plural value="
+  },
+  {
+    "line": 58,
+    "column": 17,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 58,
+    "column": 18,
+    "name": "VAR_ID",
+    "text": "$num"
+  },
+  {
+    "line": 58,
+    "column": 22,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 58,
+    "column": 23,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 58,
+    "column": 69,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 58,
+    "column": 70,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 58,
+    "column": 71,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 59,
+    "column": 0,
+    "name": "SHORTCUT_ARROW",
+    "text": "-\u003E"
+  },
+  {
+    "line": 59,
+    "column": 3,
+    "name": "TEXT",
+    "text": "["
+  },
+  {
+    "line": 59,
+    "column": 4,
+    "name": "TEXT",
+    "text": "ordinal value="
+  },
+  {
+    "line": 59,
+    "column": 18,
+    "name": "EXPRESSION_START",
+    "text": "{"
+  },
+  {
+    "line": 59,
+    "column": 19,
+    "name": "VAR_ID",
+    "text": "$ord"
+  },
+  {
+    "line": 59,
+    "column": 23,
+    "name": "EXPRESSION_END",
+    "text": "}"
+  },
+  {
+    "line": 59,
+    "column": 24,
+    "name": "TEXT",
+    "text": " one=\u0022one\u0022 two=\u0022two\u0022 few=\u0022few\u0022 many=\u0022many\u0022 other=\u0022other\u0022"
+  },
+  {
+    "line": 59,
+    "column": 80,
+    "name": "TEXT",
+    "text": "/"
+  },
+  {
+    "line": 59,
+    "column": 81,
+    "name": "TEXT",
+    "text": "]"
+  },
+  {
+    "line": 59,
+    "column": 82,
+    "name": "NEWLINE",
+    "text": "\n"
+  },
+  {
+    "line": 60,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 61,
+    "column": 0,
+    "name": "BODY_END",
+    "text": "==="
+  },
+  {
+    "line": 61,
+    "column": 3,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 62,
+    "column": 0,
+    "name": "ID",
+    "text": "title"
+  },
+  {
+    "line": 62,
+    "column": 5,
+    "name": "HEADER_DELIMITER",
+    "text": ": "
+  },
+  {
+    "line": 62,
+    "column": 7,
+    "name": "REST_OF_LINE",
+    "text": "Destination"
+  },
+  {
+    "line": 62,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 63,
+    "column": 0,
+    "name": "BODY_START",
+    "text": "---"
+  },
+  {
+    "line": 63,
+    "column": 3,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 64,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// no-op",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 64,
+    "column": 8,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 65,
+    "column": 0,
+    "name": "BODY_END",
+    "text": "==="
+  }
+]

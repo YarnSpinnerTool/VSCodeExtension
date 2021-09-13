@@ -2,13 +2,25 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "homepage": "https://yarnspinner.dev",
-    
     "license": "MIT",
     "keywords": [
-        "yarn spinner", "yarnspinner", "yarn", "game writing", "narrative", "tree", "branch", "branching", "dialog", "dialogue"
+        "yarn spinner",
+        "yarnspinner",
+        "yarn",
+        "game writing",
+        "narrative",
+        "tree",
+        "branch",
+        "branching",
+        "dialog",
+        "dialogue"
     ],
+    "activationEvents": [
+        "onLanguage:yarnspinner"
+    ],
+    "main": "./out/extension.js",
     "qna": false,
     "publisher": "SecretLab",
     "icon": "icon.png",
@@ -22,6 +34,27 @@
     "categories": [
         "Programming Languages"
     ],
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint . --ext .ts,.tsx",
+        "watch": "tsc -watch -p tsconfig.json",
+        "test": "tsc -p tsconfig.json; jest",
+        "antlr4ts": "antlr4ts src/YarnSpinnerLexer.g4 ; antlr4ts -visitor src/YarnSpinnerParser.g4"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.0.1",
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.60.0",
+        "@typescript-eslint/eslint-plugin": "^4.16.0",
+        "@typescript-eslint/parser": "^4.16.0",
+        "antlr4ts-cli": "^0.5.0-alpha.4",
+        "eslint": "^7.21.0",
+        "jest": "^27.1.1",
+        "jest-each": "^27.1.1",
+        "ts-jest": "^27.0.5",
+        "typescript": "^4.2.2"
+    },
     "contributes": {
         "languages": [
             {
@@ -33,7 +66,8 @@
                 ],
                 "extensions": [
                     ".yarn",
-                    ".yarn.txt"
+                    ".yarn.txt",
+                    ".yarnprogram"
                 ],
                 "configuration": "./language-configuration.json"
             }
@@ -45,5 +79,8 @@
                 "path": "./syntaxes/yarnspinner.tmLanguage.json"
             }
         ]
+    },
+    "dependencies": {
+        "antlr4ts": "^0.5.0-alpha.4"
     }
 }

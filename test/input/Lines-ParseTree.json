@@ -1,0 +1,347 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 5,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 5,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 5,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 5,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "T"
+                        },
+                        {
+                          "line": 5,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "his is a line of dialogue."
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 27,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 7,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 7,
+                          "column": 5,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 7,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "shake=.01\u003EHA HA HA HA HA NO I\u0027M FINE."
+                        },
+                        {
+                          "line": 7,
+                          "column": 43,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 7,
+                          "column": 44,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 7,
+                          "column": 45,
+                          "name": "TEXT",
+                          "text": "shake\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 51,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 10,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 10,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 10,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 10,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: Testing comments after lines "
+                        }
+                      ]
+                    },
+                    {
+                      "line": 10,
+                      "column": 44,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 11,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 11,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 11,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 11,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 11,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: Testing comments after hashtags "
+                        }
+                      ]
+                    },
+                    {
+                      "line": 11,
+                      "column": 37,
+                      "name": "hashtag",
+                      "children": [
+                        {
+                          "line": 11,
+                          "column": 37,
+                          "name": "HASHTAG",
+                          "text": "#"
+                        },
+                        {
+                          "line": 11,
+                          "column": 38,
+                          "name": "HASHTAG_TEXT",
+                          "text": "hashtag"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 11,
+                      "column": 56,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 12,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 12,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 12,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 12,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 12,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: Testing comments after line conditions "
+                        }
+                      ]
+                    },
+                    {
+                      "line": 12,
+                      "column": 44,
+                      "name": "line_condition",
+                      "children": [
+                        {
+                          "line": 12,
+                          "column": 44,
+                          "name": "COMMAND_START",
+                          "text": "\u003C\u003C"
+                        },
+                        {
+                          "line": 12,
+                          "column": 46,
+                          "name": "COMMAND_IF",
+                          "text": "if "
+                        },
+                        {
+                          "line": 12,
+                          "column": 49,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 12,
+                              "column": 49,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 12,
+                                  "column": 49,
+                                  "name": "KEYWORD_TRUE",
+                                  "text": "true"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 12,
+                          "column": 53,
+                          "name": "COMMAND_END",
+                          "text": "\u003E\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 12,
+                      "column": 66,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 13,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

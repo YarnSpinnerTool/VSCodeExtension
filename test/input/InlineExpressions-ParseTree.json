@@ -1,0 +1,1574 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 4,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 4,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 4,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 4,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 4,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 4,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 4,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$var"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 4,
+                      "column": 15,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 4,
+                      "column": 17,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 4,
+                          "column": 17,
+                          "name": "STRING",
+                          "text": "\u0022\u0022"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 4,
+                      "column": 19,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "set_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 6,
+                      "column": 2,
+                      "name": "COMMAND_SET",
+                      "text": "set "
+                    },
+                    {
+                      "line": 6,
+                      "column": 6,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 6,
+                          "name": "VAR_ID",
+                          "text": "$var"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 11,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "to"
+                    },
+                    {
+                      "line": 6,
+                      "column": 14,
+                      "name": "expression",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 14,
+                          "name": "value",
+                          "children": [
+                            {
+                              "line": 6,
+                              "column": 14,
+                              "name": "STRING",
+                              "text": "\u0022variable\u0022"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 24,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 11,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 11,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 11,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 11,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "N"
+                        },
+                        {
+                          "line": 11,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "umber: "
+                        },
+                        {
+                          "line": 11,
+                          "column": 8,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 11,
+                          "column": 9,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 11,
+                              "column": 9,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 11,
+                                  "column": 9,
+                                  "name": "NUMBER",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 11,
+                          "column": 10,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 11,
+                      "column": 11,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 12,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 12,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 12,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 12,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "E"
+                        },
+                        {
+                          "line": 12,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "xpression: "
+                        },
+                        {
+                          "line": 12,
+                          "column": 12,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 12,
+                          "column": 13,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 12,
+                              "column": 13,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 12,
+                                  "column": 13,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 12,
+                                      "column": 13,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 12,
+                              "column": 14,
+                              "name": "OPERATOR_MATHS_ADDITION",
+                              "text": "\u002B"
+                            },
+                            {
+                              "line": 12,
+                              "column": 15,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 12,
+                                  "column": 15,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 12,
+                                      "column": 15,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 12,
+                          "column": 16,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 12,
+                      "column": 17,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 13,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 13,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 13,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 13,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "S"
+                        },
+                        {
+                          "line": 13,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "tring: "
+                        },
+                        {
+                          "line": 13,
+                          "column": 8,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 13,
+                          "column": 9,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 13,
+                              "column": 9,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 13,
+                                  "column": 9,
+                                  "name": "STRING",
+                                  "text": "\u0022string\u0022"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 13,
+                          "column": 17,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 13,
+                      "column": 18,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 14,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 14,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 14,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 14,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "B"
+                        },
+                        {
+                          "line": 14,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ool: "
+                        },
+                        {
+                          "line": 14,
+                          "column": 6,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 14,
+                          "column": 7,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 14,
+                              "column": 7,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 14,
+                                  "column": 7,
+                                  "name": "KEYWORD_TRUE",
+                                  "text": "true"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 14,
+                          "column": 11,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 14,
+                      "column": 12,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 15,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 15,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 15,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 15,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "V"
+                        },
+                        {
+                          "line": 15,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ariable: "
+                        },
+                        {
+                          "line": 15,
+                          "column": 10,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 15,
+                          "column": 11,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 15,
+                              "column": 11,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 15,
+                                  "column": 11,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 15,
+                                      "column": 11,
+                                      "name": "VAR_ID",
+                                      "text": "$var"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 15,
+                          "column": 15,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 15,
+                      "column": 16,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 18,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 18,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 18,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 18,
+                          "column": 0,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 18,
+                          "column": 1,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 18,
+                              "column": 1,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 18,
+                                  "column": 1,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 18,
+                                      "column": 1,
+                                      "name": "VAR_ID",
+                                      "text": "$var"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 18,
+                          "column": 5,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        },
+                        {
+                          "line": 18,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": " is great!"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 18,
+                      "column": 16,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 21,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 21,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 21,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 21,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 21,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 21,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 21,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption Number: "
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 18,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 19,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 21,
+                                      "column": 19,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 21,
+                                          "column": 19,
+                                          "name": "NUMBER",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 20,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 21,
+                              "column": 21,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 22,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 22,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 22,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 22,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 22,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 22,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption Expression: "
+                                },
+                                {
+                                  "line": 22,
+                                  "column": 22,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 22,
+                                  "column": 23,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 22,
+                                      "column": 23,
+                                      "name": "expression",
+                                      "children": [
+                                        {
+                                          "line": 22,
+                                          "column": 23,
+                                          "name": "value",
+                                          "children": [
+                                            {
+                                              "line": 22,
+                                              "column": 23,
+                                              "name": "NUMBER",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 22,
+                                      "column": 24,
+                                      "name": "OPERATOR_MATHS_ADDITION",
+                                      "text": "\u002B"
+                                    },
+                                    {
+                                      "line": 22,
+                                      "column": 25,
+                                      "name": "expression",
+                                      "children": [
+                                        {
+                                          "line": 22,
+                                          "column": 25,
+                                          "name": "value",
+                                          "children": [
+                                            {
+                                              "line": 22,
+                                              "column": 25,
+                                              "name": "NUMBER",
+                                              "text": "1"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 22,
+                                  "column": 26,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 22,
+                              "column": 27,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 23,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 23,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 23,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 23,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 23,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 23,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption String: "
+                                },
+                                {
+                                  "line": 23,
+                                  "column": 18,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 23,
+                                  "column": 19,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 23,
+                                      "column": 19,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 23,
+                                          "column": 19,
+                                          "name": "STRING",
+                                          "text": "\u0022string\u0022"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 23,
+                                  "column": 27,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 23,
+                              "column": 28,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 24,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 24,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 24,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 24,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 24,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 24,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption Bool: "
+                                },
+                                {
+                                  "line": 24,
+                                  "column": 16,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 24,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 24,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 24,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 24,
+                                  "column": 21,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 24,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 25,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 25,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 25,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 25,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 25,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 25,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption Variable: "
+                                },
+                                {
+                                  "line": 25,
+                                  "column": 20,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 25,
+                                  "column": 21,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 25,
+                                      "column": 21,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 25,
+                                          "column": 21,
+                                          "name": "variable",
+                                          "children": [
+                                            {
+                                              "line": 25,
+                                              "column": 21,
+                                              "name": "VAR_ID",
+                                              "text": "$var"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 25,
+                                  "column": 25,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 25,
+                              "column": 26,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 28,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 28,
+                  "column": 0,
+                  "name": "command_statement",
+                  "children": [
+                    {
+                      "line": 28,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 28,
+                      "column": 2,
+                      "name": "command_formatted_text",
+                      "children": [
+                        {
+                          "line": 28,
+                          "column": 2,
+                          "name": "COMMAND_TEXT",
+                          "text": "n"
+                        },
+                        {
+                          "line": 28,
+                          "column": 3,
+                          "name": "COMMAND_TEXT",
+                          "text": "umber "
+                        },
+                        {
+                          "line": 28,
+                          "column": 9,
+                          "name": "COMMAND_EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 28,
+                          "column": 10,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 28,
+                              "column": 10,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 28,
+                                  "column": 10,
+                                  "name": "NUMBER",
+                                  "text": "1"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 28,
+                          "column": 11,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 28,
+                      "column": 12,
+                      "name": "COMMAND_TEXT_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 29,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 29,
+                  "column": 0,
+                  "name": "command_statement",
+                  "children": [
+                    {
+                      "line": 29,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 29,
+                      "column": 2,
+                      "name": "command_formatted_text",
+                      "children": [
+                        {
+                          "line": 29,
+                          "column": 2,
+                          "name": "COMMAND_TEXT",
+                          "text": "e"
+                        },
+                        {
+                          "line": 29,
+                          "column": 3,
+                          "name": "COMMAND_TEXT",
+                          "text": "xpression "
+                        },
+                        {
+                          "line": 29,
+                          "column": 13,
+                          "name": "COMMAND_EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 29,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 29,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 29,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 29,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 29,
+                              "column": 15,
+                              "name": "OPERATOR_MATHS_ADDITION",
+                              "text": "\u002B"
+                            },
+                            {
+                              "line": 29,
+                              "column": 16,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 29,
+                                  "column": 16,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 29,
+                                      "column": 16,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 29,
+                          "column": 17,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 29,
+                      "column": 18,
+                      "name": "COMMAND_TEXT_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 30,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 30,
+                  "column": 0,
+                  "name": "command_statement",
+                  "children": [
+                    {
+                      "line": 30,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 30,
+                      "column": 2,
+                      "name": "command_formatted_text",
+                      "children": [
+                        {
+                          "line": 30,
+                          "column": 2,
+                          "name": "COMMAND_TEXT",
+                          "text": "s"
+                        },
+                        {
+                          "line": 30,
+                          "column": 3,
+                          "name": "COMMAND_TEXT",
+                          "text": "tring "
+                        },
+                        {
+                          "line": 30,
+                          "column": 9,
+                          "name": "COMMAND_EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 30,
+                          "column": 10,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 30,
+                              "column": 10,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 30,
+                                  "column": 10,
+                                  "name": "STRING",
+                                  "text": "\u0022string\u0022"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 30,
+                          "column": 18,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 30,
+                      "column": 19,
+                      "name": "COMMAND_TEXT_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 31,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 31,
+                  "column": 0,
+                  "name": "command_statement",
+                  "children": [
+                    {
+                      "line": 31,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 31,
+                      "column": 2,
+                      "name": "command_formatted_text",
+                      "children": [
+                        {
+                          "line": 31,
+                          "column": 2,
+                          "name": "COMMAND_TEXT",
+                          "text": "b"
+                        },
+                        {
+                          "line": 31,
+                          "column": 3,
+                          "name": "COMMAND_TEXT",
+                          "text": "ool "
+                        },
+                        {
+                          "line": 31,
+                          "column": 7,
+                          "name": "COMMAND_EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 31,
+                          "column": 8,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 31,
+                              "column": 8,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 31,
+                                  "column": 8,
+                                  "name": "KEYWORD_TRUE",
+                                  "text": "true"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 31,
+                          "column": 12,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 31,
+                      "column": 13,
+                      "name": "COMMAND_TEXT_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 32,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 32,
+                  "column": 0,
+                  "name": "command_statement",
+                  "children": [
+                    {
+                      "line": 32,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 32,
+                      "column": 2,
+                      "name": "command_formatted_text",
+                      "children": [
+                        {
+                          "line": 32,
+                          "column": 2,
+                          "name": "COMMAND_TEXT",
+                          "text": "v"
+                        },
+                        {
+                          "line": 32,
+                          "column": 3,
+                          "name": "COMMAND_TEXT",
+                          "text": "ariable "
+                        },
+                        {
+                          "line": 32,
+                          "column": 11,
+                          "name": "COMMAND_EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 32,
+                          "column": 12,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 32,
+                              "column": 12,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 32,
+                                  "column": 12,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 32,
+                                      "column": 12,
+                                      "name": "VAR_ID",
+                                      "text": "$var"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 32,
+                          "column": 16,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 32,
+                      "column": 17,
+                      "name": "COMMAND_TEXT_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 34,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    },
+    {
+      "line": 35,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 35,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 35,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 35,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 35,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Destination"
+            }
+          ]
+        },
+        {
+          "line": 36,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 39,
+          "column": 0,
+          "name": "body",
+          "children": []
+        },
+        {
+          "line": 39,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

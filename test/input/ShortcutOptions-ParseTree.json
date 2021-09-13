@@ -1,0 +1,2416 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 8,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 8,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 8,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 8,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 8,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 8,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 8,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$selected"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 8,
+                      "column": 20,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 8,
+                      "column": 22,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 8,
+                          "column": 22,
+                          "name": "NUMBER",
+                          "text": "0"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 8,
+                      "column": 23,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 10,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 10,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 10,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 10,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 10,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 10,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 10,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption 1"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 10,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\r\n\t"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 11,
+                          "column": 1,
+                          "name": "INDENT",
+                          "text": "\u003Cindent to 8\u003E"
+                        },
+                        {
+                          "line": 11,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 11,
+                              "column": 1,
+                              "name": "set_statement",
+                              "children": [
+                                {
+                                  "line": 11,
+                                  "column": 1,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 11,
+                                  "column": 3,
+                                  "name": "COMMAND_SET",
+                                  "text": "set "
+                                },
+                                {
+                                  "line": 11,
+                                  "column": 7,
+                                  "name": "variable",
+                                  "children": [
+                                    {
+                                      "line": 11,
+                                      "column": 7,
+                                      "name": "VAR_ID",
+                                      "text": "$selected"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 11,
+                                  "column": 17,
+                                  "name": "OPERATOR_MATHS_ADDITION_EQUALS",
+                                  "text": "\u002B="
+                                },
+                                {
+                                  "line": 11,
+                                  "column": 20,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 11,
+                                      "column": 20,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 11,
+                                          "column": 20,
+                                          "name": "NUMBER",
+                                          "text": "1"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 11,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 12,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 12,
+                              "column": 1,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 12,
+                                  "column": 1,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 12,
+                                      "column": 1,
+                                      "name": "TEXT",
+                                      "text": "T"
+                                    },
+                                    {
+                                      "line": 12,
+                                      "column": 2,
+                                      "name": "TEXT",
+                                      "text": "his line should appear."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 12,
+                                  "column": 25,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 13,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 13,
+                              "column": 1,
+                              "name": "shortcut_option_statement",
+                              "children": [
+                                {
+                                  "line": 13,
+                                  "column": 1,
+                                  "name": "shortcut_option",
+                                  "children": [
+                                    {
+                                      "line": 13,
+                                      "column": 1,
+                                      "name": "SHORTCUT_ARROW",
+                                      "text": "-\u003E"
+                                    },
+                                    {
+                                      "line": 13,
+                                      "column": 4,
+                                      "name": "line_statement",
+                                      "children": [
+                                        {
+                                          "line": 13,
+                                          "column": 4,
+                                          "name": "line_formatted_text",
+                                          "children": [
+                                            {
+                                              "line": 13,
+                                              "column": 4,
+                                              "name": "TEXT",
+                                              "text": "S"
+                                            },
+                                            {
+                                              "line": 13,
+                                              "column": 5,
+                                              "name": "TEXT",
+                                              "text": "ub Option 1"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "line": 13,
+                                          "column": 16,
+                                          "name": "NEWLINE",
+                                          "text": "\r\n\t\t"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 14,
+                                      "column": 2,
+                                      "name": "INDENT",
+                                      "text": "\u003Cindent to 16\u003E"
+                                    },
+                                    {
+                                      "line": 15,
+                                      "column": 2,
+                                      "name": "statement",
+                                      "children": [
+                                        {
+                                          "line": 15,
+                                          "column": 2,
+                                          "name": "line_statement",
+                                          "children": [
+                                            {
+                                              "line": 15,
+                                              "column": 2,
+                                              "name": "line_formatted_text",
+                                              "children": [
+                                                {
+                                                  "line": 15,
+                                                  "column": 2,
+                                                  "name": "TEXT",
+                                                  "text": "T"
+                                                },
+                                                {
+                                                  "line": 15,
+                                                  "column": 3,
+                                                  "name": "TEXT",
+                                                  "text": "his line should also appear."
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 15,
+                                              "column": 31,
+                                              "name": "NEWLINE",
+                                              "text": "\r\n\t\t"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 16,
+                                      "column": 2,
+                                      "name": "statement",
+                                      "children": [
+                                        {
+                                          "line": 16,
+                                          "column": 2,
+                                          "name": "set_statement",
+                                          "children": [
+                                            {
+                                              "line": 16,
+                                              "column": 2,
+                                              "name": "COMMAND_START",
+                                              "text": "\u003C\u003C"
+                                            },
+                                            {
+                                              "line": 16,
+                                              "column": 4,
+                                              "name": "COMMAND_SET",
+                                              "text": "set "
+                                            },
+                                            {
+                                              "line": 16,
+                                              "column": 8,
+                                              "name": "variable",
+                                              "children": [
+                                                {
+                                                  "line": 16,
+                                                  "column": 8,
+                                                  "name": "VAR_ID",
+                                                  "text": "$selected"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 16,
+                                              "column": 18,
+                                              "name": "OPERATOR_MATHS_ADDITION_EQUALS",
+                                              "text": "\u002B="
+                                            },
+                                            {
+                                              "line": 16,
+                                              "column": 21,
+                                              "name": "expression",
+                                              "children": [
+                                                {
+                                                  "line": 16,
+                                                  "column": 21,
+                                                  "name": "value",
+                                                  "children": [
+                                                    {
+                                                      "line": 16,
+                                                      "column": 21,
+                                                      "name": "NUMBER",
+                                                      "text": "1"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 16,
+                                              "column": 22,
+                                              "name": "COMMAND_END",
+                                              "text": "\u003E\u003E"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 17,
+                                      "column": 1,
+                                      "name": "DEDENT",
+                                      "text": "\u003Cdedent from 16\u003E"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 17,
+                                  "column": 1,
+                                  "name": "shortcut_option",
+                                  "children": [
+                                    {
+                                      "line": 17,
+                                      "column": 1,
+                                      "name": "SHORTCUT_ARROW",
+                                      "text": "-\u003E"
+                                    },
+                                    {
+                                      "line": 17,
+                                      "column": 4,
+                                      "name": "line_statement",
+                                      "children": [
+                                        {
+                                          "line": 17,
+                                          "column": 4,
+                                          "name": "line_formatted_text",
+                                          "children": [
+                                            {
+                                              "line": 17,
+                                              "column": 4,
+                                              "name": "TEXT",
+                                              "text": "S"
+                                            },
+                                            {
+                                              "line": 17,
+                                              "column": 5,
+                                              "name": "TEXT",
+                                              "text": "ub Option 2"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "line": 17,
+                                          "column": 16,
+                                          "name": "NEWLINE",
+                                          "text": "\r\n\t"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 18,
+                                  "column": 1,
+                                  "name": "shortcut_option",
+                                  "children": [
+                                    {
+                                      "line": 18,
+                                      "column": 1,
+                                      "name": "SHORTCUT_ARROW",
+                                      "text": "-\u003E"
+                                    },
+                                    {
+                                      "line": 18,
+                                      "column": 4,
+                                      "name": "line_statement",
+                                      "children": [
+                                        {
+                                          "line": 18,
+                                          "column": 4,
+                                          "name": "line_formatted_text",
+                                          "children": [
+                                            {
+                                              "line": 18,
+                                              "column": 4,
+                                              "name": "TEXT",
+                                              "text": "S"
+                                            },
+                                            {
+                                              "line": 18,
+                                              "column": 5,
+                                              "name": "TEXT",
+                                              "text": "ub Option 3 "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "line": 18,
+                                          "column": 17,
+                                          "name": "line_condition",
+                                          "children": [
+                                            {
+                                              "line": 18,
+                                              "column": 17,
+                                              "name": "COMMAND_START",
+                                              "text": "\u003C\u003C"
+                                            },
+                                            {
+                                              "line": 18,
+                                              "column": 19,
+                                              "name": "COMMAND_IF",
+                                              "text": "if "
+                                            },
+                                            {
+                                              "line": 18,
+                                              "column": 22,
+                                              "name": "expression",
+                                              "children": [
+                                                {
+                                                  "line": 18,
+                                                  "column": 22,
+                                                  "name": "value",
+                                                  "children": [
+                                                    {
+                                                      "line": 18,
+                                                      "column": 22,
+                                                      "name": "KEYWORD_FALSE",
+                                                      "text": "false"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 18,
+                                              "column": 27,
+                                              "name": "COMMAND_END",
+                                              "text": "\u003E\u003E"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "line": 18,
+                                          "column": 29,
+                                          "name": "NEWLINE",
+                                          "text": "\r\n"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 19,
+                          "column": 0,
+                          "name": "DEDENT",
+                          "text": "\u003Cdedent from 8\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 19,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 19,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 19,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 19,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 19,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 19,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption 2 "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 19,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 19,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 19,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 19,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 19,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 19,
+                                          "column": 17,
+                                          "name": "KEYWORD_FALSE",
+                                          "text": "false"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 19,
+                                  "column": 22,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 19,
+                              "column": 24,
+                              "name": "NEWLINE",
+                              "text": "\r\n\t"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 20,
+                          "column": 1,
+                          "name": "INDENT",
+                          "text": "\u003Cindent to 8\u003E"
+                        },
+                        {
+                          "line": 20,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 20,
+                              "column": 1,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 20,
+                                  "column": 1,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 20,
+                                      "column": 1,
+                                      "name": "TEXT",
+                                      "text": "T"
+                                    },
+                                    {
+                                      "line": 20,
+                                      "column": 2,
+                                      "name": "TEXT",
+                                      "text": "his line should not appear."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 20,
+                                  "column": 29,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 21,
+                          "column": 0,
+                          "name": "DEDENT",
+                          "text": "\u003Cdedent from 8\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 21,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 21,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 21,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 21,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 21,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 21,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption 3"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 21,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\r\n\t"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 22,
+                          "column": 1,
+                          "name": "INDENT",
+                          "text": "\u003Cindent to 8\u003E"
+                        },
+                        {
+                          "line": 22,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 22,
+                              "column": 1,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 22,
+                                  "column": 1,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 22,
+                                      "column": 1,
+                                      "name": "TEXT",
+                                      "text": "T"
+                                    },
+                                    {
+                                      "line": 22,
+                                      "column": 2,
+                                      "name": "TEXT",
+                                      "text": "his line should not appear."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 22,
+                                  "column": 29,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 23,
+                          "column": 0,
+                          "name": "DEDENT",
+                          "text": "\u003Cdedent from 8\u003E"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 26,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 26,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 26,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 26,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "B"
+                        },
+                        {
+                          "line": 26,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ea: line text"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 26,
+                      "column": 14,
+                      "name": "NEWLINE",
+                      "text": "\r\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 27,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 27,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 27,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 27,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 27,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 27,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 27,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 27,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption1"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 27,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 28,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 28,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 28,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 28,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 28,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 28,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption2"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 28,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 29,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 29,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 29,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 29,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "B"
+                        },
+                        {
+                          "line": 29,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ea: line text2"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 29,
+                      "column": 15,
+                      "name": "NEWLINE",
+                      "text": "\r\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 32,
+              "column": 1,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 32,
+                  "column": 1,
+                  "name": "INDENT",
+                  "text": "\u003Cindent to 8\u003E"
+                },
+                {
+                  "line": 32,
+                  "column": 1,
+                  "name": "statement",
+                  "children": [
+                    {
+                      "line": 32,
+                      "column": 1,
+                      "name": "line_statement",
+                      "children": [
+                        {
+                          "line": 32,
+                          "column": 1,
+                          "name": "line_formatted_text",
+                          "children": [
+                            {
+                              "line": 32,
+                              "column": 1,
+                              "name": "TEXT",
+                              "text": "B"
+                            },
+                            {
+                              "line": 32,
+                              "column": 2,
+                              "name": "TEXT",
+                              "text": "ea: indented line text"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 32,
+                          "column": 24,
+                          "name": "NEWLINE",
+                          "text": "\r\n\t"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "line": 33,
+                  "column": 1,
+                  "name": "statement",
+                  "children": [
+                    {
+                      "line": 33,
+                      "column": 1,
+                      "name": "shortcut_option_statement",
+                      "children": [
+                        {
+                          "line": 33,
+                          "column": 1,
+                          "name": "shortcut_option",
+                          "children": [
+                            {
+                              "line": 33,
+                              "column": 1,
+                              "name": "SHORTCUT_ARROW",
+                              "text": "-\u003E"
+                            },
+                            {
+                              "line": 33,
+                              "column": 4,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 33,
+                                  "column": 4,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 33,
+                                      "column": 4,
+                                      "name": "TEXT",
+                                      "text": "i"
+                                    },
+                                    {
+                                      "line": 33,
+                                      "column": 5,
+                                      "name": "TEXT",
+                                      "text": "ndented option1"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 20,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 34,
+                          "column": 1,
+                          "name": "shortcut_option",
+                          "children": [
+                            {
+                              "line": 34,
+                              "column": 1,
+                              "name": "SHORTCUT_ARROW",
+                              "text": "-\u003E"
+                            },
+                            {
+                              "line": 34,
+                              "column": 4,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 34,
+                                  "column": 4,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 34,
+                                      "column": 4,
+                                      "name": "TEXT",
+                                      "text": "i"
+                                    },
+                                    {
+                                      "line": 34,
+                                      "column": 5,
+                                      "name": "TEXT",
+                                      "text": "ndented option2"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 34,
+                                  "column": 20,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "line": 35,
+                  "column": 1,
+                  "name": "statement",
+                  "children": [
+                    {
+                      "line": 35,
+                      "column": 1,
+                      "name": "line_statement",
+                      "children": [
+                        {
+                          "line": 35,
+                          "column": 1,
+                          "name": "line_formatted_text",
+                          "children": [
+                            {
+                              "line": 35,
+                              "column": 1,
+                              "name": "TEXT",
+                              "text": "B"
+                            },
+                            {
+                              "line": 35,
+                              "column": 2,
+                              "name": "TEXT",
+                              "text": "ea: indented line text2"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 35,
+                          "column": 25,
+                          "name": "NEWLINE",
+                          "text": "\r\n"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "line": 36,
+                  "column": 0,
+                  "name": "DEDENT",
+                  "text": "\u003Cdedent from 8\u003E"
+                }
+              ]
+            },
+            {
+              "line": 38,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 38,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 38,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 38,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "B"
+                        },
+                        {
+                          "line": 38,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ea: line text"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 38,
+                      "column": 14,
+                      "name": "NEWLINE",
+                      "text": "\r\n\t"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 39,
+              "column": 1,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 39,
+                  "column": 1,
+                  "name": "INDENT",
+                  "text": "\u003Cindent to 8\u003E"
+                },
+                {
+                  "line": 39,
+                  "column": 1,
+                  "name": "statement",
+                  "children": [
+                    {
+                      "line": 39,
+                      "column": 1,
+                      "name": "shortcut_option_statement",
+                      "children": [
+                        {
+                          "line": 39,
+                          "column": 1,
+                          "name": "shortcut_option",
+                          "children": [
+                            {
+                              "line": 39,
+                              "column": 1,
+                              "name": "SHORTCUT_ARROW",
+                              "text": "-\u003E"
+                            },
+                            {
+                              "line": 39,
+                              "column": 3,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 39,
+                                  "column": 3,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 39,
+                                      "column": 3,
+                                      "name": "TEXT",
+                                      "text": "i"
+                                    },
+                                    {
+                                      "line": 39,
+                                      "column": 4,
+                                      "name": "TEXT",
+                                      "text": "ndented option1 following unindented line"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 39,
+                                  "column": 45,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n\t"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 40,
+                          "column": 1,
+                          "name": "shortcut_option",
+                          "children": [
+                            {
+                              "line": 40,
+                              "column": 1,
+                              "name": "SHORTCUT_ARROW",
+                              "text": "-\u003E"
+                            },
+                            {
+                              "line": 40,
+                              "column": 3,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 40,
+                                  "column": 3,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 40,
+                                      "column": 3,
+                                      "name": "TEXT",
+                                      "text": "i"
+                                    },
+                                    {
+                                      "line": 40,
+                                      "column": 4,
+                                      "name": "TEXT",
+                                      "text": "ndented option2 following unindented line"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 45,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n\t\t"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 41,
+                              "column": 2,
+                              "name": "INDENT",
+                              "text": "\u003Cindent to 16\u003E"
+                            },
+                            {
+                              "line": 41,
+                              "column": 2,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 41,
+                                  "column": 2,
+                                  "name": "line_statement",
+                                  "children": [
+                                    {
+                                      "line": 41,
+                                      "column": 2,
+                                      "name": "line_formatted_text",
+                                      "children": [
+                                        {
+                                          "line": 41,
+                                          "column": 2,
+                                          "name": "TEXT",
+                                          "text": "o"
+                                        },
+                                        {
+                                          "line": 41,
+                                          "column": 3,
+                                          "name": "TEXT",
+                                          "text": "ption2.1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 41,
+                                      "column": 11,
+                                      "name": "NEWLINE",
+                                      "text": "\r\n\t\t"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 42,
+                              "column": 2,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 42,
+                                  "column": 2,
+                                  "name": "line_statement",
+                                  "children": [
+                                    {
+                                      "line": 42,
+                                      "column": 2,
+                                      "name": "line_formatted_text",
+                                      "children": [
+                                        {
+                                          "line": 42,
+                                          "column": 2,
+                                          "name": "TEXT",
+                                          "text": "o"
+                                        },
+                                        {
+                                          "line": 42,
+                                          "column": 3,
+                                          "name": "TEXT",
+                                          "text": "ption2.2"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 42,
+                                      "column": 11,
+                                      "name": "NEWLINE",
+                                      "text": "\r\n\t\t"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 43,
+                              "column": 2,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 43,
+                                  "column": 2,
+                                  "name": "line_statement",
+                                  "children": [
+                                    {
+                                      "line": 43,
+                                      "column": 2,
+                                      "name": "line_formatted_text",
+                                      "children": [
+                                        {
+                                          "line": 43,
+                                          "column": 2,
+                                          "name": "TEXT",
+                                          "text": "o"
+                                        },
+                                        {
+                                          "line": 43,
+                                          "column": 3,
+                                          "name": "TEXT",
+                                          "text": "ption2.3"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 43,
+                                      "column": 11,
+                                      "name": "NEWLINE",
+                                      "text": "\r\n\t\t"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 44,
+                              "column": 2,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 44,
+                                  "column": 2,
+                                  "name": "line_statement",
+                                  "children": [
+                                    {
+                                      "line": 44,
+                                      "column": 2,
+                                      "name": "line_formatted_text",
+                                      "children": [
+                                        {
+                                          "line": 44,
+                                          "column": 2,
+                                          "name": "TEXT",
+                                          "text": "o"
+                                        },
+                                        {
+                                          "line": 44,
+                                          "column": 3,
+                                          "name": "TEXT",
+                                          "text": "ption2.4"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "line": 44,
+                                      "column": 11,
+                                      "name": "NEWLINE",
+                                      "text": "\r\n"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 45,
+                              "column": 0,
+                              "name": "DEDENT",
+                              "text": "\u003Cdedent from 16\u003E"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "line": 45,
+                  "column": 0,
+                  "name": "DEDENT",
+                  "text": "\u003Cdedent from 8\u003E"
+                }
+              ]
+            },
+            {
+              "line": 47,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 47,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 47,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 47,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 47,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 47,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 47,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "A"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 47,
+                              "column": 4,
+                              "name": "NEWLINE",
+                              "text": "\r\n\t"
+                            }
+                          ]
+                        },
+                        {
+                          "line": 48,
+                          "column": 1,
+                          "name": "INDENT",
+                          "text": "\u003Cindent to 8\u003E"
+                        },
+                        {
+                          "line": 48,
+                          "column": 1,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 48,
+                              "column": 1,
+                              "name": "line_statement",
+                              "children": [
+                                {
+                                  "line": 48,
+                                  "column": 1,
+                                  "name": "line_formatted_text",
+                                  "children": [
+                                    {
+                                      "line": 48,
+                                      "column": 1,
+                                      "name": "TEXT",
+                                      "text": "B"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 48,
+                                  "column": 2,
+                                  "name": "NEWLINE",
+                                  "text": "\r\n"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 49,
+                          "column": 0,
+                          "name": "DEDENT",
+                          "text": "\u003Cdedent from 8\u003E"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 50,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 50,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 50,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 50,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "("
+                        },
+                        {
+                          "line": 50,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "Break up the options)"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 50,
+                      "column": 22,
+                      "name": "NEWLINE",
+                      "text": "\r\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 55,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 55,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 55,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 55,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 55,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 55,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 55,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 55,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption A "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 55,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 55,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 55,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 55,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 55,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 55,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 55,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 55,
+                              "column": 23,
+                              "name": "hashtag",
+                              "children": [
+                                {
+                                  "line": 55,
+                                  "column": 23,
+                                  "name": "HASHTAG",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 55,
+                                  "column": 24,
+                                  "name": "HASHTAG_TEXT",
+                                  "text": "line:0e8a7ce"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 55,
+                              "column": 36,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 56,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 56,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 56,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 56,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 56,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 56,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption B "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 56,
+                              "column": 12,
+                              "name": "hashtag",
+                              "children": [
+                                {
+                                  "line": 56,
+                                  "column": 12,
+                                  "name": "HASHTAG",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 56,
+                                  "column": 13,
+                                  "name": "HASHTAG_TEXT",
+                                  "text": "line:0405c66"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 56,
+                              "column": 25,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 58,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 58,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 58,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 58,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "("
+                        },
+                        {
+                          "line": 58,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "Break up the options)"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 58,
+                      "column": 22,
+                      "name": "NEWLINE",
+                      "text": "\r\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 61,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 61,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 61,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 61,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 61,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 61,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 61,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption A "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 61,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 61,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 61,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 61,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 61,
+                              "column": 24,
+                              "name": "hashtag",
+                              "children": [
+                                {
+                                  "line": 61,
+                                  "column": 24,
+                                  "name": "HASHTAG",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 25,
+                                  "name": "HASHTAG_TEXT",
+                                  "text": "line:0e8a7cd"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 61,
+                              "column": 37,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 62,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 62,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 62,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 62,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 62,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "O"
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ption B "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 62,
+                              "column": 12,
+                              "name": "hashtag",
+                              "children": [
+                                {
+                                  "line": 62,
+                                  "column": 12,
+                                  "name": "HASHTAG",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 13,
+                                  "name": "HASHTAG_TEXT",
+                                  "text": "line:0405c67"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 62,
+                              "column": 25,
+                              "name": "NEWLINE",
+                              "text": "\r\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 64,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 64,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 64,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 64,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "("
+                        },
+                        {
+                          "line": 64,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "Break up the options)"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 64,
+                      "column": 22,
+                      "name": "NEWLINE",
+                      "text": "\r\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 67,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 67,
+                  "column": 0,
+                  "name": "if_statement",
+                  "children": [
+                    {
+                      "line": 67,
+                      "column": 0,
+                      "name": "if_clause",
+                      "children": [
+                        {
+                          "line": 67,
+                          "column": 0,
+                          "name": "COMMAND_START",
+                          "text": "\u003C\u003C"
+                        },
+                        {
+                          "line": 67,
+                          "column": 2,
+                          "name": "COMMAND_IF",
+                          "text": "if "
+                        },
+                        {
+                          "line": 67,
+                          "column": 5,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 67,
+                              "column": 5,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 67,
+                                  "column": 5,
+                                  "name": "KEYWORD_TRUE",
+                                  "text": "true"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 67,
+                          "column": 9,
+                          "name": "COMMAND_END",
+                          "text": "\u003E\u003E"
+                        },
+                        {
+                          "line": 68,
+                          "column": 4,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 68,
+                              "column": 4,
+                              "name": "INDENT",
+                              "text": "\u003Cindent to 4\u003E"
+                            },
+                            {
+                              "line": 68,
+                              "column": 4,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 68,
+                                  "column": 4,
+                                  "name": "shortcut_option_statement",
+                                  "children": [
+                                    {
+                                      "line": 68,
+                                      "column": 4,
+                                      "name": "shortcut_option",
+                                      "children": [
+                                        {
+                                          "line": 68,
+                                          "column": 4,
+                                          "name": "SHORTCUT_ARROW",
+                                          "text": "-\u003E"
+                                        },
+                                        {
+                                          "line": 68,
+                                          "column": 7,
+                                          "name": "line_statement",
+                                          "children": [
+                                            {
+                                              "line": 68,
+                                              "column": 7,
+                                              "name": "line_formatted_text",
+                                              "children": [
+                                                {
+                                                  "line": 68,
+                                                  "column": 7,
+                                                  "name": "TEXT",
+                                                  "text": "O"
+                                                },
+                                                {
+                                                  "line": 68,
+                                                  "column": 8,
+                                                  "name": "TEXT",
+                                                  "text": "ption1"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 68,
+                                              "column": 14,
+                                              "name": "NEWLINE",
+                                              "text": "\r\n"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 69,
+                              "column": 0,
+                              "name": "DEDENT",
+                              "text": "\u003Cdedent from 4\u003E"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 69,
+                      "column": 0,
+                      "name": "else_clause",
+                      "children": [
+                        {
+                          "line": 69,
+                          "column": 0,
+                          "name": "COMMAND_START",
+                          "text": "\u003C\u003C"
+                        },
+                        {
+                          "line": 69,
+                          "column": 2,
+                          "name": "COMMAND_ELSE",
+                          "text": "else"
+                        },
+                        {
+                          "line": 69,
+                          "column": 6,
+                          "name": "COMMAND_END",
+                          "text": "\u003E\u003E"
+                        },
+                        {
+                          "line": 70,
+                          "column": 4,
+                          "name": "statement",
+                          "children": [
+                            {
+                              "line": 70,
+                              "column": 4,
+                              "name": "INDENT",
+                              "text": "\u003Cindent to 4\u003E"
+                            },
+                            {
+                              "line": 70,
+                              "column": 4,
+                              "name": "statement",
+                              "children": [
+                                {
+                                  "line": 70,
+                                  "column": 4,
+                                  "name": "shortcut_option_statement",
+                                  "children": [
+                                    {
+                                      "line": 70,
+                                      "column": 4,
+                                      "name": "shortcut_option",
+                                      "children": [
+                                        {
+                                          "line": 70,
+                                          "column": 4,
+                                          "name": "SHORTCUT_ARROW",
+                                          "text": "-\u003E"
+                                        },
+                                        {
+                                          "line": 70,
+                                          "column": 7,
+                                          "name": "line_statement",
+                                          "children": [
+                                            {
+                                              "line": 70,
+                                              "column": 7,
+                                              "name": "line_formatted_text",
+                                              "children": [
+                                                {
+                                                  "line": 70,
+                                                  "column": 7,
+                                                  "name": "TEXT",
+                                                  "text": "O"
+                                                },
+                                                {
+                                                  "line": 70,
+                                                  "column": 8,
+                                                  "name": "TEXT",
+                                                  "text": "ption2"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "line": 70,
+                                              "column": 14,
+                                              "name": "NEWLINE",
+                                              "text": "\r\n"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 71,
+                              "column": 0,
+                              "name": "DEDENT",
+                              "text": "\u003Cdedent from 4\u003E"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 71,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 71,
+                      "column": 2,
+                      "name": "COMMAND_ENDIF",
+                      "text": "endif"
+                    },
+                    {
+                      "line": 71,
+                      "column": 7,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 73,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

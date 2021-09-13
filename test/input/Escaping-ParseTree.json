@@ -1,0 +1,1704 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 3,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 3,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 3,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 3,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 3,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 3,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with a hashtag "
+                        }
+                      ]
+                    },
+                    {
+                      "line": 3,
+                      "column": 29,
+                      "name": "hashtag",
+                      "children": [
+                        {
+                          "line": 3,
+                          "column": 29,
+                          "name": "HASHTAG",
+                          "text": "#"
+                        },
+                        {
+                          "line": 3,
+                          "column": 30,
+                          "name": "HASHTAG_TEXT",
+                          "text": "hashtag"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 3,
+                      "column": 37,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 4,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 4,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 4,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 4,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 4,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an escaped hashtag "
+                        },
+                        {
+                          "line": 4,
+                          "column": 39,
+                          "name": "TEXT",
+                          "text": "#"
+                        },
+                        {
+                          "line": 4,
+                          "column": 40,
+                          "name": "TEXT",
+                          "text": "hashtag"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 4,
+                      "column": 47,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 6,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an expression "
+                        },
+                        {
+                          "line": 6,
+                          "column": 33,
+                          "name": "EXPRESSION_START",
+                          "text": "{"
+                        },
+                        {
+                          "line": 6,
+                          "column": 34,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 6,
+                              "column": 34,
+                              "name": "value",
+                              "children": [
+                                {
+                                  "line": 6,
+                                  "column": 34,
+                                  "name": "NUMBER",
+                                  "text": "0"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 6,
+                          "column": 35,
+                          "name": "EXPRESSION_END",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 36,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 7,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an escaped expression "
+                        },
+                        {
+                          "line": 7,
+                          "column": 42,
+                          "name": "TEXT",
+                          "text": "{"
+                        },
+                        {
+                          "line": 7,
+                          "column": 43,
+                          "name": "TEXT",
+                          "text": "0"
+                        },
+                        {
+                          "line": 7,
+                          "column": 45,
+                          "name": "TEXT",
+                          "text": "}"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 46,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 12,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 12,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 12,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 12,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 12,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an escaped command "
+                        },
+                        {
+                          "line": 12,
+                          "column": 39,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 12,
+                          "column": 41,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 12,
+                          "column": 42,
+                          "name": "TEXT",
+                          "text": "foo"
+                        },
+                        {
+                          "line": 12,
+                          "column": 46,
+                          "name": "TEXT",
+                          "text": "\u003E"
+                        },
+                        {
+                          "line": 12,
+                          "column": 48,
+                          "name": "TEXT",
+                          "text": "\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 12,
+                      "column": 49,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 14,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 14,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 14,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 14,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 14,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with a comment "
+                        }
+                      ]
+                    },
+                    {
+                      "line": 14,
+                      "column": 35,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 15,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 15,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 15,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 15,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 15,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an escaped comment "
+                        },
+                        {
+                          "line": 15,
+                          "column": 39,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 15,
+                          "column": 41,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 15,
+                          "column": 42,
+                          "name": "TEXT",
+                          "text": " wow"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 15,
+                      "column": 46,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 17,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 17,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 17,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 17,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 17,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a line with an escaped backslash "
+                        },
+                        {
+                          "line": 17,
+                          "column": 41,
+                          "name": "TEXT",
+                          "text": "\\"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 17,
+                      "column": 42,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 19,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 19,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 19,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 19,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 19,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s some TMP-style styling with a color code: "
+                        },
+                        {
+                          "line": 19,
+                          "column": 49,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 19,
+                          "column": 50,
+                          "name": "TEXT",
+                          "text": "color="
+                        },
+                        {
+                          "line": 19,
+                          "column": 57,
+                          "name": "TEXT",
+                          "text": "#"
+                        },
+                        {
+                          "line": 19,
+                          "column": 58,
+                          "name": "TEXT",
+                          "text": "fff\u003Ewow"
+                        },
+                        {
+                          "line": 19,
+                          "column": 65,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 19,
+                          "column": 66,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 19,
+                          "column": 67,
+                          "name": "TEXT",
+                          "text": "color\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 19,
+                      "column": 73,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 21,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 21,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 21,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 21,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 21,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s a url: http:"
+                        },
+                        {
+                          "line": 21,
+                          "column": 20,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 21,
+                          "column": 22,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 21,
+                          "column": 23,
+                          "name": "TEXT",
+                          "text": "github.com"
+                        },
+                        {
+                          "line": 21,
+                          "column": 34,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 21,
+                          "column": 35,
+                          "name": "TEXT",
+                          "text": "YarnSpinnerTool"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 21,
+                      "column": 50,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 25,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 25,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 25,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 25,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 25,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s some markup: [a]hello["
+                        },
+                        {
+                          "line": 25,
+                          "column": 29,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 25,
+                          "column": 30,
+                          "name": "TEXT",
+                          "text": "a]"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 25,
+                      "column": 32,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 26,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 26,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 26,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 26,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "H"
+                        },
+                        {
+                          "line": 26,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ere\u0027s some escaped markup: "
+                        },
+                        {
+                          "line": 26,
+                          "column": 28,
+                          "name": "TEXT",
+                          "text": "\\["
+                        },
+                        {
+                          "line": 26,
+                          "column": 30,
+                          "name": "TEXT",
+                          "text": "a"
+                        },
+                        {
+                          "line": 26,
+                          "column": 31,
+                          "name": "TEXT",
+                          "text": "\\]"
+                        },
+                        {
+                          "line": 26,
+                          "column": 33,
+                          "name": "TEXT",
+                          "text": "hello"
+                        },
+                        {
+                          "line": 26,
+                          "column": 38,
+                          "name": "TEXT",
+                          "text": "\\["
+                        },
+                        {
+                          "line": 26,
+                          "column": 40,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 26,
+                          "column": 41,
+                          "name": "TEXT",
+                          "text": "a"
+                        },
+                        {
+                          "line": 26,
+                          "column": 42,
+                          "name": "TEXT",
+                          "text": "\\]"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 26,
+                      "column": 44,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 28,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 28,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 28,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 28,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 28,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 28,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 28,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 28,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with a hashtag "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 28,
+                              "column": 35,
+                              "name": "hashtag",
+                              "children": [
+                                {
+                                  "line": 28,
+                                  "column": 35,
+                                  "name": "HASHTAG",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 28,
+                                  "column": 36,
+                                  "name": "HASHTAG_TEXT",
+                                  "text": "hashtag"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 28,
+                              "column": 43,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 29,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 29,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 29,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 29,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 29,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 29,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an escaped hashtag "
+                                },
+                                {
+                                  "line": 29,
+                                  "column": 45,
+                                  "name": "TEXT",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 29,
+                                  "column": 46,
+                                  "name": "TEXT",
+                                  "text": "hashtag"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 29,
+                              "column": 53,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 31,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 31,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 31,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 31,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 31,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 31,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an expression "
+                                },
+                                {
+                                  "line": 31,
+                                  "column": 39,
+                                  "name": "EXPRESSION_START",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 31,
+                                  "column": 40,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 31,
+                                      "column": 40,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 31,
+                                          "column": 40,
+                                          "name": "NUMBER",
+                                          "text": "0"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 31,
+                                  "column": 41,
+                                  "name": "EXPRESSION_END",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 31,
+                              "column": 42,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 32,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 32,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 32,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 32,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 32,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 32,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an escaped expression "
+                                },
+                                {
+                                  "line": 32,
+                                  "column": 48,
+                                  "name": "TEXT",
+                                  "text": "{"
+                                },
+                                {
+                                  "line": 32,
+                                  "column": 49,
+                                  "name": "TEXT",
+                                  "text": "0"
+                                },
+                                {
+                                  "line": 32,
+                                  "column": 51,
+                                  "name": "TEXT",
+                                  "text": "}"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 32,
+                              "column": 52,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 36,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 36,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 36,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 36,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 36,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 36,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with a condition "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 36,
+                              "column": 37,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 36,
+                                  "column": 37,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 36,
+                                  "column": 39,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 36,
+                                  "column": 42,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 36,
+                                      "column": 42,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 36,
+                                          "column": 42,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 36,
+                                  "column": 46,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 36,
+                              "column": 48,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 37,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 37,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 37,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 37,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 37,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an escaped condition "
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 47,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 49,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 50,
+                                  "name": "TEXT",
+                                  "text": "if true"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 58,
+                                  "name": "TEXT",
+                                  "text": "\u003E"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 60,
+                                  "name": "TEXT",
+                                  "text": "\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 37,
+                              "column": 61,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 39,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 39,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 39,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 39,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 39,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 39,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with a comment "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 39,
+                              "column": 41,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 40,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 40,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 40,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 40,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 40,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an escaped comment "
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 45,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 47,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 48,
+                                  "name": "TEXT",
+                                  "text": " wow"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 40,
+                              "column": 52,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 42,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 42,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 42,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 42,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 42,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 42,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s an option with an escaped backslash "
+                                },
+                                {
+                                  "line": 42,
+                                  "column": 47,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 42,
+                              "column": 48,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 44,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 44,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 44,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 44,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 44,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s some TMP-style styling with a color code: "
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 52,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 53,
+                                  "name": "TEXT",
+                                  "text": "color="
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 60,
+                                  "name": "TEXT",
+                                  "text": "#"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 61,
+                                  "name": "TEXT",
+                                  "text": "fff\u003Ewow"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 68,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 69,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 70,
+                                  "name": "TEXT",
+                                  "text": "color\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 44,
+                              "column": 76,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 47,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 47,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 47,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 47,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 47,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s a url: http:"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 23,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 25,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 26,
+                                  "name": "TEXT",
+                                  "text": "github.com"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 37,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 38,
+                                  "name": "TEXT",
+                                  "text": "YarnSpinnerTool"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 47,
+                              "column": 53,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 51,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 51,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 51,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 51,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 51,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 51,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s some markup: [a]hello["
+                                },
+                                {
+                                  "line": 51,
+                                  "column": 32,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 51,
+                                  "column": 33,
+                                  "name": "TEXT",
+                                  "text": "a]"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 51,
+                              "column": 35,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 52,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 52,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 52,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 52,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 52,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "H"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ere\u0027s some escaped markup: "
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 31,
+                                  "name": "TEXT",
+                                  "text": "\\["
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 33,
+                                  "name": "TEXT",
+                                  "text": "a"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 34,
+                                  "name": "TEXT",
+                                  "text": "\\]"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 36,
+                                  "name": "TEXT",
+                                  "text": "hello"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 41,
+                                  "name": "TEXT",
+                                  "text": "\\["
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 43,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 44,
+                                  "name": "TEXT",
+                                  "text": "a"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 45,
+                                  "name": "TEXT",
+                                  "text": "\\]"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 52,
+                              "column": 47,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 54,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}
