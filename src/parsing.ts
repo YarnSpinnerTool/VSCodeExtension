@@ -37,6 +37,15 @@ class ErrorListener implements ANTLRErrorListener<Token | number> {
     }
 }
 
+export class NodeInfo {
+    title: string = "";
+    position: {x : number, y:number} = {x:0, y:0}
+    destinations: NodeInfo[] = []
+    tags: string[] = []
+    line: number = 0
+    bodyLine : number = 0
+}
+
 export class SerializedParseNode {
     line: number = 0;
     column: number = 0;
@@ -137,3 +146,84 @@ export function parse(inputSource: string): {tree: SerializedParseNode, errors: 
     return {tree: root, errors: errorListener.errors, parseContext: tree};
 }
 
+export function getNodeInfo(parseTree : DialogueContext) : NodeInfo[] {
+    class NodeListener implements YarnSpinnerParserListener {
+        private currentNode? : NodeInfo
+
+        jumps : {from: string, to: string}[] = []
+
+        nodeInfos : NodeInfo[] = []
+
+        enterNode(ctx: NodeContext) {
+            this.currentNode = new NodeInfo()
+            this.nodeInfos.push(this.currentNode)
+            this.currentNode.line = ctx.start.line
+        }
+
+        enterBody(ctx: BodyContext) {
+            if (this.currentNode) {
+                // The first token in a body is the '---' at the start;
+                // return this plus one to indicate the next line (i.e. the
+                // first line where actual content would be.)
+                this.currentNode.bodyLine = ctx.start.line + 1;
+            }
+        }
+
+        exitHeader(ctx: HeaderContext) {
+
+            if (!this.currentNode) {
+                throw new Error("Internal error: can't parse a header if we aren't in a node");
+            }
+
+            var headerKey = ctx._header_key.text;
+
+            var headerValue = ctx._header_value?.text ?? "";
+
+            if (headerKey === "title")
+            {
+                this.currentNode.title = headerValue;
+            }
+
+            if (headerKey === "position")
+            {
+                var coords = headerValue.trim().split(",").map(val => parseInt(val))
+
+                if (coords.length == 2) {
+                    this.currentNode.position = {
+                        x: coords[0],
+                        y: coords[1]
+                    }
+                }
+            }
+
+            if (headerKey === "tags")
+            {
+                this.currentNode.tags = headerValue.trim().split(" ");
+            }
+        }
+
+        exitJump_statement(ctx: Jump_statementContext) {
+            this.jumps.push({ 
+                from: this.currentNode?.title ?? "<error!>", 
+                to: ctx._destination.text ?? "<error!>" 
+            })
+        }
+    }
+
+    const listener = new NodeListener()
+
+    ParseTreeWalker.DEFAULT.walk(listener as YarnSpinnerParserListener, parseTree);
+
+    function getNode(title: string) : NodeInfo | undefined { return listener.nodeInfos.filter(n => n.title === title)[0] };
+
+    for (var link of listener.jumps) {
+        const from = getNode(link.from);
+        const to = getNode(link.to);
+
+        if (from && to) {
+            from.destinations.push(to);
+        }
+    }
+
+    return listener.nodeInfos;
+}

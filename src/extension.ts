@@ -17,5 +17,35 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(yarnSpinnerDiagnostics);
 
 	subscribeToDocumentChanges(context, yarnSpinnerDiagnostics);
+
+	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ language: "yarnspinner", scheme: "file" }, new YarnSpinnerSymbolProvider());
+	context.subscriptions.push(symbolProvider);
 	
+}
+
+class YarnSpinnerSymbolProvider implements vscode.DocumentSymbolProvider {
+	provideDocumentSymbols(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.SymbolInformation[] | vscode.DocumentSymbol[]> {
+
+		if (document.languageId !== "yarnspinner") {
+			// Don't do anything if this isn't a Yarn Spinner document
+			return
+		}
+		
+		var parseTree = parse(document.getText());
+		var nodeInfo = getNodeInfo(parseTree.parseContext);
+
+		var nodes : vscode.SymbolInformation[] = [];
+
+		for (var node of nodeInfo) {
+			
+			const range = new vscode.Range(node.line - 1, 0, node.line - 1, 1);
+			var symbol = new vscode.SymbolInformation(node.title, vscode.SymbolKind.Key, "document", new vscode.Location(document.uri, range));
+			
+
+			nodes.push(symbol);
+		}
+
+		return nodes;
+	}
+
 }

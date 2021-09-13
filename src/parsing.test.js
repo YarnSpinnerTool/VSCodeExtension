@@ -35,3 +35,39 @@ testCases.forEach(testCase => {
   });
 });
 
+
+test('jumps are detected', () => {
+  var source = `
+title: One
+---
+<<jump Two>>
+<<jump Three>>
+===
+title: Two
+---
+<<jump Three>>
+===
+title: Three
+---
+<<jump One>>
+===
+  `
+
+  var result = parse(source);
+  var nodes = getNodeInfo(result.parseContext);
+
+  expect(nodes).toHaveLength(3);
+
+  expect(nodes[0].title).toBe("One")
+  expect(nodes[1].title).toBe("Two")
+  expect(nodes[2].title).toBe("Three")
+
+  expect(nodes[0].destinations).toHaveLength(2)
+  expect(nodes[1].destinations).toHaveLength(1)
+  expect(nodes[2].destinations).toHaveLength(1)
+
+  expect(nodes[0].destinations[0].title).toBe("Two");
+  expect(nodes[0].destinations[1].title).toBe("Three");
+  expect(nodes[1].destinations[0].title).toBe("Three");
+  expect(nodes[2].destinations[0].title).toBe("One");
+});
