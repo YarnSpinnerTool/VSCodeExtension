@@ -78,6 +78,12 @@
                 "scopeName": "source.yarnspinner",
                 "path": "./syntaxes/yarnspinner.tmLanguage.json"
             }
+        ],
+        "snippets": [
+            {
+                "language": "yarnspinner",
+                "path": "./snippets.json"
+            }
         ]
     },
     "dependencies": {
