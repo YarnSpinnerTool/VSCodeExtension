@@ -28,9 +28,9 @@ allYarnFiles.forEach(sourcePath => {
 testCases.forEach(testCase => {
   test('testing ' + testCase[0], () => {
     var source = fs.readFileSync(path.join(base, testCase[0])).toString();
-    var {tree, errors} = parse(source);
+    var { tree, errors } = parse(source);
     var expectedTree = loadParseTree(path.join(base, testCase[1]))
-    
+
     expect(tree).toEqual(expectedTree);
   });
 });

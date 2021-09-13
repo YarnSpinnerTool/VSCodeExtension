@@ -56,6 +56,7 @@ export default abstract class IndentAwareLexer extends Lexer {
                 break;
         }
     }
+
     handleNewLineToken(currentToken: Token) {
         // We're about to go to a new line. Look ahead to see how indented
         // it is.
@@ -66,6 +67,8 @@ export default abstract class IndentAwareLexer extends Lexer {
         const currentIndentationLength = this.getLengthOfNewlineToken(currentToken);
 
         var previousIndent: number;
+
+        // Get the current indent level, if we have one
         if (this.indents.length > 0) {
             previousIndent = this.indents[this.indents.length - 1];
         }
@@ -103,6 +106,7 @@ export default abstract class IndentAwareLexer extends Lexer {
             }
         }
     }
+
     getLengthOfNewlineToken(currentToken: Token): number {
         if (currentToken.type != YarnSpinnerLexer.NEWLINE) {
             throw new Error(`expected currentToken to be a NEWLINE (${YarnSpinnerLexer.NEWLINE}), not ${currentToken.type}`);
@@ -132,6 +136,7 @@ export default abstract class IndentAwareLexer extends Lexer {
 
         return length;
     }
+
     handleEndOfFileToken(currentToken: Token) {
         // We're at the end of the file. Emit as many dedents as we
         // currently have on the stack.
@@ -143,10 +148,12 @@ export default abstract class IndentAwareLexer extends Lexer {
         // Finally, enqueue the EOF token.
         this.pendingTokens.push(currentToken);
     }
+
     insertToken(text: string, type: number) {
         const startIndex = this._tokenStartCharIndex + this.text.length;
         this.insertTokenFull(startIndex, startIndex - 1, text, type, this.line, this.charPositionInLine);
     }
+
     insertTokenFull(startIndex: number, stopIndex: number, text: string, type: number, line: any, column: any) {
         // var tokenFactorySourcePair = Tuple.Create((ITokenSource)this,
         // (ICharStream)this.InputStream);
@@ -155,7 +162,6 @@ export default abstract class IndentAwareLexer extends Lexer {
 
         token.line = line;
         token.charPositionInLine = column;
-
 
         this.pendingTokens.push(token);
     }
