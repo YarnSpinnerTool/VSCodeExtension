@@ -1,0 +1,18 @@
+body {
+    overflow: scroll;
+}
+
+div.node {
+    border: 1px solid var(--vscode-foreground);
+
+    width: 100px;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    touch-action: none;
+    user-select: none;
+
+}

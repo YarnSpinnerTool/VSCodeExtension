@@ -8,6 +8,7 @@ import { subscribeToDocumentChanges } from './diagnostics';
 import { getNodeInfo, parse } from './parsing';
 import { Uri } from 'vscode';
 import { symlink, watch } from 'fs';
+import { YarnSpinnerEditorProvider } from './editor';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,17 +18,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 	subscribeToDocumentChanges(context, yarnSpinnerDiagnostics);
 
-	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ language: "yarnspinner", scheme: "file" }, new YarnSpinnerSymbolProvider());
+	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ language: "yarnspinner" }, new YarnSpinnerSymbolProvider());
 	context.subscriptions.push(symbolProvider);
+
+	context.subscriptions.push(YarnSpinnerEditorProvider.register(context));
+
+	context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
+		vscode.commands.executeCommand("vscode.openWith", vscode.window.activeTextEditor?.document.uri, YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
+	}))
 }
 
 class YarnSpinnerSymbolProvider implements vscode.DocumentSymbolProvider {
 	provideDocumentSymbols(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.SymbolInformation[] | vscode.DocumentSymbol[]> {
-
-		if (document.languageId !== "yarnspinner") {
-			// Don't do anything if this isn't a Yarn Spinner document
-			return
-		}
 
 		var parseTree = parse(document.getText());
 		var nodeInfo = getNodeInfo(parseTree.parseContext);
