@@ -1,11 +1,12 @@
 import { YarnSpinnerLexer } from './YarnSpinnerLexer';
-import { BodyContext, DialogueContext, HeaderContext, Jump_statementContext, NodeContext, YarnSpinnerParser } from './YarnSpinnerParser';
+import { DialogueContext, HeaderContext, Jump_statementContext, NodeContext, YarnSpinnerParser } from './YarnSpinnerParser';
 import * as antlr4ts from 'antlr4ts';
 import { ParseTree } from 'antlr4ts/tree/ParseTree';
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker'
 import { ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
 import { ANTLRErrorListener } from 'antlr4ts';
 import { YarnSpinnerParserListener } from './YarnSpinnerParserListener'
+import { Position, Range } from 'vscode';
 
 interface Error {
     line: number
@@ -40,10 +41,15 @@ class ErrorListener implements ANTLRErrorListener<Token | number> {
 export class NodeInfo {
     title: string = "";
     position: { x: number, y: number } = { x: 0, y: 0 }
-    destinations: NodeInfo[] = []
+    destinations: string[] = []
     tags: string[] = []
     line: number = 0
     bodyLine: number = 0
+
+    start: Position = new Position(0, 0);
+    end: Position = new Position(0, 0);
+
+    getRange(): Range {return new Range(this.start, this.end);}
 }
 
 export class SerializedParseNode {
@@ -158,15 +164,9 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
             this.currentNode = new NodeInfo()
             this.nodeInfos.push(this.currentNode)
             this.currentNode.line = ctx.start.line
-        }
+            this.currentNode.bodyLine = ctx.BODY_START().symbol.line + 1;
 
-        enterBody(ctx: BodyContext) {
-            if (this.currentNode) {
-                // The first token in a body is the '---' at the start;
-                // return this plus one to indicate the next line (i.e. the
-                // first line where actual content would be.)
-                this.currentNode.bodyLine = ctx.start.line + 1;
-            }
+            this.currentNode.start = new Position(ctx.start.line - 1, ctx.start.charPositionInLine);
         }
 
         exitHeader(ctx: HeaderContext) {
@@ -205,6 +205,21 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
                 to: ctx._destination.text ?? "<error!>"
             })
         }
+
+        exitNode(ctx: NodeContext) {
+            if (!this.currentNode) {
+                throw new Error('Internal error: Exited node but this.currentNode was undefined');
+            }
+            if (!ctx.stop) {
+                // We don't have a stop token for some reason? use the
+                // start token instead (this will effectively make this
+                // node have a zero-length Range)
+                this.currentNode.end = this.currentNode.start;
+                return;
+            }
+            const stopTokenText = (ctx.stop?.text ?? "");
+            this.currentNode.end = new Position(ctx.stop.line - 1, ctx.stop.charPositionInLine + stopTokenText.length);
+        }
     }
 
     const listener = new NodeListener()
@@ -218,7 +233,7 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
         const to = getNode(link.to);
 
         if (from && to) {
-            from.destinations.push(to);
+            from.destinations.push(to.title);
         }
     }
 

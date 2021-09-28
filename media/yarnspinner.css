@@ -1,18 +1,49 @@
 body {
-    overflow: scroll;
+    overflow: clip;
+}
+
+div.nodes {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    touch-action: none;
+    user-select: none;
+    z-index: 1;
+}
+
+
+div.buttons {
+    position: absolute;
+    z-index: 2;
 }
 
 div.node {
     border: 1px solid var(--vscode-foreground);
-
-    width: 100px;
+    
     border-radius: 10px;
-
+    
     position: absolute;
     top: 0;
     left: 0;
-
+    
     touch-action: none;
     user-select: none;
+    padding: 5px;
 
+    width: 150px;
+    
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.node .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.node#node-template {
+    display:none;
 }

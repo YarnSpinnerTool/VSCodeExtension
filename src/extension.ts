@@ -2,12 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import { YarnSpinnerParser } from './YarnSpinnerParser';
-
 import { subscribeToDocumentChanges } from './diagnostics';
 import { getNodeInfo, parse } from './parsing';
-import { Uri } from 'vscode';
-import { symlink, watch } from 'fs';
 import { YarnSpinnerEditorProvider } from './editor';
 
 // this method is called when your extension is activated
@@ -18,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	subscribeToDocumentChanges(context, yarnSpinnerDiagnostics);
 
-	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ language: "yarnspinner" }, new YarnSpinnerSymbolProvider());
+	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ pattern: "**/*.{yarn,yarnproject,yarn.txt}" }, new YarnSpinnerSymbolProvider());
 	context.subscriptions.push(symbolProvider);
 
 	context.subscriptions.push(YarnSpinnerEditorProvider.register(context));

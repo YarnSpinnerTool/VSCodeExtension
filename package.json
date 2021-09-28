@@ -2,7 +2,7 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "2.0.0",
+    "version": "2.0.0-beta1",
     "homepage": "https://yarnspinner.dev",
     "license": "MIT",
     "keywords": [
@@ -75,7 +75,7 @@
                         "filenamePattern": "*.{yarn,yarnproject,yarn.txt}"
                     }
                 ],
-                "priority": "default"
+                "priority": "option"
             }
         ],
         "commands": [
@@ -115,7 +115,9 @@
         ]
     },
     "dependencies": {
+        "@vscode/codicons": "^0.0.22",
         "antlr4ts": "^0.5.0-alpha.4",
-        "interactjs": "^1.10.11"
+        "interactjs": "^1.10.11",
+        "leader-line": "^1.0.5"
     }
 }

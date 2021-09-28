@@ -3,6 +3,8 @@ import * as vscode from 'vscode';
 import * as parsing from './parsing';
 import { HeaderContext, NodeContext, YarnSpinnerParser } from './YarnSpinnerParser';
 import { YarnSpinnerParserListener } from './YarnSpinnerParserListener';
+import * as fs from 'fs';
+import { Parser } from 'antlr4ts';
 
 export class NodesUpdatedEvent {
     type = "update"
@@ -24,6 +26,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         function updateWebview(document : vscode.TextDocument) {
             var parseTree = parsing.parse(document.getText());
             var nodes = parsing.getNodeInfo(parseTree.parseContext);
+            // document.
 
             webviewPanel.webview.postMessage({
                 type: 'update',
@@ -63,15 +66,36 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 
                 case 'move':
                     this.moveNode(document, e.id, e.position);
+                    return;
+                
+                case 'open':
+                    this.openNode(document, e.id);
+                    return;
 			}
 		});
 
 		updateWebview(document);
     }
+    openNode(document: vscode.TextDocument, id: string) {
+        var parseTree = parsing.parse(document.getText());
+        
+        var nodeInfos = parsing.getNodeInfo(parseTree.parseContext).filter(n => n.title == id);
+
+        if (nodeInfos.length > 0) {
+            const nodeInfo = nodeInfos[0];
+            var existingEditorColumn = vscode.window.visibleTextEditors.filter(editor => editor.document == document)[0]?.viewColumn;
+
+            vscode.window.showTextDocument(document, existingEditorColumn).then(editor => {
+                var startOfNode = new vscode.Range(nodeInfo.line - 1, 0, nodeInfo.line - 1, 0);
+                editor.revealRange(startOfNode, vscode.TextEditorRevealType.AtTop);
+                var startOfBody = new vscode.Range(nodeInfo.bodyLine - 1, 0, nodeInfo.bodyLine - 1, 0);
+                editor.selection = new vscode.Selection(startOfBody.start, startOfBody.end);
+            })
+        }
+        
+    }
 
     moveNode(document: vscode.TextDocument, id: string, position: {x: number, y: number}) {
-        console.log(`Node ${id} moved to ${JSON.stringify(position)}`);
-
         var parseTree = parsing.parse(document.getText());
 
         class NodeHeaderFinder implements YarnSpinnerParserListener {
@@ -149,10 +173,72 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         
     }
     deleteNode(document: vscode.TextDocument, id: string) {
-        throw new Error('Method not implemented.');
+        var parseTree = parsing.parse(document.getText());
+        var nodeInfos = parsing.getNodeInfo(parseTree.parseContext);
+
+        const nodesWithTitle = nodeInfos.filter(n => n.title === id);
+        if (nodesWithTitle.length > 1) {
+            vscode.window.showErrorMessage(`Can't delete node: multiple nodes named ${id} exist in this document. Please modify the source code directly.`);
+            return;
+        } else if (nodesWithTitle.length == 0) {
+            console.error(`Can't delete node called ${id}: it doesn't exist in the document`);
+        }
+
+        var selectedNode = nodesWithTitle[0];
+
+        var range = selectedNode.getRange();
+
+        var edit = new vscode.WorkspaceEdit();
+        edit.delete(document.uri, range);
+        vscode.workspace.applyEdit(edit);
     }
     addNode(document: vscode.TextDocument) {
-        console.log("Adding a new node.");
+        
+        var parseResult = parsing.parse(document.getText());
+        var existingNodes = parsing.getNodeInfo(parseResult.parseContext);
+        var existingNodeNames = existingNodes.map(n => n.title);
+
+        var attemptCount = 0;
+        var baseNodeName = "Node"
+        var newNodeName = baseNodeName;
+        
+        while (existingNodeNames.indexOf(newNodeName) != -1) {
+            attemptCount += 1;
+            newNodeName = `${baseNodeName}${attemptCount.toString()}`;
+        }
+        
+        // Find the end of the document and insert a new node
+        var lastLine = document.lineAt(document.lineCount - 1);
+
+        var insertionPoint = lastLine.range.end;
+
+        var insertNewLine : boolean
+
+        
+        if (lastLine.isEmptyOrWhitespace) {
+            insertNewLine = false;
+        } else {
+            insertNewLine = true;
+        }
+        
+        var newNodeTemplatePath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'NewNodeTemplate.yarn').fsPath;
+        
+        
+        var contents = fs.readFile(newNodeTemplatePath, null, (err, data) => {
+            var contents = data.toString();
+
+            contents = contents.replace("{NODE_NAME}", newNodeName);
+
+            var edit = new vscode.WorkspaceEdit();
+
+            if (insertNewLine) {
+                contents = "\n" + contents;
+            }
+            
+            edit.insert(document.uri, insertionPoint, contents);
+
+            vscode.workspace.applyEdit(edit);
+        });
     }
 
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -190,7 +276,15 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         const interactScriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'node_modules', 'interactjs', 'dist', 'interact.js'
-        ))
+        ));
+
+        const leaderLineScriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
+            this.context.extensionUri, 'node_modules', 'leader-line', 'leader-line.min.js'
+        ));
+
+        const codiconsUri = webview.asWebviewUri(vscode.Uri.joinPath(
+            this.context.extensionUri, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css'
+        ));
 
         const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'media', 'reset.css'));
@@ -203,7 +297,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         // Use a nonce to allowlist which scripts can be run
         const nonce = YarnSpinnerEditorProvider.getNonce();
-
+        
         return /* html */`
 			<!DOCTYPE html>
 			<html lang="en">
@@ -213,21 +307,25 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 				Use a content security policy to only allow loading images from https or from our extension directory,
 				and only allow scripts that have a specific nonce.
 				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource}">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${styleResetUri}" rel="stylesheet" />
 				<link href="${styleVSCodeUri}" rel="stylesheet" />
 				<link href="${styleMainUri}" rel="stylesheet" />
+                <link href="${codiconsUri}" rel="stylesheet" />
 				<title>Yarn Spinner</title>
 			</head>
 			<body>
-				<div class="buttons">
+				<div class="nodes"></div>
+                <div class="buttons">
 						<button id="add-node">Add Node</button>
-						<button id="delete-node">Delete Node</button>
-					
 				</div>
-                <div class="nodes"></div>
+                <div id="node-template" class="node">
+                    <div class="title">Node Title</div>
+                    <div class="node-buttons"><i class="codicon codicon-trash button-delete"></i></div>
+                </div>
                 <script nonce="${nonce}" src="${interactScriptUri}"></script>
+                <script nonce="${nonce}" src="${leaderLineScriptUri}"></script>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
