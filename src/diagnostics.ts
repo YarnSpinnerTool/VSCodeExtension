@@ -66,7 +66,9 @@ export function refreshDiagnostics(doc: vscode.TextDocument, yarnSpinnerDiagnost
 	var results = parse(doc.getText());
 
 	for (const error of results.errors) {
-		const range = new vscode.Range(error.line - 1, error.column, error.line - 1, error.column + error.length);
+		var line = Math.max(error.line - 1, 0);
+		var column = Math.max(error.column, 0);
+		const range = new vscode.Range(line, column, line, column + error.length);
 		const diagnostic = new vscode.Diagnostic(range, error.message, vscode.DiagnosticSeverity.Error);
 
 		diagnostics.push(diagnostic);
