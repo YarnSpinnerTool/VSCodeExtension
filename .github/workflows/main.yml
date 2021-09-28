@@ -33,6 +33,9 @@ jobs:
         
       - name: Clean install dependencies
         run: npm ci
+
+      - name: Run unit tests
+        run: npm test
       
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
