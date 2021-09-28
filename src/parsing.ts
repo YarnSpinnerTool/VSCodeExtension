@@ -6,7 +6,6 @@ import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker'
 import { ParserRuleContext, RecognitionException, Recognizer, Token } from 'antlr4ts';
 import { ANTLRErrorListener } from 'antlr4ts';
 import { YarnSpinnerParserListener } from './YarnSpinnerParserListener'
-import { Position, Range } from 'vscode';
 
 interface Error {
     line: number
@@ -38,6 +37,11 @@ class ErrorListener implements ANTLRErrorListener<Token | number> {
     }
 }
 
+interface Position {
+    line: number;
+    character: number
+}
+
 export class NodeInfo {
     title: string = "";
     position: { x: number, y: number } = { x: 0, y: 0 }
@@ -46,10 +50,8 @@ export class NodeInfo {
     line: number = 0
     bodyLine: number = 0
 
-    start: Position = new Position(0, 0);
-    end: Position = new Position(0, 0);
-
-    getRange(): Range {return new Range(this.start, this.end);}
+    start: Position = { line: 0, character: 0 };
+    end: Position = { line: 0, character: 0 };
 }
 
 export class SerializedParseNode {
@@ -166,7 +168,7 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
             this.currentNode.line = ctx.start.line
             this.currentNode.bodyLine = ctx.BODY_START().symbol.line + 1;
 
-            this.currentNode.start = new Position(ctx.start.line - 1, ctx.start.charPositionInLine);
+            this.currentNode.start = { line: ctx.start.line - 1, character: ctx.start.charPositionInLine };
         }
 
         exitHeader(ctx: HeaderContext) {
@@ -218,7 +220,8 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
                 return;
             }
             const stopTokenText = (ctx.stop?.text ?? "");
-            this.currentNode.end = new Position(ctx.stop.line - 1, ctx.stop.charPositionInLine + stopTokenText.length);
+
+            this.currentNode.end = { line: ctx.stop.line - 1, character: ctx.start.charPositionInLine + stopTokenText.length };
         }
     }
 
@@ -226,7 +229,9 @@ export function getNodeInfo(parseTree: DialogueContext): NodeInfo[] {
 
     ParseTreeWalker.DEFAULT.walk(listener as YarnSpinnerParserListener, parseTree);
 
-    function getNode(title: string): NodeInfo | undefined { return listener.nodeInfos.filter(n => n.title === title)[0] };
+    function getNode(title: string): NodeInfo | undefined {
+        return listener.nodeInfos.filter(n => n.title === title)[0]
+    };
 
     for (var link of listener.jumps) {
         const from = getNode(link.from);

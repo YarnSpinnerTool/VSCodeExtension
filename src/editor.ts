@@ -186,7 +186,10 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         var selectedNode = nodesWithTitle[0];
 
-        var range = selectedNode.getRange();
+        var range = new vscode.Range(
+            new vscode.Position(selectedNode.start.line, selectedNode.start.character),
+            new vscode.Position(selectedNode.end.line, selectedNode.end.character),
+        )
 
         var edit = new vscode.WorkspaceEdit();
         edit.delete(document.uri, range);
