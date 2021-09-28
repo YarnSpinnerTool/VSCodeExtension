@@ -66,8 +66,8 @@ title: Three
   expect(nodes[1].destinations).toHaveLength(1)
   expect(nodes[2].destinations).toHaveLength(1)
 
-  expect(nodes[0].destinations[0].title).toBe("Two");
-  expect(nodes[0].destinations[1].title).toBe("Three");
-  expect(nodes[1].destinations[0].title).toBe("Three");
-  expect(nodes[2].destinations[0].title).toBe("One");
+  expect(nodes[0].destinations[0]).toBe("Two");
+  expect(nodes[0].destinations[1]).toBe("Three");
+  expect(nodes[1].destinations[0]).toBe("Three");
+  expect(nodes[2].destinations[0]).toBe("One");
 });
