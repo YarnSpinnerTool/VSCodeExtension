@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.0.0
+
+## Added
+
+- Support for detecting syntax errors in Yarn Spinner 2.0 source.
+- A visual editor for creating, managing and deleting nodes.
+
 ## 1.1.0
 
 ### Added
