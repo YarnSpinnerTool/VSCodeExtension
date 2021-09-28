@@ -4,6 +4,7 @@
     "description": "Adds support for the Yarn Spinner dialogue language.",
     "version": "2.0.0-beta1",
     "homepage": "https://yarnspinner.dev",
+    "repository": "https://github.com/YarnSpinnerTool/VSCodeExtension",
     "license": "MIT",
     "keywords": [
         "yarn spinner",
@@ -30,7 +31,7 @@
         "theme": "light"
     },
     "engines": {
-        "vscode": "^1.38.0"
+        "vscode": "^1.60.0"
     },
     "categories": [
         "Programming Languages"
@@ -41,6 +42,7 @@
         "lint": "eslint . --ext .ts,.tsx",
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",
+        "package": "vsce package",
         "antlr4ts": "antlr4ts src/YarnSpinnerLexer.g4 ; antlr4ts -visitor src/YarnSpinnerParser.g4"
     },
     "devDependencies": {
@@ -54,7 +56,8 @@
         "jest": "^27.1.1",
         "jest-each": "^27.1.1",
         "ts-jest": "^27.0.5",
-        "typescript": "^4.2.2"
+        "typescript": "^4.2.2",
+        "vsce": "~1.71.0"
     },
     "contributes": {
         "menus": {
