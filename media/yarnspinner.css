@@ -37,7 +37,8 @@ div.nodes {
 }
 
 div.node {
-    border: 1px solid var(--vscode-editorGroup-border);
+    border: 1px solid var(--vscode-notebook-cellBorderColor);
+    background-color: var(--vscode-editor-background);
     
     border-radius: 2px;
     
@@ -55,8 +56,6 @@ div.node {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    background-color: var(--vscode-editor-background);
 
     box-shadow: 0 0 10px var(--vscode-widget-shadow);
 }
