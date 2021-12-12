@@ -1,5 +1,5 @@
 title: {NODE_NAME}
-position: 0,0
+position: {NODE_POSITION_X},{NODE_POSITION_Y}
 ---
 
 ===

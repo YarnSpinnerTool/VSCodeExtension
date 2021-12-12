@@ -57,7 +57,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 		webviewPanel.webview.onDidReceiveMessage(e => {
 			switch (e.type) {
 				case 'add':
-					this.addNode(document);
+					this.addNode(document, e.position);
 					return;
 
 				case 'delete':
@@ -195,7 +195,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         edit.delete(document.uri, range);
         vscode.workspace.applyEdit(edit);
     }
-    addNode(document: vscode.TextDocument) {
+    addNode(document: vscode.TextDocument, position: {x:number, y:number}) {
         
         var parseResult = parsing.parse(document.getText());
         var existingNodes = parsing.getNodeInfo(parseResult.parseContext);
@@ -231,6 +231,8 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             var contents = data.toString();
 
             contents = contents.replace("{NODE_NAME}", newNodeName);
+            contents = contents.replace("{NODE_POSITION_X}", position.x.toString());
+            contents = contents.replace("{NODE_POSITION_Y}", position.y.toString());
 
             var edit = new vscode.WorkspaceEdit();
 

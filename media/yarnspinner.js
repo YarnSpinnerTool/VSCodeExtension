@@ -5,6 +5,11 @@
 
 /** @typedef { import('../src/editor').NodesUpdatedEvent } NodesUpdatedEvent */
 
+const NodeSize = {
+	width: 150,
+	height: 75,
+};
+
 // Script run within the webview itself.
 (function () {
 	
@@ -21,8 +26,13 @@
 	var buttonsContainer = document.querySelector('#nodes-header');
 
 	buttonsContainer.querySelector('#add-node').addEventListener('click', () => {
+		let nodePosition = getWindowCenter();
+		nodePosition.x -= NodeSize.width / 2;
+		nodePosition.y -= NodeSize.height / 2;
+
 		vscode.postMessage({
-			type: 'add'
+			type: 'add',
+			position: nodePosition
 		});
 	});
 
@@ -68,6 +78,17 @@
 		document.body.style.backgroundPositionX = offset.x.toString() + "px";;
 		document.body.style.backgroundPositionY = offset.y.toString() + "px";
 	}
+
+	/**
+	 * Returns the coordinates of the center of the window.
+	 * @returns {{x: number, y:number}}
+	 */
+	function getWindowCenter() {
+		return {
+			x: Math.round(window.visualViewport.width / 2 - globalThis.offset.x),
+			y: Math.round(window.visualViewport.height / 2 - globalThis.offset.y),
+		}
+	}
 	
 
 	globalThis.lines = [];
@@ -77,7 +98,7 @@
 	// so that {0,0} is near the center of the window, and a node at {0,0} will
 	// appear pleasingly centered.
 
-	globalThis.offset = { x: window.visualViewport.width / 2 - 75, y: window.visualViewport.height / 2 - 50 };
+	globalThis.offset = { x: window.visualViewport.width / 2 - NodeSize.width / 2, y: window.visualViewport.height / 2 - NodeSize.height / 2 };
 
 	updateBackgroundPosition(globalThis.offset);
 
