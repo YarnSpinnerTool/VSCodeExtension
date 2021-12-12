@@ -61,6 +61,15 @@
 		}
 	}
 
+	/**
+	 * @param {{x : number, y:number}} offset 
+	 */
+	function updateBackgroundPosition(offset) {
+		document.body.style.backgroundPositionX = offset.x.toString() + "px";;
+		document.body.style.backgroundPositionY = offset.y.toString() + "px";
+	}
+	
+
 	globalThis.lines = [];
 	globalThis.nodeElements = [];
 
@@ -69,6 +78,8 @@
 	// 'position' header, are positioned somewhere slightly nicer than the
 	// absolute top-left.
 	globalThis.offset = { x: 50, y: 50 };
+
+	updateBackgroundPosition(globalThis.offset);
 
 	// Set up the canvas drag interaction: whenever the canvas itself is
 	// dragged, update the canvas offset, update the displayed position of
@@ -89,6 +100,9 @@
 			for (const line of globalThis.lines) {
 				line.position();
 			}
+
+			updateBackgroundPosition(globalThis.offset);
+
 		}
 	});
 
@@ -267,4 +281,5 @@
 
 }
 )();
+
 

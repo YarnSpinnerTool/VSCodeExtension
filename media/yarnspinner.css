@@ -1,5 +1,12 @@
+
 body {
+
     overflow: clip;
+
+    background: 
+        linear-gradient(90deg, var(--vscode-editor-background) 21px, transparent 1%) center, 
+        linear-gradient(var(--vscode-editor-background) 21px, transparent 1%) center, var(--vscode-foreground);
+    background-size: 22px 22px;
 }
 
 div.nodes {
