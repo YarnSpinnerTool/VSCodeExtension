@@ -102,6 +102,75 @@ const NodeSize = {
 
 	updateBackgroundPosition(globalThis.offset);
 
+
+	/**
+	 * @param {NodesUpdatedEvent} data 
+	 */
+	function updateDropdownList(data) {
+		const dropdown = document.querySelector("#node-jump");
+		
+		const icon = dropdown.querySelector("#icon");
+
+		
+		let placeholderOption = document.createElement("vscode-option");
+		placeholderOption.innerText = "Jump to Node";
+
+		
+		let nodeOptions = data.nodes.map(node => {
+			
+			let option = document.createElement("vscode-option");
+			option.nodeValue = node.title;
+			option.innerText = node.title;
+			return option;
+		})
+		
+		dropdown.replaceChildren(icon, placeholderOption, ...nodeOptions);
+		
+	}
+
+	/** @type {HTMLSelectElement} */
+	const dropdown = document.querySelector("#node-jump");
+
+	dropdown.addEventListener("change", (/** @type any */ evt) => {
+		if (dropdown.selectedIndex > 0) {
+			// We selected a node.
+			console.log(`Jumping to ${dropdown.value}`);
+			
+			/** @type {HTMLElement[]} */
+			var elements = globalThis.nodeElements.filter(n => n.dataset.nodeName === dropdown.value);
+			var element = elements[0];
+
+			if (element !== undefined) {
+				var newOffset = {
+					x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2, 
+					y: -parseFloat(element.dataset.positionY) + window.visualViewport.height / 2 - NodeSize.height / 2,
+				};
+
+				globalThis.offset = newOffset;
+	
+				updateViewPosition();
+
+			}
+
+		}
+		dropdown.selectedIndex = 0;
+
+
+		
+	});
+
+	function updateViewPosition() {
+		for (const element of globalThis.nodeElements) {
+			setNodeViewPosition(element, getNodeViewPosition(element));
+		}
+
+		for (const line of globalThis.lines) {
+			line.position();
+		}
+
+		updateBackgroundPosition(globalThis.offset);
+	}
+
 	// Set up the canvas drag interaction: whenever the canvas itself is
 	// dragged, update the canvas offset, update the displayed position of
 	// all nodes to reflect this offset, and update all lines
@@ -114,16 +183,7 @@ const NodeSize = {
 			globalThis.offset.x += event.dx;
 			globalThis.offset.y += event.dy;
 
-			for (const element of globalThis.nodeElements) {
-				setNodeViewPosition(element, getNodeViewPosition(element));
-			}
-
-			for (const line of globalThis.lines) {
-				line.position();
-			}
-
-			updateBackgroundPosition(globalThis.offset);
-
+			updateViewPosition();
 		}
 	});
 
@@ -147,6 +207,7 @@ const NodeSize = {
 
 		globalThis.lines = [];
 		
+		updateDropdownList(data);
 
 		/** Maps node titles to their corresponding HTML elements.
 		* @type Object.<string, HTMLElement> */
@@ -167,7 +228,9 @@ const NodeSize = {
 			// @ts-expect-error
 			const newNodeElement = template.cloneNode(true)
 			
-			newNodeElement.id = null;
+			newNodeElement.id = undefined;
+
+			newNodeElement.dataset.nodeName = node.title;
 			
 			/** @type HTMLElement */
 			const title = newNodeElement.querySelector('.title');

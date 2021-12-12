@@ -331,7 +331,13 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             <body>
                 <div class="nodes"></div>
                 <div id="nodes-header">
-                        <vscode-button id="add-node">Add Node</vscode-button>
+                    <vscode-button id="add-node">Add Node</vscode-button>
+                    <div id="nodes-header-right">
+                        <vscode-dropdown id="node-jump">
+                            <span slot="indicator" id="icon" class="codicon codicon-compass"></span>
+                            <vscode-option>Jump to Node</vscode-option>
+                        </vscode-dropdown>
+                    </div>
                 </div>
                 <div id="node-template" class="node">
                     <div class="title">Node Title</div>
