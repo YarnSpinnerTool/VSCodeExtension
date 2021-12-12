@@ -29,7 +29,7 @@ div.buttons {
 div.node {
     border: 1px solid var(--vscode-foreground);
     
-    border-radius: 10px;
+    border-radius: 2px;
     
     position: absolute;
     top: 0;
@@ -44,6 +44,10 @@ div.node {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
+
+    background-color: var(--vscode-editor-background);
+
+    box-shadow: 0 0 10px var(--vscode-widget-shadow);
 }
 
 div.node .title {
