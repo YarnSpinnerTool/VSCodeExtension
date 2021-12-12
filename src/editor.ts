@@ -298,6 +298,14 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'media', 'yarnspinner.css'));
 
+        const toolkitUri = webview.asWebviewUri(vscode.Uri.joinPath(
+            this.context.extensionUri, 
+            "node_modules",
+            "@vscode",
+            "webview-ui-toolkit",
+            "dist",
+            "toolkit.js",));
+
         // Use a nonce to allowlist which scripts can be run
         const nonce = YarnSpinnerEditorProvider.getNonce();
         
@@ -321,7 +329,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 			<body>
 				<div class="nodes"></div>
                 <div class="buttons">
-						<button id="add-node">Add Node</button>
+						<vscode-button id="add-node">Add Node</vscode-button>
 				</div>
                 <div id="node-template" class="node">
                     <div class="title">Node Title</div>
@@ -330,6 +338,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 <script nonce="${nonce}" src="${interactScriptUri}"></script>
                 <script nonce="${nonce}" src="${leaderLineScriptUri}"></script>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
+                <script nonce="${nonce}" type="module" src="${toolkitUri}"></script>
 			</body>
 			</html>`;
     }
