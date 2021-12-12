@@ -328,7 +328,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 			</head>
 			<body>
 				<div class="nodes"></div>
-                <div class="buttons">
+                <div id="nodes-header">
 						<vscode-button id="add-node">Add Node</vscode-button>
 				</div>
                 <div id="node-template" class="node">

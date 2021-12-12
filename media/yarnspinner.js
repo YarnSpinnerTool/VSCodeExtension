@@ -18,7 +18,7 @@
 	var nodesContainer = document.querySelector('.nodes');
 
 	/** @type HTMLElement */
-	var buttonsContainer = document.querySelector('.buttons');
+	var buttonsContainer = document.querySelector('#nodes-header');
 
 	buttonsContainer.querySelector('#add-node').addEventListener('click', () => {
 		vscode.postMessage({

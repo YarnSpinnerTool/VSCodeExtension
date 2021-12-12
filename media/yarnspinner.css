@@ -21,9 +21,16 @@ div.nodes {
 }
 
 
-div.buttons {
+#nodes-header {
     position: absolute;
     z-index: 2;
+    padding: 4px;
+    background-color: var(--vscode-breadcrumb-background);
+    width: 100vw;
+    left: 0;
+    top: 0;
+
+    box-shadow: 0 0 6px var(--vscode-scrollbar-shadow);
 }
 
 div.node {
