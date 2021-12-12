@@ -44,6 +44,7 @@ div.node {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     background-color: var(--vscode-editor-background);
 
