@@ -162,6 +162,15 @@
 				});
 			});
 
+			const editButton = newNodeElement.querySelector('.button-edit');
+			editButton.addEventListener('click', (evt) => {
+				var ID = node.title;
+				vscode.postMessage({
+					type: 'open',
+					id: ID
+				});
+			});
+
 			nodesToElements[node.title] = newNodeElement;
 
 			setNodeViewPosition(newNodeElement, node.position);
