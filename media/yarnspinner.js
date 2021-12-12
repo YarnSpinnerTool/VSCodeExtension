@@ -73,11 +73,11 @@
 	globalThis.lines = [];
 	globalThis.nodeElements = [];
 
-	// The offset that we have panned the entire canvas to. This starts
-	// slightly offset, so that new nodes, and nodes that do not have a
-	// 'position' header, are positioned somewhere slightly nicer than the
-	// absolute top-left.
-	globalThis.offset = { x: 50, y: 50 };
+	// The offset that we have panned the entire canvas to. This starts offset,
+	// so that {0,0} is near the center of the window, and a node at {0,0} will
+	// appear pleasingly centered.
+
+	globalThis.offset = { x: window.visualViewport.width / 2 - 75, y: window.visualViewport.height / 2 - 50 };
 
 	updateBackgroundPosition(globalThis.offset);
 
