@@ -31,6 +31,9 @@ div.nodes {
     top: 0;
 
     box-shadow: 0 0 6px var(--vscode-scrollbar-shadow);
+
+    display: flex;
+    justify-content: space-between;
 }
 
 div.node {
