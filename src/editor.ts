@@ -35,34 +35,34 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         }
 
         // Hook up event handlers so that we can synchronize the webview with the text document.
-		//
-		// The text document acts as our model, so we have to sync change in the document to our
-		// editor and sync changes in the editor back to the document.
-		// 
-		// Remember that a single text document can also be shared between multiple custom
-		// editors (this happens for example when you split a custom editor)
+        //
+        // The text document acts as our model, so we have to sync change in the document to our
+        // editor and sync changes in the editor back to the document.
+        // 
+        // Remember that a single text document can also be shared between multiple custom
+        // editors (this happens for example when you split a custom editor)
 
-		const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
-			if (e.document.uri.toString() === document.uri.toString()) {
-				updateWebview(e.document);
-			}
-		});
+        const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
+            if (e.document.uri.toString() === document.uri.toString()) {
+                updateWebview(e.document);
+            }
+        });
 
-		// Make sure we get rid of the listener when our editor is closed.
-		webviewPanel.onDidDispose(() => {
-			changeDocumentSubscription.dispose();
-		});
+        // Make sure we get rid of the listener when our editor is closed.
+        webviewPanel.onDidDispose(() => {
+            changeDocumentSubscription.dispose();
+        });
 
         // Receive message from the webview.
-		webviewPanel.webview.onDidReceiveMessage(e => {
-			switch (e.type) {
-				case 'add':
-					this.addNode(document, e.position);
-					return;
+        webviewPanel.webview.onDidReceiveMessage(e => {
+            switch (e.type) {
+                case 'add':
+                    this.addNode(document, e.position);
+                    return;
 
-				case 'delete':
-					this.deleteNode(document, e.id);
-					return;
+                case 'delete':
+                    this.deleteNode(document, e.id);
+                    return;
                 
                 case 'move':
                     this.moveNode(document, e.id, e.position);
@@ -71,10 +71,10 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 case 'open':
                     this.openNode(document, e.id);
                     return;
-			}
-		});
+            }
+        });
 
-		updateWebview(document);
+        updateWebview(document);
     }
     openNode(document: vscode.TextDocument, id: string) {
         var parseTree = parsing.parse(document.getText());
@@ -312,27 +312,27 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         const nonce = YarnSpinnerEditorProvider.getNonce();
         
         return /* html */`
-			<!DOCTYPE html>
-			<html lang="en">
-			<head>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
                 <meta charset="UTF-8">
-				<!--
-				Use a content security policy to only allow loading images from https or from our extension directory,
-				and only allow scripts that have a specific nonce.
-				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource}">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<link href="${styleResetUri}" rel="stylesheet" />
-				<link href="${styleVSCodeUri}" rel="stylesheet" />
-				<link href="${styleMainUri}" rel="stylesheet" />
+                <!--
+                Use a content security policy to only allow loading images from https or from our extension directory,
+                and only allow scripts that have a specific nonce.
+                -->
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource}">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="${styleResetUri}" rel="stylesheet" />
+                <link href="${styleVSCodeUri}" rel="stylesheet" />
+                <link href="${styleMainUri}" rel="stylesheet" />
                 <link href="${codiconsUri}" rel="stylesheet" />
-				<title>Yarn Spinner</title>
-			</head>
-			<body>
-				<div class="nodes"></div>
+                <title>Yarn Spinner</title>
+            </head>
+            <body>
+                <div class="nodes"></div>
                 <div id="nodes-header">
-						<vscode-button id="add-node">Add Node</vscode-button>
-				</div>
+                        <vscode-button id="add-node">Add Node</vscode-button>
+                </div>
                 <div id="node-template" class="node">
                     <div class="title">Node Title</div>
                     <div class="node-buttons">
@@ -346,9 +346,9 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 </div>
                 <script nonce="${nonce}" src="${interactScriptUri}"></script>
                 <script nonce="${nonce}" src="${leaderLineScriptUri}"></script>
-				<script nonce="${nonce}" src="${scriptUri}"></script>
+                <script nonce="${nonce}" src="${scriptUri}"></script>
                 <script nonce="${nonce}" type="module" src="${toolkitUri}"></script>
-			</body>
-			</html>`;
+            </body>
+            </html>`;
     }
 }
