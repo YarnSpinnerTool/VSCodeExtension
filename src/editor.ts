@@ -333,7 +333,11 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 				</div>
                 <div id="node-template" class="node">
                     <div class="title">Node Title</div>
-                    <div class="node-buttons"><i class="codicon codicon-trash button-delete"></i></div>
+                    <div class="node-buttons">
+                        <vscode-button appearance="icon" aria-label="Delete" title>
+                            <span class="codicon codicon-trash button-delete"></span>
+                        </vscode-button>
+                    </div>
                 </div>
                 <script nonce="${nonce}" src="${interactScriptUri}"></script>
                 <script nonce="${nonce}" src="${leaderLineScriptUri}"></script>
