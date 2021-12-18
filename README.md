@@ -4,7 +4,7 @@
 
 You can install this extension for Visual Studio Code from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=SecretLab.yarn-spinner).
 
-This extension adds syntax highlighting support for Yarn Spinner code. 
+This extension adds syntax highlighting support for Yarn Spinner code, and a visual editor for creating Yarn scripts.
 
 To learn more about Yarn Spinner, head to the [official site](https://yarnspinner.dev)!
 
