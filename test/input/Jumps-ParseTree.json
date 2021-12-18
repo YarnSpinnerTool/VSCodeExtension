@@ -1,0 +1,264 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 3,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 3,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 3,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 3,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 3,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "S"
+                        },
+                        {
+                          "line": 3,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "tart line"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 3,
+                      "column": 10,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 4,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 4,
+                  "column": 0,
+                  "name": "jump_statement",
+                  "children": [
+                    {
+                      "line": 4,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 4,
+                      "column": 2,
+                      "name": "COMMAND_JUMP",
+                      "text": "jump "
+                    },
+                    {
+                      "line": 4,
+                      "column": 7,
+                      "name": "ID",
+                      "text": "Destination"
+                    },
+                    {
+                      "line": 4,
+                      "column": 18,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 5,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 5,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 5,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "T"
+                        },
+                        {
+                          "line": 5,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "his line will never be shown."
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 30,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 6,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    },
+    {
+      "line": 7,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 7,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 7,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 7,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 7,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Destination"
+            }
+          ]
+        },
+        {
+          "line": 8,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 9,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 9,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 9,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 9,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 9,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "D"
+                        },
+                        {
+                          "line": 9,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "estination line"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 9,
+                      "column": 16,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 10,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

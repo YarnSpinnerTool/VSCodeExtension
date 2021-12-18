@@ -1,0 +1,12 @@
+{
+    "Node": {
+        "prefix": "node",
+        "body": [
+            "title: ${1:Title}",
+            "---",
+            "${0:node text}",
+            "==="
+        ],
+        "description": "Create a new node."
+    }
+}

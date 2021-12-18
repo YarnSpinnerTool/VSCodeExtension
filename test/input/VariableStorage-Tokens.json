@@ -1,0 +1,3108 @@
+[
+  {
+    "line": 1,
+    "column": 0,
+    "name": "ID",
+    "text": "title"
+  },
+  {
+    "line": 1,
+    "column": 5,
+    "name": "HEADER_DELIMITER",
+    "text": ": "
+  },
+  {
+    "line": 1,
+    "column": 7,
+    "name": "REST_OF_LINE",
+    "text": "Start"
+  },
+  {
+    "line": 1,
+    "column": 12,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 2,
+    "column": 0,
+    "name": "BODY_START",
+    "text": "---"
+  },
+  {
+    "line": 2,
+    "column": 3,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 3,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Variable testing",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 3,
+    "column": 19,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 4,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 5,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 5,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 5,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 5,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 5,
+    "column": 18,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 5,
+    "column": 19,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 5,
+    "column": 21,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 6,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 6,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 6,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 6,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 6,
+    "column": 18,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 6,
+    "column": 19,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 6,
+    "column": 21,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 7,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 7,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 7,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 7,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 7,
+    "column": 18,
+    "name": "NUMBER",
+    "text": "0"
+  },
+  {
+    "line": 7,
+    "column": 19,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 7,
+    "column": 21,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 8,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 8,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 8,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 8,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 8,
+    "column": 18,
+    "name": "STRING",
+    "text": "\u0022\u0022"
+  },
+  {
+    "line": 8,
+    "column": 20,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 8,
+    "column": 22,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 9,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 9,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 9,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$str2"
+  },
+  {
+    "line": 9,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 9,
+    "column": 18,
+    "name": "STRING",
+    "text": "\u0022\u0022"
+  },
+  {
+    "line": 9,
+    "column": 20,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 9,
+    "column": 22,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 10,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 10,
+    "column": 2,
+    "name": "COMMAND_DECLARE",
+    "text": "declare "
+  },
+  {
+    "line": 10,
+    "column": 10,
+    "name": "VAR_ID",
+    "text": "$str3"
+  },
+  {
+    "line": 10,
+    "column": 16,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 10,
+    "column": 18,
+    "name": "STRING",
+    "text": "\u0022\u0022"
+  },
+  {
+    "line": 10,
+    "column": 20,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 10,
+    "column": 22,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 11,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 12,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Testing variable storage",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 12,
+    "column": 27,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 13,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 13,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 13,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 13,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 13,
+    "column": 15,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 13,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 13,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 14,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 15,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test numeric storage",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 15,
+    "column": 23,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 16,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 16,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 16,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 16,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 16,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 16,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 16,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 16,
+    "column": 24,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 16,
+    "column": 25,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 16,
+    "column": 27,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 17,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 18,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 18,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 18,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 18,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 18,
+    "column": 15,
+    "name": "OPERATOR_MATHS_SUBTRACTION",
+    "text": "-"
+  },
+  {
+    "line": 18,
+    "column": 16,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 18,
+    "column": 17,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 18,
+    "column": 19,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 19,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 20,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test numeric storage (negative)",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 20,
+    "column": 34,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 21,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 21,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 21,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 21,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 21,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 21,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 21,
+    "column": 23,
+    "name": "OPERATOR_MATHS_SUBTRACTION",
+    "text": "-"
+  },
+  {
+    "line": 21,
+    "column": 24,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 21,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 21,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 21,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 22,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 23,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test string storage",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 23,
+    "column": 22,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 24,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 24,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 24,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 24,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "to"
+  },
+  {
+    "line": 24,
+    "column": 15,
+    "name": "STRING",
+    "text": "\u0022foo\u0022"
+  },
+  {
+    "line": 24,
+    "column": 20,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 24,
+    "column": 22,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 25,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 25,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 25,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 25,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 25,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 25,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 25,
+    "column": 23,
+    "name": "STRING",
+    "text": "\u0022foo\u0022"
+  },
+  {
+    "line": 25,
+    "column": 28,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 25,
+    "column": 29,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 25,
+    "column": 31,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 26,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 27,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate value arithmetic",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 27,
+    "column": 34,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 28,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 28,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 28,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 28,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 28,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "45"
+  },
+  {
+    "line": 28,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 28,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 29,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 30,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 30,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 30,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 30,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 30,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 30,
+    "column": 20,
+    "name": "OPERATOR_MATHS_ADDITION",
+    "text": "\u002B"
+  },
+  {
+    "line": 30,
+    "column": 22,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 30,
+    "column": 23,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 30,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 31,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 32,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 32,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 33,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 33,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 33,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 33,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 33,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 33,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 33,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "46"
+  },
+  {
+    "line": 33,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 33,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 33,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 34,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 35,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 35,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 35,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 35,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 35,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 35,
+    "column": 20,
+    "name": "OPERATOR_MATHS_SUBTRACTION",
+    "text": "-"
+  },
+  {
+    "line": 35,
+    "column": 22,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 35,
+    "column": 23,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 35,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 36,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 37,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate subtraction",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 37,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 38,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 38,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 38,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 38,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 38,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 38,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 38,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "44"
+  },
+  {
+    "line": 38,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 38,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 38,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 39,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 40,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 40,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 40,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 40,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 40,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "46"
+  },
+  {
+    "line": 40,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 40,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 41,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 41,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 41,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 41,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 41,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 41,
+    "column": 20,
+    "name": "OPERATOR_MATHS_MULTIPLICATION",
+    "text": "*"
+  },
+  {
+    "line": 41,
+    "column": 22,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 41,
+    "column": 23,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 41,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 42,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 43,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate multiplication",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 43,
+    "column": 32,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 44,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 44,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 44,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 44,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 44,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 44,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 44,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "92"
+  },
+  {
+    "line": 44,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 44,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 44,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 45,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 46,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 46,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 46,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 46,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 46,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 46,
+    "column": 20,
+    "name": "OPERATOR_MATHS_DIVISION",
+    "text": "/"
+  },
+  {
+    "line": 46,
+    "column": 22,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 46,
+    "column": 23,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 46,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 47,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 48,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate division",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 48,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 49,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 49,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 49,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 49,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 49,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 49,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 49,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "23"
+  },
+  {
+    "line": 49,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 49,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 49,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 50,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 51,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 51,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 51,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 51,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 51,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "45"
+  },
+  {
+    "line": 51,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 51,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 52,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 52,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 52,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 52,
+    "column": 12,
+    "name": "OPERATOR_MATHS_ADDITION_EQUALS",
+    "text": "\u002B="
+  },
+  {
+    "line": 52,
+    "column": 15,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 52,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 52,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 53,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 54,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate assignment addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 54,
+    "column": 37,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 55,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 55,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 55,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 55,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 55,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 55,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 55,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "46"
+  },
+  {
+    "line": 55,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 55,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 55,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 56,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 57,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 57,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 57,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 57,
+    "column": 12,
+    "name": "OPERATOR_MATHS_MULTIPLICATION_EQUALS",
+    "text": "*="
+  },
+  {
+    "line": 57,
+    "column": 15,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 57,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 57,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 58,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 59,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate assignment multiplication",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 59,
+    "column": 43,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 60,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 60,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 60,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 60,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 60,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 60,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 60,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "92"
+  },
+  {
+    "line": 60,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 60,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 60,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 61,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 62,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 62,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 62,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 62,
+    "column": 12,
+    "name": "OPERATOR_MATHS_DIVISION_EQUALS",
+    "text": "/="
+  },
+  {
+    "line": 62,
+    "column": 15,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 62,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 62,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 63,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 64,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate assignment division",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 64,
+    "column": 37,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 65,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 65,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 65,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 65,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 65,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 65,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 65,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "46"
+  },
+  {
+    "line": 65,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 65,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 65,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 66,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 67,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 67,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 67,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 67,
+    "column": 12,
+    "name": "OPERATOR_MATHS_SUBTRACTION_EQUALS",
+    "text": "-="
+  },
+  {
+    "line": 67,
+    "column": 15,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 67,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 67,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 68,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 69,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test immediate assignment subtraction",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 69,
+    "column": 40,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 70,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 70,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 70,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 70,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 70,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 70,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 70,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "45"
+  },
+  {
+    "line": 70,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 70,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 70,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 71,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 72,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Testing variable arithmetic",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 72,
+    "column": 30,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 73,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 73,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 73,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 73,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 73,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "46"
+  },
+  {
+    "line": 73,
+    "column": 16,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 73,
+    "column": 18,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 74,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 74,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 74,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 74,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 74,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 74,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 74,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 75,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 75,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 75,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 75,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 75,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 75,
+    "column": 20,
+    "name": "OPERATOR_MATHS_ADDITION",
+    "text": "\u002B"
+  },
+  {
+    "line": 75,
+    "column": 22,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 75,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 75,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 76,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 77,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test variable addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 77,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 78,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 78,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 78,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 78,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 78,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 78,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 78,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "47"
+  },
+  {
+    "line": 78,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 78,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 78,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 79,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 80,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 80,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 80,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 80,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 80,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 80,
+    "column": 20,
+    "name": "OPERATOR_MATHS_SUBTRACTION",
+    "text": "-"
+  },
+  {
+    "line": 80,
+    "column": 22,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 80,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 80,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 81,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 82,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test variable subtraction",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 82,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 83,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 83,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 83,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 83,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 83,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 83,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 83,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "45"
+  },
+  {
+    "line": 83,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 83,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 83,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 84,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 85,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 85,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 85,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 85,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 85,
+    "column": 14,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 85,
+    "column": 15,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 85,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 86,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 86,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 86,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 86,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 86,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 86,
+    "column": 20,
+    "name": "OPERATOR_MATHS_MULTIPLICATION",
+    "text": "*"
+  },
+  {
+    "line": 86,
+    "column": 22,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 86,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 86,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 87,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 88,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test variable multiplication",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 88,
+    "column": 31,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 89,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 89,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 89,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 89,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 89,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 89,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 89,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "92"
+  },
+  {
+    "line": 89,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 89,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 89,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 90,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 91,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 91,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 91,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 91,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 91,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num1"
+  },
+  {
+    "line": 91,
+    "column": 20,
+    "name": "OPERATOR_MATHS_DIVISION",
+    "text": "/"
+  },
+  {
+    "line": 91,
+    "column": 22,
+    "name": "VAR_ID",
+    "text": "$num2"
+  },
+  {
+    "line": 91,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 91,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 92,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 93,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Test variable division",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 93,
+    "column": 25,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 94,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 94,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 94,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 94,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 94,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$num3"
+  },
+  {
+    "line": 94,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 94,
+    "column": 23,
+    "name": "NUMBER",
+    "text": "23"
+  },
+  {
+    "line": 94,
+    "column": 25,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 94,
+    "column": 26,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 94,
+    "column": 28,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 95,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 96,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Testing string addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 96,
+    "column": 26,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 97,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 97,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 97,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 97,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 97,
+    "column": 14,
+    "name": "STRING",
+    "text": "\u0022foo\u0022"
+  },
+  {
+    "line": 97,
+    "column": 19,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 97,
+    "column": 21,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 98,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 98,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 98,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$str2"
+  },
+  {
+    "line": 98,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 98,
+    "column": 14,
+    "name": "STRING",
+    "text": "\u0022bar\u0022"
+  },
+  {
+    "line": 98,
+    "column": 19,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 98,
+    "column": 21,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 99,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 99,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 99,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$str3"
+  },
+  {
+    "line": 99,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 99,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 99,
+    "column": 20,
+    "name": "OPERATOR_MATHS_ADDITION",
+    "text": "\u002B"
+  },
+  {
+    "line": 99,
+    "column": 22,
+    "name": "STRING",
+    "text": "\u0022bar\u0022"
+  },
+  {
+    "line": 99,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 99,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 100,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 101,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// \u0022Test immediate string addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 101,
+    "column": 34,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 102,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 102,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 102,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 102,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 102,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$str3"
+  },
+  {
+    "line": 102,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 102,
+    "column": 23,
+    "name": "STRING",
+    "text": "\u0022foobar\u0022"
+  },
+  {
+    "line": 102,
+    "column": 31,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 102,
+    "column": 32,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 102,
+    "column": 34,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 103,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 104,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 104,
+    "column": 2,
+    "name": "COMMAND_SET",
+    "text": "set "
+  },
+  {
+    "line": 104,
+    "column": 6,
+    "name": "VAR_ID",
+    "text": "$str3"
+  },
+  {
+    "line": 104,
+    "column": 12,
+    "name": "OPERATOR_ASSIGNMENT",
+    "text": "="
+  },
+  {
+    "line": 104,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$str1"
+  },
+  {
+    "line": 104,
+    "column": 20,
+    "name": "OPERATOR_MATHS_ADDITION",
+    "text": "\u002B"
+  },
+  {
+    "line": 104,
+    "column": 22,
+    "name": "VAR_ID",
+    "text": "$str2"
+  },
+  {
+    "line": 104,
+    "column": 27,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 104,
+    "column": 29,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 105,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 106,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// \u0022Test string addition",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 106,
+    "column": 24,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 107,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 107,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 107,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 107,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 107,
+    "column": 14,
+    "name": "VAR_ID",
+    "text": "$str3"
+  },
+  {
+    "line": 107,
+    "column": 20,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 107,
+    "column": 23,
+    "name": "STRING",
+    "text": "\u0022foobar\u0022"
+  },
+  {
+    "line": 107,
+    "column": 31,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 107,
+    "column": 32,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 107,
+    "column": 34,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 108,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 109,
+    "column": 0,
+    "name": "BODY_END",
+    "text": "==="
+  }
+]

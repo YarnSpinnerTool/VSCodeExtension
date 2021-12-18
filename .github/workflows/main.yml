@@ -2,15 +2,13 @@ name: Build
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main or develop branches
+  # Triggers the workflow on push or pull request events but only for the develop branch (for now)
   push:
     branches:
-      - main
-      - develop
+      - '*'
   pull_request:
     branches:
-      - main
-      - develop
+      - '*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,20 +25,26 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Fetch all history and tags from all branches for gitversion
+        run: git fetch --prune --unshallow
+      
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
         
-      - name: clean install dependencies
+      - name: Clean install dependencies
         run: npm ci
+
+      - name: Run unit tests
+        run: npm test
       
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9
+        uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-            versionSpec: '5.1.x'
+            versionSpec: '5.x'
 
       - name: Execute GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9
+        uses: gittools/actions/gitversion/execute@v0.9.7
         
       - name: Print version information
         run: |

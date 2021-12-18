@@ -152,3 +152,9 @@ temp/
 # Visual Studio Code builds
 *.vsix
 
+# TypeScript output
+out/
+
+src/*.tokens
+src/*.interp
+src/.antlr

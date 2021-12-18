@@ -1,0 +1,4373 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 6,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 6,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: \u00AF"
+                        },
+                        {
+                          "line": 6,
+                          "column": 7,
+                          "name": "TEXT",
+                          "text": "\\"
+                        },
+                        {
+                          "line": 6,
+                          "column": 8,
+                          "name": "TEXT",
+                          "text": "_(\u30C4)_"
+                        },
+                        {
+                          "line": 6,
+                          "column": 13,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 6,
+                          "column": 14,
+                          "name": "TEXT",
+                          "text": "\u00AF"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 15,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 7,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 7,
+                          "column": 5,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        },
+                        {
+                          "line": 7,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "o\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 8,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 8,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 8,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 8,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 8,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :|"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 8,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 9,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 9,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 9,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 9,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 9,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :)"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 9,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 10,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 10,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 10,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 10,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :("
+                        }
+                      ]
+                    },
+                    {
+                      "line": 10,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 11,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 11,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 11,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 11,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 11,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :o"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 11,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 12,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 12,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 12,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 12,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 12,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :"
+                        },
+                        {
+                          "line": 12,
+                          "column": 7,
+                          "name": "TEXT",
+                          "text": "\\"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 12,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 13,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 13,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 13,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 13,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 13,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: :"
+                        },
+                        {
+                          "line": 13,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "\u003C"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 13,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 14,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 14,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 14,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 14,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 14,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: D:"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 14,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 15,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 15,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 15,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 15,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 15,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: -_-"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 15,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 16,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 16,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 16,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 16,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 16,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: =_="
+                        }
+                      ]
+                    },
+                    {
+                      "line": 16,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 17,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 17,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 17,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 17,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 17,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: U_U"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 17,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 18,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 18,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 18,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 18,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 18,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: O_O"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 18,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 19,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 19,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 19,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 19,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 19,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: o_o"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 19,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 20,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 20,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 20,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 20,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 20,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 20,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "\\"
+                        },
+                        {
+                          "line": 20,
+                          "column": 7,
+                          "name": "TEXT",
+                          "text": "o"
+                        },
+                        {
+                          "line": 20,
+                          "column": 8,
+                          "name": "TEXT",
+                          "text": "/"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 20,
+                      "column": 9,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 21,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 21,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 21,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 21,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 21,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 21,
+                          "column": 5,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 21,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "o"
+                        },
+                        {
+                          "line": 21,
+                          "column": 8,
+                          "name": "TEXT",
+                          "text": "\\"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 21,
+                      "column": 9,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 22,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 22,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 22,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 22,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 22,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: o"
+                        },
+                        {
+                          "line": 22,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "/"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 22,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 23,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 23,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 23,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 23,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 23,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: _o_"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 23,
+                      "column": 8,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 24,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 24,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 24,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 24,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 24,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: o\u003E"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 24,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 25,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 25,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 25,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 25,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 25,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 25,
+                          "column": 5,
+                          "name": "TEXT",
+                          "text": "/"
+                        },
+                        {
+                          "line": 25,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": " "
+                        },
+                        {
+                          "line": 25,
+                          "column": 8,
+                          "name": "TEXT",
+                          "text": "\\"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 25,
+                      "column": 9,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 26,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 26,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 26,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 26,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 26,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: "
+                        },
+                        {
+                          "line": 26,
+                          "column": 6,
+                          "name": "TEXT",
+                          "text": "\\"
+                        },
+                        {
+                          "line": 26,
+                          "column": 7,
+                          "name": "TEXT",
+                          "text": " "
+                        },
+                        {
+                          "line": 26,
+                          "column": 8,
+                          "name": "TEXT",
+                          "text": "/"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 26,
+                      "column": 9,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 27,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 27,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 27,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 27,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "M"
+                        },
+                        {
+                          "line": 27,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "ae: ~~"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 27,
+                      "column": 7,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 33,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 33,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 33,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 33,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 33,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 33,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 33,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: \u00AF"
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "_(\u30C4)_"
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 16,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 33,
+                                  "column": 17,
+                                  "name": "TEXT",
+                                  "text": "\u00AF"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 33,
+                              "column": 18,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 34,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 34,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 34,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 34,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 34,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 34,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 34,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 34,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "o\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 34,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 35,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 35,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 35,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 35,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 35,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 35,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :|"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 35,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 36,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 36,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 36,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 36,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 36,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 36,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :)"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 36,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 37,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 37,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 37,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 37,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 37,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 37,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :("
+                                }
+                              ]
+                            },
+                            {
+                              "line": 37,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 38,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 38,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 38,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 38,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 38,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 38,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :o"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 38,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 39,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 39,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 39,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 39,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 39,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 39,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :"
+                                },
+                                {
+                                  "line": 39,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 39,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 40,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 40,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 40,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 40,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 40,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :"
+                                },
+                                {
+                                  "line": 40,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 40,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 41,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 41,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 41,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 41,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 41,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 41,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: D:"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 41,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 42,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 42,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 42,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 42,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 42,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 42,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: -_-"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 42,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 43,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 43,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 43,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 43,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 43,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 43,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: =_="
+                                }
+                              ]
+                            },
+                            {
+                              "line": 43,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 44,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 44,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 44,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 44,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 44,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 44,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: U_U"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 44,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 45,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 45,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 45,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 45,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 45,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 45,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: O_O"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 45,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 46,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 46,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 46,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 46,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 46,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 46,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o_o"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 46,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 47,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 47,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 47,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 47,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 47,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 47,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 47,
+                              "column": 12,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 48,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 48,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 48,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 48,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 48,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 48,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 48,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 48,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 48,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 48,
+                              "column": 12,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 49,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 49,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 49,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 49,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 49,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 49,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o"
+                                },
+                                {
+                                  "line": 49,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 49,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 50,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 50,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 50,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 50,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 50,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 50,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: _o_"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 50,
+                              "column": 11,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 51,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 51,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 51,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 51,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 51,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 51,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 51,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 52,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 52,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 52,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 52,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 52,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": " "
+                                },
+                                {
+                                  "line": 52,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 52,
+                              "column": 12,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 53,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 53,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 53,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 53,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 53,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 53,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 53,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 53,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": " "
+                                },
+                                {
+                                  "line": 53,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 53,
+                              "column": 12,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 54,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 54,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 54,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 54,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 54,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 54,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: ~~"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 54,
+                              "column": 10,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 56,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 56,
+                  "column": 0,
+                  "name": "line_statement",
+                  "children": [
+                    {
+                      "line": 56,
+                      "column": 0,
+                      "name": "line_formatted_text",
+                      "children": [
+                        {
+                          "line": 56,
+                          "column": 0,
+                          "name": "TEXT",
+                          "text": "S"
+                        },
+                        {
+                          "line": 56,
+                          "column": 1,
+                          "name": "TEXT",
+                          "text": "eparating the option groups here."
+                        }
+                      ]
+                    },
+                    {
+                      "line": 56,
+                      "column": 34,
+                      "name": "NEWLINE",
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 61,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 61,
+                  "column": 0,
+                  "name": "shortcut_option_statement",
+                  "children": [
+                    {
+                      "line": 61,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 61,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 61,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 61,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 61,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: \u00AF"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "_(\u30C4)_"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 16,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 17,
+                                  "name": "TEXT",
+                                  "text": "\u00AF "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 61,
+                              "column": 19,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 61,
+                                  "column": 19,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 21,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 24,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 61,
+                                      "column": 24,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 61,
+                                          "column": 24,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 61,
+                                  "column": 28,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 61,
+                              "column": 30,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 62,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 62,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 62,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 62,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 62,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "o\u003E "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 62,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 62,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 62,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 62,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 62,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 62,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 63,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 63,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 63,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 63,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 63,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 63,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :| "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 63,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 63,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 63,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 63,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 63,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 63,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 63,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 63,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 64,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 64,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 64,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 64,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 64,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 64,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :) "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 64,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 64,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 64,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 64,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 64,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 64,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 64,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 64,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 65,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 65,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 65,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 65,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 65,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 65,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :( "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 65,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 65,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 65,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 65,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 65,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 65,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 65,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 65,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 66,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 66,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 66,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 66,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 66,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 66,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :o "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 66,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 66,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 66,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 66,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 66,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 66,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 66,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 66,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 67,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 67,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 67,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 67,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 67,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :"
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 67,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 67,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 67,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 67,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 67,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 67,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 68,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 68,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 68,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 68,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 68,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: :"
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\u003C"
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 68,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 68,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 68,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 68,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 68,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 68,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 69,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 69,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 69,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 69,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 69,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 69,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: D: "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 69,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 69,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 69,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 69,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 69,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 69,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 69,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 69,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 70,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 70,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 70,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 70,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 70,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 70,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: -_- "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 70,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 70,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 70,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 70,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 70,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 70,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 70,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 70,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 71,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 71,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 71,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 71,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 71,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 71,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: =_= "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 71,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 71,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 71,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 71,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 71,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 71,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 71,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 71,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 72,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 72,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 72,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 72,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 72,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 72,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: U_U "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 72,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 72,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 72,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 72,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 72,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 72,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 72,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 72,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 73,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 73,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 73,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 73,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 73,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 73,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: O_O "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 73,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 73,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 73,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 73,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 73,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 73,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 73,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 73,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 74,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 74,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 74,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 74,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 74,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 74,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o_o "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 74,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 74,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 74,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 74,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 74,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 74,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 74,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 74,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 75,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 75,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 75,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 75,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 75,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 12,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 75,
+                              "column": 13,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 75,
+                                  "column": 13,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 15,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 18,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 75,
+                                      "column": 18,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 75,
+                                          "column": 18,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 75,
+                                  "column": 22,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 75,
+                              "column": 24,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 76,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 76,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 76,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 76,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 76,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "o"
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 12,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 76,
+                              "column": 13,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 76,
+                                  "column": 13,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 15,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 18,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 76,
+                                      "column": 18,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 76,
+                                          "column": 18,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 76,
+                                  "column": 22,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 76,
+                              "column": 24,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 77,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 77,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 77,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 77,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 77,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o"
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 77,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 77,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 77,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 77,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 77,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 77,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 78,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 78,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 78,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 78,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 78,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 78,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: _o_ "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 78,
+                              "column": 12,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 78,
+                                  "column": 12,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 78,
+                                  "column": 14,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 78,
+                                  "column": 17,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 78,
+                                      "column": 17,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 78,
+                                          "column": 17,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 78,
+                                  "column": 21,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 78,
+                              "column": 23,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 79,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 79,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 79,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 79,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 79,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 79,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: o\u003E "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 79,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 79,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 79,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 79,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 79,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 79,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 79,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 79,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 80,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 80,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 80,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 80,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 80,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 8,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": " "
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 12,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 80,
+                              "column": 13,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 80,
+                                  "column": 13,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 15,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 18,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 80,
+                                      "column": 18,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 80,
+                                          "column": 18,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 80,
+                                  "column": 22,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 80,
+                              "column": 24,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 81,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 81,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 81,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 81,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 81,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: "
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 9,
+                                  "name": "TEXT",
+                                  "text": "\\"
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 10,
+                                  "name": "TEXT",
+                                  "text": " "
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 11,
+                                  "name": "TEXT",
+                                  "text": "/"
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 12,
+                                  "name": "TEXT",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 81,
+                              "column": 13,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 81,
+                                  "column": 13,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 15,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 18,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 81,
+                                      "column": 18,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 81,
+                                          "column": 18,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 81,
+                                  "column": 22,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 81,
+                              "column": 24,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "line": 82,
+                      "column": 0,
+                      "name": "shortcut_option",
+                      "children": [
+                        {
+                          "line": 82,
+                          "column": 0,
+                          "name": "SHORTCUT_ARROW",
+                          "text": "-\u003E"
+                        },
+                        {
+                          "line": 82,
+                          "column": 3,
+                          "name": "line_statement",
+                          "children": [
+                            {
+                              "line": 82,
+                              "column": 3,
+                              "name": "line_formatted_text",
+                              "children": [
+                                {
+                                  "line": 82,
+                                  "column": 3,
+                                  "name": "TEXT",
+                                  "text": "M"
+                                },
+                                {
+                                  "line": 82,
+                                  "column": 4,
+                                  "name": "TEXT",
+                                  "text": "ae: ~~ "
+                                }
+                              ]
+                            },
+                            {
+                              "line": 82,
+                              "column": 11,
+                              "name": "line_condition",
+                              "children": [
+                                {
+                                  "line": 82,
+                                  "column": 11,
+                                  "name": "COMMAND_START",
+                                  "text": "\u003C\u003C"
+                                },
+                                {
+                                  "line": 82,
+                                  "column": 13,
+                                  "name": "COMMAND_IF",
+                                  "text": "if "
+                                },
+                                {
+                                  "line": 82,
+                                  "column": 16,
+                                  "name": "expression",
+                                  "children": [
+                                    {
+                                      "line": 82,
+                                      "column": 16,
+                                      "name": "value",
+                                      "children": [
+                                        {
+                                          "line": 82,
+                                          "column": 16,
+                                          "name": "KEYWORD_TRUE",
+                                          "text": "true"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "line": 82,
+                                  "column": 20,
+                                  "name": "COMMAND_END",
+                                  "text": "\u003E\u003E"
+                                }
+                              ]
+                            },
+                            {
+                              "line": 82,
+                              "column": 22,
+                              "name": "NEWLINE",
+                              "text": "\n"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 83,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

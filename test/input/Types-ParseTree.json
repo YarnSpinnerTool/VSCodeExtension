@@ -1,0 +1,1378 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 6,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 6,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 6,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 6,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 6,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 6,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 6,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 6,
+                                      "column": 14,
+                                      "name": "STRING",
+                                      "text": "\u0022test\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 6,
+                              "column": 21,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "=="
+                            },
+                            {
+                              "line": 6,
+                              "column": 24,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 6,
+                                  "column": 24,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 6,
+                                      "column": 24,
+                                      "name": "STRING",
+                                      "text": "\u0022test\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 6,
+                          "column": 30,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 31,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 7,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 7,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 7,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 7,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 7,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 7,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 7,
+                                      "column": 14,
+                                      "name": "STRING",
+                                      "text": "\u0022test\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 7,
+                              "column": 21,
+                              "name": "OPERATOR_LOGICAL_EQUALS",
+                              "text": "eq"
+                            },
+                            {
+                              "line": 7,
+                              "column": 24,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 7,
+                                  "column": 24,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 7,
+                                      "column": 24,
+                                      "name": "STRING",
+                                      "text": "\u0022test\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 7,
+                          "column": 30,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 31,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 10,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 10,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 10,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 10,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 10,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 10,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 10,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 10,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 10,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 10,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 10,
+                                      "column": 14,
+                                      "name": "STRING",
+                                      "text": "\u0022hi\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 10,
+                              "column": 19,
+                              "name": "OPERATOR_LOGICAL_NOT_EQUALS",
+                              "text": "!="
+                            },
+                            {
+                              "line": 10,
+                              "column": 22,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 10,
+                                  "column": 22,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 10,
+                                      "column": 22,
+                                      "name": "STRING",
+                                      "text": "\u0022HI\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 10,
+                          "column": 26,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 10,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 11,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 11,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 11,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 11,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 11,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 11,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 11,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 11,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 11,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 11,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 11,
+                                      "column": 14,
+                                      "name": "STRING",
+                                      "text": "\u0022hi\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 11,
+                              "column": 19,
+                              "name": "OPERATOR_LOGICAL_NOT_EQUALS",
+                              "text": "neq"
+                            },
+                            {
+                              "line": 11,
+                              "column": 23,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 11,
+                                  "column": 23,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 11,
+                                      "column": 23,
+                                      "name": "STRING",
+                                      "text": "\u0022HI\u0022"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 11,
+                          "column": 27,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 11,
+                      "column": 28,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 14,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 14,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 14,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 14,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 14,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 14,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 14,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 14,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 14,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 14,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 14,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "3"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 14,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_GREATER",
+                              "text": "\u003E"
+                            },
+                            {
+                              "line": 14,
+                              "column": 18,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 14,
+                                  "column": 18,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 14,
+                                      "column": 18,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 14,
+                          "column": 19,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 14,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 15,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 15,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 15,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 15,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 15,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 15,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 15,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 15,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 15,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 15,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 15,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "3"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 15,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_GREATER",
+                              "text": "gt"
+                            },
+                            {
+                              "line": 15,
+                              "column": 19,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 15,
+                                  "column": 19,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 15,
+                                      "column": 19,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 15,
+                          "column": 20,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 15,
+                      "column": 21,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 18,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 18,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 18,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 18,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 18,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 18,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 18,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 18,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 18,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 18,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 18,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 18,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_LESS",
+                              "text": "\u003C"
+                            },
+                            {
+                              "line": 18,
+                              "column": 18,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 18,
+                                  "column": 18,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 18,
+                                      "column": 18,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 18,
+                          "column": 19,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 18,
+                      "column": 20,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 19,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 19,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 19,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 19,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 19,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 19,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 19,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 19,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 19,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 19,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 19,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "1"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 19,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_LESS",
+                              "text": "lt"
+                            },
+                            {
+                              "line": 19,
+                              "column": 19,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 19,
+                                  "column": 19,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 19,
+                                      "column": 19,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 19,
+                          "column": 20,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 19,
+                      "column": 21,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 22,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 22,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 22,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 22,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 22,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 22,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 22,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 22,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 22,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 22,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 22,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 22,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_LESS_THAN_EQUALS",
+                              "text": "\u003C="
+                            },
+                            {
+                              "line": 22,
+                              "column": 19,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 22,
+                                  "column": 19,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 22,
+                                      "column": 19,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 22,
+                          "column": 20,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 22,
+                      "column": 21,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 23,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 23,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 23,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 23,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 23,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 23,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 23,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 23,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 23,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 23,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 23,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 23,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_LESS_THAN_EQUALS",
+                              "text": "lte"
+                            },
+                            {
+                              "line": 23,
+                              "column": 20,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 23,
+                                  "column": 20,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 23,
+                                      "column": 20,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 23,
+                          "column": 21,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 23,
+                      "column": 22,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 26,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 26,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 26,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 26,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 26,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 26,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 26,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 26,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 26,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 26,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 26,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 26,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_GREATER_THAN_EQUALS",
+                              "text": "\u003E="
+                            },
+                            {
+                              "line": 26,
+                              "column": 19,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 26,
+                                  "column": 19,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 26,
+                                      "column": 19,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 26,
+                          "column": 20,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 26,
+                      "column": 21,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 27,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 27,
+                  "column": 0,
+                  "name": "call_statement",
+                  "children": [
+                    {
+                      "line": 27,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 27,
+                      "column": 2,
+                      "name": "COMMAND_CALL",
+                      "text": "call "
+                    },
+                    {
+                      "line": 27,
+                      "column": 7,
+                      "name": "function_call",
+                      "children": [
+                        {
+                          "line": 27,
+                          "column": 7,
+                          "name": "FUNC_ID",
+                          "text": "assert"
+                        },
+                        {
+                          "line": 27,
+                          "column": 13,
+                          "name": "LPAREN",
+                          "text": "("
+                        },
+                        {
+                          "line": 27,
+                          "column": 14,
+                          "name": "expression",
+                          "children": [
+                            {
+                              "line": 27,
+                              "column": 14,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 27,
+                                  "column": 14,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 27,
+                                      "column": 14,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "line": 27,
+                              "column": 16,
+                              "name": "OPERATOR_LOGICAL_GREATER_THAN_EQUALS",
+                              "text": "gte"
+                            },
+                            {
+                              "line": 27,
+                              "column": 20,
+                              "name": "expression",
+                              "children": [
+                                {
+                                  "line": 27,
+                                  "column": 20,
+                                  "name": "value",
+                                  "children": [
+                                    {
+                                      "line": 27,
+                                      "column": 20,
+                                      "name": "NUMBER",
+                                      "text": "2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "line": 27,
+                          "column": 21,
+                          "name": "RPAREN",
+                          "text": ")"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 27,
+                      "column": 22,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 28,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}

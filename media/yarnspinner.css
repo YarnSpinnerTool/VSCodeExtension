@@ -1,0 +1,70 @@
+
+body {
+
+    overflow: clip;
+
+    background: 
+        linear-gradient(90deg, var(--vscode-editor-background) 21px, transparent 1%) center, 
+        linear-gradient(var(--vscode-editor-background) 21px, transparent 1%) center, var(--vscode-foreground);
+    background-size: 22px 22px;
+}
+
+div.nodes {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    touch-action: none;
+    user-select: none;
+    z-index: 1;
+}
+
+
+#nodes-header {
+    position: absolute;
+    z-index: 2;
+    padding: 4px;
+    background-color: var(--vscode-breadcrumb-background);
+    width: 100vw;
+    left: 0;
+    top: 0;
+
+    box-shadow: 0 0 6px var(--vscode-scrollbar-shadow);
+
+    display: flex;
+    justify-content: space-between;
+}
+
+div.node {
+    border: 1px solid var(--vscode-notebook-cellBorderColor);
+    background-color: var(--vscode-editor-background);
+    
+    border-radius: 2px;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    touch-action: none;
+    user-select: none;
+    padding: 5px;
+
+    width: 150px;
+    
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 0 10px var(--vscode-widget-shadow);
+}
+
+div.node .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.node#node-template {
+    display:none;
+}

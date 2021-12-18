@@ -1,0 +1,376 @@
+[
+  {
+    "line": 1,
+    "column": 0,
+    "name": "ID",
+    "text": "title"
+  },
+  {
+    "line": 1,
+    "column": 5,
+    "name": "HEADER_DELIMITER",
+    "text": ": "
+  },
+  {
+    "line": 1,
+    "column": 7,
+    "name": "REST_OF_LINE",
+    "text": "Start"
+  },
+  {
+    "line": 1,
+    "column": 12,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 2,
+    "column": 0,
+    "name": "BODY_START",
+    "text": "---"
+  },
+  {
+    "line": 2,
+    "column": 3,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 3,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// Function tests",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 3,
+    "column": 17,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 4,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 5,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// \u0022add_three_operands\u0022 is a function that adds three operands together",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 5,
+    "column": 71,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 6,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 7,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 7,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 7,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 7,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 7,
+    "column": 14,
+    "name": "FUNC_ID",
+    "text": "add_three_operands"
+  },
+  {
+    "line": 7,
+    "column": 32,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 7,
+    "column": 33,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 7,
+    "column": 34,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 7,
+    "column": 36,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 7,
+    "column": 37,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 7,
+    "column": 39,
+    "name": "NUMBER",
+    "text": "4"
+  },
+  {
+    "line": 7,
+    "column": 40,
+    "name": "OPERATOR_MATHS_MULTIPLICATION",
+    "text": "*"
+  },
+  {
+    "line": 7,
+    "column": 41,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 7,
+    "column": 42,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 7,
+    "column": 44,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 7,
+    "column": 47,
+    "name": "NUMBER",
+    "text": "7"
+  },
+  {
+    "line": 7,
+    "column": 48,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 7,
+    "column": 49,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 7,
+    "column": 51,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 8,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 9,
+    "column": 0,
+    "name": "COMMENT",
+    "text": "// function calls as parameters",
+    "channel": "COMMENTS"
+  },
+  {
+    "line": 9,
+    "column": 31,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 10,
+    "column": 0,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 11,
+    "column": 0,
+    "name": "COMMAND_START",
+    "text": "\u003C\u003C"
+  },
+  {
+    "line": 11,
+    "column": 2,
+    "name": "COMMAND_CALL",
+    "text": "call "
+  },
+  {
+    "line": 11,
+    "column": 7,
+    "name": "FUNC_ID",
+    "text": "assert"
+  },
+  {
+    "line": 11,
+    "column": 13,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 11,
+    "column": 14,
+    "name": "FUNC_ID",
+    "text": "add_three_operands"
+  },
+  {
+    "line": 11,
+    "column": 32,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 11,
+    "column": 33,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 11,
+    "column": 34,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 11,
+    "column": 36,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 11,
+    "column": 37,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 11,
+    "column": 39,
+    "name": "FUNC_ID",
+    "text": "add_three_operands"
+  },
+  {
+    "line": 11,
+    "column": 57,
+    "name": "LPAREN",
+    "text": "("
+  },
+  {
+    "line": 11,
+    "column": 58,
+    "name": "NUMBER",
+    "text": "1"
+  },
+  {
+    "line": 11,
+    "column": 59,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 11,
+    "column": 60,
+    "name": "NUMBER",
+    "text": "2"
+  },
+  {
+    "line": 11,
+    "column": 61,
+    "name": "COMMA",
+    "text": ","
+  },
+  {
+    "line": 11,
+    "column": 62,
+    "name": "NUMBER",
+    "text": "3"
+  },
+  {
+    "line": 11,
+    "column": 63,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 11,
+    "column": 64,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 11,
+    "column": 66,
+    "name": "OPERATOR_LOGICAL_EQUALS",
+    "text": "=="
+  },
+  {
+    "line": 11,
+    "column": 69,
+    "name": "NUMBER",
+    "text": "9"
+  },
+  {
+    "line": 11,
+    "column": 70,
+    "name": "RPAREN",
+    "text": ")"
+  },
+  {
+    "line": 11,
+    "column": 71,
+    "name": "COMMAND_END",
+    "text": "\u003E\u003E"
+  },
+  {
+    "line": 11,
+    "column": 73,
+    "name": "NEWLINE",
+    "text": "\n",
+    "channel": "WHITESPACE"
+  },
+  {
+    "line": 12,
+    "column": 0,
+    "name": "BODY_END",
+    "text": "==="
+  }
+]

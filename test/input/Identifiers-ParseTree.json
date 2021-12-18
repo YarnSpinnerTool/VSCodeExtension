@@ -1,0 +1,438 @@
+{
+  "line": 1,
+  "column": 0,
+  "name": "dialogue",
+  "children": [
+    {
+      "line": 1,
+      "column": 0,
+      "name": "node",
+      "children": [
+        {
+          "line": 1,
+          "column": 0,
+          "name": "header",
+          "children": [
+            {
+              "line": 1,
+              "column": 0,
+              "name": "ID",
+              "text": "title"
+            },
+            {
+              "line": 1,
+              "column": 5,
+              "name": "HEADER_DELIMITER",
+              "text": ": "
+            },
+            {
+              "line": 1,
+              "column": 7,
+              "name": "REST_OF_LINE",
+              "text": "Start"
+            }
+          ]
+        },
+        {
+          "line": 2,
+          "column": 0,
+          "name": "BODY_START",
+          "text": "---"
+        },
+        {
+          "line": 3,
+          "column": 0,
+          "name": "body",
+          "children": [
+            {
+              "line": 3,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 3,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 3,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 3,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 3,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 3,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$demo"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 3,
+                      "column": 16,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 3,
+                      "column": 18,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 3,
+                          "column": 18,
+                          "name": "NUMBER",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 3,
+                      "column": 20,
+                      "name": "EXPRESSION_AS",
+                      "text": "as"
+                    },
+                    {
+                      "line": 3,
+                      "column": 23,
+                      "name": "FUNC_ID",
+                      "text": "number"
+                    },
+                    {
+                      "line": 3,
+                      "column": 29,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 4,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 4,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 4,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 4,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 4,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 4,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$\u5B9E\u9A8C"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 4,
+                      "column": 14,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 4,
+                      "column": 16,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 4,
+                          "column": 16,
+                          "name": "NUMBER",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 4,
+                      "column": 18,
+                      "name": "EXPRESSION_AS",
+                      "text": "as"
+                    },
+                    {
+                      "line": 4,
+                      "column": 21,
+                      "name": "FUNC_ID",
+                      "text": "number"
+                    },
+                    {
+                      "line": 4,
+                      "column": 27,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 5,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 5,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 5,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 5,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 5,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$\u044D\u043A\u0441\u043F\u0435\u0440\u0438\u043C\u0435\u043D\u0442"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 23,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 5,
+                      "column": 25,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 5,
+                          "column": 25,
+                          "name": "NUMBER",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 5,
+                      "column": 27,
+                      "name": "EXPRESSION_AS",
+                      "text": "as"
+                    },
+                    {
+                      "line": 5,
+                      "column": 30,
+                      "name": "FUNC_ID",
+                      "text": "number"
+                    },
+                    {
+                      "line": 5,
+                      "column": 36,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 6,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 6,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 6,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 6,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 6,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$m\u1EE5c"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 15,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 6,
+                      "column": 17,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 6,
+                          "column": 17,
+                          "name": "NUMBER",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 6,
+                      "column": 19,
+                      "name": "EXPRESSION_AS",
+                      "text": "as"
+                    },
+                    {
+                      "line": 6,
+                      "column": 22,
+                      "name": "FUNC_ID",
+                      "text": "number"
+                    },
+                    {
+                      "line": 6,
+                      "column": 28,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "line": 7,
+              "column": 0,
+              "name": "statement",
+              "children": [
+                {
+                  "line": 7,
+                  "column": 0,
+                  "name": "declare_statement",
+                  "children": [
+                    {
+                      "line": 7,
+                      "column": 0,
+                      "name": "COMMAND_START",
+                      "text": "\u003C\u003C"
+                    },
+                    {
+                      "line": 7,
+                      "column": 2,
+                      "name": "COMMAND_DECLARE",
+                      "text": "declare "
+                    },
+                    {
+                      "line": 7,
+                      "column": 10,
+                      "name": "variable",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 10,
+                          "name": "VAR_ID",
+                          "text": "$\uD83E\uDDF6"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 13,
+                      "name": "OPERATOR_ASSIGNMENT",
+                      "text": "="
+                    },
+                    {
+                      "line": 7,
+                      "column": 15,
+                      "name": "value",
+                      "children": [
+                        {
+                          "line": 7,
+                          "column": 15,
+                          "name": "NUMBER",
+                          "text": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "line": 7,
+                      "column": 17,
+                      "name": "EXPRESSION_AS",
+                      "text": "as"
+                    },
+                    {
+                      "line": 7,
+                      "column": 20,
+                      "name": "FUNC_ID",
+                      "text": "number"
+                    },
+                    {
+                      "line": 7,
+                      "column": 26,
+                      "name": "COMMAND_END",
+                      "text": "\u003E\u003E"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "line": 8,
+          "column": 0,
+          "name": "BODY_END",
+          "text": "==="
+        }
+      ]
+    }
+  ]
+}
