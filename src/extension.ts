@@ -1,21 +1,84 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as path from 'path';
 
-import { subscribeToDocumentChanges } from './diagnostics';
-import { getNodeInfo, parse } from './parsing';
+import { ServerOptions, TransportKind, LanguageClient, LanguageClientOptions } from "vscode-languageclient/node";
+
+import { Trace } from "vscode-jsonrpc";
+
 import { YarnSpinnerEditorProvider } from './editor';
+import * as fs from 'fs';
+
+const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-	const yarnSpinnerDiagnostics = vscode.languages.createDiagnosticCollection("yarn-spinner");
-	context.subscriptions.push(yarnSpinnerDiagnostics);
+export async function activate(context: vscode.ExtensionContext) {
+	
+	// Ensure .net 6.0 is installed and available
+    interface IDotnetAcquireResult {
+        dotnetPath: string;
+	}
+	
+	const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
+	
+    const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
+    if (!dotnetPath) {
+		throw new Error('Can\'t load the language server: Failed to acquire.NET!');
+    }
 
-	subscribeToDocumentChanges(context, yarnSpinnerDiagnostics);
+    const languageServerExe = dotnetPath;
+    const languageServerPath =
+        isDebugMode() ?
+            path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
+			path.resolve(context.asAbsolutePath("media/YarnLanguageServer.dll"));
 
-	const symbolProvider = vscode.languages.registerDocumentSymbolProvider({ pattern: "**/*.{yarn,yarnproject,yarn.txt}" }, new YarnSpinnerSymbolProvider());
-	context.subscriptions.push(symbolProvider);
+	if (fs.existsSync(languageServerPath) == false) {
+		throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
+	}
+
+    let languageServerOptions: ServerOptions = {
+        run: {
+            command: languageServerExe,
+            args: [languageServerPath],
+            transport: TransportKind.pipe,
+        },
+        debug: {
+            command: languageServerExe,
+            args: [languageServerPath, "--waitForDebugger"],
+            transport: TransportKind.pipe,
+            runtime: "",
+        },
+    };
+
+    var configs = vscode.workspace.getConfiguration("yarnSpinner");
+    let languageClientOptions: LanguageClientOptions = {
+        documentSelector: [
+            "**/*.yarn"
+        ],
+        initializationOptions: [
+            configs,
+        ],
+        progressOnInitialization: true,
+        synchronize: {
+            // configurationSection is deprecated but means we can use the same code for vscode and visual studio (which doesn't support the newer workspace/configuration endpoint)
+            configurationSection: 'yarnSpinner',
+			fileEvents: [
+				vscode.workspace.createFileSystemWatcher("**/*.yarn"),
+				vscode.workspace.createFileSystemWatcher("**/*.cs"),
+				vscode.workspace.createFileSystemWatcher("**/*.ysls.json")
+			]
+
+        },
+    };
+
+    const client = new LanguageClient("yarnSpinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
+    client.trace = Trace.Verbose;
+
+    let disposableClient = client.start();
+    // deactivate client on extension deactivation
+    context.subscriptions.push(disposableClient);
 
 	context.subscriptions.push(YarnSpinnerEditorProvider.register(context));
 
@@ -24,22 +87,3 @@ export function activate(context: vscode.ExtensionContext) {
 	}))
 }
 
-class YarnSpinnerSymbolProvider implements vscode.DocumentSymbolProvider {
-	provideDocumentSymbols(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.SymbolInformation[] | vscode.DocumentSymbol[]> {
-
-		var parseTree = parse(document.getText());
-		var nodeInfo = getNodeInfo(parseTree.parseContext);
-
-		var nodes: vscode.SymbolInformation[] = [];
-
-		for (var node of nodeInfo) {
-			const range = new vscode.Range(node.line - 1, 0, node.line - 1, 1);
-			var symbol = new vscode.SymbolInformation(node.title, vscode.SymbolKind.Key, "document", new vscode.Location(document.uri, range));
-
-			nodes.push(symbol);
-		}
-
-		return nodes;
-	}
-
-}

@@ -1,0 +1,18 @@
+{
+    "Commands": [
+        {
+            "Language": "csharp",
+            "YarnName": "do_cool_thing",
+            "DefinitionName": "DoCoolThing",
+            "Documentation": "Does a cool thing.",
+            "Parameters": [
+                {
+                    "Name": "thing",
+                    "Type": "String",
+                    "Documentation": "The thing to do.",
+                    "DefaultValue": "nifty"
+                }
+            ]
+        }
+    ]
+}

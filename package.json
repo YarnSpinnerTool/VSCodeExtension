@@ -43,6 +43,7 @@
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",
         "package": "vsce package",
+        "buildServer": "cd LanguageServer ; dotnet build -c Release",
         "antlr4ts": "antlr4ts src/YarnSpinnerLexer.g4 ; antlr4ts -visitor src/YarnSpinnerParser.g4"
     },
     "devDependencies": {
@@ -115,13 +116,53 @@
                 "language": "yarnspinner",
                 "path": "./snippets.json"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "Yarn Spinner Language Server",
+            "properties": {
+                "yarnLanguageServer.CSharpLookup": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Parse C# files for Commands and Functions."
+                },
+                "yarnLanguageServer.DeepCommandLookup": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Deeper search for undefined command names"
+                },
+                "yarnLanguageServer.OnlySuggestDeclaredVariables": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "When false, variable suggestions will also include undeclared variables."
+                },
+                "yarnLanguageServer.DidYouMeanThreshold": {
+                    "type": "number",
+                    "default": 0.3,
+                    "description": "Controls the cut off for fuzzy string matching in quick fix suggestions."
+                },
+                "yarnLanguageServer.trace.server": {
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "messages",
+                    "description": "Traces the communication between VSCode and the Yarn Language Server Instance."
+                }
+            }
+        }
     },
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
         "@vscode/webview-ui-toolkit": "^0.8.4",
         "antlr4ts": "^0.5.0-alpha.4",
         "interactjs": "^1.10.11",
-        "leader-line": "^1.0.5"
-    }
+        "leader-line": "^1.0.5",
+        "vscode-jsonrpc": "^6.0.0",
+        "vscode-languageclient": "^7.0.0"
+    },
+    "extensionDependencies": [
+        "ms-dotnettools.vscode-dotnet-runtime"
+    ]
 }

@@ -21,12 +21,19 @@
         {
             "name": "Extension",
             "type": "extensionHost",
-            "preLaunchTask": "npm: watch",
+            "preLaunchTask": "npm",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
-            ]
+            ],
+            "env": {"VSCODE_DEBUG_MODE": "true"}
         },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            // "processName": "dotnet YarnLanguageServer.dll --waitForDebugger"
+        }
     ]
 }

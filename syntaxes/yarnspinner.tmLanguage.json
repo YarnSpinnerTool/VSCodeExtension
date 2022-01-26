@@ -78,7 +78,7 @@
 						{
 							"comment": "First word in a command",
 							"match": "(?<=\\<\\<)\\w+",
-							"name": "keyword.control"
+							"name": "support.function"
 						},
 						{
 							"include": "#keywords"
