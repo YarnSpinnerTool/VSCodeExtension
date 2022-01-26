@@ -2,17 +2,25 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "npm",
-			"script": "watch",
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true,
-			"presentation": {
-				"reveal": "never"
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
+            "label": "npm",
+            "dependsOn": ["build"],
+            "command": "npm",
+            "args": [ "run", "compile", "--loglevel", "silent"],
+            "type": "shell",
+            "problemMatcher": "$tsc-watch"
+        },
+		{
+			"label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+				"--no-restore",
+                "${workspaceFolder}/LanguageServer/LanguageServer/YarnLanguageServer.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
 		}
 	]
 }

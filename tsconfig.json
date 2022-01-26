@@ -9,5 +9,5 @@
 		"rootDir": "src",
 		"allowJs": true,
 	},
-	"exclude": ["node_modules", ".vscode-test", "out/**/*", "media", "jest.config.js"]
+	"exclude": ["node_modules", ".vscode-test", "out/**/*", "media", "jest.config.js", "LanguageServer/**/*"]
 }

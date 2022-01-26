@@ -1,14 +1,28 @@
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import * as vscode from 'vscode';
-import * as parsing from './parsing';
-import { HeaderContext, NodeContext, YarnSpinnerParser } from './YarnSpinnerParser';
-import { YarnSpinnerParserListener } from './YarnSpinnerParserListener';
 import * as fs from 'fs';
 import { Parser } from 'antlr4ts';
 
+interface Position {
+    line: number;
+    character: number
+}
+
+export class NodeInfo {
+    title: string = "";
+    position: { x: number, y: number } = { x: 0, y: 0 }
+    destinations: string[] = []
+    tags: string[] = []
+    line: number = 0
+    bodyLine: number = 0
+
+    start: Position = { line: 0, character: 0 };
+    end: Position = { line: 0, character: 0 };
+}
+
 export class NodesUpdatedEvent {
     type = "update"
-    nodes : parsing.NodeInfo[] = []
+    nodes : NodeInfo[] = []
 }
 
 export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvider {
@@ -23,10 +37,14 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         };
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-        function updateWebview(document : vscode.TextDocument) {
-            var parseTree = parsing.parse(document.getText());
-            var nodes = parsing.getNodeInfo(parseTree.parseContext);
-            // document.
+        function updateWebview(document: vscode.TextDocument) {
+
+            // TODO: Get the nodes by asking the language server.
+            var nodes: NodeInfo[] = [];
+            
+            // var parseTree = parsing.parse(document.getText());
+            // var nodes = parsing.getNodeInfo(parseTree.parseContext);
+            // // document.
 
             webviewPanel.webview.postMessage({
                 type: 'update',
@@ -77,9 +95,12 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         updateWebview(document);
     }
     openNode(document: vscode.TextDocument, id: string) {
-        var parseTree = parsing.parse(document.getText());
+
+        // TODO: get the node info objects by querying the language server.
+        var nodeInfos: NodeInfo[] = [];
+        // var parseTree = parsing.parse(document.getText());
         
-        var nodeInfos = parsing.getNodeInfo(parseTree.parseContext).filter(n => n.title == id);
+        // var nodeInfos = parsing.getNodeInfo(parseTree.parseContext).filter(n => n.title == id);
 
         if (nodeInfos.length > 0) {
             const nodeInfo = nodeInfos[0];
@@ -95,155 +116,162 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         
     }
 
-    moveNode(document: vscode.TextDocument, id: string, position: {x: number, y: number}) {
-        var parseTree = parsing.parse(document.getText());
-
-        class NodeHeaderFinder implements YarnSpinnerParserListener {
-            constructor(targetNodeName : string, targetHeader:string) {
-                this.targetNodeName = targetNodeName;
-                this.targetHeader = targetHeader;
-            }
-            
-            targetNodeName: string;
-            targetHeader: string;
-            
-            insertionPoint : vscode.Position | undefined;
-            replacementRange : vscode.Range | undefined;
-
-            exitNode(ctx: NodeContext) {
-
-                var candidateReplacementRange : vscode.Range | undefined;
-                
-                for (const header of ctx.header()) {
-                    var headerKey = header._header_key.text;
-                    var headerValue = header._header_value?.text ?? "";
-
-                    if (headerKey === "title") {
-                        if (headerValue != this.targetNodeName) {
-                            // This isn't the node we're looking for! Exit here.
-                            return;
-                        }
-                    }
-
-                    if (headerKey == this.targetHeader) {
-                        var start = header.start;
-                        var stop = header.stop ?? header.start;
-
-                        // this could be our target node's target header!
-                        // record this as a candidate 
-                        candidateReplacementRange = new vscode.Range(
-                            start.line - 1, 
-                            start.charPositionInLine, 
-                            stop.line - 1, 
-                            stop.charPositionInLine + (stop.text?.length ?? 0))
-                    }
-                }
-
-                // If we've made it to here, then we know that we're in the
-                // target node (else the title test would have returned).
-
-                if (candidateReplacementRange) {
-                    this.replacementRange = candidateReplacementRange;
-                } else {
-                    // We don't have a candidate replacement range for this
-                    // header. It doesn't exist in the node. Instead,
-                    // insert a new line at the 'BODY_START' token
-                    this.insertionPoint = new vscode.Position(ctx.BODY_START()._symbol.line - 1, 0);
-                }
-            }
-        }
-
-        var listener = new NodeHeaderFinder(id, "position");
-
-        ParseTreeWalker.DEFAULT.walk(listener as YarnSpinnerParserListener, parseTree.parseContext);
+    moveNode(document: vscode.TextDocument, id: string, position: { x: number, y: number }) {
         
-        const newPositionHeader = `position: ${Math.round(position.x)},${Math.round(position.y)}`;
+        // TODO: ask the language server for a text edit that would modify the given node's position header, and then apply that edit
+        // var parseTree = parsing.parse(document.getText());
 
-        if (listener.replacementRange) {
-            var edit = new vscode.WorkspaceEdit();
-            edit.replace(document.uri,listener.replacementRange, newPositionHeader);
-            vscode.workspace.applyEdit(edit);
-        } else if (listener.insertionPoint) {
-            var edit = new vscode.WorkspaceEdit();
-            edit.insert(document.uri, listener.insertionPoint, newPositionHeader + "\n");
-            vscode.workspace.applyEdit(edit);
-        } else {
-            console.error(`No node called ${id} exists in the document?`);
-        }
+        // class NodeHeaderFinder implements YarnSpinnerParserListener {
+        //     constructor(targetNodeName : string, targetHeader:string) {
+        //         this.targetNodeName = targetNodeName;
+        //         this.targetHeader = targetHeader;
+        //     }
+            
+        //     targetNodeName: string;
+        //     targetHeader: string;
+            
+        //     insertionPoint : vscode.Position | undefined;
+        //     replacementRange : vscode.Range | undefined;
+
+        //     exitNode(ctx: NodeContext) {
+
+        //         var candidateReplacementRange : vscode.Range | undefined;
+                
+        //         for (const header of ctx.header()) {
+        //             var headerKey = header._header_key.text;
+        //             var headerValue = header._header_value?.text ?? "";
+
+        //             if (headerKey === "title") {
+        //                 if (headerValue != this.targetNodeName) {
+        //                     // This isn't the node we're looking for! Exit here.
+        //                     return;
+        //                 }
+        //             }
+
+        //             if (headerKey == this.targetHeader) {
+        //                 var start = header.start;
+        //                 var stop = header.stop ?? header.start;
+
+        //                 // this could be our target node's target header!
+        //                 // record this as a candidate 
+        //                 candidateReplacementRange = new vscode.Range(
+        //                     start.line - 1, 
+        //                     start.charPositionInLine, 
+        //                     stop.line - 1, 
+        //                     stop.charPositionInLine + (stop.text?.length ?? 0))
+        //             }
+        //         }
+
+        //         // If we've made it to here, then we know that we're in the
+        //         // target node (else the title test would have returned).
+
+        //         if (candidateReplacementRange) {
+        //             this.replacementRange = candidateReplacementRange;
+        //         } else {
+        //             // We don't have a candidate replacement range for this
+        //             // header. It doesn't exist in the node. Instead,
+        //             // insert a new line at the 'BODY_START' token
+        //             this.insertionPoint = new vscode.Position(ctx.BODY_START()._symbol.line - 1, 0);
+        //         }
+        //     }
+        // }
+
+        // var listener = new NodeHeaderFinder(id, "position");
+
+        // ParseTreeWalker.DEFAULT.walk(listener as YarnSpinnerParserListener, parseTree.parseContext);
+        
+        // const newPositionHeader = `position: ${Math.round(position.x)},${Math.round(position.y)}`;
+
+        // if (listener.replacementRange) {
+        //     var edit = new vscode.WorkspaceEdit();
+        //     edit.replace(document.uri,listener.replacementRange, newPositionHeader);
+        //     vscode.workspace.applyEdit(edit);
+        // } else if (listener.insertionPoint) {
+        //     var edit = new vscode.WorkspaceEdit();
+        //     edit.insert(document.uri, listener.insertionPoint, newPositionHeader + "\n");
+        //     vscode.workspace.applyEdit(edit);
+        // } else {
+        //     console.error(`No node called ${id} exists in the document?`);
+        // }
         
     }
     deleteNode(document: vscode.TextDocument, id: string) {
-        var parseTree = parsing.parse(document.getText());
-        var nodeInfos = parsing.getNodeInfo(parseTree.parseContext);
 
-        const nodesWithTitle = nodeInfos.filter(n => n.title === id);
-        if (nodesWithTitle.length > 1) {
-            vscode.window.showErrorMessage(`Can't delete node: multiple nodes named ${id} exist in this document. Please modify the source code directly.`);
-            return;
-        } else if (nodesWithTitle.length == 0) {
-            console.error(`Can't delete node called ${id}: it doesn't exist in the document`);
-        }
+        // TODO: ask the language server to return a text edit that would delete
+        // the given node
+        // var parseTree = parsing.parse(document.getText());
+        // var nodeInfos = parsing.getNodeInfo(parseTree.parseContext);
 
-        var selectedNode = nodesWithTitle[0];
+        // const nodesWithTitle = nodeInfos.filter(n => n.title === id);
+        // if (nodesWithTitle.length > 1) {
+        //     vscode.window.showErrorMessage(`Can't delete node: multiple nodes named ${id} exist in this document. Please modify the source code directly.`);
+        //     return;
+        // } else if (nodesWithTitle.length == 0) {
+        //     console.error(`Can't delete node called ${id}: it doesn't exist in the document`);
+        // }
 
-        var range = new vscode.Range(
-            new vscode.Position(selectedNode.start.line, selectedNode.start.character),
-            new vscode.Position(selectedNode.end.line, selectedNode.end.character),
-        )
+        // var selectedNode = nodesWithTitle[0];
 
-        var edit = new vscode.WorkspaceEdit();
-        edit.delete(document.uri, range);
-        vscode.workspace.applyEdit(edit);
+        // var range = new vscode.Range(
+        //     new vscode.Position(selectedNode.start.line, selectedNode.start.character),
+        //     new vscode.Position(selectedNode.end.line, selectedNode.end.character),
+        // )
+
+        // var edit = new vscode.WorkspaceEdit();
+        // edit.delete(document.uri, range);
+        // vscode.workspace.applyEdit(edit);
     }
-    addNode(document: vscode.TextDocument, position: {x:number, y:number}) {
+    addNode(document: vscode.TextDocument, position: { x: number, y: number }) {
         
-        var parseResult = parsing.parse(document.getText());
-        var existingNodes = parsing.getNodeInfo(parseResult.parseContext);
-        var existingNodeNames = existingNodes.map(n => n.title);
-
-        var attemptCount = 0;
-        var baseNodeName = "Node"
-        var newNodeName = baseNodeName;
+        // TODO: ask the language server to return a text edit that would create a node with the given position
         
-        while (existingNodeNames.indexOf(newNodeName) != -1) {
-            attemptCount += 1;
-            newNodeName = `${baseNodeName}${attemptCount.toString()}`;
-        }
+        // var parseResult = parsing.parse(document.getText());
+        // var existingNodes = parsing.getNodeInfo(parseResult.parseContext);
+        // var existingNodeNames = existingNodes.map(n => n.title);
+
+        // var attemptCount = 0;
+        // var baseNodeName = "Node"
+        // var newNodeName = baseNodeName;
         
-        // Find the end of the document and insert a new node
-        var lastLine = document.lineAt(document.lineCount - 1);
+        // while (existingNodeNames.indexOf(newNodeName) != -1) {
+        //     attemptCount += 1;
+        //     newNodeName = `${baseNodeName}${attemptCount.toString()}`;
+        // }
+        
+        // // Find the end of the document and insert a new node
+        // var lastLine = document.lineAt(document.lineCount - 1);
 
-        var insertionPoint = lastLine.range.end;
+        // var insertionPoint = lastLine.range.end;
 
-        var insertNewLine : boolean
+        // var insertNewLine : boolean
 
         
-        if (lastLine.isEmptyOrWhitespace) {
-            insertNewLine = false;
-        } else {
-            insertNewLine = true;
-        }
+        // if (lastLine.isEmptyOrWhitespace) {
+        //     insertNewLine = false;
+        // } else {
+        //     insertNewLine = true;
+        // }
         
-        var newNodeTemplatePath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'NewNodeTemplate.yarn').fsPath;
+        // var newNodeTemplatePath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'NewNodeTemplate.yarn').fsPath;
         
         
-        var contents = fs.readFile(newNodeTemplatePath, null, (err, data) => {
-            var contents = data.toString();
+        // var contents = fs.readFile(newNodeTemplatePath, null, (err, data) => {
+        //     var contents = data.toString();
 
-            contents = contents.replace("{NODE_NAME}", newNodeName);
-            contents = contents.replace("{NODE_POSITION_X}", position.x.toString());
-            contents = contents.replace("{NODE_POSITION_Y}", position.y.toString());
+        //     contents = contents.replace("{NODE_NAME}", newNodeName);
+        //     contents = contents.replace("{NODE_POSITION_X}", position.x.toString());
+        //     contents = contents.replace("{NODE_POSITION_Y}", position.y.toString());
 
-            var edit = new vscode.WorkspaceEdit();
+        //     var edit = new vscode.WorkspaceEdit();
 
-            if (insertNewLine) {
-                contents = "\n" + contents;
-            }
+        //     if (insertNewLine) {
+        //         contents = "\n" + contents;
+        //     }
             
-            edit.insert(document.uri, insertionPoint, contents);
+        //     edit.insert(document.uri, insertionPoint, contents);
 
-            vscode.workspace.applyEdit(edit);
-        });
+        //     vscode.workspace.applyEdit(edit);
+        // });
     }
 
     public static register(context: vscode.ExtensionContext): vscode.Disposable {

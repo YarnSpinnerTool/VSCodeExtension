@@ -1,0 +1,14 @@
+{
+    "json.schemas": [
+        
+        
+
+        {
+            "fileMatch": [
+                "**/*.ysls.json"
+            ],
+            "url": "/yarnspinnerlanguageserver.schema.json"
+        }
+    ],
+    "yarnLanguageServer.trace.server": "verbose"
+}
