@@ -10,5 +10,5 @@
             "url": "/yarnspinnerlanguageserver.schema.json"
         }
     ],
-    "yarnLanguageServer.trace.server": "verbose"
+    "yarnspinner.trace.server": "verbose"
 }

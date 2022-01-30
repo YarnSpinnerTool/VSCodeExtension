@@ -9,8 +9,13 @@ import { Trace } from "vscode-jsonrpc";
 
 import { YarnSpinnerEditorProvider } from './editor';
 import * as fs from 'fs';
+import { EventEmitter } from 'vscode';
+import { DidChangeNodesNotification } from './nodes';
+
+import { DidChangeNodesParams } from './nodes';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -25,8 +30,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	
     const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
     if (!dotnetPath) {
-		throw new Error('Can\'t load the language server: Failed to acquire.NET!');
+		throw new Error('Can\'t load the language server: Failed to acquire .NET!');
     }
+
+    const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
 
     const languageServerExe = dotnetPath;
     const languageServerPath =
@@ -36,7 +43,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	if (fs.existsSync(languageServerPath) == false) {
 		throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
-	}
+    }
+    
+    const waitForDebugger = false
 
     let languageServerOptions: ServerOptions = {
         run: {
@@ -46,41 +55,58 @@ export async function activate(context: vscode.ExtensionContext) {
         },
         debug: {
             command: languageServerExe,
-            args: [languageServerPath, "--waitForDebugger"],
+            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : ""],
             transport: TransportKind.pipe,
             runtime: "",
         },
     };
 
-    var configs = vscode.workspace.getConfiguration("yarnSpinner");
+    var configs = vscode.workspace.getConfiguration("yarnspinner");
     let languageClientOptions: LanguageClientOptions = {
+        outputChannel: outputChannel,
         documentSelector: [
             "**/*.yarn"
         ],
         initializationOptions: [
             configs,
         ],
+        traceOutputChannel: outputChannel,
         progressOnInitialization: true,
         synchronize: {
-            // configurationSection is deprecated but means we can use the same code for vscode and visual studio (which doesn't support the newer workspace/configuration endpoint)
-            configurationSection: 'yarnSpinner',
+            // configurationSection is deprecated but means we can use the same
+            // code for vscode and visual studio (which doesn't support the
+            // newer workspace/configuration endpoint)
+            
+            configurationSection: 'yarnspinner',
 			fileEvents: [
 				vscode.workspace.createFileSystemWatcher("**/*.yarn"),
 				vscode.workspace.createFileSystemWatcher("**/*.cs"),
 				vscode.workspace.createFileSystemWatcher("**/*.ysls.json")
-			]
-
+			],
         },
     };
 
-    const client = new LanguageClient("yarnSpinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
-    client.trace = Trace.Verbose;
+    const onDidChangeNodes = new EventEmitter<DidChangeNodesParams>();
 
+    const client = new LanguageClient("yarnspinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
+    client.trace = Trace.Verbose;
+    
+    client.onReady().then(() => {
+        const onNodesChangedSubscription = client.onNotification(DidChangeNodesNotification.type, (params) => {
+            onDidChangeNodes.fire(params);
+        });
+        context.subscriptions.push(onNodesChangedSubscription);
+        context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
+    }).catch((error) => {
+        outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error))
+    });
+    
     let disposableClient = client.start();
     // deactivate client on extension deactivation
     context.subscriptions.push(disposableClient);
 
-	context.subscriptions.push(YarnSpinnerEditorProvider.register(context));
+    
+
 
 	context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
 		vscode.commands.executeCommand("vscode.openWith", vscode.window.activeTextEditor?.document.uri, YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);

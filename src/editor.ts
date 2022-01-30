@@ -1,24 +1,7 @@
-import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import { Parser } from 'antlr4ts';
-
-interface Position {
-    line: number;
-    character: number
-}
-
-export class NodeInfo {
-    title: string = "";
-    position: { x: number, y: number } = { x: 0, y: 0 }
-    destinations: string[] = []
-    tags: string[] = []
-    line: number = 0
-    bodyLine: number = 0
-
-    start: Position = { line: 0, character: 0 };
-    end: Position = { line: 0, character: 0 };
-}
+import { Event, ExecuteCommandParams, LanguageClient } from "vscode-languageclient/node";
+import *  as languageclient from 'vscode-languageclient';
+import { DidChangeNodesParams, NodeInfo } from './nodes';
 
 export class NodesUpdatedEvent {
     type = "update"
@@ -35,40 +18,17 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         webviewPanel.webview.options = {
             enableScripts: true,
         };
+
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-        function updateWebview(document: vscode.TextDocument) {
-
-            // TODO: Get the nodes by asking the language server.
-            var nodes: NodeInfo[] = [];
-            
-            // var parseTree = parsing.parse(document.getText());
-            // var nodes = parsing.getNodeInfo(parseTree.parseContext);
-            // // document.
-
-            webviewPanel.webview.postMessage({
-                type: 'update',
-                nodes: nodes,
-            });
-        }
-
-        // Hook up event handlers so that we can synchronize the webview with the text document.
-        //
-        // The text document acts as our model, so we have to sync change in the document to our
-        // editor and sync changes in the editor back to the document.
-        // 
-        // Remember that a single text document can also be shared between multiple custom
-        // editors (this happens for example when you split a custom editor)
-
-        const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
-            if (e.document.uri.toString() === document.uri.toString()) {
-                updateWebview(e.document);
+        const onNodesChangedSubscription = this.onDidChangeNodes((params) => {
+            if (params.uri == document.uri) {
+                updateWebView(params.nodes);
             }
-        });
+        })
 
-        // Make sure we get rid of the listener when our editor is closed.
         webviewPanel.onDidDispose(() => {
-            changeDocumentSubscription.dispose();
+            onNodesChangedSubscription.dispose();
         });
 
         // Receive message from the webview.
@@ -92,24 +52,37 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             }
         });
 
-        updateWebview(document);
+        const listNodesParams: ExecuteCommandParams = {
+            command: "yarnspinner.list-nodes",
+            arguments: [
+                document.uri.toString(),
+            ]
+        }
+
+        this.languageClient.sendRequest(languageclient.ExecuteCommandRequest.type, listNodesParams).then((result : NodeInfo[]) => {
+            updateWebView(result);
+        })
+
+
+        function updateWebView(nodes: NodeInfo[]) {
+            webviewPanel.webview.postMessage({
+                type: 'update',
+                nodes: nodes,
+            });
+        }
+        // updateWebview(document);
     }
-    openNode(document: vscode.TextDocument, id: string) {
-
-        // TODO: get the node info objects by querying the language server.
-        var nodeInfos: NodeInfo[] = [];
-        // var parseTree = parsing.parse(document.getText());
+    async openNode(document: vscode.TextDocument, id: string) {
+        var nodeInfos: NodeInfo[] = await vscode.commands.executeCommand("yarnSpinner.listNodes", document) ?? [];
         
-        // var nodeInfos = parsing.getNodeInfo(parseTree.parseContext).filter(n => n.title == id);
-
         if (nodeInfos.length > 0) {
             const nodeInfo = nodeInfos[0];
             var existingEditorColumn = vscode.window.visibleTextEditors.filter(editor => editor.document == document)[0]?.viewColumn;
 
             vscode.window.showTextDocument(document, existingEditorColumn).then(editor => {
-                var startOfNode = new vscode.Range(nodeInfo.line - 1, 0, nodeInfo.line - 1, 0);
+                var startOfNode = new vscode.Range(nodeInfo.headerStartLine, 0, nodeInfo.headerStartLine, 0);
                 editor.revealRange(startOfNode, vscode.TextEditorRevealType.AtTop);
-                var startOfBody = new vscode.Range(nodeInfo.bodyLine - 1, 0, nodeInfo.bodyLine - 1, 0);
+                var startOfBody = new vscode.Range(nodeInfo.bodyStartLine, 0, nodeInfo.bodyStartLine, 0);
                 editor.selection = new vscode.Selection(startOfBody.start, startOfBody.end);
             })
         }
@@ -274,8 +247,8 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         // });
     }
 
-    public static register(context: vscode.ExtensionContext): vscode.Disposable {
-        const provider = new YarnSpinnerEditorProvider(context);
+    public static register(context: vscode.ExtensionContext, languageClient : LanguageClient, onDidChangeNodes: Event<DidChangeNodesParams>): vscode.Disposable {
+        const provider = new YarnSpinnerEditorProvider(context, languageClient, onDidChangeNodes);
         const providerRegistration = vscode.window.registerCustomEditorProvider(YarnSpinnerEditorProvider.viewType, provider, {
             webviewOptions: {
                 retainContextWhenHidden: true,
@@ -287,7 +260,9 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
     }
 
     constructor(
-        private readonly context: vscode.ExtensionContext
+        private readonly context: vscode.ExtensionContext,
+        private readonly languageClient: LanguageClient,
+        private readonly onDidChangeNodes: Event<DidChangeNodesParams>
     ) { }
 
     private static getNonce() {
