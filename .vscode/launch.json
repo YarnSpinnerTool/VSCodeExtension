@@ -27,7 +27,10 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
-            "env": {"VSCODE_DEBUG_MODE": "true"}
+            "env": {"VSCODE_DEBUG_MODE": "true"},
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+            ]
         },
         {
             "name": ".NET Core Attach",
