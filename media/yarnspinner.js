@@ -257,7 +257,25 @@ const NodeSize = {
 
 			nodesToElements[node.title] = newNodeElement;
 
-			setNodeViewPosition(newNodeElement, node.position);
+			let position;
+
+			// Try and find a 'position' header in this node, and parse it; if
+			// we can't find one, or can't parse it, default to (0,0). 
+			const positionString = node.headers.find(h => h.key == "position")?.value;
+
+			if (positionString) {
+				try {
+					const elements = positionString.split(",").map(i => parseInt(i));
+					position = { x: elements[0], y: elements[1] };
+				} catch (e) {
+					position = { x: 0, y: 0 };
+				}
+			} else {
+				position = { x: 0, y: 0 };
+			}
+
+			setNodeViewPosition(newNodeElement, position);
+			
 			nodesContainer.appendChild(newNodeElement);
 
 			globalThis.nodeElements.push(newNodeElement);
@@ -267,8 +285,8 @@ const NodeSize = {
 
 			const element = nodesToElements[node.title];
 			
-			for (const destination of node.destinations) {
-				const destinationElement = nodesToElements[destination];
+			for (const destination of node.jumps) {
+				const destinationElement = nodesToElements[destination.destinationTitle];
 
 				if (!destinationElement) {
 					console.warn(`Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`);
@@ -304,10 +322,10 @@ const NodeSize = {
 						endSocketGravity: 50,
 					})
 					
-					if (nodesToLines[destination]) {
-						nodesToLines[destination].push(line);
+					if (nodesToLines[destination.destinationTitle]) {
+						nodesToLines[destination.destinationTitle].push(line);
 					} else {
-						nodesToLines[destination] = [line];
+						nodesToLines[destination.destinationTitle] = [line];
 					}
 				}
 				

@@ -86,6 +86,10 @@
             {
                 "command": "yarnspinner.show-graph",
                 "title": "Show Graph"
+            },
+            {
+                "command": "yarnspinner.list-nodes",
+                "title": "List Nodes"
             }
         ],
         "languages": [
@@ -120,27 +124,27 @@
         "configuration": {
             "title": "Yarn Spinner Language Server",
             "properties": {
-                "yarnLanguageServer.CSharpLookup": {
+                "yarnspinner.CSharpLookup": {
                     "type": "boolean",
                     "default": true,
                     "description": "Parse C# files for Commands and Functions."
                 },
-                "yarnLanguageServer.DeepCommandLookup": {
+                "yarnspinner.DeepCommandLookup": {
                     "type": "boolean",
                     "default": true,
                     "description": "Deeper search for undefined command names"
                 },
-                "yarnLanguageServer.OnlySuggestDeclaredVariables": {
+                "yarnspinner.OnlySuggestDeclaredVariables": {
                     "type": "boolean",
                     "default": true,
                     "description": "When false, variable suggestions will also include undeclared variables."
                 },
-                "yarnLanguageServer.DidYouMeanThreshold": {
+                "yarnspinner.DidYouMeanThreshold": {
                     "type": "number",
                     "default": 0.3,
                     "description": "Controls the cut off for fuzzy string matching in quick fix suggestions."
                 },
-                "yarnLanguageServer.trace.server": {
+                "yarnspinner.trace.server": {
                     "type": "string",
                     "enum": [
                         "off",
