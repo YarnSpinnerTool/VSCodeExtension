@@ -1,11 +1,18 @@
 import * as vscode from 'vscode';
-import { Event, ExecuteCommandParams, LanguageClient } from "vscode-languageclient/node";
+import { Event, ExecuteCommandParams, LanguageClient, TextDocumentEdit } from "vscode-languageclient/node";
 import *  as languageclient from 'vscode-languageclient';
 import { DidChangeNodesParams, NodeInfo } from './nodes';
 
 export class NodesUpdatedEvent {
     type = "update"
     nodes : NodeInfo[] = []
+}
+
+enum Commands {
+    AddNode = "yarnspinner.create-node",
+    RemoveNode = "yarnspinner.remove-node",
+    ListNodes = "yarnspinner.list-nodes",
+    UpdateNodeHeader = "yarnspinner.update-node-header",
 }
 
 export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvider {
@@ -52,17 +59,12 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             }
         });
 
-        const listNodesParams: ExecuteCommandParams = {
-            command: "yarnspinner.list-nodes",
-            arguments: [
-                document.uri.toString(),
-            ]
-        }
-
-        this.languageClient.sendRequest(languageclient.ExecuteCommandRequest.type, listNodesParams).then((result : NodeInfo[]) => {
-            updateWebView(result);
-        })
-
+        this.executeCommand<NodeInfo[]>(
+            Commands.ListNodes,
+            document.uri.toString())
+            .then(result => {
+                updateWebView(result);
+            })
 
         function updateWebView(nodes: NodeInfo[]) {
             webviewPanel.webview.postMessage({
@@ -72,179 +74,87 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         }
         // updateWebview(document);
     }
+
+    async executeCommand<T>(command: string, ...commandArguments: any[]): Promise<T> {
+        const params: ExecuteCommandParams = {
+            command: command,
+            arguments: commandArguments
+        }
+        return this.languageClient.sendRequest(languageclient.ExecuteCommandRequest.type, params)
+    }
+
     async openNode(document: vscode.TextDocument, id: string) {
-        var nodeInfos: NodeInfo[] = await vscode.commands.executeCommand("yarnSpinner.listNodes", document) ?? [];
+        var nodeInfos: NodeInfo[] = await this.executeCommand(Commands.ListNodes, document.uri.toString()) ?? [];
+
+        // Filter to only include the node(s) that have this title. (Node names
+        // must be unique, but the user may have entered invalid code, so we
+        // handle this case.)
+        nodeInfos = nodeInfos.filter(n => n.title == id);
         
         if (nodeInfos.length > 0) {
             const nodeInfo = nodeInfos[0];
-            var existingEditorColumn = vscode.window.visibleTextEditors.filter(editor => editor.document == document)[0]?.viewColumn;
 
-            vscode.window.showTextDocument(document, existingEditorColumn).then(editor => {
-                var startOfNode = new vscode.Range(nodeInfo.headerStartLine, 0, nodeInfo.headerStartLine, 0);
-                editor.revealRange(startOfNode, vscode.TextEditorRevealType.AtTop);
-                var startOfBody = new vscode.Range(nodeInfo.bodyStartLine, 0, nodeInfo.bodyStartLine, 0);
-                editor.selection = new vscode.Selection(startOfBody.start, startOfBody.end);
-            })
+            // Figure out which view column an existing editor showing this
+            // document has. If we can't find one, default to 'the column beside
+            // the active one.'
+            const existingEditor = vscode.window.visibleTextEditors.filter(editor => editor.document == document);
+            const existingEditorColumn = existingEditor[0]?.viewColumn ?? vscode.ViewColumn.Beside;
+
+            const editor = await vscode.window.showTextDocument(document, existingEditorColumn)
+
+            // Scroll the editor so that the start of the node is at the top of the editor.
+            const startOfNode = new vscode.Range(nodeInfo.headerStartLine, 0, nodeInfo.headerStartLine, 0);
+
+            editor.revealRange(startOfNode, vscode.TextEditorRevealType.AtTop);
+
+            // Place the selection at the start of the body.
+            const startOfBody = new vscode.Range(nodeInfo.bodyStartLine, 0, nodeInfo.bodyStartLine, 0);
+
+            editor.selection = new vscode.Selection(startOfBody.start, startOfBody.end);
         }
         
     }
 
-    moveNode(document: vscode.TextDocument, id: string, position: { x: number, y: number }) {
+    async moveNode(document: vscode.TextDocument, nodeTitle: string, position: { x: number, y: number }) {
         
-        // TODO: ask the language server for a text edit that would modify the given node's position header, and then apply that edit
-        // var parseTree = parsing.parse(document.getText());
+        // Send a request to the language server to change the 'position' header
+        // for this node
+        var documentEdit = await this.executeCommand<TextDocumentEdit>(
+            Commands.UpdateNodeHeader,
+            document.uri.toString(),
+            nodeTitle,
+            "position",
+            `${Math.round(position.x)},${Math.round(position.y)}`
+        )
 
-        // class NodeHeaderFinder implements YarnSpinnerParserListener {
-        //     constructor(targetNodeName : string, targetHeader:string) {
-        //         this.targetNodeName = targetNodeName;
-        //         this.targetHeader = targetHeader;
-        //     }
-            
-        //     targetNodeName: string;
-        //     targetHeader: string;
-            
-        //     insertionPoint : vscode.Position | undefined;
-        //     replacementRange : vscode.Range | undefined;
-
-        //     exitNode(ctx: NodeContext) {
-
-        //         var candidateReplacementRange : vscode.Range | undefined;
-                
-        //         for (const header of ctx.header()) {
-        //             var headerKey = header._header_key.text;
-        //             var headerValue = header._header_value?.text ?? "";
-
-        //             if (headerKey === "title") {
-        //                 if (headerValue != this.targetNodeName) {
-        //                     // This isn't the node we're looking for! Exit here.
-        //                     return;
-        //                 }
-        //             }
-
-        //             if (headerKey == this.targetHeader) {
-        //                 var start = header.start;
-        //                 var stop = header.stop ?? header.start;
-
-        //                 // this could be our target node's target header!
-        //                 // record this as a candidate 
-        //                 candidateReplacementRange = new vscode.Range(
-        //                     start.line - 1, 
-        //                     start.charPositionInLine, 
-        //                     stop.line - 1, 
-        //                     stop.charPositionInLine + (stop.text?.length ?? 0))
-        //             }
-        //         }
-
-        //         // If we've made it to here, then we know that we're in the
-        //         // target node (else the title test would have returned).
-
-        //         if (candidateReplacementRange) {
-        //             this.replacementRange = candidateReplacementRange;
-        //         } else {
-        //             // We don't have a candidate replacement range for this
-        //             // header. It doesn't exist in the node. Instead,
-        //             // insert a new line at the 'BODY_START' token
-        //             this.insertionPoint = new vscode.Position(ctx.BODY_START()._symbol.line - 1, 0);
-        //         }
-        //     }
-        // }
-
-        // var listener = new NodeHeaderFinder(id, "position");
-
-        // ParseTreeWalker.DEFAULT.walk(listener as YarnSpinnerParserListener, parseTree.parseContext);
-        
-        // const newPositionHeader = `position: ${Math.round(position.x)},${Math.round(position.y)}`;
-
-        // if (listener.replacementRange) {
-        //     var edit = new vscode.WorkspaceEdit();
-        //     edit.replace(document.uri,listener.replacementRange, newPositionHeader);
-        //     vscode.workspace.applyEdit(edit);
-        // } else if (listener.insertionPoint) {
-        //     var edit = new vscode.WorkspaceEdit();
-        //     edit.insert(document.uri, listener.insertionPoint, newPositionHeader + "\n");
-        //     vscode.workspace.applyEdit(edit);
-        // } else {
-        //     console.error(`No node called ${id} exists in the document?`);
-        // }
-        
+        // Apply the document change that we received
+        await this.applyTextDocumentEdit(documentEdit);
     }
-    deleteNode(document: vscode.TextDocument, id: string) {
 
-        // TODO: ask the language server to return a text edit that would delete
-        // the given node
-        // var parseTree = parsing.parse(document.getText());
-        // var nodeInfos = parsing.getNodeInfo(parseTree.parseContext);
+    async deleteNode(document: vscode.TextDocument, id: string) {
 
-        // const nodesWithTitle = nodeInfos.filter(n => n.title === id);
-        // if (nodesWithTitle.length > 1) {
-        //     vscode.window.showErrorMessage(`Can't delete node: multiple nodes named ${id} exist in this document. Please modify the source code directly.`);
-        //     return;
-        // } else if (nodesWithTitle.length == 0) {
-        //     console.error(`Can't delete node called ${id}: it doesn't exist in the document`);
-        // }
+        var deletionEdit = await this.executeCommand<TextDocumentEdit>(
+            Commands.RemoveNode, 
+            document.uri.toString(), 
+            id
+        );
 
-        // var selectedNode = nodesWithTitle[0];
-
-        // var range = new vscode.Range(
-        //     new vscode.Position(selectedNode.start.line, selectedNode.start.character),
-        //     new vscode.Position(selectedNode.end.line, selectedNode.end.character),
-        // )
-
-        // var edit = new vscode.WorkspaceEdit();
-        // edit.delete(document.uri, range);
-        // vscode.workspace.applyEdit(edit);
+        await this.applyTextDocumentEdit(deletionEdit);
     }
-    addNode(document: vscode.TextDocument, position: { x: number, y: number }) {
-        
-        // TODO: ask the language server to return a text edit that would create a node with the given position
-        
-        // var parseResult = parsing.parse(document.getText());
-        // var existingNodes = parsing.getNodeInfo(parseResult.parseContext);
-        // var existingNodeNames = existingNodes.map(n => n.title);
 
-        // var attemptCount = 0;
-        // var baseNodeName = "Node"
-        // var newNodeName = baseNodeName;
-        
-        // while (existingNodeNames.indexOf(newNodeName) != -1) {
-        //     attemptCount += 1;
-        //     newNodeName = `${baseNodeName}${attemptCount.toString()}`;
-        // }
-        
-        // // Find the end of the document and insert a new node
-        // var lastLine = document.lineAt(document.lineCount - 1);
+    async addNode(document: vscode.TextDocument, position: { x: number, y: number }) {
 
-        // var insertionPoint = lastLine.range.end;
+        var headers = {
+            "position": `${Math.round(position.x)},${Math.round(position.y)}`
+        }
 
-        // var insertNewLine : boolean
+        var edit = await this.executeCommand<TextDocumentEdit>(
+            Commands.AddNode,
+            document.uri.toString(),
+            headers
+        );
 
-        
-        // if (lastLine.isEmptyOrWhitespace) {
-        //     insertNewLine = false;
-        // } else {
-        //     insertNewLine = true;
-        // }
-        
-        // var newNodeTemplatePath = vscode.Uri.joinPath(this.context.extensionUri, 'media', 'NewNodeTemplate.yarn').fsPath;
-        
-        
-        // var contents = fs.readFile(newNodeTemplatePath, null, (err, data) => {
-        //     var contents = data.toString();
-
-        //     contents = contents.replace("{NODE_NAME}", newNodeName);
-        //     contents = contents.replace("{NODE_POSITION_X}", position.x.toString());
-        //     contents = contents.replace("{NODE_POSITION_Y}", position.y.toString());
-
-        //     var edit = new vscode.WorkspaceEdit();
-
-        //     if (insertNewLine) {
-        //         contents = "\n" + contents;
-        //     }
-            
-        //     edit.insert(document.uri, insertionPoint, contents);
-
-        //     vscode.workspace.applyEdit(edit);
-        // });
+        await this.applyTextDocumentEdit(edit);
     }
 
     public static register(context: vscode.ExtensionContext, languageClient : LanguageClient, onDidChangeNodes: Event<DidChangeNodesParams>): vscode.Disposable {
@@ -257,6 +167,33 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         });
         
         return providerRegistration;
+    }
+
+    /**
+     * Applies the given TextDocumentEdit to the workspace.
+     * @param documentEdit The edit to apply.
+     * @returns A promise that resolves to whether the edit could be applied.
+     */
+    private async applyTextDocumentEdit(documentEdit: TextDocumentEdit): Promise<boolean> {
+        // Construct a new workspace edit that modifies this specific document.
+
+        var workspaceEdit = new vscode.WorkspaceEdit();
+        for (const edit of documentEdit.edits) {
+            // Parse the uri string into a vscode.Uri
+            const documentUri = vscode.Uri.parse(documentEdit.textDocument.uri);
+
+            // Convert the language server Range to a vscode.Range
+            const editRange = new vscode.Range(
+                edit.range.start.line, edit.range.start.character,
+                edit.range.end.line, edit.range.end.character
+            );
+
+            // Add the replacement
+            workspaceEdit.replace(documentUri, editRange, edit.newText);
+        }
+
+        // Apply this new edit
+        return vscode.workspace.applyEdit(workspaceEdit);
     }
 
     constructor(
