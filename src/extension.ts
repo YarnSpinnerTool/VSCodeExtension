@@ -122,8 +122,31 @@ export async function activate(context: vscode.ExtensionContext) {
     // deactivate client on extension deactivation
     context.subscriptions.push(disposableClient);
 
-    
+    // We have to use our own command in order to get the parameters parsed, before passing them into the built in showReferences command.
+    async function yarnShowReferences(rawTokenPosition : vscode.Position, rawReferenceLocations : vscode.Location[]) {
+        var tokenPosition = new vscode.Position(rawTokenPosition.line, rawTokenPosition.character);
+        var referenceLocations = rawReferenceLocations.map(rawLocation => {
+            return new vscode.Location(
+                vscode.Uri.parse(rawLocation.uri.toString()),
+                new vscode.Range(
+                    new vscode.Position(
+                        rawLocation.range.start.line,
+                        rawLocation.range.start.character),
+                    new vscode.Position(
+                        rawLocation.range.end.line,
+                        rawLocation.range.end.character)));
+        });
 
+        
+
+        const activeTextEditor = vscode.window.activeTextEditor;
+
+        if (activeTextEditor) {
+            vscode.commands.executeCommand('editor.action.showReferences', activeTextEditor.document.uri, tokenPosition, referenceLocations);
+        }
+    }
+
+    context.subscriptions.push(vscode.commands.registerCommand('yarn.showReferences', yarnShowReferences));
 
     // Create the command to open a new visual editor for the active document
 	context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
