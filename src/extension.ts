@@ -92,13 +92,30 @@ export async function activate(context: vscode.ExtensionContext) {
     client.trace = Trace.Verbose;
     
     client.onReady().then(() => {
+
+        // The language server is ready.
+
+        // Register to be notified when the server reports that nodes have
+        // changed in a file. We'll use that to notify all visual editors.
         const onNodesChangedSubscription = client.onNotification(DidChangeNodesNotification.type, (params) => {
             onDidChangeNodes.fire(params);
         });
         context.subscriptions.push(onNodesChangedSubscription);
+
+        // Register our visual editor provider. We do this after waiting to hear
+        // that the server is ready so that editors know that they're ok to
+        // communicate with the server.
         context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
     }).catch((error) => {
         outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error))
+        vscode.window.showErrorMessage("Failed to launch the Yarn Spinner language server!", "Show Log").then(result => {
+            if (result === undefined) {
+                // Error was dismissed; nothing to do
+            } else {
+                // Show the log
+                outputChannel.show(true);
+            }
+        })
     });
     
     let disposableClient = client.start();
@@ -108,6 +125,7 @@ export async function activate(context: vscode.ExtensionContext) {
     
 
 
+    // Create the command to open a new visual editor for the active document
 	context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
 		vscode.commands.executeCommand("vscode.openWith", vscode.window.activeTextEditor?.document.uri, YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
 	}))
