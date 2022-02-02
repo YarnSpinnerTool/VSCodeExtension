@@ -39,7 +39,7 @@ export async function activate(context: vscode.ExtensionContext) {
     const languageServerPath =
         isDebugMode() ?
             path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
-			path.resolve(context.asAbsolutePath("media/YarnLanguageServer.dll"));
+			path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
 
 	if (fs.existsSync(languageServerPath) == false) {
 		throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);

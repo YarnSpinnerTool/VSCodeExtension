@@ -1,9 +1,16 @@
 {
 	"version": "2.0.0",
 	"tasks": [
+        {
+            "label": "build-debug",
+            "dependsOn": ["compile-ts", "build"]
+        },
+        {
+            "label": "build-release",
+            "dependsOn": ["compile-ts", "publish"]
+        },
 		{
-            "label": "npm",
-            "dependsOn": ["build"],
+            "label": "compile-ts",
             "command": "npm",
             "args": [ "run", "compile", "--loglevel", "silent"],
             "type": "shell",
@@ -19,6 +26,18 @@
                 "${workspaceFolder}/LanguageServer/LanguageServer/YarnLanguageServer.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+		},
+		{
+			"label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+				"${workspaceFolder}/LanguageServer/LanguageServer/YarnLanguageServer.csproj",
+                "-c", "Release",
+                "-o", "out/server"
             ],
             "problemMatcher": "$msCompile"
 		}
