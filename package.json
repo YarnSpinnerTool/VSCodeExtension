@@ -43,7 +43,7 @@
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",
         "package": "vsce package",
-        "buildServer": "dotnet publish -c Release -o out/server LanguageServer/LanguageServer/YarnLanguageServer.csproj"
+        "buildServer": "dotnet publish -c Debug -o out/server LanguageServer/LanguageServer/YarnLanguageServer.csproj"
     },
     "devDependencies": {
         "@types/jest": "^27.0.1",
