@@ -2,5 +2,6 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ['**/out/?(*.)+(spec|test).[jt]s?(x)']
+  testMatch: ['**/out/?(*.)+(spec|test).[jt]s?(x)'],
+  passWithNoTests: true,
 };
