@@ -150,7 +150,13 @@
                     "description": "Traces the communication between VSCode and the Yarn Language Server Instance."
                 }
             }
-        }
+        },
+        "jsonValidation": [
+            {
+                "fileMatch": "*.ysls.json",
+                "url": "./out/server/ysls.schema.json"
+            }
+        ]
     },
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
