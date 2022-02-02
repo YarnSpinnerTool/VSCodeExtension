@@ -22,14 +22,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Check out the repo, along with the LanguageServer submodule
       - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
       
       - name: Fetch all history and tags from all branches for gitversion
         run: git fetch --prune --unshallow
       
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
+
+      # Needed for building the language server
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
         
       - name: Clean install dependencies
         run: npm ci
