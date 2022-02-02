@@ -37,14 +37,13 @@
         "Programming Languages"
     ],
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "npm run buildServer ; npm run compile",
         "compile": "tsc -p ./tsconfig.json",
         "lint": "eslint . --ext .ts,.tsx",
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",
         "package": "vsce package",
-        "buildServer": "cd LanguageServer ; dotnet build -c Release",
-        "antlr4ts": "antlr4ts src/YarnSpinnerLexer.g4 ; antlr4ts -visitor src/YarnSpinnerParser.g4"
+        "buildServer": "dotnet publish -c Release -o out/server LanguageServer/LanguageServer/YarnLanguageServer.csproj"
     },
     "devDependencies": {
         "@types/jest": "^27.0.1",
