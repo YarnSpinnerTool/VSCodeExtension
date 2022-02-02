@@ -85,10 +85,6 @@
             {
                 "command": "yarnspinner.show-graph",
                 "title": "Show Graph"
-            },
-            {
-                "command": "yarnspinner.list-nodes",
-                "title": "List Nodes"
             }
         ],
         "languages": [
