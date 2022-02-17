@@ -1,0 +1,5 @@
+{
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)",
+    "omnisharp.useGlobalMono": "never",
+    
+}
