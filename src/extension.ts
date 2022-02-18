@@ -55,7 +55,7 @@ export async function activate(context: vscode.ExtensionContext) {
         },
         debug: {
             command: languageServerExe,
-            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : ""],
+            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : "", "--development"],
             transport: TransportKind.pipe,
             runtime: "",
         },
