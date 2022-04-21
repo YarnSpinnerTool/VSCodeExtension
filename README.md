@@ -15,8 +15,6 @@ Features include:
 * Warning and error diagnostics
 * Signature Help for commands and functions
 
-To learn more about Yarn Spinner, or find out how to use and install this extension, head to the [official site](https://yarnspinner.dev) and the [documentation](https://docs.yarnspinner.dev)!
-
 ## Importing / Overriding via JSON
 If you want to import command and function definitions for a language other than C#, or you want to override information that the language server parses from C#, add a JSON file with the extension ".ysls.json" to your project's folder using the [ysls.json schema](/LanguageServer/LanguageServer/src/Server/Documentation/ysls.schema.json). 
 

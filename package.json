@@ -2,7 +2,7 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "0.0.1",
+    "version": "2.2.0-beta",
     "homepage": "https://yarnspinner.dev",
     "repository": "https://github.com/YarnSpinnerTool/VSCodeExtension",
     "license": "MIT",
@@ -150,13 +150,7 @@
                     "description": "Traces the communication between VSCode and the Yarn Language Server Instance."
                 }
             }
-        },
-        "jsonValidation": [
-            {
-                "fileMatch": "*.ysls.json",
-                "url": "./out/server/ysls.schema.json"
-            }
-        ]
+        }
     },
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
