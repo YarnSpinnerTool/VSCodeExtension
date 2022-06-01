@@ -36,6 +36,7 @@
     "categories": [
         "Programming Languages"
     ],
+    "telemetryKey": "6fafead2-0494-4fc6-a960-90ef5ef8e5c6",
     "scripts": {
         "vscode:prepublish": "npm run buildServer ; npm run compile",
         "compile": "tsc -p ./tsconfig.json",
@@ -160,6 +161,7 @@
     },
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
+        "@vscode/extension-telemetry": "^0.5.2",
         "@vscode/webview-ui-toolkit": "^0.8.4",
         "antlr4ts": "^0.5.0-alpha.4",
         "interactjs": "^1.10.11",
