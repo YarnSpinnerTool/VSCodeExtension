@@ -2,8 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
+import TelemetryReporter from '@vscode/extension-telemetry';
 
-import { ServerOptions, TransportKind, LanguageClient, LanguageClientOptions, ExecuteCommandParams, ExecuteCommandRequest } from "vscode-languageclient/node";
+import * as languageClient from "vscode-languageclient/node";
 
 import { Trace } from "vscode-jsonrpc";
 
@@ -16,10 +17,24 @@ import { DidChangeNodesParams } from './nodes';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
+let reporter: TelemetryReporter;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
+
+    // Get necessary info about this version of the extension from our
+    // package.json data
+    let extensionID = `${context.extension.packageJSON.publisher}.${context.extension.packageJSON.name}`;
+    let extensionVersion = `${context.extension.packageJSON.version}`;
+    let telemetryKey = context.extension.packageJSON.telemetryKey;
+
+    // Create a new TelemetryReporter, and register it to be disposed when the extension shuts down
+    reporter = new TelemetryReporter(extensionID, extensionVersion, telemetryKey);
+    context.subscriptions.push(reporter);
+
+    // Notify that we've started the session!
+    reporter.sendTelemetryEvent("sessionStart");
 	
 	// Ensure .net 6.0 is installed and available
     interface IDotnetAcquireResult {
@@ -30,10 +45,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	
     const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
     if (!dotnetPath) {
+        reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
 		throw new Error('Can\'t load the language server: Failed to acquire .NET!');
     }
 
     const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
+    
 
     const languageServerExe = dotnetPath;
     const languageServerPath =
@@ -41,28 +58,45 @@ export async function activate(context: vscode.ExtensionContext) {
             path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
 			path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
 
-	if (fs.existsSync(languageServerPath) == false) {
+    if (fs.existsSync(languageServerPath) == false) {
+        reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
 		throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
     }
     
     const waitForDebugger = false
 
-    let languageServerOptions: ServerOptions = {
+    let languageServerOptions: languageClient.ServerOptions = {
         run: {
             command: languageServerExe,
             args: [languageServerPath],
-            transport: TransportKind.pipe,
+            transport: languageClient.TransportKind.pipe,
         },
         debug: {
             command: languageServerExe,
-            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : "--development"],
-            transport: TransportKind.pipe,
+            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : ""],
+            transport: languageClient.TransportKind.pipe,
             runtime: "",
         },
     };
 
     var configs = vscode.workspace.getConfiguration("yarnspinner");
-    let languageClientOptions: LanguageClientOptions = {
+    let languageClientOptions: languageClient.LanguageClientOptions = {
+        initializationFailedHandler: (error) => {
+            reporter.sendTelemetryErrorEvent("initializationFailed", error);
+            // Do not attempt to reinitalise the server (we could cause an
+            // infinite loop if we did.)
+            return false;
+        },
+        errorHandler: {
+            error: (error, _message, _count) => {
+                reporter.sendTelemetryException(error);
+                return languageClient.ErrorAction.Continue;
+            },
+            closed: () => {
+                reporter.sendTelemetryErrorEvent("serverConnectionClosed");
+                return languageClient.CloseAction.Restart;
+            }
+        },
         outputChannel: outputChannel,
         documentSelector: [
             "**/*.yarn"
@@ -88,7 +122,24 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const onDidChangeNodes = new EventEmitter<DidChangeNodesParams>();
 
-    const client = new LanguageClient("yarnspinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
+    const client = new languageClient.LanguageClient("yarnspinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
+
+    // Hook the handleFailedRequest method of our LanguageClient so that we can
+    // fire off telemetry every time a request fails (which indicates an error
+    // inside the language server.)
+
+    // Get the original method..
+    let defaultHandleFailedRequest = client.handleFailedRequest;
+
+    // Wrap a call to it in a new method that also sends the telemetry
+    function loggingHandleFailedRequest<T>(type: languageClient.MessageSignature, error: any, defaultValue: T): T {
+        reporter.sendTelemetryException(error, { "method": type.method });
+        return defaultHandleFailedRequest(type, error, defaultValue);
+    }
+
+    // And patch the language client so that it calls our hooked version!
+    client.handleFailedRequest = loggingHandleFailedRequest;
+
     client.trace = Trace.Verbose;
     
     client.onReady().then(() => {
@@ -107,6 +158,9 @@ export async function activate(context: vscode.ExtensionContext) {
         // communicate with the server.
         context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
     }).catch((error) => {
+
+        reporter.sendTelemetryErrorEvent("failedLaunchingLanguageServer", { "serverError": error }, {}, ["serverError"]);
+
         outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error))
         vscode.window.showErrorMessage("Failed to launch the Yarn Spinner language server!", "Show Log").then(result => {
             if (result === undefined) {
@@ -117,7 +171,7 @@ export async function activate(context: vscode.ExtensionContext) {
             }
         })
     });
-    
+
     let disposableClient = client.start();
     // deactivate client on extension deactivation
     context.subscriptions.push(disposableClient);
