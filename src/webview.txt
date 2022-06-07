@@ -20,8 +20,7 @@
     </script>
   </head>
   <body>
-      <button onclick="save()">Export Story</button>
-      <button id="testbutton">BEGIN!</button>
+      SAVEMARKER<button id="testbutton">BEGIN!</button>
       <div id="container"></div>
   </body>
 </html>

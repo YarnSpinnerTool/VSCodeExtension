@@ -204,7 +204,7 @@ class YarnPreviewPanel {
             {
                 case "save-story":
                 {
-                    YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri));
+                    YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri, false));
                     break;
                 }
             }
@@ -213,8 +213,6 @@ class YarnPreviewPanel {
         YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, stringsTable, program);
     }
 
-    // this all works fine but still has the save button
-    // should probably remove that...
     private static saveHTML(data: string)
     {
         vscode.window.showSaveDialog({
@@ -259,18 +257,21 @@ class YarnPreviewPanel {
 
     public update(program: string, table: string)
     {
-        let html = YarnPreviewPanel.generateHTML(program, table, this._extensionUri);
+        let html = YarnPreviewPanel.generateHTML(program, table, this._extensionUri, true);
 
         this._panel.webview.html = html;
     }
     
-    private static generateHTML(program: string, table: string, extensionURI: vscode.Uri): string
+    private static generateHTML(program: string, table: string, extensionURI: vscode.Uri, includeSaveOption: boolean): string
     {
         const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'webview.txt');
         let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
 
+        let saveButton = '<button onclick="save()">Export Story</button>\n';
+
         var html = contents.replace("TABLEMARKER", table);
         html = html.replace("DATAMARKER", program);
+        html = html.replace("SAVEMARKER", includeSaveOption == true ? saveButton : "");
         return html;
     }
 }
