@@ -85,6 +85,10 @@
             {
                 "command": "yarnspinner.show-graph",
                 "title": "Show Graph"
+            },
+            {
+                "command": "yarnspinner.compile",
+                "title": "Zorpa-Da-Dorp"
             }
         ],
         "languages": [

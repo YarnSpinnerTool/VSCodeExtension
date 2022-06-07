@@ -28,3 +28,9 @@ export interface DidChangeNodesParams {
     uri: Uri
     nodes: NodeInfo[]
 }
+
+export interface CompilerOutput {
+    data: Uint8Array;
+    stringTable: { [key: string]: string };
+    errors: string[];
+}
