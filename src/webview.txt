@@ -18,6 +18,7 @@
           });
         }
     </script>
+    JSTESTMARKER
   </head>
   <body>
       SAVEMARKER<button id="testbutton">BEGIN!</button>

@@ -272,6 +272,8 @@ class YarnPreviewPanel {
         var html = contents.replace("TABLEMARKER", table);
         html = html.replace("DATAMARKER", program);
         html = html.replace("SAVEMARKER", includeSaveOption == true ? saveButton : "");
+        // if we are in the vscode preview don't do this because it appears anyways for some reason
+        html = html.replace("JSTESTMARKER", includeSaveOption == false ? "<noscript>This story requires JS enabled to run, sorry.</noscript>" : "");
         return html;
     }
 }
