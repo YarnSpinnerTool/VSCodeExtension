@@ -6,15 +6,21 @@ You can install this extension for Visual Studio Code from the [Marketplace](htt
 
 This extension adds language support for Yarn Spinner code, and a visual editor for creating Yarn scripts. 
 
-## Visual Editor
+Yarn Spinner is made possible by your generous patronage. Please consider supporting Yarn Spinner's development by [becoming a patron](https://patreon.com/secretlab)!
 
-Click the 'Show Graph' button when editing a Yarn script, and we'll show you a visual editor that lets you see the position of nodes!
+<a href="https://patreon.com/secretlab"><img width="200" src="https://user-images.githubusercontent.com/901768/71883373-6f40ff80-318a-11ea-9d3a-01f1f58cb39e.png"></a>
 
 ## Syntax Highlighting
 
 Your Yarn scripts are colour-coded to help you read the code.
 
 ![Syntax highlighting](./.github/images/syntax-highlighting.gif)
+
+## Visual Editor
+
+Click the 'Show Graph' button when editing a Yarn script, and we'll show you a visual editor that lets you see the position of nodes!
+
+![Visual editor](.github/images/visual-editor.gif)
 
 ## Error Reporting
 
