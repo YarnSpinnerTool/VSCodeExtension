@@ -47,3 +47,9 @@ Yarn Spinner for Visual Studio Code will automatically find your commands writte
 If you want to import command and function definitions for a language other than C#, or you want to override information that the language server parses from C#, add a JSON file with the extension ".ysls.json" to your project's folder using the [ysls.json schema](/LanguageServer/LanguageServer/src/Server/Documentation/ysls.schema.json). 
 
 For examples, take a look at this [import example](/LanguageServer/LanguageServer/ImportExample.ysls.json) or the [yarn spinner built in Commands and Functions file](/LanguageServer/LanguageServer/src/Server/Documentation/BuiltInFunctionsAndCommands.ysls.json). 
+
+### Telemetry
+
+Yarn Spinner for Visual Studio Code collects crash report data to help us detect and fix problems in the extension. To learn more about what we collect, please see our [privacy policy](http://yarnspinner.dev/YS_VSCode_PrivacyPolicy-2022.06.08.pdf).
+
+You can disable this telemetry, along with all other telemetry that Visual Studio Code sends, by opening Settings, and going to Application -> Telemetry, and setting "Telemetry Level" to "none". To learn more, please see [Visual Studio Code's instructions on disabling telemetry](https://code.visualstudio.com/docs/getstarted/telemetry#_disable-telemetry-reporting).

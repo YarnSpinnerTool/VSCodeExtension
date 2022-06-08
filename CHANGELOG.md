@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.2.0
+
+## Added
+
+- Added a Language Server implementation for Yarn Spinner, which adds semantic highlighting, syntax and semantic error detection, code actions, go-to-refence, command detection, and other language features.
+- This release of Yarn Spinner for Visual Studio Code adds telemetry that reports on errors that the extension encounters. For more information on what we collect, and how to turn it off, please see README.md.
+
 ## 2.0.0
 
 ## Added
