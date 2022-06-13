@@ -61,7 +61,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         this.executeCommand<NodeInfo[]>(
             Commands.ListNodes,
-            document.uri.toString())
+            document.uri.fsPath)
             .then(result => {
                 updateWebView(result);
             })
@@ -84,7 +84,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
     }
 
     async openNode(document: vscode.TextDocument, id: string) {
-        var nodeInfos: NodeInfo[] = await this.executeCommand(Commands.ListNodes, document.uri.toString()) ?? [];
+        var nodeInfos: NodeInfo[] = await this.executeCommand(Commands.ListNodes, document.uri.fsPath) ?? [];
 
         // Filter to only include the node(s) that have this title. (Node names
         // must be unique, but the user may have entered invalid code, so we
@@ -121,7 +121,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         // for this node
         var documentEdit = await this.executeCommand<TextDocumentEdit>(
             Commands.UpdateNodeHeader,
-            document.uri.toString(),
+            document.uri.fsPath,
             nodeTitle,
             "position",
             `${Math.round(position.x)},${Math.round(position.y)}`
@@ -135,7 +135,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         var deletionEdit = await this.executeCommand<TextDocumentEdit>(
             Commands.RemoveNode, 
-            document.uri.toString(), 
+            document.uri.fsPath, 
             id
         );
 
@@ -150,7 +150,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         var edit = await this.executeCommand<TextDocumentEdit>(
             Commands.AddNode,
-            document.uri.toString(),
+            document.uri.fsPath,
             headers
         );
 
