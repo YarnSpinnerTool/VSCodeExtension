@@ -156,7 +156,7 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
         const params: ExecuteCommandParams = {
             command: "yarnspinner.compile",
-            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+            arguments: [vscode.window.activeTextEditor?.document.uri.fsPath]
         };
     
         let compileRequest: Promise<CompilerOutput> = client.sendRequest(ExecuteCommandRequest.type, params);
