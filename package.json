@@ -121,7 +121,7 @@
             }
         ],
         "configuration": {
-            "title": "Yarn Spinner Language Server",
+            "title": "Yarn Spinner",
             "properties": {
                 "yarnspinner.CSharpLookup": {
                     "type": "boolean",
