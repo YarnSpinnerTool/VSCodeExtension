@@ -127,6 +127,11 @@
         "configuration": {
             "title": "Yarn Spinner",
             "properties": {
+                "yarnspinner.EnableLanguageServer": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If this setting is turned off, language features like errors and code lookup will not be available. Syntax highlighting will remain available. (Reload the window to apply changes to this setting.)"
+                },
                 "yarnspinner.CSharpLookup": {
                     "type": "boolean",
                     "default": true,

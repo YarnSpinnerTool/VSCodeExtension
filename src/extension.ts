@@ -23,6 +23,11 @@ let reporter: TelemetryReporter;
 // your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
 
+    // Fetch the setting that indicates whether we should enable the language
+    // server or not.
+    var configs = vscode.workspace.getConfiguration("yarnspinner");
+    const enableLanguageServer = configs.get("EnableLanguageServer");
+
     // Get necessary info about this version of the extension from our
     // package.json data
     let extensionID = `${context.extension.packageJSON.publisher}.${context.extension.packageJSON.name}`;
@@ -34,36 +39,66 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(reporter);
 
     // Notify that we've started the session!
-    reporter.sendTelemetryEvent("sessionStart");
-	
-	// Ensure .net 6.0 is installed and available
+    reporter.sendTelemetryEvent(
+        "sessionStart",
+        { "languageServerStatus": enableLanguageServer ? "enabled" : "disabled" }
+    );
+
+    const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
+
+    if (enableLanguageServer) {
+        // The language server is enabled. Launch it!
+        await launchLanguageServer(context, configs, outputChannel);
+    } else {
+        // The language server is not enabled. 
+        outputChannel.appendLine("Launching without language server enabled.");
+        
+        // Register an implementation for the 'show-graph' command that tells
+        // the user that the feature is not available.
+
+        // Create the command to open a new visual editor for the active document
+        context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
+            vscode.window.showWarningMessage("Yarn Spinner Language Server is not enabled. Turn it on in the settings to enable the Graph View.", "Show Settings").then(selection => {
+                if (selection === undefined) {
+                    // The message was dismissed; nothing to do
+                    return;
+                } else {
+                    // The user clicked the only button, which was 'Show
+                    // Settings'; show the settings for the extension
+                    vscode.commands.executeCommand("workbench.action.openSettings", "@ext:secretlab.yarn-spinner");
+                }
+            })
+        }));
+    }
+}
+
+async function launchLanguageServer(context: vscode.ExtensionContext, configs: vscode.WorkspaceConfiguration, outputChannel: vscode.OutputChannel) {
+    // Ensure .net 6.0 is installed and available
     interface IDotnetAcquireResult {
         dotnetPath: string;
-	}
-	
-	const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
-	
+    }
+
+    const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
+
     const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
     if (!dotnetPath) {
         reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
-		throw new Error('Can\'t load the language server: Failed to acquire .NET!');
+        throw new Error('Can\'t load the language server: Failed to acquire .NET!');
     }
 
-    const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
     
 
     const languageServerExe = dotnetPath;
-    const languageServerPath =
-        isDebugMode() ?
-            path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
-			path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
+    const languageServerPath = isDebugMode() ?
+        path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
+        path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
 
     if (fs.existsSync(languageServerPath) == false) {
         reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
-		throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
+        throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
     }
-    
-    const waitForDebugger = false
+
+    const waitForDebugger = false;
 
     let languageServerOptions: languageClient.ServerOptions = {
         run: {
@@ -79,7 +114,6 @@ export async function activate(context: vscode.ExtensionContext) {
         },
     };
 
-    var configs = vscode.workspace.getConfiguration("yarnspinner");
     let languageClientOptions: languageClient.LanguageClientOptions = {
         initializationFailedHandler: (error) => {
             reporter.sendTelemetryErrorEvent("initializationFailed", error);
@@ -110,13 +144,12 @@ export async function activate(context: vscode.ExtensionContext) {
             // configurationSection is deprecated but means we can use the same
             // code for vscode and visual studio (which doesn't support the
             // newer workspace/configuration endpoint)
-            
             configurationSection: 'yarnspinner',
-			fileEvents: [
-				vscode.workspace.createFileSystemWatcher("**/*.yarn"),
-				vscode.workspace.createFileSystemWatcher("**/*.cs"),
-				vscode.workspace.createFileSystemWatcher("**/*.ysls.json")
-			],
+            fileEvents: [
+                vscode.workspace.createFileSystemWatcher("**/*.yarn"),
+                vscode.workspace.createFileSystemWatcher("**/*.cs"),
+                vscode.workspace.createFileSystemWatcher("**/*.ysls.json")
+            ],
         },
     };
 
@@ -127,7 +160,6 @@ export async function activate(context: vscode.ExtensionContext) {
     // Hook the handleFailedRequest method of our LanguageClient so that we can
     // fire off telemetry every time a request fails (which indicates an error
     // inside the language server.)
-
     // Get the original method..
     let defaultHandleFailedRequest = client.handleFailedRequest;
 
@@ -141,9 +173,8 @@ export async function activate(context: vscode.ExtensionContext) {
     client.handleFailedRequest = loggingHandleFailedRequest;
 
     client.trace = Trace.Verbose;
-    
-    client.onReady().then(() => {
 
+    client.onReady().then(() => {
         // The language server is ready.
 
         // Register to be notified when the server reports that nodes have
@@ -161,7 +192,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         reporter.sendTelemetryErrorEvent("failedLaunchingLanguageServer", { "serverError": error }, {}, ["serverError"]);
 
-        outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error))
+        outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error));
         vscode.window.showErrorMessage("Failed to launch the Yarn Spinner language server!", "Show Log").then(result => {
             if (result === undefined) {
                 // Error was dismissed; nothing to do
@@ -169,7 +200,7 @@ export async function activate(context: vscode.ExtensionContext) {
                 // Show the log
                 outputChannel.show(true);
             }
-        })
+        });
     });
 
     let disposableClient = client.start();
@@ -177,7 +208,7 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableClient);
 
     // We have to use our own command in order to get the parameters parsed, before passing them into the built in showReferences command.
-    async function yarnShowReferences(rawTokenPosition : vscode.Position, rawReferenceLocations : vscode.Location[]) {
+    async function yarnShowReferences(rawTokenPosition: vscode.Position, rawReferenceLocations: vscode.Location[]) {
         var tokenPosition = new vscode.Position(rawTokenPosition.line, rawTokenPosition.character);
         var referenceLocations = rawReferenceLocations.map(rawLocation => {
             return new vscode.Location(
@@ -190,8 +221,6 @@ export async function activate(context: vscode.ExtensionContext) {
                         rawLocation.range.end.line,
                         rawLocation.range.end.character)));
         });
-
-        
 
         const activeTextEditor = vscode.window.activeTextEditor;
 

@@ -5,6 +5,7 @@
 ### Added
 
 - We now support preview releases of the extension.
+- Added a setting that controls whether the language server is enabled or not. This feature was added for users who aren't using Yarn Spinner 2.0, but want features like syntax highlighting to work.
 
 ## 2.2.1
 
