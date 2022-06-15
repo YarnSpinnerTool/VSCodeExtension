@@ -6,6 +6,12 @@
 
 - We now support preview releases of the extension.
 
+## 2.2.1
+
+### Changed
+
+- No code changes in this release from v2.2.0; this release exists only to update the readme on the VS Code page.
+
 ## 2.2.0
 
 ### Added
