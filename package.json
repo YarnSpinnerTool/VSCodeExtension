@@ -127,7 +127,7 @@
                     "order": 1,
                     "type": "boolean",
                     "default": true,
-                    "description": "If this setting is turned off, language features like errors and code lookup will not be available. Syntax highlighting will remain available. (Reload the window to apply changes to this setting.)"
+                    "markdownDescription": "If this setting is turned off, language features like errors and code lookup will not be available. Syntax highlighting will remain available. ([Reload the window](command:workbench.action.reloadWindow) to apply changes to this setting.)"
                 },
                 "yarnspinner.CSharpLookup": {
                     "type": "boolean",
