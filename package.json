@@ -46,7 +46,6 @@
         "lint": "eslint . --ext .ts,.tsx",
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",
-        "package": "vsce package",
         "buildServer": "dotnet publish -c Debug -o out/server LanguageServer/LanguageServer/YarnLanguageServer.csproj"
     },
     "devDependencies": {

@@ -75,7 +75,7 @@ jobs:
           echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
       
       - name: Compile and create .vsix
-        run: npm run package
+        run: npx vsce ${{ env.RELEASE_FLAG }} package
         
       - name: Print vsix path
         run: |
