@@ -68,6 +68,11 @@ jobs:
           files: '${{github.workspace}}/package.json'
           patch-syntax: |
             = /version => "${{ steps.gitversion.outputs.semVer }}"
+
+      - name: Add prerelease tag
+        if: ${{ github.ref.type != 'tag' }}
+        run: |
+          echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
       
       - name: Compile and create .vsix
         run: npm run package
@@ -82,4 +87,9 @@ jobs:
           name: yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
           path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
 
+      - name: Publish to Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
         
