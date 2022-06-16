@@ -69,6 +69,8 @@ jobs:
           patch-syntax: |
             = /version => "${{ steps.gitversion.outputs.semVer }}"
 
+      #  If this is not a tagged ref, then add a pre-release flag (which will be
+      #  used in the package and publish steps)
       - name: Add prerelease tag
         if: ${{ github.ref.type != 'tag' }}
         run: |
@@ -87,7 +89,10 @@ jobs:
           name: yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
           path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
 
+      # If this is the main branch, or this is a tagged ref, then publish to the
+      # VS Marketplace.
       - name: Publish to Marketplace
+        if: success() && ( github.ref_name == 'main' || github.ref.type == 'tag' )
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
