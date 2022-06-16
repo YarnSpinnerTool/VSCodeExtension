@@ -5,6 +5,7 @@
 ### Added
 
 - Added a setting that controls whether the language server is enabled or not. This feature was added for users who aren't using Yarn Spinner 2.0, but want features like syntax highlighting to work.
+- Fixed an issue that caused the graph view and the language server to not load files correctly on Windows.
 
 ## 2.2.1
 
