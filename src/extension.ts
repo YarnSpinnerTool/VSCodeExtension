@@ -237,12 +237,12 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }));
     
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
-        const params: ExecuteCommandParams = {
+        const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.compile",
             arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
         };
     
-        let compileRequest: Promise<CompilerOutput> = client.sendRequest(ExecuteCommandRequest.type, params);
+        let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
         compileRequest.then(result => {
             if (result.errors.length == 0)
             {
