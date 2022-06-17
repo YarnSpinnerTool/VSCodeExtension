@@ -1,5 +1,11 @@
 # Change Log
 
+## [Unreleased]
+
+### Added
+
+- We now support preview releases of the extension.
+
 ## 2.0.0
 
 ## Added
