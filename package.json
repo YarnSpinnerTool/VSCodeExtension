@@ -91,7 +91,7 @@
             },
             {
                 "command": "yarnspinner.compile",
-                "title": "Yarn Spinner: Export HTML Runner..."
+                "title": "HTML Story Preview"
             }
         ],
         "languages": [
