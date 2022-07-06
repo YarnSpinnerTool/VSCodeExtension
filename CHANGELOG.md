@@ -4,6 +4,8 @@
 
 ### Added
 
+- A command to export a spreadsheet of all dialogue for VO recording. Can be configured in settings to control the columns, export format and a few other bits and pieces.
+
 ### Changed
 
 ### Removed
