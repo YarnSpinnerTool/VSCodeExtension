@@ -91,7 +91,7 @@
             },
             {
                 "command": "yarnspinner.compile",
-                "title": "Zorpa-Da-Dorp"
+                "title": "Yarn Spinner: Export HTML Runner..."
             }
         ],
         "languages": [
