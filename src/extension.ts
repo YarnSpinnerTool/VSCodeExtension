@@ -238,9 +238,21 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
     // recording strings extraction command
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.extract", () => {
+
+        var configs = vscode.workspace.getConfiguration("yarnspinner");
+        let format = configs.get<string>("extract.format");
+        let columns = configs.get<string[]>("extract.columns");
+        let defaultName = configs.get<string>("extract.defaultCharacter");
+        let useChars = configs.get<boolean>("extract.includeCharacters");
+
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.extract",
-            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+            arguments: [
+                format,
+                columns,
+                defaultName,
+                useChars
+            ]
         };
 
         let request: Promise<BlocksOfLines> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
@@ -252,7 +264,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 let data = Buffer.from(dataString, "base64");
 
                 vscode.window.showSaveDialog({
-                    defaultUri: vscode.Uri.file("lines.csv")
+                    defaultUri: vscode.Uri.file(`lines.${format}`)
                 }).then((uri: vscode.Uri | undefined) => {
                     if (uri)
                     {
