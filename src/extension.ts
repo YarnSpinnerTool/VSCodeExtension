@@ -13,7 +13,7 @@ import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
 import { DidChangeNodesNotification } from './nodes';
 
-import { DidChangeNodesParams } from './nodes';
+import { DidChangeNodesParams, BlocksOfLines } from './nodes';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -234,6 +234,49 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     // Create the command to open a new visual editor for the active document
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
         vscode.commands.executeCommand("vscode.openWith", vscode.window.activeTextEditor?.document.uri, YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
+    }));
+
+    // recording strings extraction command
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.extract", () => {
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.extract",
+            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+        };
+
+        let request: Promise<BlocksOfLines> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        request.then(result => {
+            if (result.errors.length == 0)
+            {
+                // the LS base64 encodes the bytearray so we need to reverse that before we can use it
+                let dataString = result.lineBlocks as any;
+                let data = Buffer.from(dataString, "base64");
+
+                vscode.window.showSaveDialog({
+                    defaultUri: vscode.Uri.file("lines.csv")
+                }).then((uri: vscode.Uri | undefined) => {
+                    if (uri)
+                    {
+                        const path = uri.fsPath;
+                        fs.writeFile(path, data, (error) => {
+                            if (error)
+                            {
+                                vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
+                            }
+                            else
+                            {
+                                vscode.window.showInformationMessage(`Strings written to ${path}`);
+                            }
+                        });
+                    }
+                });
+            }
+            else
+            {
+                vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+            }
+        }).catch(error =>{
+            vscode.window.showErrorMessage("Error in the language server", error);
+        });
     }));
 }
 

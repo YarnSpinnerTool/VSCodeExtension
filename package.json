@@ -88,6 +88,10 @@
             {
                 "command": "yarnspinner.show-graph",
                 "title": "Show Graph"
+            },
+            {
+                "command": "yarnspinner.extract",
+                "title": "Extractor9000!"
             }
         ],
         "languages": [
