@@ -255,6 +255,30 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             ]
         };
 
+        // doing some sanity checks and potentially bailing out before if needed
+        // format can only be csv or xlsx
+        if (!format)
+        {
+            vscode.window.showErrorMessage(`Unable to export sheet, no format is configured`);
+            return;
+        }
+        if (!(format == "csv" || format == "xlsx"))
+        {
+            vscode.window.showErrorMessage(`Unable to export sheet, no format must be either "csv" or "xlsx"`);
+            return;
+        }
+        // columns must include a minimum of id and text
+        if (!columns)
+        {
+            vscode.window.showErrorMessage(`Unable to export sheet, no columns are configured`);
+            return;
+        }
+        if (!(columns.includes("id") && columns.includes("text")))
+        {
+            vscode.window.showErrorMessage(`Unable to export sheet, the columns must include at least "id" and "text"`);
+            return;
+        }
+
         let request: Promise<BlocksOfLines> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
         request.then(result => {
             if (result.errors.length == 0)

@@ -91,7 +91,7 @@
             },
             {
                 "command": "yarnspinner.extract",
-                "title": "Extract dialogue spreadsheet for VO recording"
+                "title": "Export dialogue spreadsheet for VO recording"
             }
         ],
         "languages": [
