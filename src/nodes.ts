@@ -28,3 +28,8 @@ export interface DidChangeNodesParams {
     uri: Uri
     nodes: NodeInfo[]
 }
+
+export interface VOStringExport {
+    file: Uint8Array;
+    errors: string[];
+}

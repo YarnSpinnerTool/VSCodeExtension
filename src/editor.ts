@@ -13,6 +13,7 @@ enum Commands {
     RemoveNode = "yarnspinner.remove-node",
     ListNodes = "yarnspinner.list-nodes",
     UpdateNodeHeader = "yarnspinner.update-node-header",
+    ExtractString = "yarnspinner.extract",
 }
 
 export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvider {
