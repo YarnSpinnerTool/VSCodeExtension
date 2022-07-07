@@ -13,7 +13,7 @@ import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
 import { DidChangeNodesNotification } from './nodes';
 
-import { DidChangeNodesParams, BlocksOfLines } from './nodes';
+import { DidChangeNodesParams, VOStringExport } from './nodes';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -279,12 +279,12 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             return;
         }
 
-        let request: Promise<BlocksOfLines> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        let request: Promise<VOStringExport> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
         request.then(result => {
             if (result.errors.length == 0)
             {
                 // the LS base64 encodes the bytearray so we need to reverse that before we can use it
-                let dataString = result.lineBlocks as any;
+                let dataString = result.file as any;
                 let data = Buffer.from(dataString, "base64");
 
                 vscode.window.showSaveDialog({

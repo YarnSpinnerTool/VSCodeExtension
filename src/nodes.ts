@@ -29,7 +29,7 @@ export interface DidChangeNodesParams {
     nodes: NodeInfo[]
 }
 
-export interface BlocksOfLines {
-    lineBlocks: Uint8Array;
+export interface VOStringExport {
+    file: Uint8Array;
     errors: string[];
 }
