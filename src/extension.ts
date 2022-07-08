@@ -365,7 +365,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
                 const stringData = stringify(thing);
 
-                vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(`dialogue.yarnc`) }).then((uri: vscode.Uri | undefined) => {
+                vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(`Dialogue.yarnc`) }).then((uri: vscode.Uri | undefined) => {
                     if (uri)
                     {
                         const path = uri.fsPath;
@@ -375,7 +375,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                                 vscode.window.showErrorMessage(`Unable to write program to file ${path}`, error.message);
                             }
                         });
-                        const stringPath = uri.fsPath.slice(0, -5) + "csv";
+                        const stringPath = uri.fsPath.slice(0, -6) + "-lines.csv";
                         fs.writeFile(stringPath, stringData, (error) => {
                             if (error)
                             {
