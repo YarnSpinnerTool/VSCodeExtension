@@ -15,6 +15,8 @@ import { CompilerOutput, DidChangeNodesNotification } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
 
+import { stringify } from 'csv-stringify/sync';
+
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
 let reporter: TelemetryReporter;
@@ -331,6 +333,59 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 let array = JSON.stringify(Buffer.from(dataString, "base64").toJSON().data);
                 let strings = JSON.stringify(result.stringTable);
                 YarnPreviewPanel.createOrShow(context.extensionUri, strings, array);
+            }
+            else
+            {
+                vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+            }
+        }).catch(error => {
+            vscode.window.showErrorMessage("Error in the language server", error);
+        });
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
+
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.compile",
+            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+        };
+
+        let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        compileRequest.then(result => {
+            if (result.errors.length == 0)
+            {
+                let dataString = result.data as any; // turns out the server base64 encodes it
+                let data = Buffer.from(dataString, "base64");
+                var thing: string[][] = [];
+                for (var key in result.stringTable)
+                {
+                    let line = [key, result.stringTable[key]]
+                    thing.push(line);
+                }
+
+                const stringData = stringify(thing);
+
+                vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(`dialogue.yarnc`) }).then((uri: vscode.Uri | undefined) => {
+                    if (uri)
+                    {
+                        const path = uri.fsPath;
+                        fs.writeFile(path, data, (error) => {
+                            if (error)
+                            {
+                                vscode.window.showErrorMessage(`Unable to write program to file ${path}`, error.message);
+                            }
+                        });
+                        const stringPath = uri.fsPath.slice(0, -5) + "csv";
+                        fs.writeFile(stringPath, stringData, (error) => {
+                            if (error)
+                            {
+                                vscode.window.showErrorMessage(`Unable to write strings to file ${stringPath}`, error.message);
+                            }
+                        });
+                    }
+                })
+
+                vscode.window.showInformationMessage(`Compilation a success!`);
             }
             else
             {

@@ -102,6 +102,10 @@
             {
                 "command": "yarnspinner.preview",
                 "title": "Show HTML Story Preview 💣 Experimental 💣"
+            },
+            {
+                "command": "yarnspinner.compile",
+                "title": "Compile and save dialogue"
             }
         ],
         "languages": [
@@ -179,7 +183,11 @@
                 },
                 "yarnspinner.extract.columns": {
                     "type": "array",
-                    "default": ["character", "text", "id"],
+                    "default": [
+                        "character",
+                        "text",
+                        "id"
+                    ],
                     "description": "The list of columns to be exported. These will be included in the export in the order presented here. If \"character\", \"text\", \"id\", \"line\", \"file\", \"node\" are included these will be populated with their relevant values."
                 },
                 "yarnspinner.extract.defaultCharacter": {
@@ -211,6 +219,7 @@
         "@vscode/extension-telemetry": "^0.5.2",
         "@vscode/webview-ui-toolkit": "^0.8.4",
         "antlr4ts": "^0.5.0-alpha.4",
+        "csv-stringify": "^6.1.3",
         "interactjs": "^1.10.11",
         "leader-line": "^1.0.5",
         "vscode-jsonrpc": "^6.0.0",
