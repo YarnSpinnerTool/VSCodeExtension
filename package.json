@@ -70,6 +70,12 @@
                     "group": "navigation",
                     "when": "editorLangId == yarnspinner"
                 }
+            ],
+            "commandPalette": [
+                {
+                    "command": "yarnspinner.compile",
+                    "when": "config.yarnspinner.enableExperimentalFeatures"
+                }
             ]
         },
         "customEditors": [
@@ -95,7 +101,7 @@
             },
             {
                 "command": "yarnspinner.compile",
-                "title": "HTML Story Preview"
+                "title": "Experimental HTML Story Preview"
             }
         ],
         "languages": [
@@ -185,6 +191,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Should character names be extracted out of the dialogue?"
+                },
+                "yarnspinner.enableExperimentalFeatures": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable experimental Yarn Spinner extension features"
                 }
             }
         },
