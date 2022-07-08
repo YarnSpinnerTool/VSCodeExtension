@@ -368,12 +368,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 var location = `Dialogue.yarnc`;
                 if (vscode.workspace.workspaceFolders)
                 {
-                    location = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, `Dialogue.yarnc`)
-                    vscode.window.showErrorMessage(location);
-                }
-                else
-                {
-                    vscode.window.showErrorMessage(`no folders`);
+                    location = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, location)
                 }
 
                 vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(location) }).then((uri: vscode.Uri | undefined) => {
