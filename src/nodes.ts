@@ -29,6 +29,11 @@ export interface DidChangeNodesParams {
     nodes: NodeInfo[]
 }
 
+export interface CompilerOutput {
+    data: Uint8Array;
+    stringTable: { [key: string]: string };
+    errors: string[];
+}
 export interface VOStringExport {
     file: Uint8Array;
     errors: string[];

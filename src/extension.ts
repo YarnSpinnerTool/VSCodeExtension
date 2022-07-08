@@ -11,7 +11,7 @@ import { Trace } from "vscode-jsonrpc";
 import { YarnSpinnerEditorProvider } from './editor';
 import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
-import { DidChangeNodesNotification } from './nodes';
+import { CompilerOutput, DidChangeNodesNotification } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
 
@@ -314,5 +314,130 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             vscode.window.showErrorMessage("Error in the language server", error);
         });
     }));
+
+    // perform a compilation and preview the output in an interactive manner
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
+
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.compile",
+            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+        };
+
+        let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        compileRequest.then(result => {
+            if (result.errors.length == 0)
+            {
+                let dataString = result.data as any; // turns out the server base64 encodes it
+                let array = JSON.stringify(Buffer.from(dataString, "base64").toJSON().data);
+                let strings = JSON.stringify(result.stringTable);
+                YarnPreviewPanel.createOrShow(context.extensionUri, strings, array);
+            }
+            else
+            {
+                vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+            }
+        }).catch(error => {
+            vscode.window.showErrorMessage("Error in the language server", error);
+        });
+    }));
 }
 
+class YarnPreviewPanel {
+    public static currentPanel: YarnPreviewPanel | undefined;
+
+    public static readonly viewType = 'yarnPreview';
+
+    private readonly _panel: vscode.WebviewPanel;
+    private readonly _extensionUri: vscode.Uri;
+
+    public static createOrShow(extensionUri: vscode.Uri, stringsTable: string, program: string) {
+        const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
+
+        // If we already have a panel, show it.
+        if (YarnPreviewPanel.currentPanel) {
+            YarnPreviewPanel.currentPanel.update(program, stringsTable);
+            YarnPreviewPanel.currentPanel._panel.reveal(column);
+            return;
+        }
+
+        // Otherwise, create a new panel.
+        const panel = vscode.window.createWebviewPanel(YarnPreviewPanel.viewType, 'Dialogue Preview', column || vscode.ViewColumn.One, YarnPreviewPanel.getWebviewOptions(extensionUri),);
+        
+        panel.webview.onDidReceiveMessage((message) => { // this is currently an any, bind it to something later Tim!
+            switch (message.command)
+            {
+                case "save-story":
+                {
+                    YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri, false));
+                    break;
+                }
+            }
+        });
+
+        YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, stringsTable, program);
+    }
+
+    private static saveHTML(data: string)
+    {
+        vscode.window.showSaveDialog({
+            defaultUri: vscode.Uri.file("story.html")
+        }).then((uri: vscode.Uri | undefined) => {
+            if (uri)
+            {
+                const path = uri.fsPath;
+                fs.writeFile(path, data, (error) => {
+                    if (error)
+                    {
+                        vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
+                    }
+                    else
+                    {
+                        vscode.window.showInformationMessage(`Story written to ${path}`);
+                    }
+                });
+            }
+        });
+    }
+     
+    private static getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions
+    {
+        return {
+            // Enable javascript in the webview
+            enableScripts: true,
+    
+            // And restrict the webview to only loading content from our extension's `media` directory.
+            // localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')]
+        };
+    }
+
+    private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, stringsTable: string, program: string)
+    {
+		this._panel = panel;
+        this._extensionUri = extensionUri;
+
+		// Set the webview's initial html content
+		this.update(program, stringsTable);
+	}
+
+    public update(program: string, table: string)
+    {
+        let html = YarnPreviewPanel.generateHTML(program, table, this._extensionUri, true);
+
+        this._panel.webview.html = html;
+    }
+    
+    private static generateHTML(program: string, table: string, extensionURI: vscode.Uri, includeSaveOption: boolean): string
+    {
+        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'webview.txt');
+        let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
+
+        let saveButton = '<button onclick="save()">Export Story</button>\n';
+
+        var html = contents.replace("TABLEMARKER", table);
+        html = html.replace("DATAMARKER", program);
+        html = html.replace("SAVEMARKER", includeSaveOption == true ? saveButton : "");
+        // if we are in the vscode preview don't do this because it appears anyways for some reason
+        html = html.replace("JSTESTMARKER", includeSaveOption == false ? "<noscript>This story requires JS enabled to run, sorry.</noscript>" : "");
+        return html;
+    }
+}
