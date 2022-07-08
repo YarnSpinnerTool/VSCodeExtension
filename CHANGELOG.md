@@ -4,7 +4,17 @@
 
 ### Added
 
-- We now support showing a html preview of your dialogue
+- A command to export a spreadsheet of all dialogue for VO recording. Can be configured in settings to control the columns, export format and a few other bits and pieces.
+- A WIP in-editor preview of yarn dialogue.
+
+### Changed
+
+### Removed
+
+## 2.2.15
+
+### Added
+
 - Added a setting that controls whether the language server is enabled or not. This feature was added for users who aren't using Yarn Spinner 2.0, but want features like syntax highlighting to work.
 - Fixed an issue that caused the graph view and the language server to not load files correctly on Windows.
 

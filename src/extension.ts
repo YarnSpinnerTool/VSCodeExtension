@@ -13,7 +13,7 @@ import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
 import { CompilerOutput, DidChangeNodesNotification } from './nodes';
 
-import { DidChangeNodesParams } from './nodes';
+import { DidChangeNodesParams, VOStringExport } from './nodes';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -235,30 +235,108 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {
         vscode.commands.executeCommand("vscode.openWith", vscode.window.activeTextEditor?.document.uri, YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
     }));
-    
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
-        const params: languageClient.ExecuteCommandParams = {
-            command: "yarnspinner.compile",
-            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
-        };
-    
-        let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
-        compileRequest.then(result => {
-            if (result.errors.length == 0)
-            {
-                let dataString = result.data as any; // turns out the server base64 encodes it
-                let array = JSON.stringify(Buffer.from(dataString, "base64").toJSON().data);
-                let strings = JSON.stringify(result.stringTable);
-                YarnPreviewPanel.createOrShow(context.extensionUri, strings, array);
-            }
-            else
-            {
-                vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
-            }
-        }).catch(error => {
-            vscode.window.showErrorMessage("Error in the language server", error);
-        });
-    }));
+// recording strings extraction command
+context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.extract", () => {
+
+    var configs = vscode.workspace.getConfiguration("yarnspinner");
+    let format = configs.get<string>("extract.format");
+    let columns = configs.get<string[]>("extract.columns");
+    let defaultName = configs.get<string>("extract.defaultCharacter");
+    let useChars = configs.get<boolean>("extract.includeCharacters");
+
+    const params: languageClient.ExecuteCommandParams = {
+        command: "yarnspinner.extract",
+        arguments: [
+            format,
+            columns,
+            defaultName,
+            useChars
+        ]
+    };
+
+    // doing some sanity checks and potentially bailing out before if needed
+    // format can only be csv or xlsx
+    if (!format)
+    {
+        vscode.window.showErrorMessage(`Unable to export sheet, no format is configured`);
+        return;
+    }
+    if (!(format == "csv" || format == "xlsx"))
+    {
+        vscode.window.showErrorMessage(`Unable to export sheet, no format must be either "csv" or "xlsx"`);
+        return;
+    }
+    // columns must include a minimum of id and text
+    if (!columns)
+    {
+        vscode.window.showErrorMessage(`Unable to export sheet, no columns are configured`);
+        return;
+    }
+    if (!(columns.includes("id") && columns.includes("text")))
+    {
+        vscode.window.showErrorMessage(`Unable to export sheet, the columns must include at least "id" and "text"`);
+        return;
+    }
+
+    let request: Promise<VOStringExport> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+    request.then(result => {
+        if (result.errors.length == 0)
+        {
+            // the LS base64 encodes the bytearray so we need to reverse that before we can use it
+            let dataString = result.file as any;
+            let data = Buffer.from(dataString, "base64");
+
+            vscode.window.showSaveDialog({
+                defaultUri: vscode.Uri.file(`lines.${format}`)
+            }).then((uri: vscode.Uri | undefined) => {
+                if (uri)
+                {
+                    const path = uri.fsPath;
+                    fs.writeFile(path, data, (error) => {
+                        if (error)
+                        {
+                            vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
+                        }
+                        else
+                        {
+                            vscode.window.showInformationMessage(`Strings written to ${path}`);
+                        }
+                    });
+                }
+            });
+        }
+        else
+        {
+            vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+        }
+    }).catch(error =>{
+        vscode.window.showErrorMessage("Error in the language server", error);
+    });
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
+    const params: languageClient.ExecuteCommandParams = {
+        command: "yarnspinner.compile",
+        arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+    };
+
+    let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+    compileRequest.then(result => {
+        if (result.errors.length == 0)
+        {
+            let dataString = result.data as any; // turns out the server base64 encodes it
+            let array = JSON.stringify(Buffer.from(dataString, "base64").toJSON().data);
+            let strings = JSON.stringify(result.stringTable);
+            YarnPreviewPanel.createOrShow(context.extensionUri, strings, array);
+        }
+        else
+        {
+            vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+        }
+    }).catch(error => {
+        vscode.window.showErrorMessage("Error in the language server", error);
+    });
+}));
 }
 
 class YarnPreviewPanel {

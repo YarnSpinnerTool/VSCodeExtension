@@ -34,3 +34,7 @@ export interface CompilerOutput {
     stringTable: { [key: string]: string };
     errors: string[];
 }
+export interface VOStringExport {
+    file: Uint8Array;
+    errors: string[];
+}

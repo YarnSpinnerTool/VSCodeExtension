@@ -69,10 +69,10 @@ jobs:
           patch-syntax: |
             = /version => "${{ steps.gitversion.outputs.semVer }}"
 
-      #  If this is not a tagged ref, then add a pre-release flag (which will be
-      #  used in the package and publish steps)
+      #  If is a push, and the commit message does not contain the string
+      #  '[release]', build as pre-release. (This is used in the final step.)
       - name: Add prerelease tag
-        if: ${{ github.ref.type != 'tag' }}
+        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[release]' ) }}
         run: |
           echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
       
@@ -89,10 +89,9 @@ jobs:
           name: yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
           path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
 
-      # If this is the main branch, or this is a tagged ref, then publish to the
-      # VS Marketplace.
+      # If this is a push to the main branch, publish to the Marketplace using our configuration.
       - name: Publish to Marketplace
-        if: success() && ( github.ref_name == 'main' || github.ref.type == 'tag' )
+        if: success() && github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |

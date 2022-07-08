@@ -90,6 +90,10 @@
                 "title": "Show Graph"
             },
             {
+                "command": "yarnspinner.extract",
+                "title": "Export dialogue spreadsheet for VO recording"
+            },
+            {
                 "command": "yarnspinner.compile",
                 "title": "HTML Story Preview"
             }
@@ -161,6 +165,26 @@
                     ],
                     "default": "messages",
                     "description": "Traces the communication between VSCode and the Yarn Language Server Instance."
+                },
+                "yarnspinner.extract.format": {
+                    "type": "string",
+                    "default": "csv",
+                    "description": "The table format to use when exporting a VO strings table. Can be either \"csv\" or \"xlsx\""
+                },
+                "yarnspinner.extract.columns": {
+                    "type": "array",
+                    "default": ["character", "text", "id"],
+                    "description": "The list of columns to be exported. These will be included in the export in the order presented here. If \"character\", \"text\", \"id\", \"line\", \"file\", \"node\" are included these will be populated with their relevant values."
+                },
+                "yarnspinner.extract.defaultCharacter": {
+                    "type": "string",
+                    "default": "Player",
+                    "description": "The name to use to assign a line without an explicit character to a specific character, this is often your player character."
+                },
+                "yarnspinner.extract.includeCharacters": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Should character names be extracted out of the dialogue?"
                 }
             }
         },
