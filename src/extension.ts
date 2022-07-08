@@ -316,7 +316,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }));
 
     // perform a compilation and preview the output in an interactive manner
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.compile", () => {
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.preview", () => {
 
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.compile",

@@ -73,7 +73,7 @@
             ],
             "commandPalette": [
                 {
-                    "command": "yarnspinner.compile",
+                    "command": "yarnspinner.preview",
                     "when": "config.yarnspinner.enableExperimentalFeatures"
                 }
             ]
@@ -100,8 +100,8 @@
                 "title": "Export dialogue spreadsheet for VO recording"
             },
             {
-                "command": "yarnspinner.compile",
-                "title": "Experimental HTML Story Preview"
+                "command": "yarnspinner.preview",
+                "title": "Show HTML Story Preview 💣 Experimental 💣"
             }
         ],
         "languages": [
