@@ -322,7 +322,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.compile",
-            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+            arguments: []
         };
 
         let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
@@ -347,7 +347,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.compile",
-            arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+            arguments: []
         };
 
         let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
@@ -384,8 +384,6 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                         });
                     }
                 })
-
-                vscode.window.showInformationMessage(`Compilation a success!`);
             }
             else
             {
