@@ -93,15 +93,18 @@
         "commands": [
             {
                 "command": "yarnspinner.show-graph",
+                "category": "Yarn Spinner",
                 "title": "Show Graph"
             },
             {
                 "command": "yarnspinner.extract",
+                "category": "Yarn Spinner",
                 "title": "Export dialogue spreadsheet for VO recording"
             },
             {
                 "command": "yarnspinner.compile",
-                "title": "Experimental HTML Story Preview"
+                "category": "Yarn Spinner",
+                "title": "Preview Dialogue"
             }
         ],
         "languages": [
