@@ -19,6 +19,11 @@ const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
 let reporter: TelemetryReporter;
 
+type YarnData = {
+    stringTable: { [key: string]: string },
+    programData: number[]
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
@@ -311,7 +316,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
             }
         }).catch(error =>{
-            vscode.window.showErrorMessage("Error in the language server", error);
+            vscode.window.showErrorMessage("Error in the language server: " + error.toString());
         });
     }));
 
@@ -328,16 +333,20 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             if (result.errors.length == 0)
             {
                 let dataString = result.data as any; // turns out the server base64 encodes it
-                let array = JSON.stringify(Buffer.from(dataString, "base64").toJSON().data);
-                let strings = JSON.stringify(result.stringTable);
-                YarnPreviewPanel.createOrShow(context.extensionUri, strings, array);
+
+                let yarnData : YarnData = {
+                    programData: Buffer.from(dataString, "base64").toJSON().data,
+                    stringTable: result.stringTable
+                };
+                
+                YarnPreviewPanel.createOrShow(context.extensionUri, yarnData);
             }
             else
             {
                 vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
             }
         }).catch(error => {
-            vscode.window.showErrorMessage("Error in the language server", error);
+            vscode.window.showErrorMessage("Error in the language server: " + error.toString());
         });
     }));
 }
@@ -350,12 +359,12 @@ class YarnPreviewPanel {
     private readonly _panel: vscode.WebviewPanel;
     private readonly _extensionUri: vscode.Uri;
 
-    public static createOrShow(extensionUri: vscode.Uri, stringsTable: string, program: string) {
+    public static createOrShow(extensionUri: vscode.Uri, yarnData : YarnData) {
         const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 
         // If we already have a panel, show it.
         if (YarnPreviewPanel.currentPanel) {
-            YarnPreviewPanel.currentPanel.update(program, stringsTable);
+            YarnPreviewPanel.currentPanel.update(yarnData);
             YarnPreviewPanel.currentPanel._panel.reveal(column);
             return;
         }
@@ -363,18 +372,18 @@ class YarnPreviewPanel {
         // Otherwise, create a new panel.
         const panel = vscode.window.createWebviewPanel(YarnPreviewPanel.viewType, 'Dialogue Preview', column || vscode.ViewColumn.One, YarnPreviewPanel.getWebviewOptions(extensionUri),);
         
-        panel.webview.onDidReceiveMessage((message) => { // this is currently an any, bind it to something later Tim!
-            switch (message.command)
-            {
-                case "save-story":
-                {
-                    YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri, false));
-                    break;
-                }
-            }
-        });
+        // panel.webview.onDidReceiveMessage((message) => { // this is currently an any, bind it to something later Tim!
+        //     switch (message.command)
+        //     {
+        //         case "save-story":
+        //         {
+        //             YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri, false));
+        //             break;
+        //         }
+        //     }
+        // });
 
-        YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, stringsTable, program);
+        YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, yarnData);
     }
 
     private static saveHTML(data: string)
@@ -410,34 +419,49 @@ class YarnPreviewPanel {
         };
     }
 
-    private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, stringsTable: string, program: string)
+    private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, yarnData : YarnData)
     {
 		this._panel = panel;
         this._extensionUri = extensionUri;
 
 		// Set the webview's initial html content
-		this.update(program, stringsTable);
+		this.update(yarnData);
 	}
 
-    public update(program: string, table: string)
+    public update(yarnData : YarnData)
     {
-        let html = YarnPreviewPanel.generateHTML(program, table, this._extensionUri, true);
+        let html = YarnPreviewPanel.generateHTML(yarnData, this._extensionUri, true);
 
         this._panel.webview.html = html;
     }
     
-    private static generateHTML(program: string, table: string, extensionURI: vscode.Uri, includeSaveOption: boolean): string
+    private static generateHTML(yarnData : YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string
     {
-        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'webview.txt');
+        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'runner.html');
         let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
 
-        let saveButton = '<button onclick="save()">Export Story</button>\n';
+        let injectedYarnProgramScript = `
+        <script>
+        window.yarnData = {
+            programData : Uint8Array.from(${JSON.stringify(yarnData.programData)}),
+            stringTable : ${JSON.stringify(yarnData.stringTable)}
+        };
+        </script>
+        `
 
-        var html = contents.replace("TABLEMARKER", table);
-        html = html.replace("DATAMARKER", program);
-        html = html.replace("SAVEMARKER", includeSaveOption == true ? saveButton : "");
-        // if we are in the vscode preview don't do this because it appears anyways for some reason
-        html = html.replace("JSTESTMARKER", includeSaveOption == false ? "<noscript>This story requires JS enabled to run, sorry.</noscript>" : "");
+        // TODO: inject a save button that's bound to the following method
+        /* function save()
+        {
+          const vscode = acquireVsCodeApi();
+          vscode.postMessage({
+            command: 'save-story'
+          });
+        } */
+
+        let replacementMarker = '<script id="injected-yarn-program"></script>';
+
+        var html = contents.replace(replacementMarker, injectedYarnProgramScript);
+        
         return html;
     }
 }
