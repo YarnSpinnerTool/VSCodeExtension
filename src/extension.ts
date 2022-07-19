@@ -14,12 +14,13 @@ import { EventEmitter } from 'vscode';
 import { CompilerOutput, DidChangeNodesNotification } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
+import { YarnPreviewPanel } from './preview';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
 let reporter: TelemetryReporter;
 
-type YarnData = {
+export type YarnData = {
     stringTable: { [key: string]: string },
     programData: number[]
 }
@@ -351,117 +352,5 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }));
 }
 
-class YarnPreviewPanel {
-    public static currentPanel: YarnPreviewPanel | undefined;
 
-    public static readonly viewType = 'yarnPreview';
-
-    private readonly _panel: vscode.WebviewPanel;
-    private readonly _extensionUri: vscode.Uri;
-
-    public static createOrShow(extensionUri: vscode.Uri, yarnData : YarnData) {
-        const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
-
-        // If we already have a panel, show it.
-        if (YarnPreviewPanel.currentPanel) {
-            YarnPreviewPanel.currentPanel.update(yarnData);
-            YarnPreviewPanel.currentPanel._panel.reveal(column);
-            return;
-        }
-
-        // Otherwise, create a new panel.
-        const panel = vscode.window.createWebviewPanel(YarnPreviewPanel.viewType, 'Dialogue Preview', column || vscode.ViewColumn.One, YarnPreviewPanel.getWebviewOptions(extensionUri),);
-        
-        // panel.webview.onDidReceiveMessage((message) => { // this is currently an any, bind it to something later Tim!
-        //     switch (message.command)
-        //     {
-        //         case "save-story":
-        //         {
-        //             YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(program, stringsTable, extensionUri, false));
-        //             break;
-        //         }
-        //     }
-        // });
-
-        YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, yarnData);
-    }
-
-    private static saveHTML(data: string)
-    {
-        vscode.window.showSaveDialog({
-            defaultUri: vscode.Uri.file("story.html")
-        }).then((uri: vscode.Uri | undefined) => {
-            if (uri)
-            {
-                const path = uri.fsPath;
-                fs.writeFile(path, data, (error) => {
-                    if (error)
-                    {
-                        vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
-                    }
-                    else
-                    {
-                        vscode.window.showInformationMessage(`Story written to ${path}`);
-                    }
-                });
-            }
-        });
-    }
-     
-    private static getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions
-    {
-        return {
-            // Enable javascript in the webview
-            enableScripts: true,
-    
-            // And restrict the webview to only loading content from our extension's `media` directory.
-            // localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')]
-        };
-    }
-
-    private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, yarnData : YarnData)
-    {
-		this._panel = panel;
-        this._extensionUri = extensionUri;
-
-		// Set the webview's initial html content
-		this.update(yarnData);
-	}
-
-    public update(yarnData : YarnData)
-    {
-        let html = YarnPreviewPanel.generateHTML(yarnData, this._extensionUri, true);
-
-        this._panel.webview.html = html;
-    }
-    
-    private static generateHTML(yarnData : YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string
-    {
-        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'runner.html');
-        let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
-
-        let injectedYarnProgramScript = `
-        <script>
-        window.yarnData = {
-            programData : Uint8Array.from(${JSON.stringify(yarnData.programData)}),
-            stringTable : ${JSON.stringify(yarnData.stringTable)}
-        };
-        </script>
-        `
-
-        // TODO: inject a save button that's bound to the following method
-        /* function save()
-        {
-          const vscode = acquireVsCodeApi();
-          vscode.postMessage({
-            command: 'save-story'
-          });
-        } */
-
-        let replacementMarker = '<script id="injected-yarn-program"></script>';
-
-        var html = contents.replace(replacementMarker, injectedYarnProgramScript);
-        
-        return html;
-    }
 }

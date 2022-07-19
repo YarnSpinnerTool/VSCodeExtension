@@ -1,0 +1,117 @@
+import * as vscode from 'vscode';
+import * as fs from 'fs';
+import { YarnData } from './extension';
+
+export class YarnPreviewPanel {
+    public static currentPanel: YarnPreviewPanel | undefined;
+
+    public static readonly viewType = 'yarnPreview';
+
+    private readonly _panel: vscode.WebviewPanel;
+    private readonly _extensionUri: vscode.Uri;
+
+    public static createOrShow(extensionUri: vscode.Uri, yarnData: YarnData) {
+        const column = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
+
+        // If we already have a panel, show it.
+        if (YarnPreviewPanel.currentPanel) {
+            YarnPreviewPanel.currentPanel.update(yarnData);
+            YarnPreviewPanel.currentPanel._panel.reveal(column);
+            return;
+        }
+
+        // Otherwise, create a new panel.
+        const panel = vscode.window.createWebviewPanel(YarnPreviewPanel.viewType, 'Dialogue Preview', column || vscode.ViewColumn.One, YarnPreviewPanel.getWebviewOptions(extensionUri));
+
+        panel.webview.onDidReceiveMessage((message) => {
+            switch (message.command) {
+                case "save-story":
+                    {
+                        YarnPreviewPanel.saveHTML(YarnPreviewPanel.generateHTML(yarnData, extensionUri, false));
+                        break;
+                    }
+            }
+        });
+
+        YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, yarnData);
+    }
+
+    private static saveHTML(data: string) {
+        vscode.window.showSaveDialog({
+            defaultUri: vscode.Uri.file("story.html")
+        }).then((uri: vscode.Uri | undefined) => {
+            if (uri) {
+                const path = uri.fsPath;
+                fs.writeFile(path, data, (error) => {
+                    if (error) {
+                        vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
+                    }
+
+                    else {
+                        vscode.window.showInformationMessage(`Story written to ${path}`);
+                    }
+                });
+            }
+        });
+    }
+
+    private static getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
+        return {
+            // Enable javascript in the webview
+            enableScripts: true,
+            // And restrict the webview to only loading content from our extension's `media` directory.
+            // localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')]
+        };
+    }
+
+    private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, yarnData: YarnData) {
+        this._panel = panel;
+        this._extensionUri = extensionUri;
+
+        // Set the webview's initial html content
+        this.update(yarnData);
+    }
+
+    public update(yarnData: YarnData) {
+        let html = YarnPreviewPanel.generateHTML(yarnData, this._extensionUri, true);
+
+        this._panel.webview.html = html;
+    }
+
+    private static generateHTML(yarnData: YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string {
+        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'runner.html');
+        let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
+
+        let saveButton: string;
+        if (includeSaveOption) {
+            saveButton = `
+            window.addEventListener("yarnLoaded", () => {
+                window.addButton("Export", ["mx-2", "btn-outline-secondary"], () => {
+                    const vscode = acquireVsCodeApi();
+                    vscode.postMessage({
+                        command: 'save-story'
+                    });
+                });
+            });
+            `;
+        } else {
+            saveButton = "";
+        }
+
+        let injectedYarnProgramScript = `
+        <script>
+        window.yarnData = {
+            programData : Uint8Array.from(${JSON.stringify(yarnData.programData)}),
+            stringTable : ${JSON.stringify(yarnData.stringTable)}
+        };
+        ${saveButton}
+        </script>
+        `;
+
+        let replacementMarker = '<script id="injected-yarn-program"></script>';
+
+        var html = contents.replace(replacementMarker, injectedYarnProgramScript);
+
+        return html;
+    }
+}
