@@ -186,8 +186,10 @@
                 },
                 "yarnspinner.extract.format": {
                     "type": "string",
-                    "default": "csv",
-                    "description": "The table format to use when exporting a VO strings table. Can be either \"csv\" or \"xlsx\""
+                    "enum": ["xlsx", "csv"],
+                    "enumDescriptions": ["Export as a Microsoft Excel spreadsheet", "Export as a Comma-Separated Values spreadsheet"],
+                    "default": "xlsx",
+                    "description": "The file format to use when exporting a dialogue spreadsheet for voice-over recording."
                 },
                 "yarnspinner.extract.columns": {
                     "type": "array",
