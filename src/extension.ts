@@ -324,37 +324,41 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     // perform a compilation and preview the output in an interactive manner
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.showPreview", () => {
 
-        let compileRequest: Promise<CompilerOutput> = compileWorkspace(client);
+        let compileResult: Promise<YarnData | null> = compileWorkspace(client);
+        
+        compileResult.then(result => {
 
-
-        compileRequest.then(result => {
-            if (result.errors.length == 0)
-            {
-                let dataString = result.data as any; // turns out the server base64 encodes it
-
-                let yarnData : YarnData = {
-                    programData: Buffer.from(dataString, "base64").toJSON().data,
-                    stringTable: result.stringTable
-                };
-                
-                YarnPreviewPanel.createOrShow(context.extensionUri, yarnData);
+            if (result) {
+                YarnPreviewPanel.createOrShow(context.extensionUri, result);
             }
             else
             {
-                vscode.window.showErrorMessage(`Unable to compile your story, you have ${result.errors.length} errors.\nCheck the Problems for details.`);
+                vscode.window.showErrorMessage(`Unable to compile your story.\nCheck the Problems for details.`);
             }
         }).catch(error => {
-            vscode.window.showErrorMessage("Error in the language server: " + error.toString());
+            vscode.window.showErrorMessage("Error showing preview: " + error.toString());
         });
     }));
 }
 
-function compileWorkspace(client: languageClient.LanguageClient): Promise<CompilerOutput> {
+async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
     const params: languageClient.ExecuteCommandParams = {
         command: "yarnspinner.compile",
         arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
     };
 
-    let compileRequest: Promise<CompilerOutput> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
-    return compileRequest;
+    let result: CompilerOutput = await client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+
+    if (result.errors.length > 0) {
+        return null;
+    }
+    
+    let dataString = result.data as any; // turns out the server base64 encodes it
+
+    let yarnData : YarnData = {
+        programData: Buffer.from(dataString, "base64").toJSON().data,
+        stringTable: result.stringTable
+    };
+
+    return yarnData;
 }
