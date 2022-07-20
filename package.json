@@ -103,7 +103,7 @@
             {
                 "command": "yarnspinner.extract",
                 "category": "Yarn Spinner",
-                "title": "Export dialogue spreadsheet for VO recording"
+                "title": "Export Dialogue as Recording Spreadsheet..."
             },
             {
                 "command": "yarnspinner.showPreview",
@@ -198,7 +198,7 @@
                         "text",
                         "id"
                     ],
-                    "description": "The list of columns to be exported. These will be included in the export in the order presented here. If \"character\", \"text\", \"id\", \"line\", \"file\", \"node\" are included these will be populated with their relevant values."
+                    "description": "The list of columns to be exported when exporting a dialogue spreadsheet.\n\nThese will be included in the export in the order presented here. If \"character\", \"text\", \"id\", \"line\", \"file\", \"node\" are included these will be populated with their relevant values."
                 },
                 "yarnspinner.extract.defaultCharacter": {
                     "type": "string",
@@ -208,7 +208,7 @@
                 "yarnspinner.extract.includeCharacters": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Should character names be extracted out of the dialogue?"
+                    "markdownDescription": "When exporting a dialogue spreadsheet, separate the character name from the rest of the line.\n\nIf your dialogue does not use character names, turn this setting off to prevent lines that contain a colon (`:`) from being read incorrectly."
                 },
                 "yarnspinner.enableExperimentalFeatures": {
                     "type": "boolean",
