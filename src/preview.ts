@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { YarnData } from './extension';
 
 export class YarnPreviewPanel {
-    public static currentPanel: YarnPreviewPanel | undefined;
+    public static currentPanel: YarnPreviewPanel | null;
 
     public static readonly viewType = 'yarnPreview';
 
@@ -22,6 +22,12 @@ export class YarnPreviewPanel {
 
         // Otherwise, create a new panel.
         const panel = vscode.window.createWebviewPanel(YarnPreviewPanel.viewType, 'Dialogue Preview', column || vscode.ViewColumn.One, YarnPreviewPanel.getWebviewOptions(extensionUri));
+
+        panel.onDidDispose((e) => {
+            // When the panel is disposed, clear our reference to it (so we
+            // don't attempt to update a disposed panel.)
+            YarnPreviewPanel.currentPanel = null;
+        });
 
         panel.webview.onDidReceiveMessage((message) => {
             switch (message.command) {
