@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { YarnData } from './extension';
+import { YarnData, getDefaultUri } from './extension';
 
 export class YarnPreviewPanel {
     public static currentPanel: YarnPreviewPanel | null;
@@ -43,8 +43,11 @@ export class YarnPreviewPanel {
     }
 
     public static saveHTML(html: string) {
+
+        let defaultURI = vscode.Uri.joinPath( getDefaultUri(), `story.html`);
+
         vscode.window.showSaveDialog({
-            defaultUri: vscode.Uri.file("story.html")
+            defaultUri: defaultURI
         }).then((uri: vscode.Uri | undefined) => {
             if (uri) {
                 const path = uri.fsPath;

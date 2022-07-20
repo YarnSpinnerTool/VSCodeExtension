@@ -293,8 +293,10 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 let dataString = result.file as any;
                 let data = Buffer.from(dataString, "base64");
 
+                let defaultURI = vscode.Uri.joinPath(getDefaultUri(), `lines.${format}`);
+
                 vscode.window.showSaveDialog({
-                    defaultUri: vscode.Uri.file(`lines.${format}`)
+                    defaultUri: defaultURI
                 }).then((uri: vscode.Uri | undefined) => {
                     if (uri)
                     {
@@ -381,4 +383,25 @@ async function compileWorkspace(client: languageClient.LanguageClient): Promise<
     };
 
     return yarnData;
+}
+
+export function getDefaultUri(): vscode.Uri {
+    // Are any workspaces open?
+    if (vscode.workspace.workspaceFolders) {
+        // Yes, one at least one is. Choose the workspace that the currently
+        // open document is in, if one is available.
+        if (vscode.window.activeTextEditor) {
+            let workspaceURI = vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri);
+
+            if (workspaceURI) {
+                return workspaceURI.uri;
+            }
+        } else {
+            // We don't know the workspace of the currently active text editor.
+            // Return the directory of the _first_ workspace instead.
+            return vscode.workspace.workspaceFolders[0].uri;
+        }
+    }
+    // As a fallback, return an empty Uri.
+    return vscode.Uri.file('');
 }
