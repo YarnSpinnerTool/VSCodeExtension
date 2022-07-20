@@ -42,13 +42,13 @@ export class YarnPreviewPanel {
         YarnPreviewPanel.currentPanel = new YarnPreviewPanel(panel, extensionUri, yarnData);
     }
 
-    private static saveHTML(data: string) {
+    public static saveHTML(html: string) {
         vscode.window.showSaveDialog({
             defaultUri: vscode.Uri.file("story.html")
         }).then((uri: vscode.Uri | undefined) => {
             if (uri) {
                 const path = uri.fsPath;
-                fs.writeFile(path, data, (error) => {
+                fs.writeFile(path, html, (error) => {
                     if (error) {
                         vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
                     }
@@ -84,7 +84,7 @@ export class YarnPreviewPanel {
         this._panel.webview.html = html;
     }
 
-    private static generateHTML(yarnData: YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string {
+    public static generateHTML(yarnData: YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string {
         const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'runner.html');
         let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
 

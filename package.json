@@ -75,6 +75,10 @@
                 {
                     "command": "yarnspinner.showPreview",
                     "when": "config.yarnspinner.enableExperimentalFeatures"
+                },
+                {
+                    "command": "yarnspinner.exportPreview",
+                    "when": "config.yarnspinner.enableExperimentalFeatures"
                 }
             ]
         },
@@ -105,6 +109,11 @@
                 "command": "yarnspinner.showPreview",
                 "category": "Yarn Spinner",
                 "title": "Preview Dialogue"
+            },
+            {
+                "command": "yarnspinner.exportPreview",
+                "category": "Yarn Spinner",
+                "title": "Export Dialogue as HTML..."
             }
         ],
         "languages": [
@@ -182,7 +191,11 @@
                 },
                 "yarnspinner.extract.columns": {
                     "type": "array",
-                    "default": ["character", "text", "id"],
+                    "default": [
+                        "character",
+                        "text",
+                        "id"
+                    ],
                     "description": "The list of columns to be exported. These will be included in the export in the order presented here. If \"character\", \"text\", \"id\", \"line\", \"file\", \"node\" are included these will be populated with their relevant values."
                 },
                 "yarnspinner.extract.defaultCharacter": {

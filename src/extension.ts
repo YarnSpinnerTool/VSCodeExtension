@@ -339,6 +339,26 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             vscode.window.showErrorMessage("Error showing preview: " + error.toString());
         });
     }));
+
+    // perform a compilation and save the output to a file
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.exportPreview", () => {
+
+        let compileResult: Promise<YarnData | null> = compileWorkspace(client);
+        
+        compileResult.then(result => {
+
+            if (result) {
+                var html = YarnPreviewPanel.generateHTML(result, context.extensionUri, false);
+                YarnPreviewPanel.saveHTML(html);
+            }
+            else
+            {
+                vscode.window.showErrorMessage(`Unable to compile your story.\nCheck the Problems for details.`);
+            }
+        }).catch(error => {
+            vscode.window.showErrorMessage("Error saving preview: " + error.toString());
+        });
+    }));
 }
 
 async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
