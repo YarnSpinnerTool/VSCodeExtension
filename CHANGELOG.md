@@ -5,7 +5,8 @@
 ### Added
 
 - A command to export a spreadsheet of all dialogue for VO recording. Can be configured in settings to control the columns, export format and a few other bits and pieces.
-- A WIP in-editor preview of yarn dialogue.
+- Added the ability to preview Yarn dialogue in the editor.
+- Added the ability to save a self-contained HTML previewer of your Yarn dialogue.
 
 ### Changed
 
