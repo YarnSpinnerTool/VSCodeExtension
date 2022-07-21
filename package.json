@@ -42,7 +42,7 @@
     "telemetryKey": "6fafead2-0494-4fc6-a960-90ef5ef8e5c6",
     "scripts": {
         "vscode:prepublish": "npm run buildServer && npm run compile",
-        "compile": "tsc -p ./tsconfig.json",
+        "compile": "tsc -p ./tsconfig.json && cp src/runner.html out/",
         "lint": "eslint . --ext .ts,.tsx",
         "watch": "tsc -watch -p tsconfig.json",
         "test": "tsc -p tsconfig.json; jest",

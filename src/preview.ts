@@ -88,7 +88,7 @@ export class YarnPreviewPanel {
     }
 
     public static generateHTML(yarnData: YarnData, extensionURI: vscode.Uri, includeSaveOption: boolean): string {
-        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'src', 'runner.html');
+        const scriptPathOnDisk = vscode.Uri.joinPath(extensionURI, 'out', 'runner.html');
         let contents = fs.readFileSync(scriptPathOnDisk.fsPath, 'utf-8');
 
         let saveButton: string;
