@@ -79,6 +79,10 @@
                 {
                     "command": "yarnspinner.exportPreview",
                     "when": "config.yarnspinner.enableExperimentalFeatures"
+                },
+                {
+                    "command": "yarnspinner.graph",
+                    "when": "config.yarnspinner.enableExperimentalFeatures"
                 }
             ]
         },
@@ -114,6 +118,11 @@
                 "command": "yarnspinner.exportPreview",
                 "category": "Yarn Spinner",
                 "title": "Export Dialogue as HTML..."
+            },
+            {
+                "command": "yarnspinner.graph",
+                "category": "Yarn Spinner",
+                "title": "Export Dialogue as graph"
             }
         ],
         "languages": [
@@ -209,6 +218,18 @@
                     "type": "boolean",
                     "default": true,
                     "markdownDescription": "When exporting a dialogue spreadsheet, separate the character name from the rest of the line.\n\nIf your dialogue does not use character names, turn this setting off to prevent lines that contain a colon (`:`) from being read incorrectly."
+                },
+                "yarnspinner.graph.format": {
+                    "type": "string",
+                    "enum": ["dot", "mermaid"],
+                    "enumDescriptions": ["Export as a DOT graph", "Export as a mermaid graph"],
+                    "default": "dot",
+                    "description": "the format of the graph"
+                },
+                "yarnspinner.graph.clustering": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Should the vertices of the graph be clustered based on file or not"
                 },
                 "yarnspinner.enableExperimentalFeatures": {
                     "type": "boolean",

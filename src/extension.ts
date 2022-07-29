@@ -361,6 +361,61 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             vscode.window.showErrorMessage("Error saving preview: " + error.toString());
         });
     }));
+
+    // ask the LSP to make a graph file and then save that
+    // recording strings extraction command
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.graph", () => {
+
+        var configs = vscode.workspace.getConfiguration("yarnspinner");
+        let format = configs.get<string>("graph.format");
+        let clustering = configs.get<boolean>("graph.clustering");
+
+        if (!(format == "dot" || format == "mermaid"))
+        {
+            vscode.window.showErrorMessage(`Unable to export graph, no format is configured`);
+            return;
+        }
+        if (clustering == undefined)
+        {
+            vscode.window.showErrorMessage(`Unable to export graph, no clustering rule is configured`);
+            return;
+        }
+
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.graph",
+            arguments: [
+                format,
+                clustering
+            ]
+        };
+
+        let request: Promise<string> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        request.then(result => {
+
+            let fileForamt = format == "dot" ? "dot" : "mmd";
+            let defaultURI = vscode.Uri.joinPath(getDefaultUri(), `graph.${fileForamt}`);
+            vscode.window.showSaveDialog({
+                defaultUri: defaultURI
+            }).then((uri: vscode.Uri | undefined) => {
+                if (uri)
+                {
+                    const path = uri.fsPath;
+                    fs.writeFile(path, result, (error) => {
+                        if (error)
+                        {
+                            vscode.window.showErrorMessage(`Unable to write to file ${path}`, error.message);
+                        }
+                        else
+                        {
+                            vscode.window.showInformationMessage(`Graph file saved to ${path}`);
+                        }
+                    });
+                }
+            });
+        }).catch(error =>{
+            vscode.window.showErrorMessage("Error in the language server: " + error.toString());
+        });
+    }));
 }
 
 async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
