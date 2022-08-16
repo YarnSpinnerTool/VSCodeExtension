@@ -42,7 +42,7 @@
 			]
 		},
 		"inline_expressions": {
-			"begin": "{",
+			"begin": "(?<!\\\\){",
 			"end": "}",
 			"name": "keyword.other",
 			"patterns": [
@@ -72,7 +72,7 @@
 			"patterns": [
 				{
 					"name": "keyword.other",
-					"begin": "\\<\\<",
+					"begin": "(?<!\\\\)\\<\\<",
 					"end": "\\>\\>",
 					"patterns": [
 						{
@@ -142,9 +142,14 @@
 		"lines": {
 			"patterns": [
 				{
+					"comment": "Escape Character",
+					"name": "constant.character.escape.yarnspinner",
+					"match": "(?<!\\\\)\\\\"
+				},
+				{
 					"comment": "Hashtags",
 					"name": "constant.language",
-					"match": "#[^\\s]+"
+					"match": "(?<!\\\\)#[^\\s]+"
 				},
 				{
 					"comment": "Name",
@@ -195,35 +200,36 @@
 			]
 		},
 		"format_functions": {
-			"patterns": [{
-				"begin": "\\[(?!\\[)",
-				"end": "\\]",
-				"name": "keyword.other.format_function",
-				"patterns": [
-					{
-						"include": "#inline_expressions"
-					},
-					{
-						"name": "string.quoted.double.yarnspinner.format_function",
-						"begin": "\"",
-						"end": "\"",
-						"patterns": [
-							{
-								"name": "keyword.other.format_function.placeholder",
-								"match": "%"
-							},
-							{
-								"name": "constant.character.escape.yarnspinner.format_function",
-								"match": "\\\\."
-							}
-						]
-						
-					},
-					{
-						"match": "[^{=\\]]+",
-						"name": "keyword.control"							
-					}
-				]
+			"patterns": [
+				{
+					"begin": "(?<!\\\\)\\[(?!\\[)",
+					"end": "\\]",
+					"name": "keyword.other.format_function",
+					"patterns": [
+						{
+							"include": "#inline_expressions"
+						},
+						{
+							"name": "string.quoted.double.yarnspinner.format_function",
+							"begin": "\"",
+							"end": "\"",
+							"patterns": [
+								{
+									"name": "keyword.other.format_function.placeholder",
+									"match": "%"
+								},
+								{
+									"name": "constant.character.escape.yarnspinner.format_function",
+									"match": "\\\\."
+								}
+							]
+							
+						},
+						{
+							"match": "[^{=\\]]+",
+							"name": "keyword.control"							
+						}
+					]
 				},
 				{
 					"begin": "(?<!\\\\)\\<(?!\\<)",
