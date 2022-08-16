@@ -224,7 +224,35 @@
 						"name": "keyword.control"							
 					}
 				]
-			}]
+				},
+				{
+					"begin": "(?<!\\\\)\\<(?!\\<)",
+					"end": "\\>",
+					"name": "keyword.other.format_function",
+					"patterns": [
+						{
+							"name": "string.quoted.double.yarnspinner.format_function",
+							"begin": "\"",
+							"end": "\"",
+							"patterns": [
+								{
+									"name": "keyword.other.format_function.placeholder",
+									"match": "%"
+								},
+								{
+									"name": "constant.character.escape.yarnspinner.format_function",
+									"match": "\\\\."
+								}
+							]
+							
+						},
+						{
+							"match": "[^{=\\>]+",
+							"name": "keyword.control"		
+						}
+					]
+				}
+			]
 		}
 	},
 	"scopeName": "source.yarnspinner"
