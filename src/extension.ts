@@ -15,10 +15,15 @@ import { CompilerOutput, DidChangeNodesNotification } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
 import { YarnPreviewPanel } from './preview';
+import { LanguageClient } from 'vscode-languageclient/node';
+import { ChildProcess, spawn } from 'child_process';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
 let reporter: TelemetryReporter;
+
+let client: LanguageClient;
+let server: ChildProcess;
 
 export type YarnData = {
     stringTable: { [key: string]: string },
@@ -55,6 +60,8 @@ export async function activate(context: vscode.ExtensionContext) {
     if (enableLanguageServer) {
         // The language server is enabled. Launch it!
         await launchLanguageServer(context, configs, outputChannel);
+
+        
     } else {
         // The language server is not enabled. 
         outputChannel.appendLine("Launching without language server enabled.");
@@ -106,40 +113,48 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
     const waitForDebugger = false;
 
-    let languageServerOptions: languageClient.ServerOptions = {
-        run: {
-            command: languageServerExe,
-            args: [languageServerPath],
-            transport: languageClient.TransportKind.pipe,
-        },
-        debug: {
-            command: languageServerExe,
-            args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : ""],
-            transport: languageClient.TransportKind.pipe,
-            runtime: "",
-        },
-    };
+
+
+    let languageServerOptions: languageClient.ServerOptions =
+        async (): Promise<ChildProcess> => {
+            server = spawn(languageServerExe, [languageServerPath]);
+            vscode.window.showInformationMessage(`Started language server: ${languageServerPath} - PID ${server.pid}`);
+            return server;
+        }
+    // {
+    //     run: {
+    //         command: languageServerExe,
+    //         args: [languageServerPath],
+    //         transport: languageClient.TransportKind.stdio,
+    //     },
+    //     debug: {
+    //         command: languageServerExe,
+    //         args: [languageServerPath, waitForDebugger ? "--waitForDebugger" : ""],
+    //         transport: languageClient.TransportKind.stdio,
+    //     },
+    // };
 
     let languageClientOptions: languageClient.LanguageClientOptions = {
         initializationFailedHandler: (error) => {
             reporter.sendTelemetryErrorEvent("initializationFailed", error);
             // Do not attempt to reinitalise the server (we could cause an
             // infinite loop if we did.)
+            vscode.window.showErrorMessage("Language server initialization failed");
             return false;
         },
         errorHandler: {
-            error: (error, _message, _count) => {
+            error(error, message, count) {
                 reporter.sendTelemetryException(error);
-                return languageClient.ErrorAction.Continue;
+                return { action: languageClient.ErrorAction.Continue };
             },
             closed: () => {
                 reporter.sendTelemetryErrorEvent("serverConnectionClosed");
-                return languageClient.CloseAction.Restart;
+                return { action: languageClient.CloseAction.Restart }
             }
         },
         outputChannel: outputChannel,
         documentSelector: [
-            "**/*.yarn"
+            {scheme: "file", language: "yarnspinner" }
         ],
         initializationOptions: [
             configs,
@@ -161,7 +176,13 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
     const onDidChangeNodes = new EventEmitter<DidChangeNodesParams>();
 
-    const client = new languageClient.LanguageClient("yarnspinner", "Yarn Spinner", languageServerOptions, languageClientOptions);
+    client = new languageClient.LanguageClient(
+        "yarnspinner",
+        "Yarn Spinner",
+        languageServerOptions,
+        languageClientOptions,
+        true
+    );
 
     // Hook the handleFailedRequest method of our LanguageClient so that we can
     // fire off telemetry every time a request fails (which indicates an error
@@ -170,32 +191,26 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     let defaultHandleFailedRequest = client.handleFailedRequest;
 
     // Wrap a call to it in a new method that also sends the telemetry
-    function loggingHandleFailedRequest<T>(type: languageClient.MessageSignature, error: any, defaultValue: T): T {
+    function loggingHandleFailedRequest<T>(type: languageClient.MessageSignature, token : vscode.CancellationToken, error: any, defaultValue: T): T {
         reporter.sendTelemetryException(error, { "method": type.method });
-        return defaultHandleFailedRequest(type, error, defaultValue);
+        vscode.window.showErrorMessage("LSP Error: " + error);
+        return defaultHandleFailedRequest(type, token, error, defaultValue);
     }
 
     // And patch the language client so that it calls our hooked version!
     client.handleFailedRequest = loggingHandleFailedRequest;
 
-    client.trace = Trace.Verbose;
+    client.setTrace(Trace.Verbose);
 
-    client.onReady().then(() => {
-        // The language server is ready.
+    context.subscriptions.push(client);
 
-        // Register to be notified when the server reports that nodes have
-        // changed in a file. We'll use that to notify all visual editors.
-        const onNodesChangedSubscription = client.onNotification(DidChangeNodesNotification.type, (params) => {
-            onDidChangeNodes.fire(params);
-        });
-        context.subscriptions.push(onNodesChangedSubscription);
+    
 
-        // Register our visual editor provider. We do this after waiting to hear
-        // that the server is ready so that editors know that they're ok to
-        // communicate with the server.
-        context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
-    }).catch((error) => {
+    try {
+        await client.start()
+        vscode.window.showInformationMessage("Client started.");
 
+    } catch (error : any) {
         reporter.sendTelemetryErrorEvent("failedLaunchingLanguageServer", { "serverError": error }, {}, ["serverError"]);
 
         outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error));
@@ -207,11 +222,23 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 outputChannel.show(true);
             }
         });
-    });
+        return;
+    }
 
-    let disposableClient = client.start();
-    // deactivate client on extension deactivation
-    context.subscriptions.push(disposableClient);
+
+    // The language server is ready.
+
+    // Register to be notified when the server reports that nodes have
+    // changed in a file. We'll use that to notify all visual editors.
+    const onNodesChangedSubscription = client.onNotification(DidChangeNodesNotification.type, (params) => {
+        onDidChangeNodes.fire(params);
+    });
+    context.subscriptions.push(onNodesChangedSubscription);
+
+    // Register our visual editor provider. We do this after waiting to hear
+    // that the server is ready so that editors know that they're ok to
+    // communicate with the server.
+    context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
 
     // We have to use our own command in order to get the parameters parsed, before passing them into the built in showReferences command.
     async function yarnShowReferences(rawTokenPosition: vscode.Position, rawReferenceLocations: vscode.Location[]) {
@@ -404,4 +431,16 @@ export function getDefaultUri(): vscode.Uri {
     }
     // As a fallback, return an empty Uri.
     return vscode.Uri.file('');
+}
+
+async function stopServer(): Promise<void> {
+    await client.stop();
+    server.kill();
+}
+
+export function deactivate(): Thenable<void> | undefined {
+	if (!client) {
+		return undefined;
+	}
+    return stopServer();
 }
