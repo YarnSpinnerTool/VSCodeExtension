@@ -60,6 +60,31 @@ div.node {
     box-shadow: 0 0 10px var(--vscode-widget-shadow);
 }
 
+div.node.color-red {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-red);
+}
+div.node.color-blue {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-blue);
+}
+div.node.color-yellow {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-yellow);
+}
+div.node.color-orange {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-orange);
+}
+div.node.color-green {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-green);
+}
+div.node.color-purple {
+    border-left-width: 5px;
+    border-left-color: var(--vscode-charts-purple);
+}
+
 div.node .title {
     overflow: hidden;
     text-overflow: ellipsis;

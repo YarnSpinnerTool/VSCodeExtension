@@ -246,6 +246,12 @@ const NodeSize = {
 				});
 			});
 
+			var colorHeader = node.headers.filter((header) => header.key == "color")[0];
+
+			if (colorHeader) {
+				newNodeElement.classList.add("color-" + colorHeader.value);
+			}
+
 			const editButton = newNodeElement.querySelector('.button-edit');
 			editButton.addEventListener('click', (evt) => {
 				var ID = node.title;
