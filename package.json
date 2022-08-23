@@ -231,8 +231,8 @@
         "antlr4ts": "^0.5.0-alpha.4",
         "interactjs": "^1.10.11",
         "leader-line": "^1.0.5",
-        "vscode-jsonrpc": "^6.0.0",
-        "vscode-languageclient": "^7.0.0"
+        "vscode-jsonrpc": "^8.0.0",
+        "vscode-languageclient": "^8.0.0"
     },
     "extensionDependencies": [
         "ms-dotnettools.vscode-dotnet-runtime"
