@@ -186,8 +186,14 @@
                 },
                 "yarnspinner.extract.format": {
                     "type": "string",
-                    "enum": ["xlsx", "csv"],
-                    "enumDescriptions": ["Export as a Microsoft Excel spreadsheet", "Export as a Comma-Separated Values spreadsheet"],
+                    "enum": [
+                        "xlsx",
+                        "csv"
+                    ],
+                    "enumDescriptions": [
+                        "Export as a Microsoft Excel spreadsheet",
+                        "Export as a Comma-Separated Values spreadsheet"
+                    ],
                     "default": "xlsx",
                     "description": "The file format to use when exporting a dialogue spreadsheet for voice-over recording."
                 },
