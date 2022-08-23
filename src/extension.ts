@@ -205,12 +205,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     context.subscriptions.push(client);
 
     
-
-    try {
-        await client.start()
-        vscode.window.showInformationMessage("Client started.");
-
-    } catch (error : any) {
+    client.start().catch(error => {
         reporter.sendTelemetryErrorEvent("failedLaunchingLanguageServer", { "serverError": error }, {}, ["serverError"]);
 
         outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error));
@@ -222,9 +217,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 outputChannel.show(true);
             }
         });
-        return;
-    }
-
+    })
 
     // The language server is ready.
 
