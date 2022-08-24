@@ -14,7 +14,7 @@ enum Commands {
     ListNodes = "yarnspinner.list-nodes",
     UpdateNodeHeader = "yarnspinner.update-node-header",
     CompileWorkspace = "yarnspinner.compile",
-    ExtractString = "yarnspinner.extract",
+    ExtractString = "yarnspinner.extract-spreadsheet",
 }
 
 export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvider {

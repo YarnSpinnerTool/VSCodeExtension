@@ -6,7 +6,7 @@ import TelemetryReporter from '@vscode/extension-telemetry';
 
 import * as languageClient from "vscode-languageclient/node";
 
-import { Trace } from "vscode-jsonrpc";
+import { Trace } from "vscode-jsonrpc/node";
 
 import { YarnSpinnerEditorProvider } from './editor';
 import * as fs from 'fs';
@@ -59,7 +59,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (enableLanguageServer) {
         // The language server is enabled. Launch it!
-        await launchLanguageServer(context, configs, outputChannel);
+        launchLanguageServer(context, configs, outputChannel);
 
         
     } else {
@@ -86,37 +86,35 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 async function launchLanguageServer(context: vscode.ExtensionContext, configs: vscode.WorkspaceConfiguration, outputChannel: vscode.OutputChannel) {
-    // Ensure .net 6.0 is installed and available
-    interface IDotnetAcquireResult {
-        dotnetPath: string;
-    }
-
-    const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
-
-    const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
-    if (!dotnetPath) {
-        reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
-        throw new Error('Can\'t load the language server: Failed to acquire .NET!');
-    }
-
     
-
-    const languageServerExe = dotnetPath;
-    const languageServerPath = isDebugMode() ?
-        path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
-        path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
-
-    if (fs.existsSync(languageServerPath) == false) {
-        reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
-        throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
-    }
-
     const waitForDebugger = false;
-
-
-
+    
     let languageServerOptions: languageClient.ServerOptions =
-        async (): Promise<ChildProcess> => {
+    async (): Promise<ChildProcess> => {
+            // Ensure .net 6.0 is installed and available
+            interface IDotnetAcquireResult {
+                dotnetPath: string;
+            }
+        
+            const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
+        
+            const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
+            if (!dotnetPath) {
+                reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
+                throw new Error('Can\'t load the language server: Failed to acquire .NET!');
+            }
+        
+            
+        
+            const languageServerExe = dotnetPath;
+            const languageServerPath = isDebugMode() ?
+                path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
+                path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
+        
+            if (fs.existsSync(languageServerPath) == false) {
+                reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
+                throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
+            }
             server = spawn(languageServerExe, [languageServerPath]);
             vscode.window.showInformationMessage(`Started language server: ${languageServerPath} - PID ${server.pid}`);
             return server;
@@ -184,6 +182,8 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         true
     );
 
+    
+
     // Hook the handleFailedRequest method of our LanguageClient so that we can
     // fire off telemetry every time a request fails (which indicates an error
     // inside the language server.)
@@ -202,12 +202,11 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
     client.setTrace(Trace.Verbose);
 
-    context.subscriptions.push(client);
-
     
-    client.start().catch(error => {
+    
+    await client.start().catch(error => {
         reporter.sendTelemetryErrorEvent("failedLaunchingLanguageServer", { "serverError": error }, {}, ["serverError"]);
-
+        
         outputChannel.appendLine("Failed to launch the language server! " + JSON.stringify(error));
         vscode.window.showErrorMessage("Failed to launch the Yarn Spinner language server!", "Show Log").then(result => {
             if (result === undefined) {
@@ -218,6 +217,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             }
         });
     })
+    context.subscriptions.push(client);
 
     // The language server is ready.
 
@@ -272,7 +272,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         let useChars = configs.get<boolean>("extract.includeCharacters");
 
         const params: languageClient.ExecuteCommandParams = {
-            command: "yarnspinner.extract",
+            command: "yarnspinner.extract-spreadsheet",
             arguments: [
                 format,
                 columns,
@@ -402,7 +402,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         }
 
         const params: languageClient.ExecuteCommandParams = {
-            command: "yarnspinner.graph",
+            command: "yarnspinner.create-graph",
             arguments: [
                 format,
                 clustering
