@@ -151,8 +151,6 @@ const NodeSize = {
 	function setViewPositionToElement(element) {
 		var newOffset = {
 			x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2,
-					x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2, 
-			x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2,
 			y: -parseFloat(element.dataset.positionY) + window.visualViewport.height / 2 - NodeSize.height / 2,
 		};
 
@@ -199,6 +197,14 @@ const NodeSize = {
 
 		// Remove all node views
 		nodesContainer.innerHTML = '';
+
+		var jumpToFirstNode = false;
+
+		if (!globalThis.nodeElements || globalThis.nodeElements.length == 0) {
+			// We don't have any nodes. Note that we want to snap our view to
+			// the first one in the list, if any.
+			jumpToFirstNode = true;
+		}
 
 		globalThis.nodeElements = [];
 
@@ -304,6 +310,10 @@ const NodeSize = {
 			nodesContainer.appendChild(newNodeElement);
 
 			globalThis.nodeElements.push(newNodeElement);
+		}
+
+		if (jumpToFirstNode && globalThis.nodeElements.length > 0) {
+			setViewPositionToElement(globalThis.nodeElements[0])
 		}
 
 		for (const node of data.nodes) {
