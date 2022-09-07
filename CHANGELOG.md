@@ -8,8 +8,22 @@
 - Added the ability to preview Yarn dialogue in the editor.
 - Added the ability to save a self-contained HTML previewer of your Yarn dialogue.
 - Added the ability to save a graphical representation of the Yarn dialogue.
+- Added the ability to highlight a node with a colour.
+  - To use this feature, add the `color` header to a node:
+
+    ```
+    title: MyNode
+    color: red
+    ---
+    Lines here...
+    ===
+    ```
+
+  - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 
 ### Changed
+
+- Adjusted the background color of the graph view to provide better contrast.
 
 ### Removed
 
