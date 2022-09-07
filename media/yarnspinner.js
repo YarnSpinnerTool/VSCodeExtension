@@ -218,9 +218,12 @@ const NodeSize = {
 		 *  @type Object.<string, any[]> */
 		var nodesToLines = {}
 
-		/** @type HTMLElement */
+		/** @type HTMLElement | null */
 		const template = document.querySelector('#node-template');
-		
+		if (!template) {
+			console.error("Failed to find node view template");
+			return;
+		}
 		
 		for (const node of data.nodes) {
 
@@ -228,23 +231,27 @@ const NodeSize = {
 			// @ts-expect-error
 			const newNodeElement = template.cloneNode(true)
 			
-			newNodeElement.id = undefined;
+			newNodeElement.id = "node-" + node.title;
 
 			newNodeElement.dataset.nodeName = node.title;
 			
-			/** @type HTMLElement */
+			/** @type HTMLElement | null */
 			const title = newNodeElement.querySelector('.title');
-			title.innerText = node.title;
+			if (title) {
+				title.innerText = node.title;
+			}
 
-			/** @type HTMLElement */
+			/** @type HTMLElement | null */
 			const deleteButton = newNodeElement.querySelector('.button-delete');
-			deleteButton.addEventListener('click', (evt) => {
-				var ID = node.title;
-				vscode.postMessage({
-					type: 'delete',
-					id: ID
+			if (deleteButton) {
+				deleteButton.addEventListener('click', (evt) => {
+					var ID = node.title;
+					vscode.postMessage({
+						type: 'delete',
+						id: ID
+					});
 				});
-			});
+			}
 
 			var colorHeader = node.headers.filter((header) => header.key == "color")[0];
 
@@ -252,14 +259,18 @@ const NodeSize = {
 				newNodeElement.classList.add("color-" + colorHeader.value);
 			}
 
+			/** @type HTMLElement | null */
 			const editButton = newNodeElement.querySelector('.button-edit');
-			editButton.addEventListener('click', (evt) => {
-				var ID = node.title;
-				vscode.postMessage({
-					type: 'open',
-					id: ID
+			if (editButton) {
+				editButton.addEventListener('click', (evt) => {
+					var ID = node.title;
+					vscode.postMessage({
+						type: 'open',
+						id: ID
+					});
 				});
-			});
+			}
+			
 
 			nodesToElements[node.title] = newNodeElement;
 
