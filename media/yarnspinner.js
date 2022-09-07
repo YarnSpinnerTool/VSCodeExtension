@@ -141,23 +141,25 @@ const NodeSize = {
 			var element = elements[0];
 
 			if (element !== undefined) {
-				var newOffset = {
-					x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2, 
-					y: -parseFloat(element.dataset.positionY) + window.visualViewport.height / 2 - NodeSize.height / 2,
-				};
-
-				globalThis.offset = newOffset;
-	
-				updateViewPosition();
-
+				setViewPositionToElement(element);
 			}
 
 		}
 		dropdown.selectedIndex = 0;
-
-
-		
 	});
+
+	function setViewPositionToElement(element) {
+		var newOffset = {
+			x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2,
+					x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2, 
+			x: -parseFloat(element.dataset.positionX) + window.visualViewport.width / 2 - NodeSize.width / 2,
+			y: -parseFloat(element.dataset.positionY) + window.visualViewport.height / 2 - NodeSize.height / 2,
+		};
+
+		globalThis.offset = newOffset;
+
+		updateViewPosition();
+	}
 
 	function updateViewPosition() {
 		for (const element of globalThis.nodeElements) {
