@@ -21,6 +21,7 @@
 
   - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 - Added the ability to preview the first few lines of a node in the graph view.
+- The graph view now starts centered on the first node in the file.
 
 ### Changed
 
