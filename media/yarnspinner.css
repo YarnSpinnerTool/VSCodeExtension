@@ -61,28 +61,28 @@ div.node {
 }
 
 div.node.color-red {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-red);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-red);
 }
 div.node.color-blue {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-blue);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-blue);
 }
 div.node.color-yellow {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-yellow);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-yellow);
 }
 div.node.color-orange {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-orange);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-orange);
 }
 div.node.color-green {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-green);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-green);
 }
 div.node.color-purple {
-    border-left-width: 5px;
-    border-left-color: var(--vscode-charts-purple);
+    border-top-width: 10px;
+    border-top-color: var(--vscode-charts-purple);
 }
 
 div.node .title {
