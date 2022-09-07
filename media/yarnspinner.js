@@ -242,6 +242,12 @@ const NodeSize = {
 			}
 
 			/** @type HTMLElement | null */
+			const preview = newNodeElement.querySelector('.preview');
+			if (preview) {
+				preview.innerText = node.previewText;
+			}
+
+			/** @type HTMLElement | null */
 			const deleteButton = newNodeElement.querySelector('.button-delete');
 			if (deleteButton) {
 				deleteButton.addEventListener('click', (evt) => {

@@ -20,6 +20,7 @@
     ```
 
   - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
+- Added the ability to preview the first few lines of a node in the graph view.
 
 ### Changed
 

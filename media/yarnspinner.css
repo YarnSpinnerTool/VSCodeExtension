@@ -55,7 +55,7 @@ div.node {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 
     box-shadow: 0 0 10px var(--vscode-widget-shadow);
 }
@@ -88,6 +88,15 @@ div.node.color-purple {
 div.node .title {
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
+}
+
+div.node .preview {
+    text-overflow: ellipsis;
+    overflow: clip;
+    white-space: nowrap;
+    max-width: 100px;
+    font-size: 0.75em;
+    opacity: 0.5;
 }
 
 div.node#node-template {

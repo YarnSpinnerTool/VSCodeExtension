@@ -7,6 +7,7 @@ export interface NodeInfo {
     headerStartLine: number;
     headers: NodeHeader[];
     jumps: NodeJump[];
+    previewText: string;
 }
 
 export interface NodeHeader {
