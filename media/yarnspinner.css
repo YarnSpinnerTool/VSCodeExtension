@@ -86,8 +86,8 @@ div.node.color-purple {
 }
 
 div.node .title {
-    overflow: hidden;
     text-overflow: ellipsis;
+    overflow-wrap: anywhere;
 }
 
 div.node#node-template {
