@@ -22,6 +22,7 @@
   - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 - Added the ability to preview the first few lines of a node in the graph view.
 - The graph view now starts centered on the first node in the file.
+- Clicking 'Add Node' multiple times will now position each new node offset a little from the last, making it easier to see when you've added multiple new nodes.
 
 ### Changed
 

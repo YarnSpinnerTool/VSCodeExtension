@@ -25,10 +25,22 @@ const NodeSize = {
 	/** @type HTMLElement */
 	var buttonsContainer = document.querySelector('#nodes-header');
 
+	/** The number of nodes that have been created since the last time the
+	 * viewport was moved. */
+	let nodesSinceLastMove = 0;
+
+	/** How far from the last node each new node will be created */
+	const newNodeOffset = 10;
+
 	buttonsContainer.querySelector('#add-node').addEventListener('click', () => {
 		let nodePosition = getWindowCenter();
 		nodePosition.x -= NodeSize.width / 2;
 		nodePosition.y -= NodeSize.height / 2;
+
+		nodePosition.x += newNodeOffset * nodesSinceLastMove;
+		nodePosition.y += newNodeOffset * nodesSinceLastMove;
+
+		nodesSinceLastMove += 1;
 
 		vscode.postMessage({
 			type: 'add',
@@ -77,6 +89,8 @@ const NodeSize = {
 	function updateBackgroundPosition(offset) {
 		document.body.style.backgroundPositionX = offset.x.toString() + "px";;
 		document.body.style.backgroundPositionY = offset.y.toString() + "px";
+
+		nodesSinceLastMove = 0;
 	}
 
 	/**
