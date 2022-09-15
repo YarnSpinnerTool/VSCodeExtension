@@ -27,6 +27,7 @@
 ### Changed
 
 - Adjusted the background color of the graph view to provide better contrast.
+- Increased the width of the 'Jump to Node' dropdown to 200px.
 
 ### Removed
 

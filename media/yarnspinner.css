@@ -102,3 +102,7 @@ div.node .preview {
 div.node#node-template {
     display:none;
 }
+
+#node-jump {
+    min-width: 200px !important;
+}
