@@ -269,7 +269,7 @@
         "@vscode/extension-telemetry": "^0.5.2",
         "@vscode/webview-ui-toolkit": "^0.8.4",
         "antlr4ts": "^0.5.0-alpha.4",
-        "interactjs": "^1.10.11",
+        "curved-arrows": "^0.1.0",
         "leader-line": "^1.0.5",
         "vscode-jsonrpc": "^8.0.0",
         "vscode-languageclient": "^8.0.0"
