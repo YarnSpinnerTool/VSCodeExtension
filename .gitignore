@@ -158,3 +158,6 @@ out/
 src/*.tokens
 src/*.interp
 src/.antlr
+
+# Generated code
+media/yarnspinner.js*

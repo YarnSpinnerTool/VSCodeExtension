@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"module": "AMD",
+		"target": "es6",
+		"lib": ["DOM"],
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"rootDirs": [".", "../src/types"],
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"typeRoots": ["node_modules/leader-line-types"],
+		"allowJs": true,
+		
+	},
+	
+}
