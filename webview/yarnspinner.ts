@@ -1,7 +1,8 @@
 import type { NodesUpdatedEvent } from "../src/types/editor";
 
-import interact from "interactjs";
 import { NodeInfo } from "./nodes";
+import * as CurvedArrows from 'curved-arrows';
+
 
 interface VSCode {
     postMessage(message: any): void;
@@ -121,15 +122,22 @@ const zoom = (nextScale : number, event : WheelEvent) => {
 	  clientY
 	} = event
   
-	translateX += (clientX - translateX) * ratio
-	translateY += (clientY - translateY) * ratio
+	translateX += (clientX - translateX) * ratio;
+	translateY += (clientY - translateY) * ratio;
   
-	nodesContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${nextScale})`
+	nodesContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${nextScale})`;
   
-	currentScale = nextScale
+	currentScale = nextScale;
+
+	// updateBackgroundPosition(globalThis.offset);
   }
   
-  
+
+function updateBackgroundPosition(offset : Position) {
+	document.body.style.backgroundPositionX = (offset.x * (currentScale)).toString() + "px";;
+	document.body.style.backgroundPositionY = (offset.y * (currentScale)).toString() + "px";
+}
+
 
 function getNodeView(name: string) : NodeView | undefined {
 	return globalThis.nodeViews.filter(nv => nv.nodeName === name)[0];
@@ -208,15 +216,6 @@ function getWindowSize(): Size {
 			nodesUpdated(event);
 		}
 	});
-
-	
-
-	function updateBackgroundPosition(offset : Position) {
-		document.body.style.backgroundPositionX = offset.x.toString() + "px";;
-		document.body.style.backgroundPositionY = offset.y.toString() + "px";
-
-		nodesSinceLastMove = 0;
-	}
 
 	/**
 	 * Returns the coordinates of the center of the window.
@@ -315,22 +314,59 @@ function getWindowSize(): Size {
 		}
 
 		updateBackgroundPosition(globalThis.offset);
+
+		nodesSinceLastMove = 0;
+
+		let linesSVG = document.getElementById("lines") as unknown as SVGElement;
+
+		if (linesSVG) {
+			nodesContainer.removeChild(linesSVG);
+			linesSVG = getLinesSVGForNodes(nodeViews);
+			nodesContainer.appendChild(linesSVG);
+		}
 	}
 
 	// Set up the canvas drag interaction: whenever the canvas itself is
 	// dragged, update the canvas globalThis.offset, update the displayed position of
 	// all nodes to reflect this globalThis.offset, and update all lines
 
-	var zoomContainerInteraction = interact(zoomContainer);
+	let backgroundDrag: [x: number, y: number] = [0, 0];
 
-	zoomContainerInteraction.draggable({
-		onmove(event : any) {
-			globalThis.offset.x += event.dx * (1 / currentScale);
-			globalThis.offset.y += event.dy * (1 / currentScale);
+	function makeDraggable(element : HTMLElement) {
+				
+		element.addEventListener('mousedown', onNodeDragStart);
+		
+		function onNodeDragStart(e: MouseEvent) {
+			e.preventDefault();
+			e.stopPropagation();
+			backgroundDrag = [e.clientX, e.clientY];
+			
+			window.addEventListener('mousemove', onNodeDragMove);
+			window.addEventListener('mouseup', onNodeDragEnd);
+		}
+
+		function onNodeDragMove(e: MouseEvent) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			// Move this node by (dx,dy) pixels, scaled by our scaling factor
+			const deltaX = backgroundDrag[0] - e.clientX;
+			const deltaY = backgroundDrag[1] - e.clientY;
+			backgroundDrag = [e.clientX, e.clientY]
+
+			globalThis.offset.x -= deltaX * (1 / currentScale);
+			globalThis.offset.y -= deltaY * (1 / currentScale);
 
 			updateViewPosition();
 		}
-	});
+
+		function onNodeDragEnd(e: MouseEvent) {
+			window.removeEventListener('mousemove', onNodeDragMove);
+			window.removeEventListener('mouseup', onNodeDragEnd);	
+		}
+	}
+
+	makeDraggable(zoomContainer);
 
 	/**
 	 * Called whenever the extension notifies us that the nodes in the
@@ -421,90 +457,64 @@ function getWindowSize(): Size {
 				continue;
 			}
 
-			/* TODO: lines
-			
 			for (const destination of node.jumps) {
-				const destinationElement = nodesToElements[destination.destinationTitle];
+				const destinationElement = getNodeView(destination.destinationTitle);
 
 				if (!destinationElement) {
 					console.warn(`Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`);
 					continue;
 				}
 
-				var line : LeaderLine;
-
-				if (element === destinationElement) {
-					var sourcePointAnchor = LeaderLine.pointAnchor(element, {x:'25%', y:'100%'});
-					var destinationPointAnchor = LeaderLine.pointAnchor(element, {x:'0%', y:'50%'});
-					
-					line = new LeaderLine({ start: sourcePointAnchor, end: destinationPointAnchor })
-					
-					
-					line.setOptions({
-						startSocketGravity: [-50, 50],
-						endSocketGravity: [-50, 0]
-					});
-					
-					
-					
-				} else {
-					
-					line = new LeaderLine({ start: element, end: destinationElement })
-					
-					line.setOptions({
-						startSocketGravity: 50,
-						endSocketGravity: 50,
-					})
-					
-					if (nodesToLines[destination.destinationTitle]) {
-						nodesToLines[destination.destinationTitle].push(line);
-					} else {
-						nodesToLines[destination.destinationTitle] = [line];
-					}
-				}
-				
-				if (nodesToLines[node.title]) {
-					nodesToLines[node.title].push(line);
-				} else {
-					nodesToLines[node.title] = [line];
-				}
-
-				// Use the current theme's 'chart line' colour
-				line.color = 'var(--vscode-charts-lines)';
-
-				// Record this line so we can unregister it later when
-				// nodes move
-				globalThis.lines.push(line);
+				nodeView.outgoingConnections.push(destinationElement);
 			}
 
-			*/
+			let positionX : number, positionY : number;
 
-			/** @type Interactable */
-			//@ts-ignore
-			const interactable = interact(nodeView.element);
-		
-			interactable.draggable({
-				onstart(event) {
-					// no-op
-				},
-				onmove(event) {
-					// Move this node by (dx,dy) pixels
+			function makeDraggable(nodeView: NodeView) {
+				
+				nodeView.element.addEventListener('mousedown', onNodeDragStart);
+				nodeView.element.addEventListener('dblclick', onNodeDoubleClick);
+
+				function onNodeDragStart(e: MouseEvent) {
+					e.preventDefault();
+					e.stopPropagation();
+					positionX = e.clientX;
+					positionY = e.clientY;
+					window.addEventListener('mousemove', onNodeDragMove);
+					window.addEventListener('mouseup', onNodeDragEnd);
+
+					linesSVG = document.getElementById("lines") as unknown as SVGElement;
+
+					console.log(`Drag start ${nodeView.nodeName}`);
+				}
+
+				function onNodeDragMove(e: MouseEvent) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					// Move this node by (dx,dy) pixels, scaled by our scaling factor
+					const deltaX = positionX - e.clientX;
+					const deltaY = positionY - e.clientY;
+					positionX = e.clientX;
+					positionY = e.clientY;
+
 					var position = nodeView.getPosition();
 					
-					position.x += event.dx * (1 / currentScale);
-					position.y += event.dy * (1 / currentScale);
+					position.x -= deltaX * (1 / currentScale);
+					position.y -= deltaY * (1 / currentScale);
 
 					nodeView.setPosition(position);
+
 					
-					// TODO: lines
-					// if (nodesToLines[node.title]) {
-					// 	for (const line of nodesToLines[node.title]) {
-					// 		// Update line position
-					// 		line.position();
-					// 	}
-					// }
-				},
-				onend(event) {
+					// Recalculate our lines
+					nodesContainer.removeChild(linesSVG);
+					linesSVG = getLinesSVGForNodes(nodeViews);
+					nodesContainer.appendChild(linesSVG);
+
+					console.log(`Drag move ${nodeView.nodeName}`);
+				}
+
+				function onNodeDragEnd(e: MouseEvent) {
 					const position = nodeView.getPosition();
 					const nodeID = node.title;
 
@@ -514,18 +524,113 @@ function getWindowSize(): Size {
 						id: nodeID,
 						position: position,
 					});
-				}
-			
-			}).on('doubletap', (event) => {
-				// Notify the extension that our node should be opened
-				vscode.postMessage({
-					type: 'open',
-					id: node.title
-				});
-			}).styleCursor(false);
 
+					window.removeEventListener('mousemove', onNodeDragMove);
+					window.removeEventListener('mouseup', onNodeDragEnd);	
+
+					console.log(`Drag end ${nodeView.nodeName}`);
+				}
+
+				function onNodeDoubleClick(e: MouseEvent) {
+					// Notify the extension that our node should be opened
+					vscode.postMessage({
+						type: 'open',
+						id: node.title
+					});
+				}
+
+			}
+
+			makeDraggable(nodeView);
 		}
+
+		let linesSVG = getLinesSVGForNodes(nodeViews);
+
+		nodesContainer.appendChild(linesSVG);
+
 	}
 
 }
 )();
+
+/**
+ * Creates an SVG element that contains lines connecting the indicated nodes.
+ * @param nodes The nodes to draw lines between.
+ * @returns An SVGElement containing lines between the provided nodes.
+ */
+function getLinesSVGForNodes(nodes: NodeView[]) : SVGElement {
+	const arrowHeadSize = 9;
+	const lineThickness = 2;
+	const color = 'var(--vscode-charts-lines)';
+
+	type ArrowDescriptor = [
+		sx	: number,	 /** The x position of the (padded) starting point. */
+		sy	: number,	 /** The y position of the (padded) starting point. */
+		c1x	: number,	 /** The x position of the control point of the starting point. */
+		c1y	: number,	 /** The y position of the control point of the starting point. */
+		c2x	: number,	 /** The x position of the control point of the ending point. */
+		c2y	: number,	 /** The y position of the control point of the ending point. */
+		ex	: number,	 /** The x position of the (padded) ending point. */
+		ey	: number,	 /** The y position of the (padded) ending point. */
+		ae	: number,	 /** The angle (in degree) for an ending arrowhead. */
+		as	: number,	 /** The angle (in degree) for a starting arrowhead. */
+	]
+
+	let arrowDescriptors: ArrowDescriptor[] = [];
+
+	for (const fromNode of nodes) {
+		for (const toNode of fromNode.outgoingConnections) {
+			let fromPosition = fromNode.getPosition();
+			let toPosition = toNode.getPosition();
+			let fromSize = fromNode.element.getBoundingClientRect();
+			let toSize = toNode.element.getBoundingClientRect();
+
+			const arrow = CurvedArrows.getBoxToBoxArrow(
+				fromPosition.x + globalThis.offset.x,
+				fromPosition.y + globalThis.offset.y,
+				fromSize.width * (1 / currentScale),
+				fromSize.height * (1 / currentScale),
+
+				toPosition.x + globalThis.offset.x,
+				toPosition.y + globalThis.offset.y,
+				toSize.width * (1 / currentScale),
+				toSize.height * (1 / currentScale),
+
+				{padEnd: arrowHeadSize}
+			) as ArrowDescriptor;
+
+			arrowDescriptors.push(arrow);
+		}
+	}
+
+	let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	svg.setAttribute("width", "100%");
+	svg.setAttribute("height", "100%");
+	svg.style.overflow = "visible";
+	svg.style.zIndex = "-1";
+	svg.id = "lines";
+	
+	for (const arrow of arrowDescriptors) {
+		let [sx, sy, c1x, c1y, c2x, c2y, ex, ey, ae] = arrow;
+
+		let line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+		line.setAttribute("d", `M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`);
+		line.setAttribute("stroke", color);
+		line.setAttribute("stroke-width", lineThickness.toString());
+		line.setAttribute("fill", "none");
+
+		svg.appendChild(line);
+		
+		let arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+		
+		arrowHead.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
+			2},0, 0,${arrowHeadSize}`);
+		arrowHead.setAttribute('transform', `translate(${ex}, ${ey}) rotate(${ae})`);
+		arrowHead.setAttribute('fill', color);
+			
+		svg.appendChild(arrowHead);
+	}
+
+	return svg;
+}
