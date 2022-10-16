@@ -222,14 +222,6 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'media', 'yarnspinner.js'));
 
-        const interactScriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'node_modules', 'interactjs', 'dist', 'interact.js'
-        ));
-
-        const leaderLineScriptUri = webview.asWebviewUri(vscode.Uri.joinPath(
-            this.context.extensionUri, 'node_modules', 'leader-line', 'leader-line.min.js'
-        ));
-
         const codiconsUri = webview.asWebviewUri(vscode.Uri.joinPath(
             this.context.extensionUri, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css'
         ));
@@ -272,7 +264,9 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 <title>Yarn Spinner</title>
             </head>
             <body>
-                <div class="nodes"></div>
+                <div class="zoom-container">
+                    <div class="nodes"></div>
+                </div>
                 <div id="nodes-header">
                     <vscode-button id="add-node">Add Node</vscode-button>
                     <div id="nodes-header-right">
@@ -296,8 +290,6 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                         </vscode-button>
                     </div>
                 </div>
-                <script nonce="${nonce}" src="${interactScriptUri}"></script>
-                <script nonce="${nonce}" src="${leaderLineScriptUri}"></script>
                 <script nonce="${nonce}" src="${scriptUri}"></script>
                 <script nonce="${nonce}" type="module" src="${toolkitUri}"></script>
             </body>

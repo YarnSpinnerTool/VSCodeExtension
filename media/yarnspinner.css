@@ -15,9 +15,20 @@ div.nodes {
     height: 100vh;
     left: 0px;
     top: 0px;
+    transform-origin: 0 0;
+}
+
+div.zoom-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    transform-origin: 0 0;
     touch-action: none;
     user-select: none;
     z-index: 1;
+    border: 4px solid red;
 }
 
 
