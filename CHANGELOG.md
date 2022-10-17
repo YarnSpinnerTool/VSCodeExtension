@@ -23,6 +23,8 @@
 - Added the ability to preview the first few lines of a node in the graph view.
 - The graph view now starts centered on the first node in the file.
 - Clicking 'Add Node' multiple times will now position each new node offset a little from the last, making it easier to see when you've added multiple new nodes.
+- Added the ability to zoom in and out of the graph view using the scroll wheel (two-finger scroll on trackpads).
+- Replaced the graph view's line-drawing algorithm with one that should be more stable.
 
 ### Changed
 
