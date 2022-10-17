@@ -105,7 +105,7 @@ if (!buttonsContainer) {
 
 zoomContainer.addEventListener('wheel', e => {
 	const delta = e.deltaY / zoomSpeed
-	let nextScale = currentScale + delta * factor
+	let nextScale = currentScale - delta * factor
 	
 	nextScale = Math.max(nextScale, zoomMinScale);
 	nextScale = Math.min(nextScale, zoomMaxScale);
