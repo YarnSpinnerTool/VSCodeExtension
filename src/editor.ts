@@ -31,7 +31,8 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
         const onNodesChangedSubscription = this.onDidChangeNodes((params) => {
-            if (params.uri == document.uri) {
+            let uri = vscode.Uri.parse(params.uri);
+            if (uri.fsPath == document.uri.fsPath) {
                 updateWebView(params.nodes);
             }
         })

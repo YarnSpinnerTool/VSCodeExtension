@@ -26,7 +26,7 @@ export namespace DidChangeNodesNotification {
 }
 
 export interface DidChangeNodesParams {
-    uri: Uri
+    uri: string
     nodes: NodeInfo[]
 }
 

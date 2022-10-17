@@ -28,6 +28,7 @@
 
 - Adjusted the background color of the graph view to provide better contrast.
 - Increased the width of the 'Jump to Node' dropdown to 200px.
+- Fixed a bug where the graph view would not update when the Yarn file was changed on Windows.
 
 ### Removed
 
