@@ -15,6 +15,7 @@ module.exports = {
             }
         ],
     },
+    devtool: 'eval-source-map',
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
