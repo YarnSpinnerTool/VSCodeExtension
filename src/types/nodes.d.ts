@@ -1,4 +1,3 @@
-import { Uri } from "vscode";
 import { NotificationHandler, ProtocolNotificationType } from "vscode-languageclient";
 export interface NodeInfo {
     title: string;
@@ -21,7 +20,7 @@ export declare namespace DidChangeNodesNotification {
     type MiddlewareSignature = (params: DidChangeNodesParams, next: HandlerSignature) => void;
 }
 export interface DidChangeNodesParams {
-    uri: Uri;
+    uri: string;
     nodes: NodeInfo[];
 }
 export interface CompilerOutput {
