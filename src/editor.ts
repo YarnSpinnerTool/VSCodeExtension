@@ -245,6 +245,20 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
 
         // Use a nonce to allowlist which scripts can be run
         const nonce = YarnSpinnerEditorProvider.getNonce();
+
+        // In development mode, webpack will generate scripts that use 'eval' to
+        // execute (to support sourcemaps). This is insecure, so in production
+        // mode, we require them to _not_ be done this way via a Content
+        // Security Policy.
+        //
+        // TODO: use environment variables to control debug mode
+        let csp: string;
+        const debug = true;
+        if (debug) {
+            csp = "";
+        } else {
+            csp = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource}">`
+        }
         
         return /* html */`
             <!DOCTYPE html>
@@ -255,7 +269,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 Use a content security policy to only allow loading images from https or from our extension directory,
                 and only allow scripts that have a specific nonce.
                 -->
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource}">
+                ${csp}
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href="${styleResetUri}" rel="stylesheet" />
                 <link href="${styleVSCodeUri}" rel="stylesheet" />
