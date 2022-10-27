@@ -278,6 +278,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                 <title>Yarn Spinner</title>
             </head>
             <body>
+                <div id="graph-debug"></div>
                 <div class="zoom-container">
                     <div class="nodes"></div>
                 </div>
