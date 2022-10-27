@@ -28,6 +28,7 @@ div.zoom-container {
     touch-action: none;
     user-select: none;
     z-index: 1;
+    cursor: move;
 }
 
 
@@ -115,4 +116,15 @@ div.node#node-template {
 
 #node-jump {
     min-width: 200px !important;
+}
+
+#graph-debug {
+    position:absolute;
+    left:0;
+    top:50px;
+    z-index: 999;
+    background: white;
+    color: black;
+    padding: 2px;
+    font-size: 0.5em;
 }
