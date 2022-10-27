@@ -3,6 +3,7 @@ import { NodesUpdatedEvent } from "../src/types/editor";
 import { ViewState } from "./ViewState";
 import { NodeView } from "./NodeView";
 import { getLinesSVGForNodes } from "./svg";
+import { getPositionFromNodeInfo } from "./util";
 
 interface VSCode {
 	postMessage(message: any): void;
@@ -177,13 +178,27 @@ function getNodeView(name: string): NodeView | undefined {
 		if (!template) {
 			console.error("Failed to find node view template");
 			return;
-		}
+        }
+        
+        let nodesWithDefaultPosition = 0;
 
 		for (const node of data.nodes) {
 			/** @type HTMLElement */
 			const newNodeElement = template.cloneNode(true) as HTMLElement
 
-			let newNodeView = new NodeView(node, newNodeElement)
+            let newNodeView = new NodeView(node, newNodeElement)
+            
+            let position = getPositionFromNodeInfo(node);
+
+            if (position) {
+                newNodeView.position = position;
+            } else {
+                newNodeView.position = {
+                    x: newNodeOffset * nodesWithDefaultPosition,
+                    y: newNodeOffset * nodesWithDefaultPosition,
+                }
+                nodesWithDefaultPosition += 1;
+            }
 
 			const title = newNodeElement.querySelector('.title') as HTMLElement;
 			title.innerText = node.title;

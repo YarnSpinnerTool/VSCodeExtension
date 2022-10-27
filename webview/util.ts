@@ -1,3 +1,5 @@
+import { NodeInfo } from "./nodes";
+
 /** Decomposes a DOMMatrix into its translation, rotation, scale and skew (where possible).
  * @param mat: The matrix to decompose.
  */
@@ -69,5 +71,22 @@ export function getWindowCenter(): Position {
     return {
         x: Math.round(size.width / 2),
         y: Math.round(size.height / 2),
+    }
+}
+
+export function getPositionFromNodeInfo(node: NodeInfo) : Position | null {
+    // Try and find a 'position' header in this node, and parse it; if
+    // we can't find one, or can't parse it, default to (0,0). 
+    const positionString = node.headers.find(h => h.key == "position")?.value;
+
+    if (positionString) {
+        try {
+            const elements = positionString.split(",").map(i => parseInt(i));
+            return { x: elements[0], y: elements[1] };
+        } catch (e) {
+            return null;
+        }
+    } else {
+        return null;
     }
 }
