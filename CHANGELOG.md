@@ -25,6 +25,7 @@
 - Clicking 'Add Node' multiple times will now position each new node offset a little from the last, making it easier to see when you've added multiple new nodes.
 - Added the ability to zoom in and out of the graph view using the scroll wheel (two-finger scroll on trackpads).
 - Replaced the graph view's line-drawing algorithm with one that should be more stable.
+- Nodes that don't have a `position` header set will appear stacked up in the graph view, which prevents a problem where it's unclear how many nodes you have in your document.
 
 ### Changed
 
