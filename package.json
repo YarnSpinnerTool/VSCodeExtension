@@ -126,7 +126,7 @@
             {
                 "command": "yarnspinner.graph",
                 "category": "Yarn Spinner",
-                "title": "Export Dialogue as graph"
+                "title": "Export Dialogue as Graph..."
             }
         ],
         "languages": [
