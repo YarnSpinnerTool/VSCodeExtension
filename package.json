@@ -80,16 +80,13 @@
             ],
             "commandPalette": [
                 {
-                    "command": "yarnspinner.showPreview",
-                    "when": "config.yarnspinner.enableExperimentalFeatures"
+                    "command": "yarnspinner.showPreview"
                 },
                 {
-                    "command": "yarnspinner.exportPreview",
-                    "when": "config.yarnspinner.enableExperimentalFeatures"
+                    "command": "yarnspinner.exportPreview"
                 },
                 {
-                    "command": "yarnspinner.graph",
-                    "when": "config.yarnspinner.enableExperimentalFeatures"
+                    "command": "yarnspinner.graph"
                 }
             ]
         },
