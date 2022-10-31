@@ -4,23 +4,37 @@
 
 ### Added
 
-- A command to export a spreadsheet of all dialogue for VO recording. Can be configured in settings to control the columns, export format and a few other bits and pieces.
+### Changed
+
+### Removed
+
+## [2.2.73] 2022-10-31
+
+### Added
+
+- Added the ability to export a spreadsheet of all dialogue for voice-over recording.
+  - Voice-over spreadsheets can be exported in either Microsoft Excel or CSV format.
+  - By default, the spreadsheet contains the line ID, character name (where detected), and line text. Additional columns can be added in Settings.
 - Added the ability to preview Yarn dialogue in the editor.
+  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Preview Dialogue".
 - Added the ability to save a self-contained HTML previewer of your Yarn dialogue.
+  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as HTML".
 - Added the ability to save a graphical representation of the Yarn dialogue.
+  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as Graph".
+  - Graphs are exported in [GraphViz format](https://www.graphviz.org). You will need additional software to be able to view these graphs.
 - Added the ability to highlight a node with a colour.
   - To use this feature, add the `color` header to a node:
 
-    ```
+    <pre>
     title: MyNode
-    color: red
+    <b>color: red</b>
     ---
     Lines here...
     ===
-    ```
+    </pre>
 
   - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
-- Added the ability to preview the first few lines of a node in the graph view.
+- The first few lines of a node will now be shown as a preview in the graph view.
 - The graph view now starts centered on the first node in the file.
 - Clicking 'Add Node' multiple times will now position each new node offset a little from the last, making it easier to see when you've added multiple new nodes.
 - Added the ability to zoom in and out of the graph view using the scroll wheel (two-finger scroll on trackpads).
@@ -32,8 +46,6 @@
 - Adjusted the background color of the graph view to provide better contrast.
 - Increased the width of the 'Jump to Node' dropdown to 200px.
 - Fixed a bug where the graph view would not update when the Yarn file was changed on Windows.
-
-### Removed
 
 ## 2.2.15
 
