@@ -11,7 +11,7 @@ import { Trace } from "vscode-jsonrpc/node";
 import { YarnSpinnerEditorProvider } from './editor';
 import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
-import { CompilerOutput, DidChangeNodesNotification } from './nodes';
+import { CompilerOutput, DidChangeNodesNotification, DidRequestNodeInGraphViewParams } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
 import { YarnPreviewPanel } from './preview';
