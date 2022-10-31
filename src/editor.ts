@@ -1,12 +1,24 @@
 import * as vscode from 'vscode';
 import { Event, ExecuteCommandParams, LanguageClient, TextDocumentEdit } from "vscode-languageclient/node";
 import *  as languageclient from 'vscode-languageclient';
-import { DidChangeNodesParams, NodeInfo } from './nodes';
+import { DidChangeNodesParams, DidRequestNodeInGraphViewParams, NodeInfo } from './nodes';
 
-export class NodesUpdatedEvent {
-    type = "update"
-    nodes : NodeInfo[] = []
+export enum MessageTypes {
+    Update = "update",
+    ShowNode =  "show-node",
 }
+
+export interface NodesUpdatedEvent {
+    type: MessageTypes.Update
+    nodes : NodeInfo[]
+}
+
+export interface ShowNodeEvent {
+    type: MessageTypes.ShowNode
+    node : string
+}
+
+export type WebViewEvent = NodesUpdatedEvent | ShowNodeEvent
 
 enum Commands {
     AddNode = "yarnspinner.create-node",
@@ -37,8 +49,16 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             }
         })
 
+        const onRequestedNodeInGraphViewSubscription = this.onDidRequestNodeInGraphView((params) => {
+            let uri = vscode.Uri.parse(params.uri);
+            if (uri.fsPath == document.uri.fsPath) {
+                showNodeInGraphView(params.nodeName);
+            }
+        });
+
         webviewPanel.onDidDispose(() => {
             onNodesChangedSubscription.dispose();
+            onRequestedNodeInGraphViewSubscription.dispose();
         });
 
         // Receive message from the webview.
@@ -70,10 +90,21 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
             })
 
         function updateWebView(nodes: NodeInfo[]) {
-            webviewPanel.webview.postMessage({
-                type: 'update',
+            postWebviewMessage({
+                type:  MessageTypes.Update,
                 nodes: nodes,
             });
+        }
+
+        function showNodeInGraphView(nodeName: string) {
+            postWebviewMessage({
+                type: MessageTypes.ShowNode,
+                node: nodeName,
+            })
+        }
+
+        async function postWebviewMessage(message: WebViewEvent) {
+            return webviewPanel.webview.postMessage(message);    
         }
         // updateWebview(document);
     }
@@ -160,8 +191,8 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         await this.applyTextDocumentEdit(edit);
     }
 
-    public static register(context: vscode.ExtensionContext, languageClient : LanguageClient, onDidChangeNodes: Event<DidChangeNodesParams>): vscode.Disposable {
-        const provider = new YarnSpinnerEditorProvider(context, languageClient, onDidChangeNodes);
+    public static register(context: vscode.ExtensionContext, languageClient : LanguageClient, onDidChangeNodes: Event<DidChangeNodesParams>, onDidRequestNodeInGraphView: Event<DidRequestNodeInGraphViewParams>): vscode.Disposable {
+        const provider = new YarnSpinnerEditorProvider(context, languageClient, onDidChangeNodes, onDidRequestNodeInGraphView);
         const providerRegistration = vscode.window.registerCustomEditorProvider(YarnSpinnerEditorProvider.viewType, provider, {
             webviewOptions: {
                 retainContextWhenHidden: true,
@@ -202,7 +233,8 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
     constructor(
         private readonly context: vscode.ExtensionContext,
         private readonly languageClient: LanguageClient,
-        private readonly onDidChangeNodes: Event<DidChangeNodesParams>
+        private readonly onDidChangeNodes: Event<DidChangeNodesParams>,
+        private readonly onDidRequestNodeInGraphView: Event<DidRequestNodeInGraphViewParams>,
     ) { }
 
     private static getNonce() {

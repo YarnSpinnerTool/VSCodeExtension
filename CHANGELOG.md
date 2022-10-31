@@ -4,6 +4,8 @@
 
 ### Added
 
+- Added the ability to jump to the graph view from a text view, by clicking "Show in Graph View" above a node's title.
+
 ### Changed
 
 ### Removed

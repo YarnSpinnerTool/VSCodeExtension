@@ -5,6 +5,8 @@ import { NodeView } from "./NodeView";
 import { getLinesSVGForNodes } from "./svg";
 import { getPositionFromNodeInfo } from "./util";
 
+import { MessageTypes, WebViewEvent } from '../src/types/editor';
+
 interface VSCode {
 	postMessage(message: any): void;
 }
@@ -78,10 +80,12 @@ function getNodeView(name: string): NodeView | undefined {
 	});
 
 	window.addEventListener('message', (e: any) => {
-		const event = e.data;
+		const event = e.data as WebViewEvent;
 
 		if (event.type == "update") {
 			nodesUpdated(event);
+		} else if (event.type == "show-node") {
+			showNode(event.node)
 		}
 	});
 
@@ -129,17 +133,19 @@ function getNodeView(name: string): NodeView | undefined {
 			// We selected a node.
 			console.log(`Jumping to ${dropdown.value}`);
 
-			const node = globalThis.nodeViews.filter(n => n.nodeName === dropdown.value)[0]
-
-
-
-			if (node !== undefined) {
-				viewState.focusOnNode(node);
-			}
-
+			showNode(dropdown.value);
 		}
 		dropdown.selectedIndex = 0;
 	});
+
+	function showNode(nodeName: string) {
+		
+		const node = globalThis.nodeViews.filter(n => n.nodeName === nodeName)[0]
+
+		if (node !== undefined) {
+			viewState.focusOnNode(node);
+		}
+	}	
 
 	/**
 	 * Called whenever the extension notifies us that the nodes in the
@@ -352,5 +358,6 @@ function getNodeView(name: string): NodeView | undefined {
 	}
 }
 )();
+
 
 

@@ -173,6 +173,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     };
 
     const onDidChangeNodes = new EventEmitter<DidChangeNodesParams>();
+    const onDidRequestNodeInGraphView = new EventEmitter<DidRequestNodeInGraphViewParams>();
 
     client = new languageClient.LanguageClient(
         "yarnspinner",
@@ -231,7 +232,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     // Register our visual editor provider. We do this after waiting to hear
     // that the server is ready so that editors know that they're ok to
     // communicate with the server.
-    context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event));
+    context.subscriptions.push(YarnSpinnerEditorProvider.register(context, client, onDidChangeNodes.event, onDidRequestNodeInGraphView.event));
 
     // We have to use our own command in order to get the parameters parsed, before passing them into the built in showReferences command.
     async function yarnShowReferences(rawTokenPosition: vscode.Position, rawReferenceLocations: vscode.Location[]) {
@@ -256,6 +257,19 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }
 
     context.subscriptions.push(vscode.commands.registerCommand('yarn.showReferences', yarnShowReferences));
+    
+    async function yarnShowNodeInGraphView(uri: string, nodeName: string) {
+
+        // Ensure that a graph view is open with this URI before firing the
+        // 'show the node' event
+        await vscode.commands.executeCommand("vscode.openWith", vscode.Uri.parse(uri), YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
+
+        // Fire the event and let the (possibly just-opened) editor that we want
+        // to show the node
+        onDidRequestNodeInGraphView.fire({ uri: uri, nodeName: nodeName });
+    }
+
+    context.subscriptions.push(vscode.commands.registerCommand('yarn.showNodeInGraphView', yarnShowNodeInGraphView));
 
     // Create the command to open a new visual editor for the active document
     context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.show-graph", () => {

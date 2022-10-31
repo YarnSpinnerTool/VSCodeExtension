@@ -30,6 +30,11 @@ export interface DidChangeNodesParams {
     nodes: NodeInfo[]
 }
 
+export interface DidRequestNodeInGraphViewParams {
+    uri: string
+    nodeName: string
+}
+
 export interface CompilerOutput {
     data: Uint8Array;
     stringTable: { [key: string]: string };
