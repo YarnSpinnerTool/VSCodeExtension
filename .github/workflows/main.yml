@@ -22,11 +22,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Check out the repo, along with the LanguageServer submodule
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'true'
-      
+      # Check out the repo
+      - uses: actions/checkout@v3
+
+      # Check out Yarn Spinner, as a dependency
+      - name: Check out Yarn Spinner
+        run: |
+          git clone https://github.com/YarnSpinnerTool/YarnSpinner-Unity YarnSpinner
+          cd YarnSpinner
+          git checkout $(jq -r .languageServerVersion package.json)
+        
       - name: Fetch all history and tags from all branches for gitversion
         run: git fetch --prune --unshallow
       
@@ -77,12 +82,10 @@ jobs:
           echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
       
       - name: Compile and create .vsix
+        env: 
+          LANGUAGESERVER_CSPROJ_PATH: ./YarnSpinner/YarnSpinner.LanguageServer/YarnLanguageServer.csproj
         run: npx vsce package ${{ env.RELEASE_FLAG }}
         
-      - name: Print vsix path
-        run: |
-          echo "VSIX Path: ${{ env.vsix_path }}"
-
       - name: Upload .vsix as artifact
         uses: actions/upload-artifact@v1
         with:

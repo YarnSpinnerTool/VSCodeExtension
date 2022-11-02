@@ -20,10 +20,16 @@ import { ChildProcess, spawn } from 'child_process';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
+const languageServerPath = process.env.LANGUAGESERVER_PATH ?? "out/server/YarnLanguageServer.dll"
+
 let reporter: TelemetryReporter;
 
 let client: LanguageClient;
 let server: ChildProcess;
+
+// If true, the language server will wait for a debugger to connect before
+// booting
+const LANGUAGESERVER_DEBUG = false;
 
 export type YarnData = {
     stringTable: { [key: string]: string },
@@ -107,15 +113,16 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             
         
             const languageServerExe = dotnetPath;
-            const languageServerPath = isDebugMode() ?
-                path.resolve(context.asAbsolutePath("LanguageServer/LanguageServer/bin/Debug/net6.0/YarnLanguageServer.dll")) :
-                path.resolve(context.asAbsolutePath("out/server/YarnLanguageServer.dll"));
+            const absoluteLanguageServerPath = path.resolve(context.asAbsolutePath(languageServerPath));
         
-            if (fs.existsSync(languageServerPath) == false) {
+            if (fs.existsSync(absoluteLanguageServerPath) == false) {
                 reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
                 throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
             }
-            server = spawn(languageServerExe, [languageServerPath]);
+            server = spawn(languageServerExe, [
+                languageServerPath,
+                ...([LANGUAGESERVER_DEBUG ? "--waitForDebugger" : ""])
+            ]);
             vscode.window.showInformationMessage(`Started language server: ${languageServerPath} - PID ${server.pid}`);
             return server;
         }

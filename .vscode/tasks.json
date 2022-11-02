@@ -3,43 +3,25 @@
 	"tasks": [
         {
             "label": "build-debug",
-            "dependsOn": ["compile-ts", "build"]
+            "dependsOn": [
+                "build-extension-development",
+                "build-server-development"
+            ],
+            "dependsOrder": "parallel"
         },
         {
-            "label": "build-release",
-            "dependsOn": ["compile-ts", "publish"]
-        },
-		{
-            "label": "compile-ts",
+            "label": "build-extension-development",
             "command": "npm",
-            "args": [ "run", "compile", "--loglevel", "silent"],
+            "args": [ "run", "buildVSCodeDevelopment"],
             "type": "shell",
             "problemMatcher": "$tsc-watch"
         },
 		{
-			"label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-				"--no-restore",
-                "${workspaceFolder}/LanguageServer/LanguageServer/YarnLanguageServer.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
+            "label": "build-server-development",
+            "command": "npm",
+            "args": [ "run", "buildServerDevelopment"],
+            "type": "shell",
             "problemMatcher": "$msCompile"
-		},
-		{
-			"label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-				"${workspaceFolder}/LanguageServer/LanguageServer/YarnLanguageServer.csproj",
-                "-c", "Release",
-                "-o", "out/server"
-            ],
-            "problemMatcher": "$msCompile"
-		}
+        }
 	]
 }

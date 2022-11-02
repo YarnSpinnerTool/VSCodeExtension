@@ -9,6 +9,7 @@
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
+    "languageServerVersion": "HEAD",
     "keywords": [
         "yarn spinner",
         "yarnspinner",
@@ -41,14 +42,24 @@
     ],
     "telemetryKey": "6fafead2-0494-4fc6-a960-90ef5ef8e5c6",
     "scripts": {
-        "vscode:prepublish": "npm run buildServer && npm run compile",
+        "vscode:prepublish": "npm run buildProduction",
+
         "buildExtension": "tsc -p ./src/tsconfig.json && cp src/runner.html out/",
-        "buildWebView": "webpack --mode=production -c ./webview/webpack.config.js",
-        "compile": "npm run buildExtension && npm run buildWebView",
+
+        "buildWebViewDevelopment": "webpack --mode=development -c ./webview/webpack.config.js",
+        "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js",
+
+        "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
+        "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewDevelopment",
+
+        "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
+        "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",
+
+        "buildDebug": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeDevelopment\" \"npm:buildServerDevelopment\"",
+        "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",
+        
         "lint": "eslint . --ext .ts,.tsx",
-        "watch": "tsc -watch -p ./src/tsconfig.json",
-        "test": "tsc -p ./src/tsconfig.json; jest",
-        "buildServer": "dotnet publish -c Debug -o out/server LanguageServer/LanguageServer/YarnLanguageServer.csproj"
+        "test": "tsc -p ./src/tsconfig.json; jest"
     },
     "devDependencies": {
         "@interactjs/types": "^1.10.17",
@@ -58,6 +69,8 @@
         "@typescript-eslint/eslint-plugin": "^4.16.0",
         "@typescript-eslint/parser": "^4.16.0",
         "antlr4ts-cli": "^0.5.0-alpha.4",
+        "concurrently": "^7.5.0",
+        "env-cmd": "^10.1.0",
         "eslint": "^7.21.0",
         "jest": "^27.1.1",
         "jest-each": "^27.1.1",
