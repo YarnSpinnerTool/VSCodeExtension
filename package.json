@@ -52,8 +52,8 @@
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
         "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewDevelopment",
 
-        "buildServerDevelopment": "env-cmd --fallback --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
-        "buildServerProduction": "env-cmd --fallback --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",
+        "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
+        "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",
 
         "buildDebug": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeDevelopment\" \"npm:buildServerDevelopment\"",
         "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",

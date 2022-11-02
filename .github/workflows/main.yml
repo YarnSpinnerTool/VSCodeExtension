@@ -29,6 +29,11 @@ jobs:
       - name: Get Language Server ref
         run: echo "LANGUAGESERVER_REF=$(jq -r .languageServerVersion package.json)" >> $GITHUB_ENV
 
+      # The build script uses env-cmd to run its builds, but that tool fails if
+      # it can't find a file called '.env'. Solve this by creating an empty one.
+      - name: Create empty .env file
+        run: touch .env
+
       # Check out Yarn Spinner, as a dependency
       - name: Check out Yarn Spinner
         uses: actions/checkout@v3
