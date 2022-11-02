@@ -9,7 +9,7 @@
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
-    "languageServerVersion": "HEAD",
+    "languageServerVersion": "v2.2.4",
     "keywords": [
         "yarn spinner",
         "yarnspinner",
