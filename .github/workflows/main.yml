@@ -23,14 +23,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Check out the repo
-      - uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Get Language Server ref
+        run: echo "LANGUAGESERVER_REF=$(jq -r .languageServerVersion package.json)" >> $GITHUB_ENV
 
       # Check out Yarn Spinner, as a dependency
       - name: Check out Yarn Spinner
-        run: |
-          git clone https://github.com/YarnSpinnerTool/YarnSpinner-Unity YarnSpinner
-          cd YarnSpinner
-          git checkout $(jq -r .languageServerVersion package.json)
+        uses: actions/checkout@v3
+          repo: YarnSpinnerTool/YarnSpinner
+          path: YarnSpinner
+          ref: ${{ env.LANGUAGESERVER_REF }}
         
       - name: Fetch all history and tags from all branches for gitversion
         run: git fetch --prune --unshallow
