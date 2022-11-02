@@ -32,6 +32,7 @@ jobs:
       # Check out Yarn Spinner, as a dependency
       - name: Check out Yarn Spinner
         uses: actions/checkout@v3
+        with:
           repository: "YarnSpinnerTool/YarnSpinner"
           path: YarnSpinner
           ref: ${{ env.LANGUAGESERVER_REF }}
