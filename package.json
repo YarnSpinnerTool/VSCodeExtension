@@ -50,7 +50,7 @@
         "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js",
 
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
-        "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewDevelopment",
+        "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewProduction",
 
         "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
         "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",

@@ -22,6 +22,28 @@
             "args": [ "run", "buildServerDevelopment"],
             "type": "shell",
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-production",
+            "dependsOn": [
+                "build-extension-production",
+                "build-server-production"
+            ],
+            "dependsOrder": "parallel"
+        },
+        {
+            "label": "build-extension-production",
+            "command": "npm",
+            "args": [ "run", "buildVSCodeProduction"],
+            "type": "shell",
+            "problemMatcher": "$tsc-watch"
+        },
+		{
+            "label": "build-server-production",
+            "command": "npm",
+            "args": [ "run", "buildServerProduction"],
+            "type": "shell",
+            "problemMatcher": "$msCompile"
         }
 	]
 }

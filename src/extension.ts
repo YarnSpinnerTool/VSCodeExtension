@@ -20,7 +20,7 @@ import { ChildProcess, spawn } from 'child_process';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
-const languageServerPath = process.env.LANGUAGESERVER_PATH ?? "out/server/YarnLanguageServer.dll"
+const languageServerPath = process.env.LANGUAGESERVER_DLL_PATH ?? "out/server/YarnLanguageServer.dll"
 
 let reporter: TelemetryReporter;
 
@@ -120,10 +120,10 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
             }
             server = spawn(languageServerExe, [
-                languageServerPath,
+                absoluteLanguageServerPath,
                 ...([LANGUAGESERVER_DEBUG ? "--waitForDebugger" : ""])
             ]);
-            vscode.window.showInformationMessage(`Started language server: ${languageServerPath} - PID ${server.pid}`);
+            vscode.window.showInformationMessage(`Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`);
             return server;
         }
     // {

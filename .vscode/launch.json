@@ -31,6 +31,19 @@
                 "${workspaceFolder}/node_modules/**/*.js",
             ],
         },
+        {
+            "name": "Extension + LS (release)",
+            "type": "extensionHost",
+            "preLaunchTask": "build-production",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+            ],
+        },
         // {
         //     "name": "Extension + LS (Release)",
         //     "type": "extensionHost",
