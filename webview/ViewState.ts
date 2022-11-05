@@ -19,6 +19,9 @@ export class ViewState {
 	* viewport was moved. */
 	private nodesSinceLastMove = 0;
 
+	/** The node views currently displayed in this view. */
+	public nodeViews: NodeView[];
+
 	/** Updates the transform of the nodes container based on the transform
 	 * matrix. */
 	private updateView() {

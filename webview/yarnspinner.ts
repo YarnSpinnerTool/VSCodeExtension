@@ -15,8 +15,6 @@ export { }
 
 declare global {
 	function acquireVsCodeApi(): VSCode;
-
-	var nodeViews: NodeView[];
 }
 
 export const factor = 0.1
@@ -49,11 +47,8 @@ if (!buttonsContainer) {
 }
 
 function getNodeView(name: string): NodeView | undefined {
-	return globalThis.nodeViews.filter(nv => nv.nodeName === name)[0];
+	return viewState.nodeViews.filter(nv => nv.nodeName === name)[0];
 }
-
-
-
 
 // Script run within the webview itself.
 (function () {
@@ -61,8 +56,6 @@ function getNodeView(name: string): NodeView | undefined {
 	// Get a reference to the VS Code webview api.
 	// We use this API to post messages back to our extension.
 	const vscode = acquireVsCodeApi();
-
-	globalThis.nodeViews = [];
 
 	const addNodeButton = buttonsContainer.querySelector('#add-node');
 
@@ -140,7 +133,7 @@ function getNodeView(name: string): NodeView | undefined {
 
 	function showNode(nodeName: string) {
 		
-		const node = globalThis.nodeViews.filter(n => n.nodeName === nodeName)[0]
+		const node = viewState.nodeViews.filter(n => n.nodeName === nodeName)[0]
 
 		if (node !== undefined) {
 			viewState.focusOnNode(node);
@@ -169,13 +162,13 @@ function getNodeView(name: string): NodeView | undefined {
 
 		var jumpToFirstNode = false;
 
-		if (!globalThis.nodeViews || globalThis.nodeViews.length == 0) {
+		if (!viewState.nodeViews || viewState.nodeViews.length == 0) {
 			// We don't have any nodes. Note that we want to snap our view to
 			// the first one in the list, if any.
 			jumpToFirstNode = true;
 		}
 
-		globalThis.nodeViews = [];
+		viewState.nodeViews = [];
 
 		updateDropdownList(data);
 
@@ -240,11 +233,11 @@ function getNodeView(name: string): NodeView | undefined {
 			}
 
 			nodesContainer?.appendChild(newNodeElement);
-			globalThis.nodeViews.push(newNodeView);
+			viewState.nodeViews.push(newNodeView);
 		}
 
-		if (jumpToFirstNode && nodeViews.length > 0) {
-			viewState.focusOnNode(nodeViews[0]);
+		if (jumpToFirstNode && viewState.nodeViews.length > 0) {
+			viewState.focusOnNode(viewState.nodeViews[0]);
 		}
 
 		for (const node of data.nodes) {
@@ -316,7 +309,7 @@ function getNodeView(name: string): NodeView | undefined {
 
 					// Recalculate our lines
 					nodesContainer.removeChild(linesSVG);
-					linesSVG = getLinesSVGForNodes(nodeViews);
+					linesSVG = getLinesSVGForNodes(viewState.nodeViews);
 					nodesContainer.appendChild(linesSVG);
 
 					console.log(`Drag move ${nodeView.nodeName}`);
@@ -352,7 +345,7 @@ function getNodeView(name: string): NodeView | undefined {
 			makeDraggable(nodeView);
 		}
 
-		let linesSVG = getLinesSVGForNodes(nodeViews);
+		let linesSVG = getLinesSVGForNodes(viewState.nodeViews);
 
 		nodesContainer.appendChild(linesSVG);
 	}
