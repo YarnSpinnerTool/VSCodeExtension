@@ -11,9 +11,7 @@
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		"typeRoots": ["node_modules/leader-line-types"],
 		"allowJs": true,
-		
 	},
 	
 }
