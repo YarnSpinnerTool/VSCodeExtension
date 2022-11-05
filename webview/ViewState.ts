@@ -21,6 +21,9 @@ export class ViewState {
 
 	/** The node views currently displayed in this view. */
 	public nodeViews: NodeView[];
+	
+	/** The nodes views that are currently selected. A subset of nodeViews. */
+	private selectedNodeViews: Set<NodeView>;
 
 	/** Updates the transform of the nodes container based on the transform
 	 * matrix. */
@@ -94,6 +97,10 @@ export class ViewState {
 			document.getElementById("graph-debug")?.remove();
 		}
 
+		this.nodeViews = []
+
+		this.selectedNodeViews = new Set<NodeView>();
+
 		// When the mousewheel is scrolled (or a two-finger scroll gesture is
 		// performed), zoom where the mouse cursor is.
 		this.setupZoom(zoomContainer);
@@ -111,6 +118,7 @@ export class ViewState {
 		boxElement.style.width = "100px";
 		boxElement.style.height = "100px";
 		
+		// The client-space position where we started dragging from.
 		let dragStartPosition: Position = { x: 0, y: 0 };
 		
 		const dragBegin = (e: MouseEvent) => {
@@ -125,6 +133,11 @@ export class ViewState {
 			// Record where we started dragging from.
 			dragStartPosition = { x: e.clientX, y: e.clientY };
 
+			// Clear the node selection immediately.
+			for (const selectedNode of this.selectedNodeViews) {
+				selectedNode.element.classList.remove("selected");
+			}
+			this.selectedNodeViews.clear();
 			
 			boxElement.style.left = `${dragStartPosition.x}px`;
 			boxElement.style.top = `${dragStartPosition.y}px`;
@@ -158,6 +171,31 @@ export class ViewState {
 			boxElement.style.top = `${topLeft.y}px`;
 			boxElement.style.width = `${size.width}px`;
 			boxElement.style.height = `${size.height}px`;
+
+			// Find whichever nodes intersect this rectangle, and make them the
+			// selection. 
+			//
+			// TODO: this is possibly an expensive operation; maybe debounce
+			// this?
+			let selectionRect = new DOMRect(topLeft.x, topLeft.y, size.width, size.height);
+
+			const intersects = (r1: DOMRect, r2: DOMRect) => {
+				return !(r2.left > r1.right || 
+					r2.right < r1.left || 
+					r2.top > r1.bottom ||
+					r2.bottom < r1.top);
+			}
+
+			this.selectedNodeViews.clear();
+			
+			for (const nodeView of this.nodeViews) {
+				if (intersects(nodeView.element.getBoundingClientRect(), selectionRect)) {
+					this.selectedNodeViews.add(nodeView);
+					nodeView.element.classList.add("selected");
+				} else {
+					nodeView.element.classList.remove("selected");
+				}
+			}
 
 		};
 

@@ -78,6 +78,8 @@ div.node {
     align-items: flex-start;
 
     box-shadow: 0 0 10px var(--vscode-widget-shadow);
+
+    box-sizing: border-box;
 }
 
 div.node.color-red {
@@ -121,6 +123,14 @@ div.node .preview {
 
 div.node#node-template {
     display:none;
+}
+
+div.node.selected {
+    border: 2px solid var(--vscode-focusBorder);
+
+    /* normal border is 1px and padding is 5px; reduce padding to 4px to account
+     * for the extra 1px of border while selected */
+    padding: 4px;
 }
 
 #node-jump {
