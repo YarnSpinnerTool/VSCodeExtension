@@ -28,9 +28,18 @@ div.zoom-container {
     touch-action: none;
     user-select: none;
     z-index: 1;
+}
+
+div.zoom-container.pan {
     cursor: move;
 }
 
+div.box-select {
+    background-color: var(--vscode-editor-selectionHighlightBackground);
+    border: 1px solid var(--vscode-focusBorder);
+    z-index: 999;
+    position: absolute;
+}
 
 #nodes-header {
     position: absolute;

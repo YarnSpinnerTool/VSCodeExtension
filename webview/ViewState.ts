@@ -1,6 +1,6 @@
 import { nodesContainer, zoomSpeed, factor, zoomMaxScale, zoomMinScale, NodeSize, newNodeOffset } from "./yarnspinner";
 import { NodeView } from "./NodeView";
-import { decomposeTransformMatrix, getWindowCenter, Position } from "./util";
+import { decomposeTransformMatrix, getWindowCenter, Position, Size } from "./util";
 
 export class ViewState {
 
@@ -93,6 +93,140 @@ export class ViewState {
 
 		// When the mousewheel is scrolled (or a two-finger scroll gesture is
 		// performed), zoom where the mouse cursor is.
+		this.setupZoom(zoomContainer);
+
+		this.setupPan(zoomContainer);
+
+		this.setupBoxSelect(zoomContainer);
+	}
+
+	private setupBoxSelect(zoomContainer: HTMLElement) {
+		const boxElement = document.createElement("div");
+		boxElement.className = "box-select";
+		boxElement.style.top = "100px";
+		boxElement.style.left = "100px";
+		boxElement.style.width = "100px";
+		boxElement.style.height = "100px";
+		
+		let dragStartPosition: Position = { x: 0, y: 0 };
+		
+		const dragBegin = (e: MouseEvent) => {
+			// If we're holding alt, this is not a box select (it's a pan).
+			if (e.altKey == true) {
+				return;
+			}
+
+			// Make the box visible by adding it to the DOM.
+			zoomContainer.appendChild(boxElement);
+			
+			// Record where we started dragging from.
+			dragStartPosition = { x: e.clientX, y: e.clientY };
+
+			
+			boxElement.style.left = `${dragStartPosition.x}px`;
+			boxElement.style.top = `${dragStartPosition.y}px`;
+			boxElement.style.width = `0px`;
+			boxElement.style.height = `0px`;
+
+			window.addEventListener('mousemove', dragMove);
+			window.addEventListener('mouseup', dragEnd);
+			window.addEventListener('mouseleave', dragEnd);
+		};
+
+		const dragMove = (e: MouseEvent) => {
+			const currentPosition = { x: e.clientX, y: e.clientY };
+
+			const topLeft = {
+				x: Math.min(dragStartPosition.x, currentPosition.x),
+				y: Math.min(dragStartPosition.y, currentPosition.y),
+			};
+			
+			const bottomRight = {
+				x: Math.max(dragStartPosition.x, currentPosition.x),
+				y: Math.max(dragStartPosition.y, currentPosition.y),
+			};
+
+			const size: Size = {
+				width: bottomRight.x - topLeft.x,
+				height: bottomRight.y - topLeft.y
+			}
+
+			boxElement.style.left = `${topLeft.x}px`;
+			boxElement.style.top = `${topLeft.y}px`;
+			boxElement.style.width = `${size.width}px`;
+			boxElement.style.height = `${size.height}px`;
+
+		};
+
+		const dragEnd = (e: MouseEvent) => {
+			zoomContainer.removeChild(boxElement);
+			window.removeEventListener('mousemove', dragMove);
+			window.removeEventListener('mouseup', dragEnd);
+			window.removeEventListener('mouseleave', dragEnd);
+		};
+
+		zoomContainer.addEventListener('mousedown', dragBegin);
+	}
+
+	private setupPan(zoomContainer: HTMLElement) {
+		// Stores the last position that our mouse cursor was at during a drag,
+		// in client space.
+		let backgroundDragClientSpace: Position = { x: 0, y: 0 };
+
+		// When we start dragging the background, start tracking mouseup,
+		// mousemove, and mouseleave to apply the drag gesture.
+		const onBackgroundDragStart = (e: MouseEvent) => {
+
+			// If we're not holding Alt, then this is not a pan.
+			if (e.altKey == false) {
+				return;
+			}
+
+			e.preventDefault();
+			e.stopPropagation();
+			zoomContainer.classList.add("pan");
+			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
+
+			window.addEventListener('mousemove', onBackgroundDragMove);
+			window.addEventListener('mouseup', onBackgroundDragEnd);
+			window.addEventListener('mouseleave', onBackgroundDragEnd);
+		};
+
+		// When the mouse moves during a drag, calculate how much the cursor has
+		// moved in view-space, and apply that translation.
+		const onBackgroundDragMove = (e: MouseEvent) => {
+			e.preventDefault();
+			e.stopPropagation();
+
+			const lastPositionViewSpace = this.convertToViewSpace(backgroundDragClientSpace);
+			const thisPositionViewSpace = this.convertToViewSpace({ x: e.clientX, y: e.clientY });
+			const deltaViewSpace = {
+				x: thisPositionViewSpace.x - lastPositionViewSpace.x,
+				y: thisPositionViewSpace.y - lastPositionViewSpace.y,
+			};
+
+			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
+
+			this.matrix.translateSelf(deltaViewSpace.x, deltaViewSpace.y);
+
+			this.updateView();
+		};
+
+		// When the mouse stops dragging, remove the handlers that track the
+		// drag.
+		function onBackgroundDragEnd(e: MouseEvent) {
+			zoomContainer.classList.remove("pan");
+			window.removeEventListener('mousemove', onBackgroundDragMove);
+			window.removeEventListener('mouseup', onBackgroundDragEnd);
+			window.removeEventListener('mouseleave', onBackgroundDragEnd);
+		}
+
+		// Finally, install the mouse-down event handler so that we know to
+		// start tracking drags.
+		zoomContainer.addEventListener('mousedown', onBackgroundDragStart);
+	}
+
+	private setupZoom(zoomContainer: HTMLElement) {
 		zoomContainer.addEventListener('wheel', e => {
 			const delta = e.deltaY / zoomSpeed;
 			let nextScale = 1 - delta * factor;
@@ -124,54 +258,6 @@ export class ViewState {
 
 			this.updateView();
 		});
-
-		// Stores the last position that our mouse cursor was at during a drag,
-		// in client space.
-		let backgroundDragClientSpace: Position = { x: 0, y: 0 };
-
-		// When we start dragging the background, start tracking mouseup,
-		// mousemove, and mouseleave to apply the drag gesture.
-		const onBackgroundDragStart = (e: MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
-			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
-
-			window.addEventListener('mousemove', onBackgroundDragMove);
-			window.addEventListener('mouseup', onBackgroundDragEnd);
-			window.addEventListener('mouseleave', onBackgroundDragEnd);
-		};
-
-		// When the mouse moves during a drag, calculate how much the cursor has
-		// moved in view-space, and apply that translation.
-		const onBackgroundDragMove = (e: MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const lastPositionViewSpace = this.convertToViewSpace(backgroundDragClientSpace);
-			const thisPositionViewSpace = this.convertToViewSpace({ x: e.clientX, y: e.clientY });
-			const deltaViewSpace = {
-				x: thisPositionViewSpace.x - lastPositionViewSpace.x,
-				y: thisPositionViewSpace.y - lastPositionViewSpace.y,
-			};
-
-			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
-
-			this.matrix.translateSelf(deltaViewSpace.x, deltaViewSpace.y);
-
-			this.updateView();
-		};
-
-		// When the mouse stops dragging, remove the handlers that track the
-		// drag.
-		function onBackgroundDragEnd(e: MouseEvent) {
-			window.removeEventListener('mousemove', onBackgroundDragMove);
-			window.removeEventListener('mouseup', onBackgroundDragEnd);
-			window.removeEventListener('mouseleave', onBackgroundDragEnd);
-		}
-
-		// Finally, install the mouse-down event handler so that we know to
-		// start tracking drags.
-		zoomContainer.addEventListener('mousedown', onBackgroundDragStart);
 	}
 
 	private updateDebugView() {
