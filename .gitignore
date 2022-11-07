@@ -161,3 +161,5 @@ src/.antlr
 
 # Generated code
 media/yarnspinner.js*
+
+src/types/*.d.ts
