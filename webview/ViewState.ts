@@ -1,8 +1,6 @@
-import { nodesContainer } from "./yarnspinner";
 import * as constants from "./constants";
 import { NodeView } from "./NodeView";
 import { decomposeTransformMatrix, getWindowCenter, Position, Size } from "./util";
-import { KeyObject } from "crypto";
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
 
@@ -33,13 +31,15 @@ export class ViewState {
 	public onNodesMoved: (positions: Record<string, Position>) => void = () => { };
 
 	private lines: SVGElement;
+	
+	private nodesContainer: HTMLElement;
 
 	/** Updates the transform of the nodes container based on the transform
 	 * matrix. */
 	private updateView() {
 		const matrix = this.matrix;
 		// nodesContainer.style.transform = `translate(${-this.viewPosition.x}px, ${-this.viewPosition.y}px) scale(${this.zoomScale})`;
-		nodesContainer.style.transform = `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`;
+		this.nodesContainer.style.transform = `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`;
 
 		this.nodesSinceLastMove = 0;
 		this.updateDebugView();
@@ -105,6 +105,8 @@ export class ViewState {
 		} else {
 			document.getElementById("graph-debug")?.remove();
 		}
+		
+		this.nodesContainer = nodesContainer;
 
 		this.lines = getLinesSVGForNodes([]);
 		nodesContainer.appendChild(this.lines);
@@ -433,9 +435,9 @@ export class ViewState {
 					nv.translate(dragDeltaViewSpace);
 				});
 
-				nodesContainer.removeChild(this.lines);
+				this.nodesContainer.removeChild(this.lines);
 				this.lines = getLinesSVGForNodes(this.nodeViews.values());
-				nodesContainer.appendChild(this.lines);
+				this.nodesContainer.appendChild(this.lines);
 			}
 
 			newNodeView.onNodeDragEnd = (nodeView) => {
@@ -449,7 +451,7 @@ export class ViewState {
 			
 			this.nodeViews.set(nodeToAdd.title, newNodeView);
 			
-			nodesContainer.appendChild(newNodeView.element);
+			this.nodesContainer.appendChild(newNodeView.element);
 		}
 
 		for (const nodeToUpdate of updatedNodes) {
@@ -484,9 +486,9 @@ export class ViewState {
 			}
 		}
 
-		nodesContainer.removeChild(this.lines);
+		this.nodesContainer.removeChild(this.lines);
 		this.lines = getLinesSVGForNodes(this.nodeViews.values());
-		nodesContainer.appendChild(this.lines);
+		this.nodesContainer.appendChild(this.lines);
 
 		// If we didn't have nodes before but we have nodes now, focus on the
 		// first one in the list

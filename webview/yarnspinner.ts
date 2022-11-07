@@ -20,7 +20,7 @@ declare global {
 
 const vscode = acquireVsCodeApi();
 
-export let nodesContainer: HTMLElement;
+let nodesContainer: HTMLElement;
 let zoomContainer: HTMLElement;
 
 zoomContainer = document.querySelector('.zoom-container') as HTMLElement;
