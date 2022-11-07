@@ -5,6 +5,10 @@
 ### Added
 
 - Added the ability to jump to the graph view from a text view, by clicking "Show in Graph View" above a node's title.
+- Added the ability to select multiple nodes in the graph view.
+  - To select nodes, click and drag inside the graph view.
+  - To pan the view, hold the Alt key (Option on macOS) and click and drag inside the graph view.
+- Added the ability to move multiple nodes at once in the graph view.
 
 ### Changed
 

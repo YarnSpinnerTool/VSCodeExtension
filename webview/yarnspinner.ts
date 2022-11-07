@@ -6,6 +6,7 @@ import { getLinesSVGForNodes } from "./svg";
 import { getPositionFromNodeInfo } from "./util";
 
 import { MessageTypes, WebViewEvent } from '../src/types/editor';
+import { newNodeOffset } from "./constants";
 
 interface VSCode {
 	postMessage(message: any): void;
@@ -17,20 +18,7 @@ declare global {
 	function acquireVsCodeApi(): VSCode;
 }
 
-export const factor = 0.1
-export const zoomSpeed = 120
-
-export const zoomMinScale = 0.1
-export const zoomMaxScale = 2
-
-/** How far from the last node each new node will be created */
-export const newNodeOffset = 10;
-
-
-export const NodeSize = {
-	width: 150,
-	height: 75,
-};
+const vscode = acquireVsCodeApi();
 
 export let nodesContainer: HTMLElement;
 let zoomContainer: HTMLElement;
@@ -40,14 +28,33 @@ nodesContainer = document.querySelector('.nodes') as HTMLElement;
 
 let viewState = new ViewState(zoomContainer, nodesContainer);
 
+viewState.onNodeDelete = (name) => {
+	var ID = name;
+	vscode.postMessage({
+		type: 'delete',
+		id: ID
+	});
+}
+
+viewState.onNodeEdit = (name) => {
+	var ID = name;
+	vscode.postMessage({
+		type: 'open',
+		id: ID
+	});
+}
+
+viewState.onNodesMoved = (positions) => {
+	vscode.postMessage({
+		type: 'move',
+		positions: positions,
+	});
+}
+
 var buttonsContainer = document.querySelector('#nodes-header');
 
 if (!buttonsContainer) {
 	throw new Error("Failed to find buttons container");
-}
-
-function getNodeView(name: string): NodeView | undefined {
-	return viewState.nodeViews.filter(nv => nv.nodeName === name)[0];
 }
 
 // Script run within the webview itself.
@@ -55,8 +62,7 @@ function getNodeView(name: string): NodeView | undefined {
 
 	// Get a reference to the VS Code webview api.
 	// We use this API to post messages back to our extension.
-	const vscode = acquireVsCodeApi();
-
+	
 	const addNodeButton = buttonsContainer.querySelector('#add-node');
 
 	if (!addNodeButton) {
@@ -133,9 +139,8 @@ function getNodeView(name: string): NodeView | undefined {
 
 	function showNode(nodeName: string) {
 		
-		const node = viewState.nodeViews.filter(n => n.nodeName === nodeName)[0]
-
-		if (node !== undefined) {
+		const node = viewState.getNodeView(nodeName);
+		if (node) {
 			viewState.focusOnNode(node);
 		}
 	}	
@@ -148,209 +153,24 @@ function getNodeView(name: string): NodeView | undefined {
 	 */
 	function nodesUpdated(data: NodesUpdatedEvent) {
 
-		// Remove all node view elements
-		if (nodesContainer) {
-			const nodeElements = nodesContainer.querySelectorAll('.node');
-			nodeElements.forEach(e =>
-				nodesContainer.removeChild(e)
-			)
-			const lineElement = nodesContainer.querySelector('#lines');
-			if (lineElement) {
-				nodesContainer.removeChild(lineElement);
-			}
-		}
+		let nodesWithDefaultPosition = 0;
+		
+		for (let nodeInfo of data.nodes) {
+			let position = getPositionFromNodeInfo(nodeInfo);
 
-		var jumpToFirstNode = false;
-
-		if (!viewState.nodeViews || viewState.nodeViews.length == 0) {
-			// We don't have any nodes. Note that we want to snap our view to
-			// the first one in the list, if any.
-			jumpToFirstNode = true;
-		}
-
-		viewState.nodeViews = [];
-
-		updateDropdownList(data);
-
-		/** @type HTMLElement | null */
-		const template = document.querySelector('#node-template');
-		if (!template) {
-			console.error("Failed to find node view template");
-			return;
-        }
-        
-        let nodesWithDefaultPosition = 0;
-
-		for (const node of data.nodes) {
-			/** @type HTMLElement */
-			const newNodeElement = template.cloneNode(true) as HTMLElement
-
-            let newNodeView = new NodeView(node, newNodeElement)
-            
-            let position = getPositionFromNodeInfo(node);
-
-            if (position) {
-                newNodeView.position = position;
-            } else {
-                newNodeView.position = {
-                    x: newNodeOffset * nodesWithDefaultPosition,
+			if (!position) {
+				const position = {
+					x: newNodeOffset * nodesWithDefaultPosition,
                     y: newNodeOffset * nodesWithDefaultPosition,
                 }
+				nodeInfo.headers.push({ key: "position", value: `${position.x},${position.y}` });
                 nodesWithDefaultPosition += 1;
             }
-
-			const title = newNodeElement.querySelector('.title') as HTMLElement;
-			title.innerText = node.title;
-
-			const preview = newNodeElement.querySelector('.preview') as HTMLElement;
-			preview.innerText = node.previewText;
-
-			const deleteButton = newNodeElement.querySelector('.button-delete') as HTMLElement;
-			deleteButton.addEventListener('click', (evt) => {
-				var ID = node.title;
-				vscode.postMessage({
-					type: 'delete',
-					id: ID
-				});
-			});
-
-			var colorHeader = node.headers.filter((header) => header.key == "color")[0];
-
-			if (colorHeader) {
-				newNodeElement.classList.add("color-" + colorHeader.value);
-			}
-
-			/** @type HTMLElement | null */
-			const editButton = newNodeElement.querySelector('.button-edit');
-			if (editButton) {
-				editButton.addEventListener('click', (evt) => {
-					var ID = node.title;
-					vscode.postMessage({
-						type: 'open',
-						id: ID
-					});
-				});
-			}
-
-			nodesContainer?.appendChild(newNodeElement);
-			viewState.nodeViews.push(newNodeView);
 		}
 
-		if (jumpToFirstNode && viewState.nodeViews.length > 0) {
-			viewState.focusOnNode(viewState.nodeViews[0]);
-		}
+		viewState.nodes = data.nodes;
 
-		for (const node of data.nodes) {
-
-			const nodeView = getNodeView(node.title);
-
-			if (!nodeView) {
-				continue;
-			}
-
-			for (const destination of node.jumps) {
-				const destinationElement = getNodeView(destination.destinationTitle);
-
-				if (!destinationElement) {
-					console.warn(`Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`);
-					continue;
-				}
-
-				nodeView.outgoingConnections.push(destinationElement);
-			}
-
-			let positionX: number, positionY: number;
-
-			function makeDraggable(nodeView: NodeView) {
-
-				nodeView.element.addEventListener('mousedown', onNodeDragStart);
-				nodeView.element.addEventListener('dblclick', onNodeDoubleClick);
-
-				function onNodeDragStart(e: MouseEvent) {
-					e.preventDefault();
-					e.stopPropagation();
-					positionX = e.clientX;
-					positionY = e.clientY;
-					window.addEventListener('mousemove', onNodeDragMove);
-					window.addEventListener('mouseup', onNodeDragEnd);
-
-					linesSVG = document.getElementById("lines") as unknown as SVGElement;
-
-					console.log(`Drag start ${nodeView.nodeName}`);
-				}
-
-				function onNodeDragMove(e: MouseEvent) {
-					e.preventDefault();
-					e.stopPropagation();
-
-					let previousPositionViewSpace = viewState.convertToViewSpace({
-						x: positionX,
-						y: positionY,
-					});
-					let newPositionViewSpace = viewState.convertToViewSpace({
-						x: e.clientX,
-						y: e.clientY,
-					});
-					let deltaPositionViewSpace = {
-						x: newPositionViewSpace.x - previousPositionViewSpace.x,
-						y: newPositionViewSpace.y - previousPositionViewSpace.y,
-					}
-
-					// Move this node by (dx,dy) pixels in view-space
-					positionX = e.clientX;
-					positionY = e.clientY;
-
-					var position = nodeView.position;
-
-					position.x += deltaPositionViewSpace.x;
-					position.y += deltaPositionViewSpace.y;
-
-					nodeView.position = position;
-
-					// Recalculate our lines
-					nodesContainer.removeChild(linesSVG);
-					linesSVG = getLinesSVGForNodes(viewState.nodeViews);
-					nodesContainer.appendChild(linesSVG);
-
-					console.log(`Drag move ${nodeView.nodeName}`);
-				}
-
-				function onNodeDragEnd(e: MouseEvent) {
-					const position = nodeView.position;
-					const nodeID = node.title;
-
-					// Notify the extension that our node finished moving
-					vscode.postMessage({
-						type: 'move',
-						id: nodeID,
-						position: position,
-					});
-
-					window.removeEventListener('mousemove', onNodeDragMove);
-					window.removeEventListener('mouseup', onNodeDragEnd);
-
-					console.log(`Drag end ${nodeView.nodeName}`);
-				}
-
-				function onNodeDoubleClick(e: MouseEvent) {
-					// Notify the extension that our node should be opened
-					vscode.postMessage({
-						type: 'open',
-						id: node.title
-					});
-				}
-
-			}
-
-			makeDraggable(nodeView);
-		}
-
-		let linesSVG = getLinesSVGForNodes(viewState.nodeViews);
-
-		nodesContainer.appendChild(linesSVG);
+		updateDropdownList(data);
 	}
 }
 )();
-
-
-

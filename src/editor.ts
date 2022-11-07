@@ -73,7 +73,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                     return;
                 
                 case 'move':
-                    this.moveNode(document, e.id, e.position);
+                    this.moveNode(document, e.positions);
                     return;
                 
                 case 'open':
@@ -149,20 +149,40 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
         
     }
 
-    async moveNode(document: vscode.TextDocument, nodeTitle: string, position: { x: number, y: number }) {
-        
-        // Send a request to the language server to change the 'position' header
-        // for this node
-        var documentEdit = await this.executeCommand<TextDocumentEdit>(
-            Commands.UpdateNodeHeader,
-            document.uri.fsPath,
-            nodeTitle,
-            "position",
-            `${Math.round(position.x)},${Math.round(position.y)}`
-        )
+    
 
-        // Apply the document change that we received
-        await this.applyTextDocumentEdit(documentEdit);
+    async moveNode(document: vscode.TextDocument, positions: Record<string, { x: number, y: number }>) {
+        
+        let computedEdit: TextDocumentEdit | undefined;
+
+        // For each node in 'positions', update (or add) the 'position' header
+        // for this node in the document. We'll accumulate all of the edits that
+        // result, and apply it all at once.
+        for (const nodeName in positions) {
+            const position = positions[nodeName];
+            
+            // Send a request to the language server to change the 'position' header
+            // for this node
+            var documentEdit = await this.executeCommand<TextDocumentEdit>(
+                Commands.UpdateNodeHeader,
+                document.uri.fsPath,
+                nodeName,
+                "position",
+                `${Math.round(position.x)},${Math.round(position.y)}`
+            )
+            if (!computedEdit) {
+                computedEdit = documentEdit;
+            } else {
+                computedEdit.edits.push(...documentEdit.edits);
+            }
+            
+        }
+        
+        // We have an edit to apply that updates these positions
+        if (computedEdit) {
+            // Apply the document change that we received
+            await this.applyTextDocumentEdit(computedEdit);
+        }
     }
 
     async deleteNode(document: vscode.TextDocument, id: string) {

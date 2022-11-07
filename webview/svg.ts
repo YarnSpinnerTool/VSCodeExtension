@@ -1,6 +1,6 @@
 import * as CurvedArrows from 'curved-arrows';
 import { NodeView } from "./NodeView";
-import { NodeSize } from "./yarnspinner";
+import { NodeSize } from "./constants";
 
 const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
 /**
@@ -12,7 +12,7 @@ const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
  * color) of the lines.
  * @returns An SVGElement containing lines between the provided nodes.
  */
-export function getLinesSVGForNodes(nodes: NodeView[], arrowHeadSize = 9, lineThickness = 2, color = VSCODE_COLOR_LINE_CHART): SVGElement {
+export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9, lineThickness = 2, color = VSCODE_COLOR_LINE_CHART): SVGElement {
 
     type ArrowDescriptor = [
         sx: number,
