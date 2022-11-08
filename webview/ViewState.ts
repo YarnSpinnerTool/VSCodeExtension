@@ -3,6 +3,16 @@ import { NodeView } from "./NodeView";
 import { decomposeTransformMatrix, getWindowCenter, Position, Size } from "./util";
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
+import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
+
+export enum Alignment {
+	Left = "LEFT",
+	Center = "CENTER",
+	Right = "RIGHT",
+	Top = "TOP",
+	Middle = "MIDDLE",
+	Bottom = "BOTTOM"
+};
 
 export class ViewState {
 	/** Enables the view-state debugging display. */
@@ -29,6 +39,8 @@ export class ViewState {
 	public onNodeEdit: (nodeName: string) => void = () => {};
 	public onNodeDelete: (nodeName: string) => void = () => { };
 	public onNodesMoved: (positions: Record<string, Position>) => void = () => { };
+
+	public onSelectionChanged: (selectedNodes: string[]) => void = () => { };
 
 	private lines: SVGElement;
 	
@@ -152,6 +164,8 @@ export class ViewState {
 				selectedNode.element.classList.remove("selected");
 			}
 			this.selectedNodeViews.clear();
+
+			this.onSelectionChanged([]);
 			
 			boxElement.style.left = `${dragStartPosition.x}px`;
 			boxElement.style.top = `${dragStartPosition.y}px`;
@@ -213,6 +227,7 @@ export class ViewState {
 					}
 				}
 			}
+			this.onSelectionChanged(this.selectedNodes);
 
 		};
 
@@ -418,6 +433,7 @@ export class ViewState {
 					this.selectedNodeViews.clear();
 					this.selectedNodeViews.add(nodeView);
 					nodeView.element.classList.add("selected");
+					this.onSelectionChanged(this.selectedNodes);
 				}
 			}
 
@@ -435,9 +451,7 @@ export class ViewState {
 					nv.translate(dragDeltaViewSpace);
 				});
 
-				this.nodesContainer.removeChild(this.lines);
-				this.lines = getLinesSVGForNodes(this.nodeViews.values());
-				this.nodesContainer.appendChild(this.lines);
+				this.refreshLines();
 			}
 
 			newNodeView.onNodeDragEnd = (nodeView) => {
@@ -486,9 +500,7 @@ export class ViewState {
 			}
 		}
 
-		this.nodesContainer.removeChild(this.lines);
-		this.lines = getLinesSVGForNodes(this.nodeViews.values());
-		this.nodesContainer.appendChild(this.lines);
+		this.refreshLines();
 
 		// If we didn't have nodes before but we have nodes now, focus on the
 		// first one in the list
@@ -498,10 +510,61 @@ export class ViewState {
 				this.focusOnNode(firstNodeView);
 			}
 		}
+
+		this.onSelectionChanged(this.selectedNodes);
+	}
+
+	private refreshLines() {
+		this.nodesContainer.removeChild(this.lines);
+		this.lines = getLinesSVGForNodes(this.nodeViews.values());
+		this.nodesContainer.appendChild(this.lines);
 	}
 
 	getNodeView(nodeName: string) : NodeView | undefined {
 		return this.nodeViews.get(nodeName);
 	}
 
+	alignSelectedNodes(alignment: Alignment) {
+		const selected = Array.from(this.selectedNodeViews.values());
+		
+		if (selected.length <= 1) {
+			// Do nothing if we don't have enough nodes to align
+			return;
+		}
+
+		switch (alignment) {
+			case Alignment.Left:
+				const minLeft = Math.min(...selected.map(nv => nv.left));
+				selected.forEach(nv => nv.left = minLeft);
+				break;
+			
+			case Alignment.Right:
+				const maxRight = Math.max(...selected.map(nv => nv.right));
+				selected.forEach(nv => nv.right = maxRight);
+				break;
+			
+			case Alignment.Top:
+				const minTop = Math.min(...selected.map(nv => nv.top));
+				selected.forEach(nv => nv.top = minTop);
+				break;
+			
+			case Alignment.Bottom:
+				const maxBottom = Math.max(...selected.map(nv => nv.bottom));
+				selected.forEach(nv => nv.bottom = maxBottom);
+				break;
+			
+			default:
+				throw new Error("alignemnt " + alignment + " not implemented");
+		}
+
+		this.refreshLines();
+
+		let nodesMoves: Record<string, Position> = {};
+		selected.forEach(nv => nodesMoves[nv.nodeName] = nv.position);
+		this.onNodesMoved(nodesMoves);
+	}
+
+	public get selectedNodes() : string[] {
+		return Array.from(this.selectedNodeViews.values()).map(nv => nv.nodeName);
+	}
 }

@@ -1,6 +1,6 @@
 import { NodesUpdatedEvent } from "../src/types/editor";
 
-import { ViewState } from "./ViewState";
+import { Alignment, ViewState } from "./ViewState";
 import { NodeView } from "./NodeView";
 import { getLinesSVGForNodes } from "./svg";
 import { getPositionFromNodeInfo } from "./util";
@@ -55,6 +55,85 @@ var buttonsContainer = document.querySelector('#nodes-header');
 
 if (!buttonsContainer) {
 	throw new Error("Failed to find buttons container");
+}
+
+const alignmentButtonContainer = document.createElement("div");
+alignmentButtonContainer.id = "alignment-buttons";
+alignmentButtonContainer.style.zIndex = "9999";
+document.body.appendChild(alignmentButtonContainer);
+
+const alignment : Record < string, { cb: () => void, i: string, t: string }> = {
+	"align-left": {
+		cb: () => viewState.alignSelectedNodes(Alignment.Left),
+		i: require('./images/align-left.svg') as string,
+		t: "Align Left"
+	},
+	// "align-center": {
+	// 	cb: () => viewState.alignSelectedNodes(Alignment.Center),
+	// 	i: require('./images/align-center.svg') as string,
+	// 	t: "Align Center"
+	// },
+	"align-right": {
+		cb: () => viewState.alignSelectedNodes(Alignment.Right),
+		i: require('./images/align-right.svg') as string,
+		t: "Align Right"
+	},
+	"align-top": {
+		cb: () => viewState.alignSelectedNodes(Alignment.Top),
+		i: require('./images/align-top.svg') as string,
+		t: "Align Top"
+	},
+	// "align-middle": {
+	// 	cb: () => viewState.alignSelectedNodes(Alignment.Middle),
+	// 	i: require('./images/align-middle.svg') as string,
+	// 	t: "Align Middle"
+	// },
+	"align-bottom": {
+		cb: () => viewState.alignSelectedNodes(Alignment.Bottom),
+		i: require('./images/align-bottom.svg') as string,
+		t: "Align Bottom"
+	},
+};
+
+const parser = new DOMParser();
+
+let alignmentButtons: HTMLElement[] = [];
+
+for (const alignmentEntryName in alignment) {
+	const alignmentEntry = alignment[alignmentEntryName];
+	
+	const alignmentButton = document.createElement("vscode-button");	
+	alignmentButton.id = `button-${alignmentEntryName}`;
+	alignmentButton.setAttribute("appearance", "icon");
+	alignmentButton.addEventListener('click', alignmentEntry.cb);
+	alignmentButton.title = alignmentEntry.t;
+	alignmentButton.ariaLabel = alignmentEntry.t;
+
+	const alignmentImage = parser.parseFromString(alignmentEntry.i, 'image/svg+xml').firstElementChild as SVGElement;
+	alignmentImage.style.width = "16px";
+	alignmentImage.style.height = "16px";
+	
+	alignmentButton.appendChild(alignmentImage);
+	alignmentButtonContainer.appendChild(alignmentButton);	
+
+	alignmentButtons.push(alignmentButton);
+}
+
+viewState.onSelectionChanged = (nodes) => {
+	if (nodes.length <= 1) {
+		// We can only align nodes if we have more than 1 selected.
+		alignmentButtons.forEach(b => {
+			b.classList.add("disabled");
+			b.setAttribute("disabled", "")
+		});
+		
+	} else {
+		alignmentButtons.forEach(b => {
+			b.classList.remove("disabled");
+			b.removeAttribute("disabled")
+		});
+		
+	}
 }
 
 // Script run within the webview itself.

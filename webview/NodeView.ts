@@ -132,4 +132,33 @@ export class NodeView {
 		newPosition.y += dragDeltaViewSpace.y;
 		this.position = newPosition;
 	}
+
+	public get top(): number {
+		return this.position.y;
+	}
+	public set top(newValue: number) {
+		this.position = { x: this.position.x, y: newValue };
+	}
+
+	public get left(): number {
+		return this.position.x;
+	}
+
+	public set left(newValue: number) {
+		this.position = { x: newValue, y: this.position.y };
+	}
+
+	public get bottom(): number {
+		return this.position.y + this.element.offsetHeight;
+	}
+	public set bottom(newValue: number) {
+		this.position = { x: this.position.x, y: newValue - this.element.offsetHeight };
+	}
+
+	public get right(): number {
+		return this.position.x + this.element.offsetWidth;
+	}
+	public set right(newValue) {
+		this.position = { x: newValue - this.element.offsetWidth, y: this.position.y };
+	}
 }
