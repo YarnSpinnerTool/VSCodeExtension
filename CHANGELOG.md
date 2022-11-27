@@ -9,6 +9,7 @@
   - To select nodes, click and drag inside the graph view.
   - To pan the view, hold the Alt key (Option on macOS) and click and drag inside the graph view, or click and drag the mousewheel.
 - Added the ability to move multiple nodes at once in the graph view.
+- Yarn preview text now includes any comments present in the source code.
 
 ### Changed
 
