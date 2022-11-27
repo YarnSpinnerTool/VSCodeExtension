@@ -14,6 +14,12 @@ export enum Alignment {
 	Bottom = "BOTTOM"
 };
 
+enum MouseGestureType {
+	Unknown,
+	Select,
+	Pan
+}
+
 export class ViewState {
 	/** Enables the view-state debugging display. */
 	static readonly DEBUG = false;
@@ -148,8 +154,8 @@ export class ViewState {
 		let dragStartPosition: Position = { x: 0, y: 0 };
 		
 		const dragBegin = (e: MouseEvent) => {
-			// If we're holding alt, this is not a box select (it's a pan).
-			if (e.altKey == true) {
+			// Only take action if this is a select.
+			if (getGestureType(e) != MouseGestureType.Select) {
 				return;
 			}
 
@@ -250,8 +256,8 @@ export class ViewState {
 		// mousemove, and mouseleave to apply the drag gesture.
 		const onBackgroundDragStart = (e: MouseEvent) => {
 
-			// If we're not holding Alt, then this is not a pan.
-			if (e.altKey == false) {
+			// Only take action if this is a pan.
+			if (getGestureType(e) != MouseGestureType.Pan) {
 				return;
 			}
 
@@ -566,5 +572,20 @@ export class ViewState {
 
 	public get selectedNodes() : string[] {
 		return Array.from(this.selectedNodeViews.values()).map(nv => nv.nodeName);
+	}
+}
+
+function getGestureType(mouseEvent: MouseEvent) : MouseGestureType {
+	if (mouseEvent.button == 1 || mouseEvent.altKey) {
+		// If we're holding Alt or using the auxiliary (e.g. middle) mouse
+		// button, then this is a pan.
+		return MouseGestureType.Pan;
+	} if (mouseEvent.button == 0) {
+		// If we're using the primary (e.g. left) mouse button, then this is a
+		// select.
+		return MouseGestureType.Select;
+	} else {
+		// We don't know what this is.
+		return MouseGestureType.Unknown;
 	}
 }
