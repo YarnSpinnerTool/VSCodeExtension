@@ -356,6 +356,7 @@ export class YarnSpinnerEditorProvider implements vscode.CustomTextEditorProvide
                             <span class="codicon codicon-trash button-delete"></span>
                         </vscode-button>
                     </div>
+                    <div class="node-preview-fade"> </div>
                 </div>
                 <script nonce="${nonce}" src="${scriptUri}"></script>
                 <script nonce="${nonce}" type="module" src="${toolkitUri}"></script>

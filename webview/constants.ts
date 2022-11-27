@@ -9,6 +9,6 @@ export const zoomMaxScale = 2;
 export const newNodeOffset = 10;
 
 export const NodeSize = {
-	width: 150,
-	height: 75,
+	width: 200,
+	height: 125,
 };

@@ -10,6 +10,7 @@
   - To pan the view, hold the Alt key (Option on macOS) and click and drag inside the graph view, or click and drag the mousewheel.
 - Added the ability to move multiple nodes at once in the graph view.
 - Yarn preview text now includes any comments present in the source code.
+- Increased the size of node previews, and made them a fixed size of 250x125. Preview text now wraps, and if it goes off the end of the node, it fades out as it reaches the bottom.
 
 ### Changed
 

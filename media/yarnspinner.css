@@ -59,19 +59,19 @@ div.box-select {
 div.node {
     border: 1px solid var(--vscode-notebook-cellBorderColor);
     background-color: var(--vscode-editor-background);
-    
+
     border-radius: 2px;
-    
+
     position: absolute;
     top: 0;
     left: 0;
     
     touch-action: none;
     user-select: none;
-    padding: 5px;
 
-    width: 150px;
-    
+    padding: 5px;
+    width: 200px;
+    height: 125px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -80,6 +80,16 @@ div.node {
     box-shadow: 0 0 10px var(--vscode-widget-shadow);
 
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+div.node .node-preview-fade {
+    background: linear-gradient(transparent, var(--vscode-editor-background) 75%);
+    width: 100%;
+    height: 2em;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
 }
 
 div.node.color-red {
@@ -113,10 +123,6 @@ div.node .title {
 }
 
 div.node .preview {
-    text-overflow: ellipsis;
-    overflow: clip;
-    white-space: nowrap;
-    max-width: 100px;
     font-size: 0.75em;
     opacity: 0.5;
 }
