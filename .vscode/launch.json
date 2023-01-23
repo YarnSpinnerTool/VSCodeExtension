@@ -17,6 +17,20 @@
             ],
             "type": "node"
         },
+        {
+            "name": "Extension",
+            "type": "extensionHost",
+            "preLaunchTask": "build-extension-development",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+            ],
+        },
          {
             "name": "Extension + LS",
             "type": "extensionHost",
