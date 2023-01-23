@@ -4,6 +4,9 @@ import { getPositionFromNodeInfo, Position } from "./util";
 export class NodeView {
 	nodeName: string = "";
 	element: HTMLElement;
+
+	/** The names of the groups that this node view is in. */
+	groups: string[] = [];
 	private _position: Position = { x: 0, y: 0 };
 
 	outgoingConnections: NodeView[] = [];
@@ -86,6 +89,14 @@ export class NodeView {
 		this.position = getPositionFromNodeInfo(node) ?? { x: 0, y: 0 };
 		this.title = node.title;
 		this.preview = node.previewText;
+		
+		// 'groups' is defined as an array, but here we only fetch a single
+		// 'group' header, so it currently only ever has zero or one elements.
+		// Once we have a defined way to say a node can be in multiple groups,
+		// update this code to populate 'groups' with the right number of
+		// elements.
+		var groupHeader = node.headers.filter((header) => header.key == "group")[0];		
+		this.groups = groupHeader ? [groupHeader.value] : [];
 
 		var colorHeader = node.headers.filter((header) => header.key == "color")[0];
 		if (colorHeader) {

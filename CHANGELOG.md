@@ -11,6 +11,23 @@
 - Added the ability to move multiple nodes at once in the graph view.
 - Yarn preview text now includes any comments present in the source code.
 - Increased the size of node previews, and made them a fixed size of 250x125. Preview text now wraps, and if it goes off the end of the node, it fades out as it reaches the bottom.
+- Added the ability to visually group nodes in the graph view.
+  - To group nodes together, add a `group` header to one or more nodes:
+
+    <pre>
+    title: NodeA
+    <b>group: Cool Nodes</b>
+    ---
+    Lines here...
+    ===
+    title: NodeB
+    <b>group: Cool Nodes</b>
+    ---
+    Lines here...
+    ===
+    </pre>
+
+  - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
 ### Changed
 

@@ -4,6 +4,7 @@ import { decomposeTransformMatrix, getWindowCenter, Position, Size } from "./uti
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
 import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
+import { GroupView } from "./GroupView";
 
 export enum Alignment {
 	Left = "LEFT",
@@ -38,6 +39,9 @@ export class ViewState {
 
 	/** The node views currently displayed in this view. */
 	public nodeViews: Map<string, NodeView>;
+
+	/** The group views currently displayed in this view. */
+	public groupViews: Map<string, GroupView>;
 	
 	/** The nodes views that are currently selected. A subset of nodeViews. */
 	private selectedNodeViews: Set<NodeView>;
@@ -130,6 +134,8 @@ export class ViewState {
 		nodesContainer.appendChild(this.lines);
 
 		this.nodeViews = new Map();
+
+		this.groupViews = new Map();
 
 		this.selectedNodeViews = new Set<NodeView>();
 
@@ -408,81 +414,9 @@ export class ViewState {
 	public set nodes(nodeList: NodeInfo[]) {
 		var isFirstNodeSet = this.nodeViews.size == 0;
 
-		const currentNodeNames = Array.from(this.nodeViews.keys());
+		this.updateNodeViews(nodeList);
 
-		// Get the collection of nodes that we have a view for, but do not
-		// appear in the node list
-		const missingNodeNames = currentNodeNames.filter(existingNode => !nodeList.find(n => n.title == existingNode));
-
-		// Get the collection of nodes that we do not have a view for
-		const newNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == false);
-		
-		// Get the collection of nodes that we do not have a view for
-		const updatedNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == true);
-
-		for (const nodeToRemove of missingNodeNames) {
-			this.nodeViews.get(nodeToRemove)?.element.remove();
-			this.nodeViews.delete(nodeToRemove);
-		}
-
-		for (const nodeToAdd of newNodes) {
-			const newNodeView = new NodeView(nodeToAdd);
-			newNodeView.onNodeEditClicked = (n) => this.onNodeEdit(n.nodeName);
-			newNodeView.onNodeDeleteClicked = (n) => this.onNodeDelete(n.nodeName);
-
-			newNodeView.onNodeDragStart = (nodeView) => {
-				if (this.selectedNodeViews.has(nodeView) == false) {
-					// We started dragging a node view that wasn't selected.
-					// Clear the selection state and replace it with just this
-					// selection.
-					this.selectedNodeViews.forEach(nv => nv.element.classList.remove("selected"));
-					this.selectedNodeViews.clear();
-					this.selectedNodeViews.add(nodeView);
-					nodeView.element.classList.add("selected");
-					this.onSelectionChanged(this.selectedNodes);
-				}
-			}
-
-			newNodeView.onNodeDragMove = (nodeView, startPosition, currentPosition) => {
-
-				const startViewSpace = this.convertToViewSpace(startPosition);
-				const currentViewSpace = this.convertToViewSpace(currentPosition);
-
-				const dragDeltaViewSpace = {
-					x: currentViewSpace.x - startViewSpace.x,
-					y: currentViewSpace.y - startViewSpace.y,
-				};
-				
-				this.selectedNodeViews.forEach(nv => {
-					nv.translate(dragDeltaViewSpace);
-				});
-
-				this.refreshLines();
-			}
-
-			newNodeView.onNodeDragEnd = (nodeView) => {
-				var positions: Record<string, Position> = {};
-
-				this.selectedNodeViews.forEach(v => {
-					positions[v.nodeName] = v.position;
-				});
-				this.onNodesMoved(positions);
-			}
-			
-			this.nodeViews.set(nodeToAdd.title, newNodeView);
-			
-			this.nodesContainer.appendChild(newNodeView.element);
-		}
-
-		for (const nodeToUpdate of updatedNodes) {
-
-			const nodeView = this.nodeViews.get(nodeToUpdate.title)
-
-			if (nodeView) {
-				nodeView.nodeInfo = nodeToUpdate;
-			}
-			
-		}
+		this.updateGroupViews(Array.from(this.nodeViews.values()));
 
 		// update all node connections
 		for (const node of nodeList) {
@@ -518,6 +452,132 @@ export class ViewState {
 		}
 
 		this.onSelectionChanged(this.selectedNodes);
+	}
+
+	private updateGroupViews(nodeViews : NodeView[]) {
+		type GroupCollection = Record<string, NodeView[]>;
+
+		// find the groups that the nodes are in
+		const groupedNodes = Array.from(nodeViews.values()).reduce<GroupCollection>((group, nodeView) => {
+			const groupNames = nodeView.groups;
+
+			for (const groupName of groupNames) {
+				group[groupName] = group[groupName] ?? [];
+				group[groupName].push(nodeView);
+			}
+			return group;
+		}, {});
+
+
+		const currentGroupNames = Array.from(this.groupViews.keys());
+		const newGroupNames = Object.keys(groupedNodes);
+
+		const createdGroups = newGroupNames.filter(name => !currentGroupNames.find((n) => n == name));
+		const updatedGroups = newGroupNames.filter(name => currentGroupNames.find((n) => n == name));
+		const deletedGroups = currentGroupNames.filter(name => !newGroupNames.find((n) => n == name));
+
+		for (const createdGroupName of createdGroups) {
+			const newGroup = new GroupView();
+			newGroup.name = createdGroupName;
+			this.groupViews.set(createdGroupName, newGroup);
+			this.nodesContainer.appendChild(newGroup.element);
+			newGroup.nodeViews = groupedNodes[createdGroupName];
+		}
+
+		for (const updatedGroupName of updatedGroups) {
+			const updatedGroup = this.groupViews.get(updatedGroupName)!;
+			updatedGroup.nodeViews = groupedNodes[updatedGroupName];
+		}
+
+		for (const deletedGroupName of deletedGroups) {
+			const deletedGroup = this.groupViews.get(deletedGroupName)!;
+			this.nodesContainer.removeChild(deletedGroup.element);
+			this.groupViews.delete(deletedGroupName);
+		}
+	}
+
+	private updateNodeViews(nodeList: NodeInfo[]) {
+		const currentNodeNames = Array.from(this.nodeViews.keys());
+
+		// Get the collection of nodes that we have a view for, but do not
+		// appear in the node list
+		const missingNodeNames = currentNodeNames.filter(existingNode => !nodeList.find(n => n.title == existingNode));
+
+		// Get the collection of nodes that we do NOT have a view for
+		const newNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == false);
+
+		// Get the collection of nodes that we DO have a view for
+		const updatedNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == true);
+
+		for (const nodeToRemove of missingNodeNames) {
+			this.nodeViews.get(nodeToRemove)?.element.remove();
+			this.nodeViews.delete(nodeToRemove);
+		}
+
+		for (const nodeToAdd of newNodes) {
+			const newNodeView = new NodeView(nodeToAdd);
+			newNodeView.onNodeEditClicked = (n) => this.onNodeEdit(n.nodeName);
+			newNodeView.onNodeDeleteClicked = (n) => this.onNodeDelete(n.nodeName);
+
+			newNodeView.onNodeDragStart = (nodeView) => {
+				if (this.selectedNodeViews.has(nodeView) == false) {
+					// We started dragging a node view that wasn't selected.
+					// Clear the selection state and replace it with just this
+					// selection.
+					this.selectedNodeViews.forEach(nv => nv.element.classList.remove("selected"));
+					this.selectedNodeViews.clear();
+					this.selectedNodeViews.add(nodeView);
+					nodeView.element.classList.add("selected");
+					this.onSelectionChanged(this.selectedNodes);
+				}
+			};
+
+			newNodeView.onNodeDragMove = (nodeView, startPosition, currentPosition) => {
+
+				const startViewSpace = this.convertToViewSpace(startPosition);
+				const currentViewSpace = this.convertToViewSpace(currentPosition);
+
+				const dragDeltaViewSpace = {
+					x: currentViewSpace.x - startViewSpace.x,
+					y: currentViewSpace.y - startViewSpace.y,
+				};
+
+				this.selectedNodeViews.forEach(nv => {
+					nv.translate(dragDeltaViewSpace);
+				});
+
+				this.refreshLines();
+				
+				var groupViews = Array.from(this.groupViews.values()).filter(gv => gv.nodeViews.includes(nodeView));
+
+				for (const groupView of groupViews) {
+					groupView.refreshSize();
+				}
+			};
+
+			newNodeView.onNodeDragEnd = (nodeView) => {
+				var positions: Record<string, Position> = {};
+
+				this.selectedNodeViews.forEach(v => {
+					positions[v.nodeName] = v.position;
+				});
+				this.onNodesMoved(positions);
+			};
+
+			this.nodeViews.set(nodeToAdd.title, newNodeView);
+
+			this.nodesContainer.appendChild(newNodeView.element);
+		}
+
+		for (const nodeToUpdate of updatedNodes) {
+
+			const nodeView = this.nodeViews.get(nodeToUpdate.title);
+
+			if (nodeView) {
+				nodeView.nodeInfo = nodeToUpdate;
+			}
+
+		}
 	}
 
 	private refreshLines() {
