@@ -11,15 +11,9 @@
     },
     "languageServerVersion": "349e5c3136d5e68063092a242326144303578282",
     "keywords": [
-        "yarn spinner",
         "yarnspinner",
-        "yarn",
-        "game writing",
         "narrative",
-        "tree",
-        "branch",
         "branching",
-        "dialog",
         "dialogue"
     ],
     "activationEvents": [
