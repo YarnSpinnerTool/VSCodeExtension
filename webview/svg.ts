@@ -2,6 +2,12 @@ import * as CurvedArrows from 'curved-arrows';
 import { NodeView } from "./NodeView";
 import { NodeSize } from "./constants";
 
+enum ArrowConstraints {
+    None,
+    LeftToRight,
+    RightToLeft,
+}
+
 const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
 /**
  * Creates an SVG element that contains lines connecting the indicated nodes.
@@ -12,7 +18,7 @@ const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
  * color) of the lines.
  * @returns An SVGElement containing lines between the provided nodes.
  */
-export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9, lineThickness = 2, color = VSCODE_COLOR_LINE_CHART): SVGElement {
+export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9, lineThickness = 2, color = VSCODE_COLOR_LINE_CHART, constraints = ArrowConstraints.LeftToRight): SVGElement {
 
     type ArrowDescriptor = [
         sx: number,
@@ -36,6 +42,23 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
             let fromSize = NodeSize;
             let toSize = NodeSize;
 
+            var allowedDirections: CurvedArrows.ArrowOptions = {};
+
+            switch (constraints) {
+                case ArrowConstraints.LeftToRight:
+                    allowedDirections.allowedStartSides = ['right', 'bottom']
+                    allowedDirections.allowedEndSides = ['left', 'top']
+                    break;
+                case ArrowConstraints.RightToLeft:
+                    allowedDirections.allowedStartSides = ['left', 'bottom']
+                    allowedDirections.allowedEndSides = ['right', 'top']
+                    break;
+                case ArrowConstraints.RightToLeft:
+                    allowedDirections.allowedStartSides = []
+                    allowedDirections.allowedEndSides = []
+                    break;
+            }
+
             const arrow = CurvedArrows.getBoxToBoxArrow(
                 fromPosition.x,
                 fromPosition.y,
@@ -47,7 +70,10 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
                 toSize.width,
                 toSize.height,
 
-                { padEnd: arrowHeadSize }
+                {
+                    padEnd: arrowHeadSize,
+                    ...allowedDirections
+                }
             ) as ArrowDescriptor;
 
             arrowDescriptors.push(arrow);

@@ -4,6 +4,16 @@
 
 ### Added
 
+- Arrows between nodes now always leave a node at the bottom or the right edge, and enter at the top or left edge, which makes it easier to read the graph as a left-to-right flow.
+
+### Changed
+
+### Removed
+
+## [2.2.106]
+
+### Added
+
 - Added the ability to jump to the graph view from a text view, by clicking "Show in Graph View" above a node's title.
 - Added the ability to select multiple nodes in the graph view.
   - To select nodes, click and drag inside the graph view.
