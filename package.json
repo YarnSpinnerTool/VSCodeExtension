@@ -9,7 +9,7 @@
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
-    "languageServerVersion": "349e5c3136d5e68063092a242326144303578282",
+    "languageServerVersion": "31b8a04c1733208f266494b690f74e5613831a78",
     "keywords": [
         "yarnspinner",
         "narrative",
@@ -37,21 +37,15 @@
     "telemetryKey": "6fafead2-0494-4fc6-a960-90ef5ef8e5c6",
     "scripts": {
         "vscode:prepublish": "npm run buildProduction",
-
         "buildExtension": "tsc -p ./src/tsconfig.json && cp src/runner.html out/",
-
         "buildWebViewDevelopment": "webpack --mode=development -c ./webview/webpack.config.js",
         "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js",
-
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
         "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewProduction",
-
         "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
         "buildServerProduction": "env-cmd --no-override -x dotnet publish -c Debug -o out/server '$LANGUAGESERVER_CSPROJ_PATH'",
-
         "buildDebug": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeDevelopment\" \"npm:buildServerDevelopment\"",
         "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",
-        
         "lint": "eslint . --ext .ts,.tsx",
         "test": "tsc -p ./src/tsconfig.json; jest"
     },
