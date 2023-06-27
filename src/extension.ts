@@ -27,13 +27,17 @@ let reporter: TelemetryReporter;
 let client: LanguageClient;
 let server: ChildProcess;
 
-// If true, the language server will wait for a debugger to connect before
-// booting
-const LANGUAGESERVER_DEBUG = false;
-
 export type YarnData = {
     stringTable: { [key: string]: string },
     programData: number[]
+}
+
+export function isStandaloneYarnSpinnerEditor() {
+    if (vscode.env.appName === "Yarn Spinner") {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // this method is called when your extension is activated
@@ -65,9 +69,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (enableLanguageServer) {
         // The language server is enabled. Launch it!
-        launchLanguageServer(context, configs, outputChannel);
-
-        
+        launchLanguageServer(context, configs, outputChannel);        
     } else {
         // The language server is not enabled. 
         outputChannel.appendLine("Launching without language server enabled.");
@@ -121,9 +123,12 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             }
             server = spawn(languageServerExe, [
                 absoluteLanguageServerPath,
-                ...([LANGUAGESERVER_DEBUG ? "--waitForDebugger" : ""])
+                ...([isDebugMode() ? "--waitForDebugger" : ""])
             ]);
-            vscode.window.showInformationMessage(`Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`);
+        
+            if (isDebugMode()) {
+                vscode.window.showInformationMessage(`Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`);
+            }
             return server;
         }
     // {
@@ -150,11 +155,16 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         errorHandler: {
             error(error, message, count) {
                 reporter.sendTelemetryException(error);
+                vscode.window.showErrorMessage("Language server error");
                 return { action: languageClient.ErrorAction.Continue };
             },
             closed: () => {
                 reporter.sendTelemetryErrorEvent("serverConnectionClosed");
-                return { action: languageClient.CloseAction.Restart }
+                if (isDebugMode()) {
+                    return { action: languageClient.CloseAction.DoNotRestart };
+                } else {
+                    return { action: languageClient.CloseAction.Restart }
+                }
             }
         },
         outputChannel: outputChannel,
@@ -183,14 +193,12 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     const onDidRequestNodeInGraphView = new EventEmitter<DidRequestNodeInGraphViewParams>();
 
     client = new languageClient.LanguageClient(
-        "yarnspinner",
-        "Yarn Spinner",
+        "yarnspinner", // id
+        "Yarn Spinner", // name
         languageServerOptions,
         languageClientOptions,
-        true
+        true // force into debug mode
     );
-
-    
 
     // Hook the handleFailedRequest method of our LanguageClient so that we can
     // fire off telemetry every time a request fails (which indicates an error
@@ -269,7 +277,16 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
         // Ensure that a graph view is open with this URI before firing the
         // 'show the node' event
-        await vscode.commands.executeCommand("vscode.openWith", vscode.Uri.parse(uri), YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
+
+        if (isStandaloneYarnSpinnerEditor()) {
+            // Work around a bug in the standalone editor's app shell where
+            // opening a custom editor in a specific column puts it in a failing
+            // state
+            await vscode.commands.executeCommand("vscode.openWith", vscode.Uri.parse(uri), YarnSpinnerEditorProvider.viewType);
+        } else {
+            // Open the editor in the column beside us
+            await vscode.commands.executeCommand("vscode.openWith", vscode.Uri.parse(uri), YarnSpinnerEditorProvider.viewType, vscode.ViewColumn.Beside);
+        }
 
         // Fire the event and let the (possibly just-opened) editor that we want
         // to show the node
@@ -295,6 +312,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.extract-spreadsheet",
             arguments: [
+                vscode.window.activeTextEditor?.document.uri,
                 format,
                 columns,
                 defaultName,
@@ -311,7 +329,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         }
         if (!(format == "csv" || format == "xlsx"))
         {
-            vscode.window.showErrorMessage(`Unable to export sheet, no format must be either "csv" or "xlsx"`);
+            vscode.window.showErrorMessage(`Unable to export sheet, format must be either "csv" or "xlsx"`);
             return;
         }
         // columns must include a minimum of id and text
@@ -330,7 +348,8 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         request.then(result => {
             if (result.errors.length == 0)
             {
-                // the LS base64 encodes the bytearray so we need to reverse that before we can use it
+                // the LS base64 encodes the bytearray so we need to reverse
+                // that before we can use it
                 let dataString = result.file as any;
                 let data = Buffer.from(dataString, "base64");
 
@@ -425,6 +444,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.create-graph",
             arguments: [
+                vscode.window.activeTextEditor?.document.uri,
                 format,
                 clustering
             ]

@@ -40,6 +40,9 @@
             "args": [
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
+            "env": {
+                "VSCODE_DEBUG_MODE": "true"
+            },
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
@@ -72,6 +75,7 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
+            "requireExactSource": false,
             // "processName": "dotnet YarnLanguageServer.dll --waitForDebugger"
         }
     ]

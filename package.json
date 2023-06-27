@@ -2,14 +2,14 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "2.2.1",
+    "version": "2.3.1-lsp-new-workspace.1",
     "homepage": "https://yarnspinner.dev",
     "repository": "https://github.com/YarnSpinnerTool/VSCodeExtension",
     "license": "MIT",
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
-    "languageServerVersion": "6abc794a4a3d854ec70f000b282286e5f33e610b",
+    "languageServerVersion": "3ac66e7703cc3435e90f4a1ab6ea8908ac3617d9",
     "keywords": [
         "yarnspinner",
         "narrative",
@@ -47,7 +47,8 @@
         "buildDebug": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeDevelopment\" \"npm:buildServerDevelopment\"",
         "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",
         "lint": "eslint . --ext .ts,.tsx",
-        "test": "tsc -p ./src/tsconfig.json; jest"
+        "test": "tsc -p ./src/tsconfig.json; jest",
+        "exportLocal": "vsce package"
     },
     "devDependencies": {
         "@interactjs/types": "^1.10.17",
