@@ -4,12 +4,18 @@
 
 ### Added
 
-- Arrows between nodes now always leave a node at the bottom or the right edge, and enter at the top or left edge, which makes it easier to read the graph as a left-to-right flow.
-- Code completion has been re-written, and should now be much faster and more reliable.
-
 ### Changed
 
+- Fixed a bug where Yarn files in workspaces that don't have a .yarnproject file would fail to work correctly.
+
 ### Removed
+
+## [2.2.119]
+
+### Added
+
+- Arrows between nodes now always leave a node at the bottom or the right edge, and enter at the top or left edge, which makes it easier to read the graph as a left-to-right flow.
+- Code completion has been re-written, and should now be much faster and more reliable.
 
 ## [2.2.106]
 
