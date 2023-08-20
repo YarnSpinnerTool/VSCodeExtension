@@ -480,6 +480,17 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             vscode.window.showErrorMessage("Error in the language server: " + error.toString());
         });
     }));
+
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.generateDebugOutput", () => {
+        getDebugOutput(client).then((debugOutput) => {
+            for (const item of debugOutput) {
+                
+                var outputFile = vscode.Uri.parse(item.sourceProjectUri + ".debuginfo.json");
+                
+                fs.writeFile(outputFile.fsPath, JSON.stringify(item), () => { });
+            }
+        });
+    }));
 }
 
 async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
@@ -502,6 +513,22 @@ async function compileWorkspace(client: languageClient.LanguageClient): Promise<
     };
 
     return yarnData;
+}
+
+type DebugOutputResponse = {
+    sourceProjectUri: languageClient.DocumentUri
+    variables: any[]
+}[]
+
+async function getDebugOutput(client: languageClient.LanguageClient): Promise<DebugOutputResponse> {
+    const params: languageClient.ExecuteCommandParams = {
+        command: "yarnspinner.generateDebugOutput",
+        arguments: [],
+    };
+
+    let result: DebugOutputResponse = await client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+
+    return result;
 }
 
 export function getDefaultUri(): vscode.Uri {
