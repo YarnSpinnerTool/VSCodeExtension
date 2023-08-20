@@ -126,8 +126,11 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 ...([isDebugMode() ? "--waitForDebugger" : ""])
             ]);
         
+            const launchMessage = `Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`;
             if (isDebugMode()) {
-                vscode.window.showInformationMessage(`Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`);
+                vscode.window.showInformationMessage(launchMessage);
+            } else {
+                outputChannel.appendLine(launchMessage);
             }
             return server;
         }
