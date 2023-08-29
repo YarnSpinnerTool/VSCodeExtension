@@ -447,7 +447,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.create-graph",
             arguments: [
-                vscode.window.activeTextEditor?.document.uri,
+                vscode.window.activeTextEditor?.document.uri.toString(),
                 format,
                 clustering
             ]
