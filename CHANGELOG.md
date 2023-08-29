@@ -6,7 +6,13 @@
 
 ### Changed
 
+### Removed
+
+## [2.2.128] 2023-08-29
+
 - Fixed a bug where Yarn files in workspaces that don't have a .yarnproject file would fail to work correctly.
+- Improved code completion to be more reliable.
+- Fixed a bug where lines that contain no character names but do contain a `#line:` tag would have incorrect syntax highlighting.
 
 ### Removed
 

@@ -2,14 +2,14 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "2.3.2-line-groups.1",
+    "version": "2.3.2",
     "homepage": "https://yarnspinner.dev",
     "repository": "https://github.com/YarnSpinnerTool/VSCodeExtension",
     "license": "MIT",
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
-    "languageServerVersion": "cf47b6ce39d7e991aca3624e841ce7de4bff464e",
+    "languageServerVersion": "08b98d32d639f826b5134b20514be6154a37fac1",
     "keywords": [
         "yarnspinner",
         "narrative",
