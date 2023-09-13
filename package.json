@@ -137,6 +137,11 @@
                 "enablement": "config.yarnspinner.enableExperimentalFeatures"
             }
         ],
+        "configurationDefaults": {
+            "files.associations": {
+                "*.yarnproject": "jsonc"
+            }
+        },
         "languages": [
             {
                 "id": "yarnspinner",
