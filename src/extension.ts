@@ -187,7 +187,8 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             fileEvents: [
                 vscode.workspace.createFileSystemWatcher("**/*.yarn"),
                 vscode.workspace.createFileSystemWatcher("**/*.cs"),
-                vscode.workspace.createFileSystemWatcher("**/*.ysls.json")
+                vscode.workspace.createFileSystemWatcher("**/*.ysls.json"),
+                vscode.workspace.createFileSystemWatcher("**/*.yarnproject")
             ],
         },
     };
