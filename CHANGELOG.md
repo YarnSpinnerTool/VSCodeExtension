@@ -13,6 +13,7 @@
 - Fixed a bug where Yarn files in workspaces that don't have a .yarnproject file would fail to work correctly.
 - Improved code completion to be more reliable.
 - Fixed a bug where lines that contain no character names but do contain a `#line:` tag would have incorrect syntax highlighting.
+- Fixed a bug where certain built-in functions like `dice()` would not type-check correctly.
 
 ### Removed
 
