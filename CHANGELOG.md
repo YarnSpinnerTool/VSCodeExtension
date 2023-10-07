@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Fixed a bug where not all language server features would successfully register (and would present as a random subset of features, like code completion or code lens, would simply not work.)
+
 ### Removed
 
 ## [2.2.128] 2023-08-29

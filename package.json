@@ -131,9 +131,9 @@
                 "title": "Export Dialogue as Graph..."
             },
             {
-                "command": "yarnspinner.generateDebugOutput",
+                "command": "yarnspinner.exportDebugOutput",
                 "category": "Yarn Spinner",
-                "title": "Generate Debug Output",
+                "title": "Export Debug Output",
                 "enablement": "config.yarnspinner.enableExperimentalFeatures"
             }
         ],

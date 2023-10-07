@@ -305,7 +305,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }));
 
     // recording strings extraction command
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.extract", () => {
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.export-spreadsheet", () => {
 
         var configs = vscode.workspace.getConfiguration("yarnspinner");
         let format = configs.get<string>("extract.format");
@@ -482,7 +482,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         });
     }));
 
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.generateDebugOutput", () => {
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.exportDebugOutput", () => {
         getDebugOutput(client).then((debugOutput) => {
             for (const item of debugOutput) {
                 
