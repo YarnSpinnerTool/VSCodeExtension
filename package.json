@@ -9,7 +9,7 @@
     "sponsor": {
         "url": "https://patreon.com/secretlab"
     },
-    "languageServerVersion": "5179d86db1742582decdb6e4cebdbcf3162f6114",
+    "languageServerVersion": "v2.4.0",
     "keywords": [
         "yarnspinner",
         "narrative",
@@ -111,7 +111,7 @@
                 "title": "Show Graph"
             },
             {
-                "command": "yarnspinner.extract",
+                "command": "yarnspinner.export-spreadsheet",
                 "category": "Yarn Spinner",
                 "title": "Export Dialogue as Recording Spreadsheet..."
             },
