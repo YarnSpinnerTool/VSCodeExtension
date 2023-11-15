@@ -2,7 +2,7 @@
     "name": "yarn-spinner",
     "displayName": "Yarn Spinner",
     "description": "Adds support for the Yarn Spinner dialogue language.",
-    "version": "2.3.2",
+    "version": "2.4.0",
     "homepage": "https://yarnspinner.dev",
     "repository": "https://github.com/YarnSpinnerTool/VSCodeExtension",
     "license": "MIT",
