@@ -6,18 +6,39 @@
 
 ### Changed
 
-- Fixed a bug where not all language server features would successfully register (and would present as a random subset of features, like code completion or code lens, would simply not work.)
-
 ### Removed
 
+## [2.4.3] 2023-11-22
+
+### Changed
+
+- Fixed an issue where the built-in function declarations were missing their return type annotations.
+- Updated the schema for .ysls.json files:
+  - Commands may no longer specify a return type.
+  - Functions must now specify a return type.
+  - Changed the definition of 'types' to be an enum of "string", "number", "bool", or "any".
+    - Enums in JSON schema are type sensitive, so a warning will be issued for types that have capital letters. To fix these warnings, change your type names in your `.ysls.json` file to be lowercase. (These warnings have no impact on your Yarn script editing experience or runtime behaviour.)
+
+## [2.4.0] 2023-11-15
+
+### Changed
+
+- Updated to Yarn Spinner v2.4.0.
+
+## [2.2.137] 2023-10-07
+
+### Changed
+
+- Fixed a bug where not all language server features would successfully register (and would present as a random subset of features, like code completion or code lens, would simply not work.)
+
 ## [2.2.128] 2023-08-29
+
+### Changed
 
 - Fixed a bug where Yarn files in workspaces that don't have a .yarnproject file would fail to work correctly.
 - Improved code completion to be more reliable.
 - Fixed a bug where lines that contain no character names but do contain a `#line:` tag would have incorrect syntax highlighting.
 - Fixed a bug where certain built-in functions like `dice()` would not type-check correctly.
-
-### Removed
 
 ## [2.2.119]
 
