@@ -6,9 +6,13 @@
 
 ### Changed
 
-- Updated to Yarn Spinner v2.4.2.
-
 ### Removed
+
+## [2.4.4] 2024-02-27
+
+### Changed
+
+- Updated to Yarn Spinner v2.4.2.
 
 ## [2.4.3] 2023-11-22
 
