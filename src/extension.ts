@@ -17,6 +17,7 @@ import { DidChangeNodesParams, VOStringExport } from './nodes';
 import { YarnPreviewPanel } from './preview';
 import { LanguageClient } from 'vscode-languageclient/node';
 import { ChildProcess, spawn } from 'child_process';
+import { unescape } from 'querystring';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -305,7 +306,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
     }));
 
     // recording strings extraction command
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.export-spreadsheet", () => {
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.export-spreadsheet", async () => {
 
         var configs = vscode.workspace.getConfiguration("yarnspinner");
         let format = configs.get<string>("extract.format");
@@ -313,10 +314,15 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         let defaultName = configs.get<string>("extract.defaultCharacter");
         let useChars = configs.get<boolean>("extract.includeCharacters");
 
+        const uri = await getOrChooseProjectUri();
+        if (!uri) {
+            return;
+        }
+
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.extract-spreadsheet",
             arguments: [
-                vscode.window.activeTextEditor?.document.uri,
+                uri.toString(),
                 format,
                 columns,
                 defaultName,
@@ -357,10 +363,15 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 let dataString = result.file as any;
                 let data = Buffer.from(dataString, "base64");
 
-                let defaultURI = vscode.Uri.joinPath(getDefaultUri(), `lines.${format}`);
+                const workspaceURI = getActiveWorkspaceUri();
+                
+                let defaultDestinationURI : vscode.Uri | undefined;
+                if (workspaceURI) {
+                    defaultDestinationURI = vscode.Uri.joinPath(workspaceURI, `lines.${format}`);
+                } 
 
                 vscode.window.showSaveDialog({
-                    defaultUri: defaultURI
+                    defaultUri: defaultDestinationURI
                 }).then((uri: vscode.Uri | undefined) => {
                     if (uri)
                     {
@@ -428,7 +439,7 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 
     // ask the LSP to make a graph file and then save that
     // recording strings extraction command
-    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.graph", () => {
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.graph", async () => {
 
         var configs = vscode.workspace.getConfiguration("yarnspinner");
         let format = configs.get<string>("graph.format");
@@ -445,10 +456,19 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             return;
         }
 
+        let uri : vscode.Uri | undefined;
+
+        uri = await getOrChooseProjectUri();
+
+        if (!uri) {
+            // No available uri, or user cancelled.
+            return;
+        }
+
         const params: languageClient.ExecuteCommandParams = {
             command: "yarnspinner.create-graph",
             arguments: [
-                vscode.window.activeTextEditor?.document.uri.toString(),
+                uri.toString(),
                 format,
                 clustering
             ]
@@ -458,7 +478,14 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         request.then(result => {
 
             let fileForamt = format == "dot" ? "dot" : "mmd";
-            let defaultURI = vscode.Uri.joinPath(getDefaultUri(), `graph.${fileForamt}`);
+
+            const workspaceURI = getActiveWorkspaceUri();
+                
+            let defaultURI : vscode.Uri | undefined;
+            if (workspaceURI) {
+                defaultURI = vscode.Uri.joinPath(workspaceURI, `graph.${fileForamt}`);
+            } 
+
             vscode.window.showSaveDialog({
                 defaultUri: defaultURI
             }).then((uri: vscode.Uri | undefined) => {
@@ -495,9 +522,16 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
 }
 
 async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
+
+    const uri = await getOrChooseProjectUri();
+
+    if (!uri) {
+        return null;
+    }
+
     const params: languageClient.ExecuteCommandParams = {
         command: "yarnspinner.compile",
-        arguments: [vscode.window.activeTextEditor?.document.uri.toString()]
+        arguments: [uri.toString()]
     };
 
     let result: CompilerOutput = await client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
@@ -532,7 +566,133 @@ async function getDebugOutput(client: languageClient.LanguageClient): Promise<De
     return result;
 }
 
-export function getDefaultUri(): vscode.Uri {
+type ProjectInfo = {
+    uri: languageClient.DocumentUri,
+    files: languageClient.DocumentUri[],
+    isImplicitProject: boolean
+}
+
+async function listProjects(client: languageClient.LanguageClient): Promise<Array<ProjectInfo>> {
+    const params : languageClient.ExecuteCommandParams = {
+        command: "yarnspinner.listProjects",
+        arguments: []
+    };
+
+    let result = await client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+
+    return result;
+}
+
+async function getOrChooseProjectUri() : Promise<vscode.Uri | undefined> {
+
+    const projects = await listProjects(client);
+
+    // Is there a currently open text editor? We'll try to use that to figure
+    // out which project the user wants to work with.
+    const activeDocumentUri = vscode.window.activeTextEditor?.document.uri;
+    if (activeDocumentUri) {
+
+        let candidateProjects = new Set<ProjectInfo>();
+
+        // Search the projects to see if any of them claim it. If one (and only
+        // one) does, then that must be the project we should use. Otherwise,
+        // fall back to other behaviour.
+
+        for (const project of projects) {
+            for (const fileString of project.files) {
+                const fileURI = vscode.Uri.parse(fileString, true);
+                if (fileURI.toString() === activeDocumentUri.toString()) {
+                    // This project owns this file.
+                    candidateProjects.add(project);
+                    break;
+                }
+            }
+        }
+
+        if (candidateProjects.size === 1) {
+            // Precisely one project owns this file. Return its URI.
+            return vscode.Uri.parse(Array.from(candidateProjects.values())[0].uri, true);
+        }
+        
+        // Otherwise, either zero or >1 projects own this file.
+    }
+
+    if (projects.length === 1) {
+        if (projects[0].uri) {
+            return vscode.Uri.parse(projects[0].uri, true); ``
+        } else {
+            // The project doesn't have a URI, so we can't return it.
+            vscode.window.showErrorMessage("Internal error: the current project has no URI.");
+            return undefined;
+        }
+    } else if (projects.length === 0) {
+        // No projects in current workspace.
+        vscode.window.showErrorMessage("There are are no Yarn Projects open.");
+        return undefined;
+    } else {
+        // Multiple projects to choose from.
+        // Ask the user.
+
+        const getWorkspaceFolder = (p: ProjectInfo) => {
+            if (p.isImplicitProject || !p.uri) {
+                return undefined;
+            }
+            return vscode.workspace.getWorkspaceFolder(vscode.Uri.parse(p.uri, true))?.uri;
+        };
+
+        const workspaceFolders = new Set<vscode.Uri | undefined>(projects.map(p => getWorkspaceFolder(p)));
+
+        const getLabel = (project: ProjectInfo): string => {
+            // Attempt to fetch the URI for the project. If there isn't
+            // one, handle that.
+            const uriString = project.uri;
+            if (!uriString) {
+                if (project.isImplicitProject) {
+                    return "Implicit project";
+                } else {
+                    return "(unknown)"
+                }
+            }
+
+            // Figure out the workspace folder for this project.
+            const uri = vscode.Uri.parse(uriString, true);
+            const folder = vscode.workspace.getWorkspaceFolder(uri);
+
+            // If we have the folder, and this is the only workspace
+            // folder, remove that from the label. TODO: maybe instead
+            // we should visually group projects by workspace in the
+            // quickpick?
+            if (folder && workspaceFolders.size == 1) {
+                return unescape(uri.toString().replace(folder.uri.toString() + '/', "").split('/').join(path.sep));
+            } else {
+                if (uri.scheme === "file") {
+                    return uri.fsPath
+                } else {
+                    return unescape(uri.toString())
+                }
+            }
+
+        };
+
+        const quickPickItems = projects.map(p => ({
+            label: getLabel(p),
+            uri: vscode.Uri.parse(p.uri),
+        }));
+        const selected = await vscode.window.showQuickPick(quickPickItems, {
+            title: "Select a project:",
+        });
+
+        if (selected === undefined) {
+            // User cancelled.
+            return undefined;
+        } else {
+            return selected.uri;
+        }
+
+    }
+}
+
+export function getActiveWorkspaceUri(): vscode.Uri | undefined {
     // Are any workspaces open?
     if (vscode.workspace.workspaceFolders) {
         // Yes, one at least one is. Choose the workspace that the currently
@@ -549,8 +709,8 @@ export function getDefaultUri(): vscode.Uri {
             return vscode.workspace.workspaceFolders[0].uri;
         }
     }
-    // As a fallback, return an empty Uri.
-    return vscode.Uri.file('');
+    
+    return undefined;
 }
 
 async function stopServer(): Promise<void> {
