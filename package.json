@@ -264,6 +264,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Enable experimental Yarn Spinner extension features"
+                },
+                "yarnspinner.languageServerPath": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "If set, allows loading an alternative path to the language server DLL. This path is relative to the workspace. Only used if `#yarnspinner.EnableLanguageServer#` is set to `true`. (Requires Restart)"
                 }
             }
         },
