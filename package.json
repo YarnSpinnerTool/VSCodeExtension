@@ -17,8 +17,8 @@
         "dialogue"
     ],
     "activationEvents": [
-        "onLanguage:yarnspinner",
-        "onCustomEditor:yarnspinner.yarnNodes"
+        "workspaceContains:**/*.yarn",
+        "workspaceContains:**/*.yarnproject"
     ],
     "main": "./out/extension.js",
     "qna": false,

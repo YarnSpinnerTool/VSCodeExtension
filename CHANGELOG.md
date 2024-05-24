@@ -9,6 +9,7 @@
 - Fixed an issue where generating a graph view or spreadsheet view would fail if the current tab was not a text editor with a .yarn file open.
 - Updated VS Code engine from 1.63 to 1.74.
 - Commands that depend on the language server being online will now only appear in the command palette if the language server has started.
+- The extension will now activate when the workspace contains a .yarn or .yarnproject file, rather than waiting for a .yarn file to be opened.
 
 ### Removed
 
