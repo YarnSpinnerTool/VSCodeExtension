@@ -108,27 +108,32 @@
             {
                 "command": "yarnspinner.show-graph",
                 "category": "Yarn Spinner",
-                "title": "Show Graph"
+                "title": "Show Graph",
+                "enablement": "yarnspinner.languageServerLaunched"
             },
             {
                 "command": "yarnspinner.export-spreadsheet",
                 "category": "Yarn Spinner",
-                "title": "Export Dialogue as Recording Spreadsheet..."
+                "title": "Export Dialogue as Recording Spreadsheet...",
+                "enablement": "yarnspinner.languageServerLaunched"
             },
             {
                 "command": "yarnspinner.showPreview",
                 "category": "Yarn Spinner",
-                "title": "Preview Dialogue"
+                "title": "Preview Dialogue",
+                "enablement": "yarnspinner.languageServerLaunched"
             },
             {
                 "command": "yarnspinner.exportPreview",
                 "category": "Yarn Spinner",
-                "title": "Export Dialogue as HTML..."
+                "title": "Export Dialogue as HTML...",
+                "enablement": "yarnspinner.languageServerLaunched"
             },
             {
                 "command": "yarnspinner.graph",
                 "category": "Yarn Spinner",
-                "title": "Export Dialogue as Graph..."
+                "title": "Export Dialogue as Graph...",
+                "enablement": "yarnspinner.languageServerLaunched"
             },
             {
                 "command": "yarnspinner.exportDebugOutput",

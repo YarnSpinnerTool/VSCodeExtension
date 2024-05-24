@@ -519,6 +519,10 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
             }
         });
     }));
+
+    // Enable commands that depend upon the language server being online and the above commands being registered
+    vscode.commands.executeCommand('setContext', 'yarnspinner.languageServerLaunched', true);
+
 }
 
 async function compileWorkspace(client: languageClient.LanguageClient): Promise<YarnData | null> {
