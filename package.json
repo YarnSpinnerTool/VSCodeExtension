@@ -139,7 +139,13 @@
                 "command": "yarnspinner.exportDebugOutput",
                 "category": "Yarn Spinner",
                 "title": "Export Debug Output",
-                "enablement": "config.yarnspinner.enableExperimentalFeatures"
+                "enablement": "config.yarnspinner.enableExperimentalFeatures && yarnspinner.languageServerLaunched"
+            },
+            {
+                "command": "yarnspinner.createProject",
+                "category": "Yarn Spinner",
+                "title": "Create New Yarn Project...",
+                "enablement": "yarnspinner.languageServerLaunched"
             }
         ],
         "configurationDefaults": {

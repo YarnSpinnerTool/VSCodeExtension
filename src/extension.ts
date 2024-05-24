@@ -520,6 +520,36 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
         });
     }));
 
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.createProject", async () => {
+        // Create a new Yarn Project.
+
+        const workspaceURI = getActiveWorkspaceUri();
+
+        let defaultDestinationURI: vscode.Uri | undefined;
+        if (workspaceURI) {
+            defaultDestinationURI = vscode.Uri.joinPath(workspaceURI, `Project.yarnproject`);
+        }
+
+        const destinationUri = await vscode.window.showSaveDialog({
+            defaultUri: defaultDestinationURI
+        });
+
+        if (!destinationUri) {
+            return;
+        }
+
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.getEmptyYarnProjectJSON",
+            arguments: [ ]
+        };
+
+        
+        let json = await client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        fs.writeFileSync(destinationUri.fsPath, json);
+
+        vscode.commands.executeCommand('revealInExplorer', destinationUri);
+    }))
+
     // Enable commands that depend upon the language server being online and the above commands being registered
     vscode.commands.executeCommand('setContext', 'yarnspinner.languageServerLaunched', true);
 
