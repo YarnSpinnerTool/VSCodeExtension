@@ -7,6 +7,7 @@
 ### Changed
 
 - Fixed an issue where generating a graph view or spreadsheet view would fail if the current tab was not a text editor with a .yarn file open.
+- Updated VS Code engine from 1.63 to 1.74.
 
 ### Removed
 
