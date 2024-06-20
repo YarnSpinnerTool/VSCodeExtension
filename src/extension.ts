@@ -21,7 +21,7 @@ import { unescape } from 'querystring';
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
-const languageServerPath = process.env.LANGUAGESERVER_DLL_PATH ?? "out/server/YarnLanguageServer.dll"
+const builtInLanguageServerPath = "out/server/YarnLanguageServer.dll"
 
 let reporter: TelemetryReporter;
 
@@ -94,6 +94,64 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 }
 
+
+// Resolves a path for the language server provided in the settings
+function GetCustomLanguageServerPath(configs: vscode.WorkspaceConfiguration): string | null {
+
+    const key = "languageServerPath";
+    let dllPath = configs.get<string>(key);
+    
+    // Reject Whitespace paths
+    if (!dllPath || !dllPath.trim()) {
+        return null;
+    }
+
+    // return absolute paths unmodified
+    if (path.isAbsolute(dllPath)) {
+        return dllPath;
+    }
+
+    // if we're in a saved multi-root workspace, assume the path is relative to the .code-workspace file
+    var workspaceFile = vscode.workspace.workspaceFile;
+    if (workspaceFile?.scheme == "file") {
+        return path.resolve(path.dirname(workspaceFile.fsPath), dllPath);
+    }
+
+    // This gets a path for both single-folder and unsaved multi-folder workspaces
+    var folderPath = getActiveWorkspaceUri();
+    if (folderPath) {
+        return path.resolve(folderPath.fsPath, dllPath);
+    }
+
+    // Single file mode.
+    var fileUri = vscode.window.activeTextEditor?.document?.uri;
+    if (fileUri?.scheme == "file") {
+        return path.resolve(path.dirname(fileUri.fsPath), dllPath);
+    }
+
+    // The only remaining case is an unsaved workspace with no file open.
+    // This can occur by launching a yarn command from the menu
+    // we cannot reasonably support relative paths there.
+    vscode.window.showInformationMessage(`Could not find relative Language Server Path: ${dllPath}`);
+    return null;
+}
+
+function GetLanguageServerPath(context: vscode.ExtensionContext, configs: vscode.WorkspaceConfiguration) : 
+    [absolutePath: string, telemetrySafePath: string] {
+    const envPath = process.env.LANGUAGESERVER_DLL_PATH
+    if(envPath) {
+        const dllPath =  path.resolve(context.extensionPath, envPath)
+        return [dllPath, envPath];
+    }
+    const customPath = GetCustomLanguageServerPath(configs);
+    if(customPath){
+        return [customPath, "Custom"];
+    }
+    const dllPath = path.resolve(context.extensionPath, builtInLanguageServerPath);
+    return [dllPath, builtInLanguageServerPath];
+}
+
+
 async function launchLanguageServer(context: vscode.ExtensionContext, configs: vscode.WorkspaceConfiguration, outputChannel: vscode.OutputChannel) {
     
     const waitForDebugger = false;
@@ -112,15 +170,12 @@ async function launchLanguageServer(context: vscode.ExtensionContext, configs: v
                 reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
                 throw new Error('Can\'t load the language server: Failed to acquire .NET!');
             }
-        
-            
-        
             const languageServerExe = dotnetPath;
-            const absoluteLanguageServerPath = path.resolve(context.asAbsolutePath(languageServerPath));
+            const [absoluteLanguageServerPath, telemetrySafePath]  = GetLanguageServerPath(context, configs);
         
             if (fs.existsSync(absoluteLanguageServerPath) == false) {
-                reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": languageServerPath }, {}, ["path"]);
-                throw new Error(`Failed to launch language server: no file exists at ${languageServerPath}`);
+                reporter.sendTelemetryErrorEvent("missingLanguageServer", { "path": telemetrySafePath }, {}, ["path"]);
+                throw new Error(`Failed to launch language server: no file exists at ${absoluteLanguageServerPath}`);
             }
             server = spawn(languageServerExe, [
                 absoluteLanguageServerPath,
