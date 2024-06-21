@@ -97,24 +97,28 @@ export async function activate(context: vscode.ExtensionContext) {
 async function launchLanguageServer(context: vscode.ExtensionContext, configs: vscode.WorkspaceConfiguration, outputChannel: vscode.OutputChannel) {
     
     const waitForDebugger = false;
-    
+
     let languageServerOptions: languageClient.ServerOptions =
-    async (): Promise<ChildProcess> => {
+        async (): Promise<ChildProcess> => {
             // Ensure .net 6.0 is installed and available
             interface IDotnetAcquireResult {
                 dotnetPath: string;
             }
-        
-            const dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
-        
+
+            let dotnetAcquisition: IDotnetAcquireResult;
+
+            try {
+                dotnetAcquisition = await vscode.commands.executeCommand<IDotnetAcquireResult>('dotnet.acquire', { version: '6.0', requestingExtensionId: 'yarn-spinner' });
+            } catch (err) {
+                vscode.window.showErrorMessage("Error acquiring .NET: " + (err as any).toString());
+                throw err;
+            }
+
             const dotnetPath = dotnetAcquisition?.dotnetPath ?? null;
             if (!dotnetPath) {
                 reporter.sendTelemetryErrorEvent("cantAcquireDotNet");
                 throw new Error('Can\'t load the language server: Failed to acquire .NET!');
             }
-        
-            
-        
             const languageServerExe = dotnetPath;
             const absoluteLanguageServerPath = path.resolve(context.asAbsolutePath(languageServerPath));
         
