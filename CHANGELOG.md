@@ -4,6 +4,8 @@
 
 ### Added
 
+- Added a setting to use a custom language server. This is an experimental feature to allow custom compilation extensions.
+
 ### Changed
 
 - Fixed an issue where generating a graph view or spreadsheet view would fail if the current tab was not a text editor with a .yarn file open.
