@@ -114,8 +114,9 @@ export class YarnPreviewPanel {
         let injectedYarnProgramScript = `
         <script>
         window.yarnData = {
-            programData : Uint8Array.from(${JSON.stringify(yarnData.programData)}),
-            stringTable : ${JSON.stringify(yarnData.stringTable)}
+            data : "${yarnData.programData}",
+            stringTable : ${JSON.stringify(yarnData.stringTable)},
+            metadataTable : ${JSON.stringify(yarnData.metadata)}
         };
         ${saveButton}
         </script>

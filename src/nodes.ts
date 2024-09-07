@@ -35,9 +35,18 @@ export interface DidRequestNodeInGraphViewParams {
     nodeName: string
 }
 
+export type MetadataEntry = {
+    id: string;
+    node: string;
+    lineNumber: string;
+    tags: string[];
+    [key: string]: unknown;
+};
+
 export interface CompilerOutput {
-    data: Uint8Array;
-    stringTable: { [key: string]: string };
+    data: string;
+    stringTable: Record<string,string>;
+    metadataTable: Record<string, MetadataEntry>;
     errors: string[];
 }
 export interface VOStringExport {

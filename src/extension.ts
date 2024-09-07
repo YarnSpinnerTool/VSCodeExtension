@@ -11,7 +11,7 @@ import { Trace } from "vscode-jsonrpc/node";
 import { YarnSpinnerEditorProvider } from './editor';
 import * as fs from 'fs';
 import { EventEmitter } from 'vscode';
-import { CompilerOutput, DidChangeNodesNotification, DidRequestNodeInGraphViewParams } from './nodes';
+import { CompilerOutput, DidChangeNodesNotification, DidRequestNodeInGraphViewParams, MetadataEntry } from './nodes';
 
 import { DidChangeNodesParams, VOStringExport } from './nodes';
 import { YarnPreviewPanel } from './preview';
@@ -29,8 +29,9 @@ let client: LanguageClient;
 let server: ChildProcess;
 
 export type YarnData = {
-    stringTable: { [key: string]: string },
-    programData: number[]
+    programData: string,
+    stringTable: Record<string, string>,
+    metadata: Record<string, MetadataEntry>
 }
 
 export function isStandaloneYarnSpinnerEditor() {
@@ -578,11 +579,10 @@ async function compileWorkspace(client: languageClient.LanguageClient): Promise<
         return null;
     }
     
-    let dataString = result.data as any; // turns out the server base64 encodes it
-
     let yarnData : YarnData = {
-        programData: Buffer.from(dataString, "base64").toJSON().data,
-        stringTable: result.stringTable
+        programData: result.data,
+        stringTable: result.stringTable,
+        metadata: result.metadataTable,
     };
 
     return yarnData;
