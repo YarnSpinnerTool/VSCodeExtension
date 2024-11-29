@@ -5,10 +5,10 @@ on:
   # Triggers the workflow on push or pull request events but only for the develop branch (for now)
   push:
     branches:
-      - '*'
+      - "*"
   pull_request:
     branches:
-      - '*'
+      - "*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -41,10 +41,10 @@ jobs:
           repository: "YarnSpinnerTool/YarnSpinner"
           path: YarnSpinner
           ref: ${{ env.LANGUAGESERVER_REF }}
-        
+
       - name: Fetch all history and tags from all branches for gitversion
         run: git fetch --prune --unshallow
-      
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
 
@@ -53,22 +53,22 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-        
+
       - name: Clean install dependencies
         run: npm ci
 
       - name: Run unit tests
         run: npm test
-      
+
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-            versionSpec: '5.x'
+          versionSpec: "5.x"
 
       - name: Execute GitVersion
         id: gitversion # step id used as reference for output values
         uses: gittools/actions/gitversion/execute@v0.9.7
-        
+
       - name: Print version information
         run: |
           echo "Major: ${{ steps.gitversion.outputs.major }}"
@@ -80,7 +80,7 @@ jobs:
       - name: Update metadata in package.json
         uses: onlyutkarsh/patch-files-action@v1.0.1
         with:
-          files: '${{github.workspace}}/package.json'
+          files: "${{github.workspace}}/package.json"
           patch-syntax: |
             = /version => "${{ steps.gitversion.outputs.semVer }}"
 
@@ -90,12 +90,12 @@ jobs:
         if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[release]' ) }}
         run: |
           echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
-      
+
       - name: Compile and create .vsix
-        env: 
+        env:
           LANGUAGESERVER_CSPROJ_PATH: ./YarnSpinner/YarnSpinner.LanguageServer/YarnLanguageServer.csproj
         run: npx vsce package ${{ env.RELEASE_FLAG }}
-        
+
       - name: Upload .vsix as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -109,4 +109,3 @@ jobs:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
           npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
-        
