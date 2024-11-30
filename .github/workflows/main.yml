@@ -82,7 +82,7 @@ jobs:
         with:
           files: "${{github.workspace}}/package.json"
           patch-syntax: |
-            = /version => "${{ steps.gitversion.outputs.semVer }}"
+            = /version => "${{ steps.gitversion.outputs.majorMinorPatch }}"
 
       #  If is a push, and the commit message does not contain the string
       #  '[release]', build as pre-release. (This is used in the final step.)
@@ -99,8 +99,8 @@ jobs:
       - name: Upload .vsix as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
-          path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
+          name: yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
+          path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
 
       # If this is a push to the main branch, publish to the Marketplace using our configuration.
       - name: Publish to Marketplace
@@ -108,4 +108,4 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.semVer}}.vsix
+          npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
