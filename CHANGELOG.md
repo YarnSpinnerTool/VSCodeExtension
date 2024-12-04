@@ -14,6 +14,8 @@
 
 ### Removed
 
+- The 'node' snippet, which creates a new node, has been removed. (It was being offered at locations where it was syntactically invalid to appear.)
+
 ## [2.4.6] 2024-02-27
 
 ### Changed
