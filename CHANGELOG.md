@@ -11,6 +11,7 @@
 - Commands that depend on the language server being online will now only appear in the command palette if the language server has started.
 - The extension will now activate when the workspace contains a .yarn or .yarnproject file, rather than waiting for a .yarn file to be opened.
 - Added a command to create a new `.yarnproject` file in the workspace.
+- Nodes in a node group now show the complexity score for their conditions.
 
 ### Removed
 
