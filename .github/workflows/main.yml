@@ -17,6 +17,10 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    env:
+      RELEASE_FLAG: false
+      LANGUAGESERVER_REF: "000000"
+
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -60,29 +64,16 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: "6.x"
-
-      - name: Execute GitVersion
-        id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.7
-
-      - name: Print version information
-        run: |
-          echo "Major: ${{ steps.gitversion.outputs.major }}"
-          echo "Minor: ${{ steps.gitversion.outputs.minor }}"
-          echo "Patch: ${{ steps.gitversion.outputs.patch }}"
-          echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
-          echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
+      - name: Get version
+        id: version
+        run: ./get-version.sh
 
       - name: Update metadata in package.json
         uses: onlyutkarsh/patch-files-action@v1.0.1
         with:
           files: "${{github.workspace}}/package.json"
           patch-syntax: |
-            = /version => "${{ steps.gitversion.outputs.majorMinorPatch }}"
+            = /version => "${{ steps.version.outputs.MajorMinorCommits }}"
 
       #  If is a push, and the commit message does not contain the string
       #  '[release]', build as pre-release. (This is used in the final step.)
@@ -99,8 +90,8 @@ jobs:
       - name: Upload .vsix as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
-          path: ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
+          name: yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+          path: ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
 
       # If this is a push to the main branch, publish to the Marketplace using our configuration.
       - name: Publish to Marketplace
@@ -108,4 +99,4 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.gitversion.outputs.majorMinorPatch}}.vsix
+          npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
