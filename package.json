@@ -151,6 +151,10 @@
         "configurationDefaults": {
             "files.associations": {
                 "*.yarnproject": "jsonc"
+            },
+            "[yarnspinner]": {
+                "editor.bracketPairColorization.enabled": false,
+                "editor.colorDecorators": false
             }
         },
         "languages": [
