@@ -146,6 +146,12 @@
                 "category": "Yarn Spinner",
                 "title": "Create New Yarn Project...",
                 "enablement": "yarnspinner.languageServerLaunched"
+            },
+            {
+                "command": "yarnspinner.tag-lines",
+                "category": "Yarn Spinner",
+                "title": "Add Yarn Spinner line tags",
+                "enablement": "yarnspinner.languageServerLaunched"
             }
         ],
         "configurationDefaults": {
