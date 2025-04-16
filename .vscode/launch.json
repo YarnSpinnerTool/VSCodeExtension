@@ -3,18 +3,14 @@
 // Hover to view descriptions of existing attributes.
 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
-	"version": "0.2.0",
+    "version": "0.2.0",
     "configurations": [
         {
             "name": "Test",
             "request": "launch",
-            "runtimeArgs": [
-                "test",
-            ],
+            "runtimeArgs": ["test"],
             "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": ["<node_internals>/**"],
             "type": "node"
         },
         {
@@ -40,24 +36,21 @@
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
-            ],
+                "**/app/out/vs/*"
+            ]
         },
-         {
+        {
             "name": "Extension + LS",
             "type": "extensionHost",
             "preLaunchTask": "build-debug",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
-            ],
-            "env": {
-                "VSCODE_DEBUG_MODE": "true"
-            },
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
-            ],
+                "**/app/out/vs/*"
+            ]
         },
         {
             "name": "Extension + LS (release)",
@@ -65,12 +58,8 @@
             "preLaunchTask": "build-production",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
-            ],
-            "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-            ],
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "skipFiles": ["${workspaceFolder}/node_modules/**/*.js"]
         },
         // {
         //     "name": "Extension + LS (Release)",
@@ -86,7 +75,7 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
-            "requireExactSource": false,
+            "requireExactSource": false
             // "processName": "dotnet YarnLanguageServer.dll --waitForDebugger"
         }
     ]

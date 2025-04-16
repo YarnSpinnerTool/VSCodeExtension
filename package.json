@@ -48,7 +48,8 @@
         "buildProduction": "concurrently --timings --kill-others-on-fail \"npm:buildVSCodeProduction\" \"npm:buildServerProduction\"",
         "lint": "eslint . --ext .ts,.tsx",
         "test": "tsc -p ./src/tsconfig.json; jest",
-        "exportLocal": "vsce package"
+        "exportLocal": "vsce package",
+        "prepare": "husky"
     },
     "devDependencies": {
         "@interactjs/types": "^1.10.17",
@@ -61,9 +62,12 @@
         "concurrently": "^7.5.0",
         "env-cmd": "^10.1.0",
         "eslint": "^7.21.0",
+        "husky": "^9.1.7",
         "jest": "^27.1.1",
         "jest-each": "^27.1.1",
         "leader-line-types": "^1.0.5-2",
+        "lint-staged": "^15.5.1",
+        "prettier": "3.5.3",
         "ts-jest": "^27.0.5",
         "ts-loader": "^9.4.1",
         "typescript": "^4.2.2",
@@ -301,5 +305,8 @@
     },
     "extensionDependencies": [
         "ms-dotnettools.vscode-dotnet-runtime"
-    ]
+    ],
+    "lint-staged": {
+        "*.{ts,tsx,js,css,md,json}": "prettier --write"
+    }
 }

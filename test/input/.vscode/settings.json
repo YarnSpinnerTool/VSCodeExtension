@@ -1,12 +1,7 @@
 {
     "json.schemas": [
-        
-        
-
         {
-            "fileMatch": [
-                "**/*.ysls.json"
-            ],
+            "fileMatch": ["**/*.ysls.json"],
             "url": "/yarnspinnerlanguageserver.schema.json"
         }
     ],

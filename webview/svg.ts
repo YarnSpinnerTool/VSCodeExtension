@@ -1,4 +1,4 @@
-import * as CurvedArrows from 'curved-arrows';
+import * as CurvedArrows from "curved-arrows";
 import { NodeView } from "./NodeView";
 import { NodeSize } from "./constants";
 
@@ -8,7 +8,7 @@ enum ArrowConstraints {
     RightToLeft,
 }
 
-const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
+const VSCODE_COLOR_LINE_CHART = "var(--vscode-charts-lines)";
 /**
  * Creates an SVG element that contains lines connecting the indicated nodes.
  * @param nodes The nodes to draw lines between.
@@ -18,8 +18,13 @@ const VSCODE_COLOR_LINE_CHART = 'var(--vscode-charts-lines)';
  * color) of the lines.
  * @returns An SVGElement containing lines between the provided nodes.
  */
-export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9, lineThickness = 2, color = VSCODE_COLOR_LINE_CHART, constraints = ArrowConstraints.LeftToRight): SVGElement {
-
+export function getLinesSVGForNodes(
+    nodes: Iterable<NodeView>,
+    arrowHeadSize = 9,
+    lineThickness = 2,
+    color = VSCODE_COLOR_LINE_CHART,
+    constraints = ArrowConstraints.LeftToRight,
+): SVGElement {
     type ArrowDescriptor = [
         sx: number,
         sy: number,
@@ -31,7 +36,7 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
         ey: number,
         ae: number,
         as: number,
-        type: "Jump" | "Detour"
+        type: "Jump" | "Detour",
     ];
 
     let arrowDescriptors: ArrowDescriptor[] = [];
@@ -47,52 +52,53 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
 
             switch (constraints) {
                 case ArrowConstraints.LeftToRight:
-                    allowedDirections.allowedStartSides = ['right', 'bottom']
-                    allowedDirections.allowedEndSides = ['left', 'top']
+                    allowedDirections.allowedStartSides = ["right", "bottom"];
+                    allowedDirections.allowedEndSides = ["left", "top"];
                     break;
                 case ArrowConstraints.RightToLeft:
-                    allowedDirections.allowedStartSides = ['left', 'bottom']
-                    allowedDirections.allowedEndSides = ['right', 'top']
+                    allowedDirections.allowedStartSides = ["left", "bottom"];
+                    allowedDirections.allowedEndSides = ["right", "top"];
                     break;
                 case ArrowConstraints.RightToLeft:
-                    allowedDirections.allowedStartSides = []
-                    allowedDirections.allowedEndSides = []
+                    allowedDirections.allowedStartSides = [];
+                    allowedDirections.allowedEndSides = [];
                     break;
             }
 
-            const arrow = [...CurvedArrows.getBoxToBoxArrow(
-                fromPosition.x,
-                fromPosition.y,
-                fromSize.width,
-                fromSize.height,
+            const arrow = [
+                ...CurvedArrows.getBoxToBoxArrow(
+                    fromPosition.x,
+                    fromPosition.y,
+                    fromSize.width,
+                    fromSize.height,
 
-                toPosition.x,
-                toPosition.y,
-                toSize.width,
-                toSize.height,
+                    toPosition.x,
+                    toPosition.y,
+                    toSize.width,
+                    toSize.height,
 
-                {
-                    padStart: toNode.type === "Detour" ? arrowHeadSize : 0,
-                    padEnd: arrowHeadSize,
-                    ...allowedDirections
-                }
-            ),
-            toNode.type
+                    {
+                        padStart: toNode.type === "Detour" ? arrowHeadSize : 0,
+                        padEnd: arrowHeadSize,
+                        ...allowedDirections,
+                    },
+                ),
+                toNode.type,
             ] as ArrowDescriptor;
 
-            console.log(arrow)
-            console.log(toNode.type)
+            console.log(arrow);
+            console.log(toNode.type);
 
             arrowDescriptors.push(arrow);
         }
     }
 
-    const SVG = 'http://www.w3.org/2000/svg';
+    const SVG = "http://www.w3.org/2000/svg";
 
-    let svg = document.createElementNS(SVG, 'svg');
-    svg.style.position = 'absolute';
-    svg.style.left = '0';
-    svg.style.top = '0';
+    let svg = document.createElementNS(SVG, "svg");
+    svg.style.position = "absolute";
+    svg.style.left = "0";
+    svg.style.top = "0";
     svg.setAttribute("width", "100%");
     svg.setAttribute("height", "100%");
     svg.style.overflow = "visible";
@@ -102,34 +108,47 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
     for (const arrow of arrowDescriptors) {
         let [sx, sy, c1x, c1y, c2x, c2y, ex, ey, ae, as, type] = arrow;
 
-        let line = document.createElementNS(SVG, 'path');
+        let line = document.createElementNS(SVG, "path");
 
-        line.setAttribute("d", `M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`);
+        line.setAttribute(
+            "d",
+            `M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`,
+        );
         line.setAttribute("stroke", color);
         line.setAttribute("stroke-width", lineThickness.toString());
         line.setAttribute("fill", "none");
 
         svg.appendChild(line);
 
-        let arrowHeadEnd = document.createElementNS(SVG, 'polygon');
+        let arrowHeadEnd = document.createElementNS(SVG, "polygon");
 
-        arrowHeadEnd.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
-            2},0, 0,${arrowHeadSize}`);
-        arrowHeadEnd.setAttribute('transform', `translate(${ex}, ${ey}) rotate(${ae})`);
-        arrowHeadEnd.setAttribute('fill', color);
-        arrowHeadEnd.id = "arrow-end"
+        arrowHeadEnd.setAttribute(
+            "points",
+            `0,${-arrowHeadSize} ${arrowHeadSize * 2},0, 0,${arrowHeadSize}`,
+        );
+        arrowHeadEnd.setAttribute(
+            "transform",
+            `translate(${ex}, ${ey}) rotate(${ae})`,
+        );
+        arrowHeadEnd.setAttribute("fill", color);
+        arrowHeadEnd.id = "arrow-end";
 
         svg.appendChild(arrowHeadEnd);
 
         if (type === "Detour") {
             // Show an arrow head at the start for detours
-            let arrowHeadStart = document.createElementNS(SVG, 'polygon');
-            arrowHeadStart.id = "arrow-start"
+            let arrowHeadStart = document.createElementNS(SVG, "polygon");
+            arrowHeadStart.id = "arrow-start";
 
-            arrowHeadStart.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
-                2},0, 0,${arrowHeadSize}`);
-            arrowHeadStart.setAttribute('transform', `translate(${sx}, ${sy}) rotate(${as})`);
-            arrowHeadStart.setAttribute('fill', color);
+            arrowHeadStart.setAttribute(
+                "points",
+                `0,${-arrowHeadSize} ${arrowHeadSize * 2},0, 0,${arrowHeadSize}`,
+            );
+            arrowHeadStart.setAttribute(
+                "transform",
+                `translate(${sx}, ${sy}) rotate(${as})`,
+            );
+            arrowHeadStart.setAttribute("fill", color);
 
             svg.appendChild(arrowHeadStart);
         }

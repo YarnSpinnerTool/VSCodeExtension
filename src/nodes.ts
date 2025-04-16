@@ -1,5 +1,8 @@
 import { Uri } from "vscode";
-import { NotificationHandler, ProtocolNotificationType } from "vscode-languageclient";
+import {
+    NotificationHandler,
+    ProtocolNotificationType,
+} from "vscode-languageclient";
 
 export interface NodeInfo {
     title: string;
@@ -11,29 +14,35 @@ export interface NodeInfo {
 }
 
 export interface NodeHeader {
-    key: string
-    value: string
+    key: string;
+    value: string;
 }
 
 export interface NodeJump {
-    destinationTitle: string,
-    type: "Jump" | "Detour",
+    destinationTitle: string;
+    type: "Jump" | "Detour";
 }
 
 export namespace DidChangeNodesNotification {
-	export const type = new ProtocolNotificationType<DidChangeNodesParams, void>('textDocument/yarnSpinner/didChangeNodes');
-	export type HandlerSignature = NotificationHandler<DidChangeNodesParams>;
-	export type MiddlewareSignature = (params: DidChangeNodesParams, next: HandlerSignature) => void;
+    export const type = new ProtocolNotificationType<
+        DidChangeNodesParams,
+        void
+    >("textDocument/yarnSpinner/didChangeNodes");
+    export type HandlerSignature = NotificationHandler<DidChangeNodesParams>;
+    export type MiddlewareSignature = (
+        params: DidChangeNodesParams,
+        next: HandlerSignature,
+    ) => void;
 }
 
 export interface DidChangeNodesParams {
-    uri: string
-    nodes: NodeInfo[]
+    uri: string;
+    nodes: NodeInfo[];
 }
 
 export interface DidRequestNodeInGraphViewParams {
-    uri: string
-    nodeName: string
+    uri: string;
+    nodeName: string;
 }
 
 export type MetadataEntry = {
@@ -46,7 +55,7 @@ export type MetadataEntry = {
 
 export interface CompilerOutput {
     data: string;
-    stringTable: Record<string,string>;
+    stringTable: Record<string, string>;
     metadataTable: Record<string, MetadataEntry>;
     errors: string[];
 }

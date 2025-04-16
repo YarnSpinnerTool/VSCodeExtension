@@ -1,9 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve!
-title: ''
+title: ""
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 **What is the current behavior?**
@@ -22,10 +22,10 @@ assignees: ''
 
 <!-- Delete any of these that aren't relevant to your issue. -->
 
-  - Yarn Spinner Version: 
-  - Extension Version:
-  - Unity Version:
+- Yarn Spinner Version:
+- Extension Version:
+- Unity Version:
 
-**Other information** 
+**Other information**
 
 <!-- For example, a detailed explanation, stacktraces, related issues, suggestions how to fix, links for us to have context... -->

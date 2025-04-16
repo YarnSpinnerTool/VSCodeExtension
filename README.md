@@ -7,7 +7,7 @@
 
 You can install this extension for Visual Studio Code from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=SecretLab.yarn-spinner).
 
-This extension adds language support for Yarn Spinner code, and a visual editor for creating Yarn scripts. 
+This extension adds language support for Yarn Spinner code, and a visual editor for creating Yarn scripts.
 
 Yarn Spinner is made possible by your generous patronage. Please consider supporting Yarn Spinner's development by [becoming a patron](https://patreon.com/secretlab)!
 
@@ -53,9 +53,9 @@ To learn more about Yarn Spinner, or find out how to use and install this extens
 
 Yarn Spinner for Visual Studio Code will automatically find your commands written in C#.
 
-If you want to import command and function definitions for a language other than C#, or you want to override information that the language server parses from C#, add a JSON file with the extension ".ysls.json" to your project's folder using the [ysls.json schema](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/src/Server/Documentation/ysls.schema.json). 
+If you want to import command and function definitions for a language other than C#, or you want to override information that the language server parses from C#, add a JSON file with the extension ".ysls.json" to your project's folder using the [ysls.json schema](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/src/Server/Documentation/ysls.schema.json).
 
-For examples, take a look at this [import example](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/ImportExample.ysls.json) or the [yarn spinner built in Commands and Functions file](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/src/Server/Documentation/BuiltInFunctionsAndCommands.ysls.json). 
+For examples, take a look at this [import example](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/ImportExample.ysls.json) or the [yarn spinner built in Commands and Functions file](https://github.com/YarnSpinnerTool/YarnSpinner/blob/main/YarnSpinner.LanguageServer/src/Server/Documentation/BuiltInFunctionsAndCommands.ysls.json).
 
 ### Telemetry
 

@@ -1,16 +1,16 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2019",
-		"lib": ["ES2019"],
-		"outDir": "../out",
-		"sourceMap": true,
-		"strict": true,
-		"rootDir": ".",
-		"allowJs": true,
-		"declaration": true,
-		"declarationDir": "types",
-	},
-	"include": ["."],
-	"exclude": ["types"]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2019",
+        "lib": ["ES2019"],
+        "outDir": "../out",
+        "sourceMap": true,
+        "strict": true,
+        "rootDir": ".",
+        "allowJs": true,
+        "declaration": true,
+        "declarationDir": "types"
+    },
+    "include": ["."],
+    "exclude": ["types"]
 }

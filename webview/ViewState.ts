@@ -1,365 +1,394 @@
 import * as constants from "./constants";
 import { NodeView } from "./NodeView";
-import { decomposeTransformMatrix, getWindowCenter, Position, Size } from "./util";
+import {
+    decomposeTransformMatrix,
+    getWindowCenter,
+    Position,
+    Size,
+} from "./util";
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
 import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
 import { GroupView } from "./GroupView";
 
 export enum Alignment {
-	Left = "LEFT",
-	Center = "CENTER",
-	Right = "RIGHT",
-	Top = "TOP",
-	Middle = "MIDDLE",
-	Bottom = "BOTTOM"
-};
+    Left = "LEFT",
+    Center = "CENTER",
+    Right = "RIGHT",
+    Top = "TOP",
+    Middle = "MIDDLE",
+    Bottom = "BOTTOM",
+}
 
 enum MouseGestureType {
-	Unknown,
-	Select,
-	Pan
+    Unknown,
+    Select,
+    Pan,
 }
 
 export class ViewState {
-	/** Enables the view-state debugging display. */
-	static readonly DEBUG = false;
+    /** Enables the view-state debugging display. */
+    static readonly DEBUG = false;
 
-	// Debugging variables
-	private centerDebug: HTMLElement | null = null;
+    // Debugging variables
+    private centerDebug: HTMLElement | null = null;
 
-	private debugMousePosition: Position = { x: 0, y: 0 };
+    private debugMousePosition: Position = { x: 0, y: 0 };
 
-	/** The transform matrix used for translating and scaling the node view. */
-	private matrix: DOMMatrix = new DOMMatrix();
+    /** The transform matrix used for translating and scaling the node view. */
+    private matrix: DOMMatrix = new DOMMatrix();
 
-	/** The number of nodes that have been created since the last time the
-	* viewport was moved. */
-	private nodesSinceLastMove = 0;
+    /** The number of nodes that have been created since the last time the
+     * viewport was moved. */
+    private nodesSinceLastMove = 0;
 
-	/** The node views currently displayed in this view. */
-	public nodeViews: Map<string, NodeView>;
+    /** The node views currently displayed in this view. */
+    public nodeViews: Map<string, NodeView>;
 
-	/** The group views currently displayed in this view. */
-	public groupViews: Map<string, GroupView>;
-	
-	/** The nodes views that are currently selected. A subset of nodeViews. */
-	private selectedNodeViews: Set<NodeView>;
+    /** The group views currently displayed in this view. */
+    public groupViews: Map<string, GroupView>;
 
-	public onNodeEdit: (nodeName: string) => void = () => {};
-	public onNodeDelete: (nodeName: string) => void = () => { };
-	public onNodesMoved: (positions: Record<string, Position>) => void = () => { };
+    /** The nodes views that are currently selected. A subset of nodeViews. */
+    private selectedNodeViews: Set<NodeView>;
 
-	public onSelectionChanged: (selectedNodes: string[]) => void = () => { };
+    public onNodeEdit: (nodeName: string) => void = () => {};
+    public onNodeDelete: (nodeName: string) => void = () => {};
+    public onNodesMoved: (positions: Record<string, Position>) => void =
+        () => {};
 
-	private lines: SVGElement;
-	
-	private nodesContainer: HTMLElement;
+    public onSelectionChanged: (selectedNodes: string[]) => void = () => {};
 
-	/** Updates the transform of the nodes container based on the transform
-	 * matrix. */
-	private updateView() {
-		const matrix = this.matrix;
-		// nodesContainer.style.transform = `translate(${-this.viewPosition.x}px, ${-this.viewPosition.y}px) scale(${this.zoomScale})`;
-		this.nodesContainer.style.transform = `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`;
+    private lines: SVGElement;
 
-		this.nodesSinceLastMove = 0;
-		this.updateDebugView();
-	}
+    private nodesContainer: HTMLElement;
 
-	/**
-	 * Converts a position from view-space to client-space.
-	 * @param viewSpacePosition The position to convert, in view-space coordinates.
-	 * @returns The position in client-space coordinates.
-	 */
-	public convertToClientSpace(viewSpacePosition: Position): Position {
-		let point = new DOMPoint(viewSpacePosition.x, viewSpacePosition.y);
-		let { x, y } = point.matrixTransform(this.matrix);
-		return { x, y };
-	}
+    /** Updates the transform of the nodes container based on the transform
+     * matrix. */
+    private updateView() {
+        const matrix = this.matrix;
+        // nodesContainer.style.transform = `translate(${-this.viewPosition.x}px, ${-this.viewPosition.y}px) scale(${this.zoomScale})`;
+        this.nodesContainer.style.transform = `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`;
 
-	/**
-	 * Converts a position from client-space to view-space.
-	 * @param clientSpacePosition The position to convert, in client-space coordinates.
-	 * @returns The position in view-space coordinates.
-	 */
-	public convertToViewSpace(clientSpacePosition: Position): Position {
-		let point = new DOMPoint(clientSpacePosition.x, clientSpacePosition.y);
-		let { x, y } = point.matrixTransform(this.matrix.inverse());
-		return { x, y };
-	}
+        this.nodesSinceLastMove = 0;
+        this.updateDebugView();
+    }
 
-	constructor(zoomContainer: HTMLElement, nodesContainer: HTMLElement) {
+    /**
+     * Converts a position from view-space to client-space.
+     * @param viewSpacePosition The position to convert, in view-space coordinates.
+     * @returns The position in client-space coordinates.
+     */
+    public convertToClientSpace(viewSpacePosition: Position): Position {
+        let point = new DOMPoint(viewSpacePosition.x, viewSpacePosition.y);
+        let { x, y } = point.matrixTransform(this.matrix);
+        return { x, y };
+    }
 
-		if (ViewState.DEBUG) {
-			// The center debug element is kept in the middle of the window, but
-			// positioned in view-space
-			this.centerDebug = document.createElement('div');
-			this.centerDebug.style.position = 'absolute';
-			this.centerDebug.style.top = '0';
-			this.centerDebug.style.left = '0';
-			this.centerDebug.style.width = '8px';
-			this.centerDebug.style.height = '8px';
-			this.centerDebug.style.background = 'red';
-			this.centerDebug.style.opacity = '0.5';
-			nodesContainer.appendChild(this.centerDebug);
+    /**
+     * Converts a position from client-space to view-space.
+     * @param clientSpacePosition The position to convert, in client-space coordinates.
+     * @returns The position in view-space coordinates.
+     */
+    public convertToViewSpace(clientSpacePosition: Position): Position {
+        let point = new DOMPoint(clientSpacePosition.x, clientSpacePosition.y);
+        let { x, y } = point.matrixTransform(this.matrix.inverse());
+        return { x, y };
+    }
 
-			// The origin debug element is always at (0,0)
-			let originDebug = document.createElement('div');
-			originDebug.style.position = 'absolute';
-			originDebug.style.top = '0';
-			originDebug.style.left = '0';
-			originDebug.style.width = '8px';
-			originDebug.style.height = '8px';
-			originDebug.style.background = 'green';
-			originDebug.style.opacity = '0.5';
-			nodesContainer.appendChild(originDebug);
+    constructor(zoomContainer: HTMLElement, nodesContainer: HTMLElement) {
+        if (ViewState.DEBUG) {
+            // The center debug element is kept in the middle of the window, but
+            // positioned in view-space
+            this.centerDebug = document.createElement("div");
+            this.centerDebug.style.position = "absolute";
+            this.centerDebug.style.top = "0";
+            this.centerDebug.style.left = "0";
+            this.centerDebug.style.width = "8px";
+            this.centerDebug.style.height = "8px";
+            this.centerDebug.style.background = "red";
+            this.centerDebug.style.opacity = "0.5";
+            nodesContainer.appendChild(this.centerDebug);
 
-			window.addEventListener('mousemove', e => {
-				let zoomRect = zoomContainer.getBoundingClientRect();
-				let clientPosition = { x: e.clientX, y: e.clientY };
-				this.debugMousePosition = {
-					x: clientPosition.x - zoomRect.left,
-					y: clientPosition.y - zoomRect.top,
-				};
-				this.updateDebugView();
-			});
-		} else {
-			document.getElementById("graph-debug")?.remove();
-		}
-		
-		this.nodesContainer = nodesContainer;
+            // The origin debug element is always at (0,0)
+            let originDebug = document.createElement("div");
+            originDebug.style.position = "absolute";
+            originDebug.style.top = "0";
+            originDebug.style.left = "0";
+            originDebug.style.width = "8px";
+            originDebug.style.height = "8px";
+            originDebug.style.background = "green";
+            originDebug.style.opacity = "0.5";
+            nodesContainer.appendChild(originDebug);
 
-		this.lines = getLinesSVGForNodes([]);
-		nodesContainer.appendChild(this.lines);
+            window.addEventListener("mousemove", (e) => {
+                let zoomRect = zoomContainer.getBoundingClientRect();
+                let clientPosition = { x: e.clientX, y: e.clientY };
+                this.debugMousePosition = {
+                    x: clientPosition.x - zoomRect.left,
+                    y: clientPosition.y - zoomRect.top,
+                };
+                this.updateDebugView();
+            });
+        } else {
+            document.getElementById("graph-debug")?.remove();
+        }
 
-		this.nodeViews = new Map();
+        this.nodesContainer = nodesContainer;
 
-		this.groupViews = new Map();
+        this.lines = getLinesSVGForNodes([]);
+        nodesContainer.appendChild(this.lines);
 
-		this.selectedNodeViews = new Set<NodeView>();
+        this.nodeViews = new Map();
 
-		// When the mousewheel is scrolled (or a two-finger scroll gesture is
-		// performed), zoom where the mouse cursor is.
-		this.setupZoom(zoomContainer);
+        this.groupViews = new Map();
 
-		this.setupPan(zoomContainer);
+        this.selectedNodeViews = new Set<NodeView>();
 
-		this.setupBoxSelect(zoomContainer);
-	}
+        // When the mousewheel is scrolled (or a two-finger scroll gesture is
+        // performed), zoom where the mouse cursor is.
+        this.setupZoom(zoomContainer);
 
-	private setupBoxSelect(zoomContainer: HTMLElement) {
-		const boxElement = document.createElement("div");
-		boxElement.className = "box-select";
-		boxElement.style.top = "100px";
-		boxElement.style.left = "100px";
-		boxElement.style.width = "100px";
-		boxElement.style.height = "100px";
-		
-		// The client-space position where we started dragging from.
-		let dragStartPosition: Position = { x: 0, y: 0 };
-		
-		const dragBegin = (e: MouseEvent) => {
-			// Only take action if this is a select.
-			if (getGestureType(e) != MouseGestureType.Select) {
-				return;
-			}
+        this.setupPan(zoomContainer);
 
-			// Make the box visible by adding it to the DOM.
-			zoomContainer.appendChild(boxElement);
-			
-			// Record where we started dragging from.
-			dragStartPosition = { x: e.clientX, y: e.clientY };
+        this.setupBoxSelect(zoomContainer);
+    }
 
-			// Clear the node selection immediately.
-			for (const selectedNode of this.selectedNodeViews) {
-				selectedNode.element.classList.remove("selected");
-			}
-			this.selectedNodeViews.clear();
+    private setupBoxSelect(zoomContainer: HTMLElement) {
+        const boxElement = document.createElement("div");
+        boxElement.className = "box-select";
+        boxElement.style.top = "100px";
+        boxElement.style.left = "100px";
+        boxElement.style.width = "100px";
+        boxElement.style.height = "100px";
 
-			this.onSelectionChanged([]);
-			
-			boxElement.style.left = `${dragStartPosition.x}px`;
-			boxElement.style.top = `${dragStartPosition.y}px`;
-			boxElement.style.width = `0px`;
-			boxElement.style.height = `0px`;
+        // The client-space position where we started dragging from.
+        let dragStartPosition: Position = { x: 0, y: 0 };
 
-			window.addEventListener('mousemove', dragMove);
-			window.addEventListener('mouseup', dragEnd);
-			window.addEventListener('mouseleave', dragEnd);
-		};
+        const dragBegin = (e: MouseEvent) => {
+            // Only take action if this is a select.
+            if (getGestureType(e) != MouseGestureType.Select) {
+                return;
+            }
 
-		const dragMove = (e: MouseEvent) => {
-			const currentPosition = { x: e.clientX, y: e.clientY };
+            // Make the box visible by adding it to the DOM.
+            zoomContainer.appendChild(boxElement);
 
-			const topLeft = {
-				x: Math.min(dragStartPosition.x, currentPosition.x),
-				y: Math.min(dragStartPosition.y, currentPosition.y),
-			};
-			
-			const bottomRight = {
-				x: Math.max(dragStartPosition.x, currentPosition.x),
-				y: Math.max(dragStartPosition.y, currentPosition.y),
-			};
+            // Record where we started dragging from.
+            dragStartPosition = { x: e.clientX, y: e.clientY };
 
-			const size: Size = {
-				width: bottomRight.x - topLeft.x,
-				height: bottomRight.y - topLeft.y
-			}
+            // Clear the node selection immediately.
+            for (const selectedNode of this.selectedNodeViews) {
+                selectedNode.element.classList.remove("selected");
+            }
+            this.selectedNodeViews.clear();
 
-			boxElement.style.left = `${topLeft.x}px`;
-			boxElement.style.top = `${topLeft.y}px`;
-			boxElement.style.width = `${size.width}px`;
-			boxElement.style.height = `${size.height}px`;
+            this.onSelectionChanged([]);
 
-			// Find whichever nodes intersect this rectangle, and make them the
-			// selection. 
-			//
-			// TODO: this is possibly an expensive operation; maybe debounce
-			// this?
-			let selectionRect = new DOMRect(topLeft.x, topLeft.y, size.width, size.height);
+            boxElement.style.left = `${dragStartPosition.x}px`;
+            boxElement.style.top = `${dragStartPosition.y}px`;
+            boxElement.style.width = `0px`;
+            boxElement.style.height = `0px`;
 
-			const intersects = (r1: DOMRect, r2: DOMRect) => {
-				return !(r2.left > r1.right || 
-					r2.right < r1.left || 
-					r2.top > r1.bottom ||
-					r2.bottom < r1.top);
-			}
+            window.addEventListener("mousemove", dragMove);
+            window.addEventListener("mouseup", dragEnd);
+            window.addEventListener("mouseleave", dragEnd);
+        };
 
-			this.selectedNodeViews.clear();
+        const dragMove = (e: MouseEvent) => {
+            const currentPosition = { x: e.clientX, y: e.clientY };
 
-			for (const entry of this.nodeViews) {
-				const nodeView = entry[1];
-				if (nodeView) {
-					if (intersects(nodeView.element.getBoundingClientRect(), selectionRect)) {
-						this.selectedNodeViews.add(nodeView);
-						nodeView.element.classList.add("selected");
-					} else {
-						nodeView.element.classList.remove("selected");
-					}
-				}
-			}
-			this.onSelectionChanged(this.selectedNodes);
+            const topLeft = {
+                x: Math.min(dragStartPosition.x, currentPosition.x),
+                y: Math.min(dragStartPosition.y, currentPosition.y),
+            };
 
-		};
+            const bottomRight = {
+                x: Math.max(dragStartPosition.x, currentPosition.x),
+                y: Math.max(dragStartPosition.y, currentPosition.y),
+            };
 
-		const dragEnd = (e: MouseEvent) => {
-			zoomContainer.removeChild(boxElement);
-			window.removeEventListener('mousemove', dragMove);
-			window.removeEventListener('mouseup', dragEnd);
-			window.removeEventListener('mouseleave', dragEnd);
-		};
+            const size: Size = {
+                width: bottomRight.x - topLeft.x,
+                height: bottomRight.y - topLeft.y,
+            };
 
-		zoomContainer.addEventListener('mousedown', dragBegin);
-	}
+            boxElement.style.left = `${topLeft.x}px`;
+            boxElement.style.top = `${topLeft.y}px`;
+            boxElement.style.width = `${size.width}px`;
+            boxElement.style.height = `${size.height}px`;
 
-	private setupPan(zoomContainer: HTMLElement) {
-		// Stores the last position that our mouse cursor was at during a drag,
-		// in client space.
-		let backgroundDragClientSpace: Position = { x: 0, y: 0 };
+            // Find whichever nodes intersect this rectangle, and make them the
+            // selection.
+            //
+            // TODO: this is possibly an expensive operation; maybe debounce
+            // this?
+            let selectionRect = new DOMRect(
+                topLeft.x,
+                topLeft.y,
+                size.width,
+                size.height,
+            );
 
-		// When we start dragging the background, start tracking mouseup,
-		// mousemove, and mouseleave to apply the drag gesture.
-		const onBackgroundDragStart = (e: MouseEvent) => {
+            const intersects = (r1: DOMRect, r2: DOMRect) => {
+                return !(
+                    r2.left > r1.right ||
+                    r2.right < r1.left ||
+                    r2.top > r1.bottom ||
+                    r2.bottom < r1.top
+                );
+            };
 
-			// Only take action if this is a pan.
-			if (getGestureType(e) != MouseGestureType.Pan) {
-				return;
-			}
+            this.selectedNodeViews.clear();
 
-			e.preventDefault();
-			e.stopPropagation();
-			zoomContainer.classList.add("pan");
-			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
+            for (const entry of this.nodeViews) {
+                const nodeView = entry[1];
+                if (nodeView) {
+                    if (
+                        intersects(
+                            nodeView.element.getBoundingClientRect(),
+                            selectionRect,
+                        )
+                    ) {
+                        this.selectedNodeViews.add(nodeView);
+                        nodeView.element.classList.add("selected");
+                    } else {
+                        nodeView.element.classList.remove("selected");
+                    }
+                }
+            }
+            this.onSelectionChanged(this.selectedNodes);
+        };
 
-			window.addEventListener('mousemove', onBackgroundDragMove);
-			window.addEventListener('mouseup', onBackgroundDragEnd);
-			window.addEventListener('mouseleave', onBackgroundDragEnd);
-		};
+        const dragEnd = (e: MouseEvent) => {
+            zoomContainer.removeChild(boxElement);
+            window.removeEventListener("mousemove", dragMove);
+            window.removeEventListener("mouseup", dragEnd);
+            window.removeEventListener("mouseleave", dragEnd);
+        };
 
-		// When the mouse moves during a drag, calculate how much the cursor has
-		// moved in view-space, and apply that translation.
-		const onBackgroundDragMove = (e: MouseEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
+        zoomContainer.addEventListener("mousedown", dragBegin);
+    }
 
-			const lastPositionViewSpace = this.convertToViewSpace(backgroundDragClientSpace);
-			const thisPositionViewSpace = this.convertToViewSpace({ x: e.clientX, y: e.clientY });
-			const deltaViewSpace = {
-				x: thisPositionViewSpace.x - lastPositionViewSpace.x,
-				y: thisPositionViewSpace.y - lastPositionViewSpace.y,
-			};
+    private setupPan(zoomContainer: HTMLElement) {
+        // Stores the last position that our mouse cursor was at during a drag,
+        // in client space.
+        let backgroundDragClientSpace: Position = { x: 0, y: 0 };
 
-			backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
+        // When we start dragging the background, start tracking mouseup,
+        // mousemove, and mouseleave to apply the drag gesture.
+        const onBackgroundDragStart = (e: MouseEvent) => {
+            // Only take action if this is a pan.
+            if (getGestureType(e) != MouseGestureType.Pan) {
+                return;
+            }
 
-			this.matrix.translateSelf(deltaViewSpace.x, deltaViewSpace.y);
+            e.preventDefault();
+            e.stopPropagation();
+            zoomContainer.classList.add("pan");
+            backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
 
-			this.updateView();
-		};
+            window.addEventListener("mousemove", onBackgroundDragMove);
+            window.addEventListener("mouseup", onBackgroundDragEnd);
+            window.addEventListener("mouseleave", onBackgroundDragEnd);
+        };
 
-		// When the mouse stops dragging, remove the handlers that track the
-		// drag.
-		function onBackgroundDragEnd(e: MouseEvent) {
-			zoomContainer.classList.remove("pan");
-			window.removeEventListener('mousemove', onBackgroundDragMove);
-			window.removeEventListener('mouseup', onBackgroundDragEnd);
-			window.removeEventListener('mouseleave', onBackgroundDragEnd);
-		}
+        // When the mouse moves during a drag, calculate how much the cursor has
+        // moved in view-space, and apply that translation.
+        const onBackgroundDragMove = (e: MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
 
-		// Finally, install the mouse-down event handler so that we know to
-		// start tracking drags.
-		zoomContainer.addEventListener('mousedown', onBackgroundDragStart);
-	}
+            const lastPositionViewSpace = this.convertToViewSpace(
+                backgroundDragClientSpace,
+            );
+            const thisPositionViewSpace = this.convertToViewSpace({
+                x: e.clientX,
+                y: e.clientY,
+            });
+            const deltaViewSpace = {
+                x: thisPositionViewSpace.x - lastPositionViewSpace.x,
+                y: thisPositionViewSpace.y - lastPositionViewSpace.y,
+            };
 
-	private setupZoom(zoomContainer: HTMLElement) {
-		zoomContainer.addEventListener('wheel', e => {
-			const delta = e.deltaY / constants.zoomSpeed;
-			let nextScale = 1 - delta * constants.factor;
+            backgroundDragClientSpace = { x: e.clientX, y: e.clientY };
 
-			// We want to zoom in on where the cursor is. To do this, we need to
-			// convert from client-space coordinates to view-space coordinates,
-			// so that we can zoom in on that point in space.
-			let zoomPositionViewSpace = this.convertToViewSpace({
-				x: e.clientX,
-				y: e.clientY,
-			});
+            this.matrix.translateSelf(deltaViewSpace.x, deltaViewSpace.y);
 
-			// We also want to detect if scaling by 'nextScale' will cause us to
-			// exceed our limits. To do that, we need to know what our current
-			// scale factor is, so we can compute what our resulting scale
-			// factor would be.
-			let originalScale = decomposeTransformMatrix(this.matrix).scale.x;
+            this.updateView();
+        };
 
-			// If it's outside our limits, adjust the scaling factor so that it
-			// doesn't go over the limit.
-			if ((originalScale * nextScale) > constants.zoomMaxScale) {
-				nextScale *= constants.zoomMaxScale / (originalScale * nextScale);
-			} else if ((originalScale * nextScale) < constants.zoomMinScale) {
-				nextScale *= constants.zoomMinScale / (originalScale * nextScale);
-			}
+        // When the mouse stops dragging, remove the handlers that track the
+        // drag.
+        function onBackgroundDragEnd(e: MouseEvent) {
+            zoomContainer.classList.remove("pan");
+            window.removeEventListener("mousemove", onBackgroundDragMove);
+            window.removeEventListener("mouseup", onBackgroundDragEnd);
+            window.removeEventListener("mouseleave", onBackgroundDragEnd);
+        }
 
-			// Finally, apply our adjustment to the matrix and update the view.
-			this.matrix.scaleSelf(nextScale, nextScale, 1, zoomPositionViewSpace.x, zoomPositionViewSpace.y, 0);
+        // Finally, install the mouse-down event handler so that we know to
+        // start tracking drags.
+        zoomContainer.addEventListener("mousedown", onBackgroundDragStart);
+    }
 
-			this.updateView();
-		});
-	}
+    private setupZoom(zoomContainer: HTMLElement) {
+        zoomContainer.addEventListener("wheel", (e) => {
+            const delta = e.deltaY / constants.zoomSpeed;
+            let nextScale = 1 - delta * constants.factor;
 
-	private updateDebugView() {
-		if (!ViewState.DEBUG) {
-			return;
-		}
+            // We want to zoom in on where the cursor is. To do this, we need to
+            // convert from client-space coordinates to view-space coordinates,
+            // so that we can zoom in on that point in space.
+            let zoomPositionViewSpace = this.convertToViewSpace({
+                x: e.clientX,
+                y: e.clientY,
+            });
 
-		const centerWindowSpace = getWindowCenter();
-		const centerViewSpace = this.convertToViewSpace(centerWindowSpace);
+            // We also want to detect if scaling by 'nextScale' will cause us to
+            // exceed our limits. To do that, we need to know what our current
+            // scale factor is, so we can compute what our resulting scale
+            // factor would be.
+            let originalScale = decomposeTransformMatrix(this.matrix).scale.x;
 
-		const { translation, scale } = decomposeTransformMatrix(this.matrix);
+            // If it's outside our limits, adjust the scaling factor so that it
+            // doesn't go over the limit.
+            if (originalScale * nextScale > constants.zoomMaxScale) {
+                nextScale *=
+                    constants.zoomMaxScale / (originalScale * nextScale);
+            } else if (originalScale * nextScale < constants.zoomMinScale) {
+                nextScale *=
+                    constants.zoomMinScale / (originalScale * nextScale);
+            }
 
-		function position(p: Position): string {
-			return `(${Math.floor(p.x)},${Math.floor(p.y)})`;
-		}
+            // Finally, apply our adjustment to the matrix and update the view.
+            this.matrix.scaleSelf(
+                nextScale,
+                nextScale,
+                1,
+                zoomPositionViewSpace.x,
+                zoomPositionViewSpace.y,
+                0,
+            );
 
-		document.getElementById("graph-debug")!.innerHTML = `
+            this.updateView();
+        });
+    }
+
+    private updateDebugView() {
+        if (!ViewState.DEBUG) {
+            return;
+        }
+
+        const centerWindowSpace = getWindowCenter();
+        const centerViewSpace = this.convertToViewSpace(centerWindowSpace);
+
+        const { translation, scale } = decomposeTransformMatrix(this.matrix);
+
+        function position(p: Position): string {
+            return `(${Math.floor(p.x)},${Math.floor(p.y)})`;
+        }
+
+        document.getElementById("graph-debug")!.innerHTML = `
 		<p>Scale: ${scale.x}</p>
 		<p>View Position (view space): ${position(translation)}</p>
 		<p>Center (window space)  ${position(centerWindowSpace)}</p>
@@ -368,287 +397,318 @@ export class ViewState {
 		<p>Mouse (view space): ${position(this.convertToViewSpace(this.debugMousePosition))}</p>
 		`;
 
+        let newNodePosition = this.convertToViewSpace(getWindowCenter());
 
-		let newNodePosition = this.convertToViewSpace(getWindowCenter());
+        if (this.centerDebug) {
+            this.centerDebug.style.transform = `translate(${newNodePosition.x}px, ${newNodePosition.y}px)`;
+        }
+    }
 
-		if (this.centerDebug) {
-			this.centerDebug.style.transform = `translate(${newNodePosition.x}px, ${newNodePosition.y}px)`;
-		}
-	}
+    public getPositionForNewNode(incrementNodeCount = true) {
+        let nodePosition = getWindowCenter();
+        nodePosition = this.convertToViewSpace(nodePosition);
 
-	public getPositionForNewNode(incrementNodeCount = true) {
-		let nodePosition = getWindowCenter();
-		nodePosition = this.convertToViewSpace(nodePosition);
+        nodePosition.x -= constants.NodeSize.width / 2;
+        nodePosition.y -= constants.NodeSize.height / 2;
 
-		nodePosition.x -= constants.NodeSize.width / 2;
-		nodePosition.y -= constants.NodeSize.height / 2;
+        nodePosition.x += constants.newNodeOffset * this.nodesSinceLastMove;
+        nodePosition.y += constants.newNodeOffset * this.nodesSinceLastMove;
 
-		nodePosition.x += constants.newNodeOffset * this.nodesSinceLastMove;
-		nodePosition.y += constants.newNodeOffset * this.nodesSinceLastMove;
+        if (incrementNodeCount) {
+            this.nodesSinceLastMove += 1;
+        }
 
-		if (incrementNodeCount) {
-			this.nodesSinceLastMove += 1;
-		}
+        return nodePosition;
+    }
 
-		return nodePosition;
-	}
+    public focusOnNode(node: NodeView) {
+        let { scale } = decomposeTransformMatrix(this.matrix);
 
-	public focusOnNode(node: NodeView) {
-		let { scale } = decomposeTransformMatrix(this.matrix);
+        this.matrix = new DOMMatrix()
+            .translate(-node.position.x, -node.position.y, 0)
+            .scale(scale.x, scale.y, 1, node.position.x, node.position.y, 0);
 
-		this.matrix = new DOMMatrix()
-			.translate(-node.position.x, -node.position.y, 0)
-			.scale(scale.x, scale.y, 1, node.position.x, node.position.y, 0);
+        const centerViewSpace = this.convertToViewSpace(getWindowCenter());
+        const centerDelta = {
+            x:
+                node.position.x +
+                constants.NodeSize.width / 2 -
+                centerViewSpace.x,
+            y:
+                node.position.y +
+                constants.NodeSize.height / 2 -
+                centerViewSpace.y,
+        };
+        this.matrix.translateSelf(-centerDelta.x, -centerDelta.y);
 
-		const centerViewSpace = this.convertToViewSpace(getWindowCenter());
-		const centerDelta = {
-			x: (node.position.x + constants.NodeSize.width / 2) - centerViewSpace.x,
-			y: (node.position.y + constants.NodeSize.height / 2) - centerViewSpace.y,
-		};
-		this.matrix.translateSelf(-centerDelta.x, -centerDelta.y);
+        this.updateView();
+    }
 
+    public set nodes(nodeList: NodeInfo[]) {
+        var isFirstNodeSet = this.nodeViews.size == 0;
 
-		this.updateView();
-	}
+        this.updateNodeViews(nodeList);
 
-	public set nodes(nodeList: NodeInfo[]) {
-		var isFirstNodeSet = this.nodeViews.size == 0;
+        this.updateGroupViews(Array.from(this.nodeViews.values()));
 
-		this.updateNodeViews(nodeList);
+        // update all node connections
+        for (const node of nodeList) {
+            const nodeView = this.nodeViews.get(node.title);
 
-		this.updateGroupViews(Array.from(this.nodeViews.values()));
+            if (!nodeView) {
+                continue;
+            }
 
-		// update all node connections
-		for (const node of nodeList) {
-			const nodeView = this.nodeViews.get(node.title);
+            nodeView.outgoingConnections = [];
 
-			if (!nodeView) {
-				continue;
-			}
+            for (const destination of node.jumps) {
+                const destinationElement = this.nodeViews.get(
+                    destination.destinationTitle,
+                );
 
-			nodeView.outgoingConnections = [];
-			
-			for (const destination of node.jumps) {
-				const destinationElement = this.nodeViews.get(destination.destinationTitle);
+                if (!destinationElement) {
+                    console.warn(
+                        `Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`,
+                    );
+                    continue;
+                }
 
-				if (!destinationElement) {
-					console.warn(`Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`);
-					continue;
-				}
+                nodeView.outgoingConnections.push({
+                    nodeView: destinationElement,
+                    type: destination.type,
+                });
+            }
+        }
 
-				nodeView.outgoingConnections.push({
-					nodeView: destinationElement,
-					type: destination.type
-				});
-			}
-		}
+        this.refreshLines();
 
-		this.refreshLines();
+        // If we didn't have nodes before but we have nodes now, focus on the
+        // first one in the list
+        if (isFirstNodeSet && nodeList.length > 0) {
+            const firstNodeView = this.nodeViews.get(nodeList[0].title);
+            if (firstNodeView) {
+                this.focusOnNode(firstNodeView);
+            }
+        }
 
-		// If we didn't have nodes before but we have nodes now, focus on the
-		// first one in the list
-		if (isFirstNodeSet && nodeList.length > 0) {
-			const firstNodeView = this.nodeViews.get(nodeList[0].title);
-			if (firstNodeView) {
-				this.focusOnNode(firstNodeView);
-			}
-		}
+        this.onSelectionChanged(this.selectedNodes);
+    }
 
-		this.onSelectionChanged(this.selectedNodes);
-	}
+    private updateGroupViews(nodeViews: NodeView[]) {
+        type GroupCollection = Record<string, NodeView[]>;
 
-	private updateGroupViews(nodeViews : NodeView[]) {
-		type GroupCollection = Record<string, NodeView[]>;
+        // find the groups that the nodes are in
+        const groupedNodes = Array.from(
+            nodeViews.values(),
+        ).reduce<GroupCollection>((group, nodeView) => {
+            const groupNames = nodeView.groups;
 
-		// find the groups that the nodes are in
-		const groupedNodes = Array.from(nodeViews.values()).reduce<GroupCollection>((group, nodeView) => {
-			const groupNames = nodeView.groups;
+            for (const groupName of groupNames) {
+                group[groupName] = group[groupName] ?? [];
+                group[groupName].push(nodeView);
+            }
+            return group;
+        }, {});
 
-			for (const groupName of groupNames) {
-				group[groupName] = group[groupName] ?? [];
-				group[groupName].push(nodeView);
-			}
-			return group;
-		}, {});
+        const currentGroupNames = Array.from(this.groupViews.keys());
+        const newGroupNames = Object.keys(groupedNodes);
 
+        const createdGroups = newGroupNames.filter(
+            (name) => !currentGroupNames.find((n) => n == name),
+        );
+        const updatedGroups = newGroupNames.filter((name) =>
+            currentGroupNames.find((n) => n == name),
+        );
+        const deletedGroups = currentGroupNames.filter(
+            (name) => !newGroupNames.find((n) => n == name),
+        );
 
-		const currentGroupNames = Array.from(this.groupViews.keys());
-		const newGroupNames = Object.keys(groupedNodes);
+        for (const createdGroupName of createdGroups) {
+            const newGroup = new GroupView();
+            newGroup.name = createdGroupName;
+            this.groupViews.set(createdGroupName, newGroup);
+            this.nodesContainer.appendChild(newGroup.element);
+            newGroup.nodeViews = groupedNodes[createdGroupName];
+        }
 
-		const createdGroups = newGroupNames.filter(name => !currentGroupNames.find((n) => n == name));
-		const updatedGroups = newGroupNames.filter(name => currentGroupNames.find((n) => n == name));
-		const deletedGroups = currentGroupNames.filter(name => !newGroupNames.find((n) => n == name));
+        for (const updatedGroupName of updatedGroups) {
+            const updatedGroup = this.groupViews.get(updatedGroupName)!;
+            updatedGroup.nodeViews = groupedNodes[updatedGroupName];
+        }
 
-		for (const createdGroupName of createdGroups) {
-			const newGroup = new GroupView();
-			newGroup.name = createdGroupName;
-			this.groupViews.set(createdGroupName, newGroup);
-			this.nodesContainer.appendChild(newGroup.element);
-			newGroup.nodeViews = groupedNodes[createdGroupName];
-		}
+        for (const deletedGroupName of deletedGroups) {
+            const deletedGroup = this.groupViews.get(deletedGroupName)!;
+            this.nodesContainer.removeChild(deletedGroup.element);
+            this.groupViews.delete(deletedGroupName);
+        }
+    }
 
-		for (const updatedGroupName of updatedGroups) {
-			const updatedGroup = this.groupViews.get(updatedGroupName)!;
-			updatedGroup.nodeViews = groupedNodes[updatedGroupName];
-		}
+    private updateNodeViews(nodeList: NodeInfo[]) {
+        const currentNodeNames = Array.from(this.nodeViews.keys());
 
-		for (const deletedGroupName of deletedGroups) {
-			const deletedGroup = this.groupViews.get(deletedGroupName)!;
-			this.nodesContainer.removeChild(deletedGroup.element);
-			this.groupViews.delete(deletedGroupName);
-		}
-	}
+        // Get the collection of nodes that we have a view for, but do not
+        // appear in the node list
+        const missingNodeNames = currentNodeNames.filter(
+            (existingNode) => !nodeList.find((n) => n.title == existingNode),
+        );
 
-	private updateNodeViews(nodeList: NodeInfo[]) {
-		const currentNodeNames = Array.from(this.nodeViews.keys());
+        // Get the collection of nodes that we do NOT have a view for
+        const newNodes = nodeList.filter(
+            (n) => currentNodeNames.includes(n.title) == false,
+        );
 
-		// Get the collection of nodes that we have a view for, but do not
-		// appear in the node list
-		const missingNodeNames = currentNodeNames.filter(existingNode => !nodeList.find(n => n.title == existingNode));
+        // Get the collection of nodes that we DO have a view for
+        const updatedNodes = nodeList.filter(
+            (n) => currentNodeNames.includes(n.title) == true,
+        );
 
-		// Get the collection of nodes that we do NOT have a view for
-		const newNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == false);
+        for (const nodeToRemove of missingNodeNames) {
+            this.nodeViews.get(nodeToRemove)?.element.remove();
+            this.nodeViews.delete(nodeToRemove);
+        }
 
-		// Get the collection of nodes that we DO have a view for
-		const updatedNodes = nodeList.filter(n => currentNodeNames.includes(n.title) == true);
+        for (const nodeToAdd of newNodes) {
+            const newNodeView = new NodeView(nodeToAdd);
+            newNodeView.onNodeEditClicked = (n) => this.onNodeEdit(n.nodeName);
+            newNodeView.onNodeDeleteClicked = (n) =>
+                this.onNodeDelete(n.nodeName);
 
-		for (const nodeToRemove of missingNodeNames) {
-			this.nodeViews.get(nodeToRemove)?.element.remove();
-			this.nodeViews.delete(nodeToRemove);
-		}
+            newNodeView.onNodeDragStart = (nodeView) => {
+                if (this.selectedNodeViews.has(nodeView) == false) {
+                    // We started dragging a node view that wasn't selected.
+                    // Clear the selection state and replace it with just this
+                    // selection.
+                    this.selectedNodeViews.forEach((nv) =>
+                        nv.element.classList.remove("selected"),
+                    );
+                    this.selectedNodeViews.clear();
+                    this.selectedNodeViews.add(nodeView);
+                    nodeView.element.classList.add("selected");
+                    this.onSelectionChanged(this.selectedNodes);
+                }
+            };
 
-		for (const nodeToAdd of newNodes) {
-			const newNodeView = new NodeView(nodeToAdd);
-			newNodeView.onNodeEditClicked = (n) => this.onNodeEdit(n.nodeName);
-			newNodeView.onNodeDeleteClicked = (n) => this.onNodeDelete(n.nodeName);
+            newNodeView.onNodeDragMove = (
+                nodeView,
+                startPosition,
+                currentPosition,
+            ) => {
+                const startViewSpace = this.convertToViewSpace(startPosition);
+                const currentViewSpace =
+                    this.convertToViewSpace(currentPosition);
 
-			newNodeView.onNodeDragStart = (nodeView) => {
-				if (this.selectedNodeViews.has(nodeView) == false) {
-					// We started dragging a node view that wasn't selected.
-					// Clear the selection state and replace it with just this
-					// selection.
-					this.selectedNodeViews.forEach(nv => nv.element.classList.remove("selected"));
-					this.selectedNodeViews.clear();
-					this.selectedNodeViews.add(nodeView);
-					nodeView.element.classList.add("selected");
-					this.onSelectionChanged(this.selectedNodes);
-				}
-			};
+                const dragDeltaViewSpace = {
+                    x: currentViewSpace.x - startViewSpace.x,
+                    y: currentViewSpace.y - startViewSpace.y,
+                };
 
-			newNodeView.onNodeDragMove = (nodeView, startPosition, currentPosition) => {
+                this.selectedNodeViews.forEach((nv) => {
+                    nv.translate(dragDeltaViewSpace);
+                });
 
-				const startViewSpace = this.convertToViewSpace(startPosition);
-				const currentViewSpace = this.convertToViewSpace(currentPosition);
+                this.refreshLines();
 
-				const dragDeltaViewSpace = {
-					x: currentViewSpace.x - startViewSpace.x,
-					y: currentViewSpace.y - startViewSpace.y,
-				};
+                var groupViews = Array.from(this.groupViews.values()).filter(
+                    (gv) => gv.nodeViews.includes(nodeView),
+                );
 
-				this.selectedNodeViews.forEach(nv => {
-					nv.translate(dragDeltaViewSpace);
-				});
+                for (const groupView of groupViews) {
+                    groupView.refreshSize();
+                }
+            };
 
-				this.refreshLines();
-				
-				var groupViews = Array.from(this.groupViews.values()).filter(gv => gv.nodeViews.includes(nodeView));
+            newNodeView.onNodeDragEnd = (nodeView) => {
+                var positions: Record<string, Position> = {};
 
-				for (const groupView of groupViews) {
-					groupView.refreshSize();
-				}
-			};
+                this.selectedNodeViews.forEach((v) => {
+                    positions[v.nodeName] = v.position;
+                });
+                this.onNodesMoved(positions);
+            };
 
-			newNodeView.onNodeDragEnd = (nodeView) => {
-				var positions: Record<string, Position> = {};
+            this.nodeViews.set(nodeToAdd.title, newNodeView);
 
-				this.selectedNodeViews.forEach(v => {
-					positions[v.nodeName] = v.position;
-				});
-				this.onNodesMoved(positions);
-			};
+            this.nodesContainer.appendChild(newNodeView.element);
+        }
 
-			this.nodeViews.set(nodeToAdd.title, newNodeView);
+        for (const nodeToUpdate of updatedNodes) {
+            const nodeView = this.nodeViews.get(nodeToUpdate.title);
 
-			this.nodesContainer.appendChild(newNodeView.element);
-		}
+            if (nodeView) {
+                nodeView.nodeInfo = nodeToUpdate;
+            }
+        }
+    }
 
-		for (const nodeToUpdate of updatedNodes) {
+    private refreshLines() {
+        this.nodesContainer.removeChild(this.lines);
+        this.lines = getLinesSVGForNodes(this.nodeViews.values());
+        this.nodesContainer.appendChild(this.lines);
+    }
 
-			const nodeView = this.nodeViews.get(nodeToUpdate.title);
+    getNodeView(nodeName: string): NodeView | undefined {
+        return this.nodeViews.get(nodeName);
+    }
 
-			if (nodeView) {
-				nodeView.nodeInfo = nodeToUpdate;
-			}
+    alignSelectedNodes(alignment: Alignment) {
+        const selected = Array.from(this.selectedNodeViews.values());
 
-		}
-	}
+        if (selected.length <= 1) {
+            // Do nothing if we don't have enough nodes to align
+            return;
+        }
 
-	private refreshLines() {
-		this.nodesContainer.removeChild(this.lines);
-		this.lines = getLinesSVGForNodes(this.nodeViews.values());
-		this.nodesContainer.appendChild(this.lines);
-	}
+        switch (alignment) {
+            case Alignment.Left:
+                const minLeft = Math.min(...selected.map((nv) => nv.left));
+                selected.forEach((nv) => (nv.left = minLeft));
+                break;
 
-	getNodeView(nodeName: string) : NodeView | undefined {
-		return this.nodeViews.get(nodeName);
-	}
+            case Alignment.Right:
+                const maxRight = Math.max(...selected.map((nv) => nv.right));
+                selected.forEach((nv) => (nv.right = maxRight));
+                break;
 
-	alignSelectedNodes(alignment: Alignment) {
-		const selected = Array.from(this.selectedNodeViews.values());
-		
-		if (selected.length <= 1) {
-			// Do nothing if we don't have enough nodes to align
-			return;
-		}
+            case Alignment.Top:
+                const minTop = Math.min(...selected.map((nv) => nv.top));
+                selected.forEach((nv) => (nv.top = minTop));
+                break;
 
-		switch (alignment) {
-			case Alignment.Left:
-				const minLeft = Math.min(...selected.map(nv => nv.left));
-				selected.forEach(nv => nv.left = minLeft);
-				break;
-			
-			case Alignment.Right:
-				const maxRight = Math.max(...selected.map(nv => nv.right));
-				selected.forEach(nv => nv.right = maxRight);
-				break;
-			
-			case Alignment.Top:
-				const minTop = Math.min(...selected.map(nv => nv.top));
-				selected.forEach(nv => nv.top = minTop);
-				break;
-			
-			case Alignment.Bottom:
-				const maxBottom = Math.max(...selected.map(nv => nv.bottom));
-				selected.forEach(nv => nv.bottom = maxBottom);
-				break;
-			
-			default:
-				throw new Error("alignemnt " + alignment + " not implemented");
-		}
+            case Alignment.Bottom:
+                const maxBottom = Math.max(...selected.map((nv) => nv.bottom));
+                selected.forEach((nv) => (nv.bottom = maxBottom));
+                break;
 
-		this.refreshLines();
+            default:
+                throw new Error("alignemnt " + alignment + " not implemented");
+        }
 
-		let nodesMoves: Record<string, Position> = {};
-		selected.forEach(nv => nodesMoves[nv.nodeName] = nv.position);
-		this.onNodesMoved(nodesMoves);
-	}
+        this.refreshLines();
 
-	public get selectedNodes() : string[] {
-		return Array.from(this.selectedNodeViews.values()).map(nv => nv.nodeName);
-	}
+        let nodesMoves: Record<string, Position> = {};
+        selected.forEach((nv) => (nodesMoves[nv.nodeName] = nv.position));
+        this.onNodesMoved(nodesMoves);
+    }
+
+    public get selectedNodes(): string[] {
+        return Array.from(this.selectedNodeViews.values()).map(
+            (nv) => nv.nodeName,
+        );
+    }
 }
 
-function getGestureType(mouseEvent: MouseEvent) : MouseGestureType {
-	if (mouseEvent.button == 1 || mouseEvent.altKey) {
-		// If we're holding Alt or using the auxiliary (e.g. middle) mouse
-		// button, then this is a pan.
-		return MouseGestureType.Pan;
-	} if (mouseEvent.button == 0) {
-		// If we're using the primary (e.g. left) mouse button, then this is a
-		// select.
-		return MouseGestureType.Select;
-	} else {
-		// We don't know what this is.
-		return MouseGestureType.Unknown;
-	}
+function getGestureType(mouseEvent: MouseEvent): MouseGestureType {
+    if (mouseEvent.button == 1 || mouseEvent.altKey) {
+        // If we're holding Alt or using the auxiliary (e.g. middle) mouse
+        // button, then this is a pan.
+        return MouseGestureType.Pan;
+    }
+    if (mouseEvent.button == 0) {
+        // If we're using the primary (e.g. left) mouse button, then this is a
+        // select.
+        return MouseGestureType.Select;
+    } else {
+        // We don't know what this is.
+        return MouseGestureType.Unknown;
+    }
 }

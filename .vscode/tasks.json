@@ -1,6 +1,6 @@
 {
-	"version": "2.0.0",
-	"tasks": [
+    "version": "2.0.0",
+    "tasks": [
         {
             "label": "build-debug",
             "dependsOn": [
@@ -12,14 +12,14 @@
         {
             "label": "build-extension-development",
             "command": "npm",
-            "args": [ "run", "buildVSCodeDevelopment"],
+            "args": ["run", "buildVSCodeDevelopment"],
             "type": "shell",
             "problemMatcher": "$tsc-watch"
         },
-		{
+        {
             "label": "build-server-development",
             "command": "npm",
-            "args": [ "run", "buildServerDevelopment"],
+            "args": ["run", "buildServerDevelopment"],
             "type": "shell",
             "problemMatcher": "$msCompile"
         },
@@ -34,16 +34,16 @@
         {
             "label": "build-extension-production",
             "command": "npm",
-            "args": [ "run", "buildVSCodeProduction"],
+            "args": ["run", "buildVSCodeProduction"],
             "type": "shell",
             "problemMatcher": "$tsc-watch"
         },
-		{
+        {
             "label": "build-server-production",
             "command": "npm",
-            "args": [ "run", "buildServerProduction"],
+            "args": ["run", "buildServerProduction"],
             "type": "shell",
             "problemMatcher": "$msCompile"
         }
-	]
+    ]
 }

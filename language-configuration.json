@@ -2,7 +2,7 @@
     "comments": {
         // symbol used for single line comment. Remove this entry if your
         // language does not support line comments
-        "lineComment": "//",        
+        "lineComment": "//"
     },
     // symbols used as brackets
     "brackets": [
@@ -32,8 +32,8 @@
         "markers": {
             // title: is _usually_ the first tag, but isn't guaranteed to
             // be; this is probably fine though
-          "start": "^title:", 
-          "end": "^===$"
+            "start": "^title:",
+            "end": "^===$"
         }
-      },    
+    }
 }

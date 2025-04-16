@@ -1,4 +1,3 @@
-
 export const factor = 0.1;
 export const zoomSpeed = 120;
 
@@ -9,6 +8,6 @@ export const zoomMaxScale = 2;
 export const newNodeOffset = 10;
 
 export const NodeSize = {
-	width: 200,
-	height: 125,
+    width: 200,
+    height: 125,
 };

@@ -34,10 +34,10 @@
 
 - Fixed an issue where the built-in function declarations were missing their return type annotations.
 - Updated the schema for .ysls.json files:
-  - Commands may no longer specify a return type.
-  - Functions must now specify a return type.
-  - Changed the definition of 'types' to be an enum of "string", "number", "bool", or "any".
-    - Enums in JSON schema are type sensitive, so a warning will be issued for types that have capital letters. To fix these warnings, change your type names in your `.ysls.json` file to be lowercase. (These warnings have no impact on your Yarn script editing experience or runtime behaviour.)
+    - Commands may no longer specify a return type.
+    - Functions must now specify a return type.
+    - Changed the definition of 'types' to be an enum of "string", "number", "bool", or "any".
+        - Enums in JSON schema are type sensitive, so a warning will be issued for types that have capital letters. To fix these warnings, change your type names in your `.ysls.json` file to be lowercase. (These warnings have no impact on your Yarn script editing experience or runtime behaviour.)
 
 ## [2.4.0] 2023-11-15
 
@@ -73,28 +73,29 @@
 
 - Added the ability to jump to the graph view from a text view, by clicking "Show in Graph View" above a node's title.
 - Added the ability to select multiple nodes in the graph view.
-  - To select nodes, click and drag inside the graph view.
-  - To pan the view, hold the Alt key (Option on macOS) and click and drag inside the graph view, or click and drag the mousewheel.
+    - To select nodes, click and drag inside the graph view.
+    - To pan the view, hold the Alt key (Option on macOS) and click and drag inside the graph view, or click and drag the mousewheel.
 - Added the ability to move multiple nodes at once in the graph view.
 - Yarn preview text now includes any comments present in the source code.
 - Increased the size of node previews, and made them a fixed size of 250x125. Preview text now wraps, and if it goes off the end of the node, it fades out as it reaches the bottom.
 - Added the ability to visually group nodes in the graph view.
-  - To group nodes together, add a `group` header to one or more nodes:
 
-    <pre>
-    title: NodeA
-    <b>group: Cool Nodes</b>
-    ---
-    Lines here...
-    ===
-    title: NodeB
-    <b>group: Cool Nodes</b>
-    ---
-    Lines here...
-    ===
-    </pre>
+    - To group nodes together, add a `group` header to one or more nodes:
 
-  - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
+                            <pre>
+                            title: NodeA
+                            <b>group: Cool Nodes</b>
+                            ---
+                            Lines here...
+                            ===
+                            title: NodeB
+                            <b>group: Cool Nodes</b>
+                            ---
+                            Lines here...
+                            ===
+                            </pre>
+
+    - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
 ### Changed
 
@@ -105,27 +106,29 @@
 ### Added
 
 - Added the ability to export a spreadsheet of all dialogue for voice-over recording.
-  - Voice-over spreadsheets can be exported in either Microsoft Excel or CSV format.
-  - By default, the spreadsheet contains the line ID, character name (where detected), and line text. Additional columns can be added in Settings.
+    - Voice-over spreadsheets can be exported in either Microsoft Excel or CSV format.
+    - By default, the spreadsheet contains the line ID, character name (where detected), and line text. Additional columns can be added in Settings.
 - Added the ability to preview Yarn dialogue in the editor.
-  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Preview Dialogue".
+    - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Preview Dialogue".
 - Added the ability to save a self-contained HTML previewer of your Yarn dialogue.
-  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as HTML".
+    - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as HTML".
 - Added the ability to save a graphical representation of the Yarn dialogue.
-  - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as Graph".
-  - Graphs are exported in [GraphViz format](https://www.graphviz.org). You will need additional software to be able to view these graphs.
+    - To use this feature, press `Control-Shift-P` (`Command-Shift-P` on macOS), and type "Export Dialogue as Graph".
+    - Graphs are exported in [GraphViz format](https://www.graphviz.org). You will need additional software to be able to view these graphs.
 - Added the ability to highlight a node with a colour.
-  - To use this feature, add the `color` header to a node:
 
-    <pre>
-    title: MyNode
-    <b>color: red</b>
-    ---
-    Lines here...
-    ===
-    </pre>
+    - To use this feature, add the `color` header to a node:
 
-  - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
+                            <pre>
+                            title: MyNode
+                            <b>color: red</b>
+                            ---
+                            Lines here...
+                            ===
+                            </pre>
+
+    - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
+
 - The first few lines of a node will now be shown as a preview in the graph view.
 - The graph view now starts centered on the first node in the file.
 - Clicking 'Add Node' multiple times will now position each new node offset a little from the last, making it easier to see when you've added multiple new nodes.
@@ -175,4 +178,3 @@
 ## 1.0.0
 
 - Initial release of this extension.
-

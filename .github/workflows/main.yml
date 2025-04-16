@@ -2,101 +2,101 @@ name: Build
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the develop branch (for now)
-  push:
-    branches:
-      - "*"
-  pull_request:
-    branches:
-      - "*"
+    # Triggers the workflow on push or pull request events but only for the develop branch (for now)
+    push:
+        branches:
+            - "*"
+    pull_request:
+        branches:
+            - "*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    env:
-      RELEASE_FLAG: false
-      LANGUAGESERVER_REF: "000000"
-
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Check out the repo
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Get Language Server ref
-        run: echo "LANGUAGESERVER_REF=$(jq -r .languageServerVersion package.json)" >> $GITHUB_ENV
-
-      # The build script uses env-cmd to run its builds, but that tool fails if
-      # it can't find a file called '.env'. Solve this by creating an empty one.
-      - name: Create empty .env file
-        run: touch .env
-
-      # Check out Yarn Spinner, as a dependency
-      - name: Check out Yarn Spinner
-        uses: actions/checkout@v3
-        with:
-          repository: "YarnSpinnerTool/YarnSpinner"
-          path: YarnSpinner
-          ref: ${{ env.LANGUAGESERVER_REF }}
-
-      - name: Fetch all history and tags from all branches for gitversion
-        run: git fetch --prune --unshallow
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.4.1
-
-      # Needed for building the language server
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 9.0.x
-
-      - name: Clean install dependencies
-        run: npm ci
-
-      - name: Run unit tests
-        run: npm test
-
-      - name: Get version
-        id: version
-        run: ./get-version.sh
-
-      - name: Update metadata in package.json
-        uses: onlyutkarsh/patch-files-action@v1.0.1
-        with:
-          files: "${{github.workspace}}/package.json"
-          patch-syntax: |
-            = /version => "${{ steps.version.outputs.MajorMinorCommits }}"
-
-      #  If is a push, and the commit message does not contain the string
-      #  '[release]', build as pre-release. (This is used in the final step.)
-      - name: Add prerelease tag
-        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[release]' ) }}
-        run: |
-          echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
-
-      - name: Compile and create .vsix
+    # This workflow contains a single job called "build"
+    build:
         env:
-          LANGUAGESERVER_CSPROJ_PATH: ./YarnSpinner/YarnSpinner.LanguageServer/YarnLanguageServer.csproj
-        run: npx vsce package ${{ env.RELEASE_FLAG }}
+            RELEASE_FLAG: false
+            LANGUAGESERVER_REF: "000000"
 
-      - name: Upload .vsix as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
-          path: ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-      # If this is a push to the main branch, publish to the Marketplace using our configuration.
-      - name: Publish to Marketplace
-        if: success() && github.ref == 'refs/heads/main' && github.event_name == 'push'
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: |
-          npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Check out the repo
+            - name: Check out repository
+              uses: actions/checkout@v3
+
+            - name: Get Language Server ref
+              run: echo "LANGUAGESERVER_REF=$(jq -r .languageServerVersion package.json)" >> $GITHUB_ENV
+
+            # The build script uses env-cmd to run its builds, but that tool fails if
+            # it can't find a file called '.env'. Solve this by creating an empty one.
+            - name: Create empty .env file
+              run: touch .env
+
+            # Check out Yarn Spinner, as a dependency
+            - name: Check out Yarn Spinner
+              uses: actions/checkout@v3
+              with:
+                  repository: "YarnSpinnerTool/YarnSpinner"
+                  path: YarnSpinner
+                  ref: ${{ env.LANGUAGESERVER_REF }}
+
+            - name: Fetch all history and tags from all branches for gitversion
+              run: git fetch --prune --unshallow
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v2.4.1
+
+            # Needed for building the language server
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: 9.0.x
+
+            - name: Clean install dependencies
+              run: npm ci
+
+            - name: Run unit tests
+              run: npm test
+
+            - name: Get version
+              id: version
+              run: ./get-version.sh
+
+            - name: Update metadata in package.json
+              uses: onlyutkarsh/patch-files-action@v1.0.1
+              with:
+                  files: "${{github.workspace}}/package.json"
+                  patch-syntax: |
+                      = /version => "${{ steps.version.outputs.MajorMinorCommits }}"
+
+            #  If is a push, and the commit message does not contain the string
+            #  '[release]', build as pre-release. (This is used in the final step.)
+            - name: Add prerelease tag
+              if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '[release]' ) }}
+              run: |
+                  echo "RELEASE_FLAG=--pre-release" >> $GITHUB_ENV
+
+            - name: Compile and create .vsix
+              env:
+                  LANGUAGESERVER_CSPROJ_PATH: ./YarnSpinner/YarnSpinner.LanguageServer/YarnLanguageServer.csproj
+              run: npx vsce package ${{ env.RELEASE_FLAG }}
+
+            - name: Upload .vsix as artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+                  path: ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+
+            # If this is a push to the main branch, publish to the Marketplace using our configuration.
+            - name: Publish to Marketplace
+              if: success() && github.ref == 'refs/heads/main' && github.event_name == 'push'
+              env:
+                  VSCE_PAT: ${{ secrets.VSCE_PAT }}
+              run: |
+                  npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix

@@ -1,17 +1,16 @@
 {
-	"compilerOptions": {
-		"module": "AMD",
-		"target": "es6",
-		"lib": ["DOM"],
-		"sourceMap": true,
-		"strict": true,
-		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"rootDirs": [".", "../src/types"],
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"allowJs": true,
-	},
-	
+    "compilerOptions": {
+        "module": "AMD",
+        "target": "es6",
+        "lib": ["DOM"],
+        "sourceMap": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "rootDirs": [".", "../src/types"],
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "allowJs": true
+    }
 }
