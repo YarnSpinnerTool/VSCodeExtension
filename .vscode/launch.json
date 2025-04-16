@@ -23,9 +23,20 @@
             "preLaunchTask": "build-extension-development",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
-            "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
-            ],
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "envFile": "${workspaceFolder}/.env",
+            "skipFiles": ["${workspaceFolder}/node_modules/**/*.js"]
+        },
+        {
+            "name": "Extension + LS (wait for attach)",
+            "type": "extensionHost",
+            "preLaunchTask": "build-debug",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "env": {
+                "VSCODE_DEBUG_MODE": "true"
+            },
             "envFile": "${workspaceFolder}/.env",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
