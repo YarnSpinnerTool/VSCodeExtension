@@ -14,6 +14,7 @@
 - Nodes in a node group now show the complexity score for their conditions.
 - Bracket pair colourization is now disabled by default in Yarn scripts.
 - Updated to Yarn Spinner v3.0.0-beta2.
+- The dialogue preview and exported runner now allow changing the current saliency strategy.
 
 ### Removed
 
