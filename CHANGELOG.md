@@ -15,6 +15,8 @@
 - Bracket pair colourization is now disabled by default in Yarn scripts.
 - Updated to Yarn Spinner v3.0.0-beta2.
 - The dialogue preview and exported runner now allow changing the current saliency strategy.
+- Detours to nodes now count as references, in addition to jumps.
+- Detours now appear as double-ended lines.
 
 ### Removed
 

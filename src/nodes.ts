@@ -16,7 +16,8 @@ export interface NodeHeader {
 }
 
 export interface NodeJump {
-    destinationTitle: string
+    destinationTitle: string,
+    type: "Jump" | "Detour",
 }
 
 export namespace DidChangeNodesNotification {

@@ -1,6 +1,11 @@
 import { NodeInfo } from "./nodes";
 import { getPositionFromNodeInfo, Position } from "./util";
 
+type OutgoingConnection = {
+	nodeView: NodeView;
+	type: "Jump" | "Detour"
+}
+
 export class NodeView {
 	nodeName: string = "";
 	element: HTMLElement;
@@ -9,7 +14,7 @@ export class NodeView {
 	groups: string[] = [];
 	private _position: Position = { x: 0, y: 0 };
 
-	outgoingConnections: NodeView[] = [];
+	outgoingConnections: OutgoingConnection[] = [];
 
 	public onNodeEditClicked: (node: NodeView) => void = () => { };
 	public onNodeDeleteClicked: (node: NodeView) => void = () => { };

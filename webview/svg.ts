@@ -30,7 +30,8 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
         ex: number,
         ey: number,
         ae: number,
-        as: number
+        as: number,
+        type: "Jump" | "Detour"
     ];
 
     let arrowDescriptors: ArrowDescriptor[] = [];
@@ -38,7 +39,7 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
     for (const fromNode of nodes) {
         for (const toNode of fromNode.outgoingConnections) {
             let fromPosition = fromNode.position;
-            let toPosition = toNode.position;
+            let toPosition = toNode.nodeView.position;
             let fromSize = NodeSize;
             let toSize = NodeSize;
 
@@ -59,7 +60,7 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
                     break;
             }
 
-            const arrow = CurvedArrows.getBoxToBoxArrow(
+            const arrow = [...CurvedArrows.getBoxToBoxArrow(
                 fromPosition.x,
                 fromPosition.y,
                 fromSize.width,
@@ -71,10 +72,16 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
                 toSize.height,
 
                 {
+                    padStart: toNode.type === "Detour" ? arrowHeadSize : 0,
                     padEnd: arrowHeadSize,
                     ...allowedDirections
                 }
-            ) as ArrowDescriptor;
+            ),
+            toNode.type
+            ] as ArrowDescriptor;
+
+            console.log(arrow)
+            console.log(toNode.type)
 
             arrowDescriptors.push(arrow);
         }
@@ -93,7 +100,7 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
     svg.id = "lines";
 
     for (const arrow of arrowDescriptors) {
-        let [sx, sy, c1x, c1y, c2x, c2y, ex, ey, ae] = arrow;
+        let [sx, sy, c1x, c1y, c2x, c2y, ex, ey, ae, as, type] = arrow;
 
         let line = document.createElementNS(SVG, 'path');
 
@@ -104,14 +111,28 @@ export function getLinesSVGForNodes(nodes: Iterable<NodeView>, arrowHeadSize = 9
 
         svg.appendChild(line);
 
-        let arrowHead = document.createElementNS(SVG, 'polygon');
+        let arrowHeadEnd = document.createElementNS(SVG, 'polygon');
 
-        arrowHead.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
+        arrowHeadEnd.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
             2},0, 0,${arrowHeadSize}`);
-        arrowHead.setAttribute('transform', `translate(${ex}, ${ey}) rotate(${ae})`);
-        arrowHead.setAttribute('fill', color);
+        arrowHeadEnd.setAttribute('transform', `translate(${ex}, ${ey}) rotate(${ae})`);
+        arrowHeadEnd.setAttribute('fill', color);
+        arrowHeadEnd.id = "arrow-end"
 
-        svg.appendChild(arrowHead);
+        svg.appendChild(arrowHeadEnd);
+
+        if (type === "Detour") {
+            // Show an arrow head at the start for detours
+            let arrowHeadStart = document.createElementNS(SVG, 'polygon');
+            arrowHeadStart.id = "arrow-start"
+
+            arrowHeadStart.setAttribute('points', `0,${-arrowHeadSize} ${arrowHeadSize *
+                2},0, 0,${arrowHeadSize}`);
+            arrowHeadStart.setAttribute('transform', `translate(${sx}, ${sy}) rotate(${as})`);
+            arrowHeadStart.setAttribute('fill', color);
+
+            svg.appendChild(arrowHeadStart);
+        }
     }
 
     return svg;

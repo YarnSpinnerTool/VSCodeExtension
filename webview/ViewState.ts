@@ -436,7 +436,10 @@ export class ViewState {
 					continue;
 				}
 
-				nodeView.outgoingConnections.push(destinationElement);
+				nodeView.outgoingConnections.push({
+					nodeView: destinationElement,
+					type: destination.type
+				});
 			}
 		}
 
