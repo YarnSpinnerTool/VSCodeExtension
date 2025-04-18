@@ -37,6 +37,9 @@ export class GroupView {
         this.refreshSize();
     }
 
+    private _position: Position = { x: 0, y: 0 };
+    private _size: Size = { width: 0, height: 0 };
+
     private static createElement(type: GroupType): HTMLElement {
         const element = document.createElement("div");
         element.classList.add("group");
@@ -101,10 +104,20 @@ export class GroupView {
     }
 
     public set position(position: Position) {
+        this._position = position;
         this.element.style.transform = `translate(${position.x}px, ${position.y}px)`;
     }
 
+    public get position(): Position {
+        return this._position;
+    }
+
+    public get size(): Size {
+        return this._size;
+    }
+
     public set size(size: Size) {
+        this._size = size;
         this.element.style.width = `${size.width.toString()}px`;
         this.element.style.height = `${size.height.toString()}px`;
     }

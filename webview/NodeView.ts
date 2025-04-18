@@ -1,10 +1,16 @@
+import { GroupView } from "./GroupView";
 import { NodeInfo } from "./nodes";
-import { getPositionFromNodeInfo, Position } from "./util";
+import { getPositionFromNodeInfo, Position, Size } from "./util";
 
 type OutgoingConnection = {
-    nodeView: NodeView;
-    type: "Jump" | "Detour";
-};
+    connectionType: "Jump" | "Detour";
+} & (
+    | {
+          destinationType: "Node";
+          nodeView: NodeView;
+      }
+    | { destinationType: "NodeGroup"; groupView: GroupView }
+);
 
 export class NodeView {
     nodeName: string = "";
@@ -230,5 +236,17 @@ export class NodeView {
             x: newValue - this.element.offsetWidth,
             y: this.position.y,
         };
+    }
+
+    public get size(): Size {
+        const { width, height } = this;
+        return { width, height };
+    }
+
+    public get width(): number {
+        return this.element.offsetWidth;
+    }
+    public get height(): number {
+        return this.element.offsetHeight;
     }
 }

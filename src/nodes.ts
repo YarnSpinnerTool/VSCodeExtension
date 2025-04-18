@@ -8,6 +8,7 @@ export interface NodeInfo {
     uniqueTitle?: string;
     sourceTitle?: string;
     subtitle?: string;
+    nodeGroup?: string;
     bodyStartLine: number;
     headerStartLine: number;
     headers: NodeHeader[];

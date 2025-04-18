@@ -18,6 +18,8 @@
 - Detours to nodes now count as references, in addition to jumps.
 - Detours now appear as double-ended lines.
 - Fixed an issue where node groups would behave incorrectly in the graph view.
+- Node groups now appear with a box drawn around them.
+- Connection lines in the graph view between a node and a node group now connect to the box surrounding the nodes.
 
 ### Removed
 
@@ -83,18 +85,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                              <pre>
-                              title: NodeA
-                              <b>group: Cool Nodes</b>
-                              ---
-                              Lines here...
-                              ===
-                              title: NodeB
-                              <b>group: Cool Nodes</b>
-                              ---
-                              Lines here...
-                              ===
-                              </pre>
+                                <pre>
+                                title: NodeA
+                                <b>group: Cool Nodes</b>
+                                ---
+                                Lines here...
+                                ===
+                                title: NodeB
+                                <b>group: Cool Nodes</b>
+                                ---
+                                Lines here...
+                                ===
+                                </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -120,13 +122,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                              <pre>
-                              title: MyNode
-                              <b>color: red</b>
-                              ---
-                              Lines here...
-                              ===
-                              </pre>
+                                <pre>
+                                title: MyNode
+                                <b>color: red</b>
+                                ---
+                                Lines here...
+                                ===
+                                </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 

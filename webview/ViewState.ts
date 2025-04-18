@@ -451,6 +451,10 @@ export class ViewState {
 
         this.updateGroupViews(Array.from(this.nodeViews.values()));
 
+        var nodeGroups = new Set(
+            nodeList.map((n) => n.nodeGroup).filter((n) => n != undefined),
+        ) as Set<string>;
+
         // update all node connections
         for (const node of nodeList) {
             if (!node.uniqueTitle) {
@@ -466,21 +470,41 @@ export class ViewState {
             nodeView.outgoingConnections = [];
 
             for (const destination of node.jumps) {
-                const destinationElement = this.nodeViews.get(
-                    destination.destinationTitle,
-                );
-
-                if (!destinationElement) {
-                    console.warn(
-                        `Node ${node.uniqueTitle} has destination ${destinationElement}, but no element for this destination exists!`,
+                if (nodeGroups.has(destination.destinationTitle)) {
+                    const groupView = this.groupViews.get(
+                        destination.destinationTitle,
                     );
-                    continue;
-                }
 
-                nodeView.outgoingConnections.push({
-                    nodeView: destinationElement,
-                    type: destination.type,
-                });
+                    if (!groupView) {
+                        console.warn(
+                            `Node ${node.uniqueTitle} has destination ${destination.destinationTitle}, but no element for this destination exists!`,
+                        );
+                        continue;
+                    }
+
+                    nodeView.outgoingConnections.push({
+                        destinationType: "NodeGroup",
+                        connectionType: destination.type,
+                        groupView: groupView,
+                    });
+                } else {
+                    const destinationElement = this.nodeViews.get(
+                        destination.destinationTitle,
+                    );
+
+                    if (!destinationElement) {
+                        console.warn(
+                            `Node ${node.uniqueTitle} has destination ${destination.destinationTitle}, but no element for this destination exists!`,
+                        );
+                        continue;
+                    }
+
+                    nodeView.outgoingConnections.push({
+                        destinationType: "Node",
+                        nodeView: destinationElement,
+                        connectionType: destination.type,
+                    });
+                }
             }
         }
 
@@ -683,7 +707,11 @@ export class ViewState {
     }
 
     private refreshLines() {
-        this.nodesContainer.removeChild(this.lines);
+        try {
+            this.nodesContainer.removeChild(this.lines);
+        } catch {
+            // Catch an error if for some reason the lines element wasn't part of the view
+        }
         this.lines = getLinesSVGForNodes(this.nodeViews.values());
         this.nodesContainer.appendChild(this.lines);
     }

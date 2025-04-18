@@ -1,6 +1,7 @@
 import * as CurvedArrows from "curved-arrows";
 import { NodeView } from "./NodeView";
 import { NodeSize } from "./constants";
+import { Position, Size } from "./util";
 
 enum ArrowConstraints {
     None,
@@ -43,53 +44,76 @@ export function getLinesSVGForNodes(
 
     for (const fromNode of nodes) {
         for (const toNode of fromNode.outgoingConnections) {
-            let fromPosition = fromNode.position;
-            let toPosition = toNode.nodeView.position;
-            let fromSize = NodeSize;
-            let toSize = NodeSize;
+            try {
+                let fromPosition = fromNode.position;
 
-            var allowedDirections: CurvedArrows.ArrowOptions = {};
+                let toPosition: Position;
+                let fromSize: Size;
+                let toSize: Size;
 
-            switch (constraints) {
-                case ArrowConstraints.LeftToRight:
-                    allowedDirections.allowedStartSides = ["right", "bottom"];
-                    allowedDirections.allowedEndSides = ["left", "top"];
-                    break;
-                case ArrowConstraints.RightToLeft:
-                    allowedDirections.allowedStartSides = ["left", "bottom"];
-                    allowedDirections.allowedEndSides = ["right", "top"];
-                    break;
-                case ArrowConstraints.RightToLeft:
-                    allowedDirections.allowedStartSides = [];
-                    allowedDirections.allowedEndSides = [];
-                    break;
+                fromSize = fromNode.size;
+
+                switch (toNode.destinationType) {
+                    case "Node":
+                        toPosition = toNode.nodeView.position;
+                        toSize = toNode.nodeView.size;
+                        break;
+                    case "NodeGroup":
+                        toPosition = toNode.groupView.position;
+                        toSize = toNode.groupView.size;
+                        break;
+                }
+
+                var allowedDirections: CurvedArrows.ArrowOptions = {};
+
+                switch (constraints) {
+                    case ArrowConstraints.LeftToRight:
+                        allowedDirections.allowedStartSides = [
+                            "right",
+                            "bottom",
+                        ];
+                        allowedDirections.allowedEndSides = ["left", "top"];
+                        break;
+                    case ArrowConstraints.RightToLeft:
+                        allowedDirections.allowedStartSides = [
+                            "left",
+                            "bottom",
+                        ];
+                        allowedDirections.allowedEndSides = ["right", "top"];
+                        break;
+                    case ArrowConstraints.RightToLeft:
+                        allowedDirections.allowedStartSides = [];
+                        allowedDirections.allowedEndSides = [];
+                        break;
+                }
+
+                const arrow = [
+                    ...CurvedArrows.getBoxToBoxArrow(
+                        fromPosition.x,
+                        fromPosition.y,
+                        fromSize.width,
+                        fromSize.height,
+
+                        toPosition.x,
+                        toPosition.y,
+                        toSize.width,
+                        toSize.height,
+
+                        {
+                            padStart:
+                                toNode.connectionType === "Detour"
+                                    ? arrowHeadSize
+                                    : 0,
+                            padEnd: arrowHeadSize,
+                            ...allowedDirections,
+                        },
+                    ),
+                    toNode.connectionType,
+                ] as ArrowDescriptor;
+                arrowDescriptors.push(arrow);
+            } catch (e) {
+                console.error(e);
             }
-
-            const arrow = [
-                ...CurvedArrows.getBoxToBoxArrow(
-                    fromPosition.x,
-                    fromPosition.y,
-                    fromSize.width,
-                    fromSize.height,
-
-                    toPosition.x,
-                    toPosition.y,
-                    toSize.width,
-                    toSize.height,
-
-                    {
-                        padStart: toNode.type === "Detour" ? arrowHeadSize : 0,
-                        padEnd: arrowHeadSize,
-                        ...allowedDirections,
-                    },
-                ),
-                toNode.type,
-            ] as ArrowDescriptor;
-
-            console.log(arrow);
-            console.log(toNode.type);
-
-            arrowDescriptors.push(arrow);
         }
     }
 
