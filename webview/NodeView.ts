@@ -142,6 +142,8 @@ export class NodeView {
         )[0];
         if (colorHeader) {
             this.color = colorHeader.value;
+        } else {
+            this.color = null;
         }
     }
 
@@ -184,7 +186,7 @@ export class NodeView {
         return this._position;
     }
 
-    public set color(colorName: string) {
+    public set color(colorName: string | null) {
         // Remove all classes that begin with 'color-'
         const existingColorClasses = Array.from(this.element.classList).filter(
             (v) => v.startsWith("color-"),
