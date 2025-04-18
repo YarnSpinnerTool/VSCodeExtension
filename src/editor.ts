@@ -95,6 +95,9 @@ export class YarnSpinnerEditorProvider
                 case "open":
                     this.openNode(document, e.id);
                     return;
+
+                case "update-header":
+                    this.updateNodeHeader(document, e.nodeName, e.key, e.value);
             }
         });
 
@@ -191,6 +194,22 @@ export class YarnSpinnerEditorProvider
                 startOfBody.end,
             );
         }
+    }
+
+    async updateNodeHeader(
+        document: vscode.TextDocument,
+        nodeUniqueName: string,
+        headerKey: string,
+        headerValue: string | null,
+    ) {
+        var documentEdit = await this.executeCommand<TextDocumentEdit>(
+            Commands.UpdateNodeHeader,
+            document.uri.fsPath,
+            nodeUniqueName,
+            headerKey,
+            headerValue,
+        );
+        await this.applyTextDocumentEdit(documentEdit);
     }
 
     async moveNode(

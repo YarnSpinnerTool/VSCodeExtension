@@ -24,6 +24,8 @@ export class NodeView {
 
     private _position: Position = { x: 0, y: 0 };
 
+    private _color: string | null = null;
+
     outgoingConnections: OutgoingConnection[] = [];
 
     public onNodeEditClicked: (node: NodeView) => void = () => {};
@@ -35,6 +37,7 @@ export class NodeView {
         currentPosition: Position,
     ) => void = () => {};
     public onNodeDragEnd: (node: NodeView) => void = () => {};
+    public onColorBarClicked: (nodeView: NodeView) => void = () => {};
 
     constructor(node: NodeInfo) {
         this.element = this.createElement();
@@ -108,6 +111,13 @@ export class NodeView {
         editButton.addEventListener("click", () =>
             this.onNodeEditClicked(this),
         );
+
+        const colorBar = newElement.querySelector(".color-bar") as HTMLElement;
+
+        colorBar.addEventListener("mousedown", (e) => {
+            e.stopPropagation();
+            this.onColorBarClicked(this);
+        });
 
         return newElement;
     }
@@ -186,7 +196,13 @@ export class NodeView {
         return this._position;
     }
 
+    public get color(): string | null {
+        return this._color;
+    }
+
     public set color(colorName: string | null) {
+        this._color = colorName;
+
         // Remove all classes that begin with 'color-'
         const existingColorClasses = Array.from(this.element.classList).filter(
             (v) => v.startsWith("color-"),

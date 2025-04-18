@@ -4,22 +4,24 @@
 
 ### Added
 
+- Added a command to create a new `.yarnproject` file in the workspace.
+- Nodes in a node group now show the complexity score for their conditions.
+- The dialogue preview and exported runner now allow changing the current saliency strategy.
+- Detours to nodes now count as references, in addition to jumps.
+- Detours now appear as double-ended lines.
+- Connection lines in the graph view between a node and a node group now connect to the box surrounding the nodes.
+- Clicking on the colour bar at the top of a node view in the graph will now cycle between the available color options.
+- The extension will now activate when the workspace contains a .yarn or .yarnproject file, rather than waiting for a .yarn file to be opened.
+
 ### Changed
 
 - Fixed an issue where generating a graph view or spreadsheet view would fail if the current tab was not a text editor with a .yarn file open.
 - Updated VS Code engine from 1.63 to 1.74.
 - Commands that depend on the language server being online will now only appear in the command palette if the language server has started.
-- The extension will now activate when the workspace contains a .yarn or .yarnproject file, rather than waiting for a .yarn file to be opened.
-- Added a command to create a new `.yarnproject` file in the workspace.
-- Nodes in a node group now show the complexity score for their conditions.
 - Bracket pair colourization is now disabled by default in Yarn scripts.
 - Updated to Yarn Spinner v3.0.0-beta2.
-- The dialogue preview and exported runner now allow changing the current saliency strategy.
-- Detours to nodes now count as references, in addition to jumps.
-- Detours now appear as double-ended lines.
 - Fixed an issue where node groups would behave incorrectly in the graph view.
 - Node groups now appear with a box drawn around them.
-- Connection lines in the graph view between a node and a node group now connect to the box surrounding the nodes.
 - Fixed a bug where deleting a `color:` header from a node would not remove the colour bar from the node view.
 
 ### Removed
@@ -86,18 +88,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                                  <pre>
-                                  title: NodeA
-                                  <b>group: Cool Nodes</b>
-                                  ---
-                                  Lines here...
-                                  ===
-                                  title: NodeB
-                                  <b>group: Cool Nodes</b>
-                                  ---
-                                  Lines here...
-                                  ===
-                                  </pre>
+                                      <pre>
+                                      title: NodeA
+                                      <b>group: Cool Nodes</b>
+                                      ---
+                                      Lines here...
+                                      ===
+                                      title: NodeB
+                                      <b>group: Cool Nodes</b>
+                                      ---
+                                      Lines here...
+                                      ===
+                                      </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -123,13 +125,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                                  <pre>
-                                  title: MyNode
-                                  <b>color: red</b>
-                                  ---
-                                  Lines here...
-                                  ===
-                                  </pre>
+                                      <pre>
+                                      title: MyNode
+                                      <b>color: red</b>
+                                      ---
+                                      Lines here...
+                                      ===
+                                      </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 

@@ -26,6 +26,8 @@ enum MouseGestureType {
     Pan,
 }
 
+const AvailableColors = ["red", "blue", "yellow", "orange", "green", "purple"];
+
 export class ViewState {
     /** Enables the view-state debugging display. */
     static readonly DEBUG = false;
@@ -55,6 +57,12 @@ export class ViewState {
     public onNodeDelete: (nodeName: string) => void = () => {};
     public onNodesMoved: (positions: Record<string, Position>) => void =
         () => {};
+
+    public updateNodeHeader: (
+        nodeName: string,
+        headerName: string,
+        headerValue: string | null,
+    ) => void = () => {};
 
     public onSelectionChanged: (selectedNodes: string[]) => void = () => {};
 
@@ -648,6 +656,26 @@ export class ViewState {
                     nodeView.element.classList.add("selected");
                     this.onSelectionChanged(this.selectedNodes);
                 }
+            };
+
+            newNodeView.onColorBarClicked = (nodeView: NodeView) => {
+                if (!nodeView.nodeName) {
+                    console.error(
+                        "Can't update colour for node: no unique title found!",
+                    );
+                    return;
+                }
+
+                let currentColorIndex = nodeView.color
+                    ? AvailableColors.indexOf(nodeView.color)
+                    : -1;
+
+                let nextColorIndex =
+                    (currentColorIndex + 1) % AvailableColors.length;
+
+                const nextColor = AvailableColors[nextColorIndex];
+
+                this.updateNodeHeader(nodeView.nodeName, "color", nextColor);
             };
 
             newNodeView.onNodeDragMove = (

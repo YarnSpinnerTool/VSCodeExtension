@@ -51,6 +51,15 @@ viewState.onNodesMoved = (positions) => {
     });
 };
 
+viewState.updateNodeHeader = (nodeName, headerName, headerValue) => {
+    vscode.postMessage({
+        type: "update-header",
+        nodeName,
+        key: headerName,
+        value: headerValue,
+    });
+};
+
 var buttonsContainer = document.querySelector("#nodes-header");
 
 if (!buttonsContainer) {
