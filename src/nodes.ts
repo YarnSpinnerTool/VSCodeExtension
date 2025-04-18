@@ -5,7 +5,8 @@ import {
 } from "vscode-languageclient";
 
 export interface NodeInfo {
-    title: string;
+    uniqueTitle: string;
+    sourceTitle: string;
     bodyStartLine: number;
     headerStartLine: number;
     headers: NodeHeader[];

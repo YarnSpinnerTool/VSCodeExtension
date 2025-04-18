@@ -188,8 +188,8 @@ viewState.onSelectionChanged = (nodes) => {
 
         let nodeOptions = data.nodes.map((node) => {
             let option = document.createElement("vscode-option");
-            option.nodeValue = node.title;
-            option.innerText = node.title;
+            option.nodeValue = node.uniqueTitle;
+            option.innerText = node.sourceTitle;
             return option;
         });
 

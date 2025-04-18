@@ -453,7 +453,7 @@ export class ViewState {
 
         // update all node connections
         for (const node of nodeList) {
-            const nodeView = this.nodeViews.get(node.title);
+            const nodeView = this.nodeViews.get(node.uniqueTitle);
 
             if (!nodeView) {
                 continue;
@@ -468,7 +468,7 @@ export class ViewState {
 
                 if (!destinationElement) {
                     console.warn(
-                        `Node ${node.title} has destination ${destinationElement}, but no element for this destination exists!`,
+                        `Node ${node.uniqueTitle} has destination ${destinationElement}, but no element for this destination exists!`,
                     );
                     continue;
                 }
@@ -485,7 +485,7 @@ export class ViewState {
         // If we didn't have nodes before but we have nodes now, focus on the
         // first one in the list
         if (isFirstNodeSet && nodeList.length > 0) {
-            const firstNodeView = this.nodeViews.get(nodeList[0].title);
+            const firstNodeView = this.nodeViews.get(nodeList[0].uniqueTitle);
             if (firstNodeView) {
                 this.focusOnNode(firstNodeView);
             }
@@ -549,17 +549,18 @@ export class ViewState {
         // Get the collection of nodes that we have a view for, but do not
         // appear in the node list
         const missingNodeNames = currentNodeNames.filter(
-            (existingNode) => !nodeList.find((n) => n.title == existingNode),
+            (existingNode) =>
+                !nodeList.find((n) => n.uniqueTitle == existingNode),
         );
 
         // Get the collection of nodes that we do NOT have a view for
         const newNodes = nodeList.filter(
-            (n) => currentNodeNames.includes(n.title) == false,
+            (n) => currentNodeNames.includes(n.uniqueTitle) == false,
         );
 
         // Get the collection of nodes that we DO have a view for
         const updatedNodes = nodeList.filter(
-            (n) => currentNodeNames.includes(n.title) == true,
+            (n) => currentNodeNames.includes(n.uniqueTitle) == true,
         );
 
         for (const nodeToRemove of missingNodeNames) {
@@ -626,13 +627,13 @@ export class ViewState {
                 this.onNodesMoved(positions);
             };
 
-            this.nodeViews.set(nodeToAdd.title, newNodeView);
+            this.nodeViews.set(nodeToAdd.uniqueTitle, newNodeView);
 
             this.nodesContainer.appendChild(newNodeView.element);
         }
 
         for (const nodeToUpdate of updatedNodes) {
-            const nodeView = this.nodeViews.get(nodeToUpdate.title);
+            const nodeView = this.nodeViews.get(nodeToUpdate.uniqueTitle);
 
             if (nodeView) {
                 nodeView.nodeInfo = nodeToUpdate;

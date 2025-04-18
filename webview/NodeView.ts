@@ -103,9 +103,9 @@ export class NodeView {
     }
 
     public set nodeInfo(node: NodeInfo) {
-        this.nodeName = node.title;
+        this.nodeName = node.uniqueTitle;
         this.position = getPositionFromNodeInfo(node) ?? { x: 0, y: 0 };
-        this.title = node.title;
+        this.title = node.sourceTitle;
         this.preview = node.previewText;
 
         // 'groups' is defined as an array, but here we only fetch a single

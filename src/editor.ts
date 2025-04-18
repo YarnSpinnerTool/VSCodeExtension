@@ -149,7 +149,7 @@ export class YarnSpinnerEditorProvider
         // Filter to only include the node(s) that have this title. (Node names
         // must be unique, but the user may have entered invalid code, so we
         // handle this case.)
-        nodeInfos = nodeInfos.filter((n) => n.title == id);
+        nodeInfos = nodeInfos.filter((n) => n.uniqueTitle == id);
 
         if (nodeInfos.length > 0) {
             const nodeInfo = nodeInfos[0];
