@@ -122,7 +122,7 @@ async function launchLanguageServer(
 
     let languageServerOptions: languageClient.ServerOptions =
         async (): Promise<ChildProcess> => {
-            // Ensure .net 6.0 is installed and available
+            // Ensure .net 9.0 is installed and available
             interface IDotnetAcquireResult {
                 dotnetPath: string;
             }
@@ -134,7 +134,7 @@ async function launchLanguageServer(
                     await vscode.commands.executeCommand<IDotnetAcquireResult>(
                         "dotnet.acquire",
                         {
-                            version: "6.0",
+                            version: "9.0",
                             requestingExtensionId: "yarn-spinner",
                         },
                     );
