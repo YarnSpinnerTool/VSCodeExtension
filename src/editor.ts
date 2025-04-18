@@ -440,6 +440,7 @@ export class YarnSpinnerEditorProvider
                 <div id="node-template" class="node">
                     <div class="content">
                         <div class="title">Node Title</div>
+                        <div class="subtitle">Node Subtitle</div>
                         <div class="preview">Node Preview</div>
                     </div>
                     <div class="node-buttons">

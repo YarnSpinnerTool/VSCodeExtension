@@ -10,8 +10,12 @@ export class NodeView {
     nodeName: string = "";
     element: HTMLElement;
 
-    /** The names of the groups that this node view is in. */
-    groups: string[] = [];
+    /** The names of the tagged groups that this node view is in. */
+    taggedGroups: string[] = [];
+
+    /** The names of the node groups that the node view is in. */
+    nodeGroup: string | null = null;
+
     private _position: Position = { x: 0, y: 0 };
 
     outgoingConnections: OutgoingConnection[] = [];
@@ -103,9 +107,17 @@ export class NodeView {
     }
 
     public set nodeInfo(node: NodeInfo) {
-        this.nodeName = node.uniqueTitle;
+        this.nodeName = node.uniqueTitle ?? "(Error: no title)";
         this.position = getPositionFromNodeInfo(node) ?? { x: 0, y: 0 };
-        this.title = node.sourceTitle;
+
+        const isInNodeGroup = node.sourceTitle != node.uniqueTitle;
+
+        this.element.id = "node-" + (node.uniqueTitle ?? "$error.unknown");
+        this.element.dataset.nodeName = node.uniqueTitle ?? "$error.unknown";
+
+        this.title = isInNodeGroup ? undefined : node.sourceTitle;
+        this.subtitle = node.subtitle;
+
         this.preview = node.previewText;
 
         // 'groups' is defined as an array, but here we only fetch a single
@@ -113,10 +125,11 @@ export class NodeView {
         // Once we have a defined way to say a node can be in multiple groups,
         // update this code to populate 'groups' with the right number of
         // elements.
-        var groupHeader = node.headers.filter(
+        var groupHeaders = node.headers.filter(
             (header) => header.key == "group",
         )[0];
-        this.groups = groupHeader ? [groupHeader.value] : [];
+        this.taggedGroups = groupHeaders ? [groupHeaders.value] : [];
+        this.nodeGroup = isInNodeGroup ? (node.sourceTitle ?? null) : null;
 
         var colorHeader = node.headers.filter(
             (header) => header.key == "color",
@@ -126,12 +139,28 @@ export class NodeView {
         }
     }
 
-    public set title(newTitle: string) {
-        const title = this.element.querySelector(".title") as HTMLElement;
-        title.innerText = newTitle;
+    public set title(newTitle: string | undefined) {
+        const titleElement = this.element.querySelector(
+            ".title",
+        ) as HTMLElement;
+        if (!newTitle) {
+            titleElement.style.display = "none";
+        } else {
+            titleElement.style.display = "block";
+            titleElement.innerText = newTitle;
+        }
+    }
 
-        this.element.id = "node-" + newTitle;
-        this.element.dataset.nodeName = newTitle;
+    public set subtitle(newTitle: string | undefined) {
+        const subtitleElement = this.element.querySelector(
+            ".subtitle",
+        ) as HTMLElement;
+        if (!newTitle) {
+            subtitleElement.style.display = "none";
+        } else {
+            subtitleElement.style.display = "block";
+            subtitleElement.innerText = newTitle;
+        }
     }
 
     public set preview(newPreview: string) {

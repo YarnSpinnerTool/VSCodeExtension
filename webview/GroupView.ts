@@ -1,8 +1,16 @@
 import { NodeView } from "./NodeView";
 import { Position, Size } from "./util";
 
-const groupViewPadding: number = 20;
+const taggedGroupViewPadding: number = 20;
+const nodeGroupViewPadding: number = 25;
 const groupViewHeaderSize: number = 20;
+
+export enum GroupType {
+    /** A group defined by the "group" header in a node. */
+    TaggedGroup,
+    /** A Yarn node group defined by the presence of when: headers. */
+    NodeGroup,
+}
 
 export class GroupView {
     public element: HTMLElement;
@@ -10,9 +18,11 @@ export class GroupView {
     private _nodeViews: NodeView[] = [];
 
     private _nameNode: Text;
+    type: GroupType;
 
-    constructor() {
-        this.element = GroupView.createElement();
+    constructor(type: GroupType) {
+        this.type = type;
+        this.element = GroupView.createElement(type);
         this._nameNode = document.createTextNode("Group");
         this.element.prepend(this._nameNode);
     }
@@ -27,9 +37,13 @@ export class GroupView {
         this.refreshSize();
     }
 
-    private static createElement(): HTMLElement {
+    private static createElement(type: GroupType): HTMLElement {
         const element = document.createElement("div");
         element.classList.add("group");
+
+        if (type == GroupType.NodeGroup) {
+            element.classList.add("node-group");
+        }
 
         const background = document.createElement("div");
         background.classList.add("group-background");
@@ -45,6 +59,11 @@ export class GroupView {
         } else {
             this.element.style.display = "block";
         }
+
+        const groupViewPadding =
+            this.type == GroupType.TaggedGroup
+                ? taggedGroupViewPadding
+                : nodeGroupViewPadding;
 
         let left = this._nodeViews.reduce<number>(
             (value, node) => (node.left < value ? node.left : value),
@@ -98,3 +117,5 @@ export class GroupView {
         return this._nameNode.textContent ?? "";
     }
 }
+
+export class NodeGroupView extends GroupView {}

@@ -132,6 +132,10 @@ div.node .title {
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
 }
+div.node .subtitle {
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+}
 
 div.node .preview {
     font-size: 0.75em;
@@ -197,4 +201,14 @@ div.node.selected {
     opacity: 0.25;
 
     z-index: -1;
+}
+
+.group.node-group {
+    border-color: var(--vscode-charts-purple);
+    color: var(--vscode-charts-purple);
+    background: rgba(var(--vscode-charts-purple), 0.5);
+}
+
+.group.node-group .group-background {
+    background-color: var(--vscode-charts-purple);
 }

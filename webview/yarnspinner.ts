@@ -186,12 +186,17 @@ viewState.onSelectionChanged = (nodes) => {
         let placeholderOption = document.createElement("vscode-option");
         placeholderOption.innerText = "Jump to Node";
 
-        let nodeOptions = data.nodes.map((node) => {
-            let option = document.createElement("vscode-option");
-            option.nodeValue = node.uniqueTitle;
-            option.innerText = node.sourceTitle;
-            return option;
-        });
+        let nodeOptions = data.nodes
+            .map((node) => {
+                if (!node.uniqueTitle || !node.sourceTitle) {
+                    return undefined;
+                }
+                let option = document.createElement("vscode-option");
+                option.nodeValue = node.uniqueTitle;
+                option.innerText = node.sourceTitle;
+                return option;
+            })
+            .filter((o) => o !== undefined) as HTMLElement[];
 
         dropdown.replaceChildren(icon, placeholderOption, ...nodeOptions);
     }

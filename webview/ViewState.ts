@@ -9,7 +9,7 @@ import {
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
 import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
-import { GroupView } from "./GroupView";
+import { GroupType, GroupView } from "./GroupView";
 
 export enum Alignment {
     Left = "LEFT",
@@ -453,6 +453,10 @@ export class ViewState {
 
         // update all node connections
         for (const node of nodeList) {
+            if (!node.uniqueTitle) {
+                continue;
+            }
+
             const nodeView = this.nodeViews.get(node.uniqueTitle);
 
             if (!nodeView) {
@@ -485,9 +489,16 @@ export class ViewState {
         // If we didn't have nodes before but we have nodes now, focus on the
         // first one in the list
         if (isFirstNodeSet && nodeList.length > 0) {
-            const firstNodeView = this.nodeViews.get(nodeList[0].uniqueTitle);
-            if (firstNodeView) {
-                this.focusOnNode(firstNodeView);
+            for (const node of nodeList) {
+                if (!node.uniqueTitle) {
+                    continue;
+                }
+
+                const firstNodeView = this.nodeViews.get(node.uniqueTitle);
+                if (firstNodeView) {
+                    this.focusOnNode(firstNodeView);
+                }
+                break;
             }
         }
 
@@ -495,17 +506,32 @@ export class ViewState {
     }
 
     private updateGroupViews(nodeViews: NodeView[]) {
-        type GroupCollection = Record<string, NodeView[]>;
+        type GroupCollection = Record<
+            string,
+            { nodeViews: NodeView[]; type: GroupType }
+        >;
 
         // find the groups that the nodes are in
         const groupedNodes = Array.from(
             nodeViews.values(),
         ).reduce<GroupCollection>((group, nodeView) => {
-            const groupNames = nodeView.groups;
+            const taggedGroupNames = nodeView.taggedGroups;
 
-            for (const groupName of groupNames) {
-                group[groupName] = group[groupName] ?? [];
-                group[groupName].push(nodeView);
+            for (const groupName of taggedGroupNames) {
+                group[groupName] = group[groupName] ?? {
+                    nodeViews: [],
+                    type: GroupType.TaggedGroup,
+                };
+                group[groupName].nodeViews.push(nodeView);
+            }
+
+            if (nodeView.nodeGroup) {
+                const nodeGroup = nodeView.nodeGroup;
+                group[nodeGroup] = group[nodeGroup] ?? {
+                    nodeViews: [],
+                    type: GroupType.NodeGroup,
+                };
+                group[nodeGroup].nodeViews.push(nodeView);
             }
             return group;
         }, {});
@@ -524,16 +550,19 @@ export class ViewState {
         );
 
         for (const createdGroupName of createdGroups) {
-            const newGroup = new GroupView();
+            const groupInfo = groupedNodes[createdGroupName];
+
+            const newGroup = new GroupView(groupInfo.type);
             newGroup.name = createdGroupName;
+            newGroup.nodeViews = groupInfo.nodeViews;
+
             this.groupViews.set(createdGroupName, newGroup);
             this.nodesContainer.appendChild(newGroup.element);
-            newGroup.nodeViews = groupedNodes[createdGroupName];
         }
 
         for (const updatedGroupName of updatedGroups) {
             const updatedGroup = this.groupViews.get(updatedGroupName)!;
-            updatedGroup.nodeViews = groupedNodes[updatedGroupName];
+            updatedGroup.nodeViews = groupedNodes[updatedGroupName].nodeViews;
         }
 
         for (const deletedGroupName of deletedGroups) {
@@ -555,12 +584,16 @@ export class ViewState {
 
         // Get the collection of nodes that we do NOT have a view for
         const newNodes = nodeList.filter(
-            (n) => currentNodeNames.includes(n.uniqueTitle) == false,
+            (n) =>
+                n.uniqueTitle &&
+                currentNodeNames.includes(n.uniqueTitle) == false,
         );
 
         // Get the collection of nodes that we DO have a view for
         const updatedNodes = nodeList.filter(
-            (n) => currentNodeNames.includes(n.uniqueTitle) == true,
+            (n) =>
+                n.uniqueTitle &&
+                currentNodeNames.includes(n.uniqueTitle) == true,
         );
 
         for (const nodeToRemove of missingNodeNames) {
@@ -569,6 +602,10 @@ export class ViewState {
         }
 
         for (const nodeToAdd of newNodes) {
+            if (!nodeToAdd.uniqueTitle) {
+                continue;
+            }
+
             const newNodeView = new NodeView(nodeToAdd);
             newNodeView.onNodeEditClicked = (n) => this.onNodeEdit(n.nodeName);
             newNodeView.onNodeDeleteClicked = (n) =>
@@ -633,6 +670,10 @@ export class ViewState {
         }
 
         for (const nodeToUpdate of updatedNodes) {
+            if (!nodeToUpdate.uniqueTitle) {
+                continue;
+            }
+
             const nodeView = this.nodeViews.get(nodeToUpdate.uniqueTitle);
 
             if (nodeView) {
