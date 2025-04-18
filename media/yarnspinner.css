@@ -77,7 +77,6 @@ div.node {
     touch-action: none;
     user-select: none;
 
-    padding: 5px;
     width: 200px;
     height: 125px;
     cursor: pointer;
@@ -89,6 +88,15 @@ div.node {
 
     box-sizing: border-box;
     overflow: hidden;
+}
+
+div.node .content {
+    padding: 5px;
+    padding-top: 10px;
+}
+
+div.node .node-buttons {
+    padding: 5px;
 }
 
 div.node .node-preview-fade {
@@ -103,29 +111,36 @@ div.node .node-preview-fade {
     bottom: 0px;
 }
 
-div.node.color-red {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-red);
+div.node .color-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 10px;
+    background-color: transparent;
+    width: 100%;
 }
-div.node.color-blue {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-blue);
+
+div.node.color .node-buttons {
+    padding-top: 10px;
 }
-div.node.color-yellow {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-yellow);
+
+div.node.color-red .color-bar {
+    background-color: var(--vscode-charts-red);
 }
-div.node.color-orange {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-orange);
+div.node.color-blue .color-bar {
+    background-color: var(--vscode-charts-blue);
 }
-div.node.color-green {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-green);
+div.node.color-yellow .color-bar {
+    background-color: var(--vscode-charts-yellow);
 }
-div.node.color-purple {
-    border-top-width: 10px;
-    border-top-color: var(--vscode-charts-purple);
+div.node.color-orange .color-bar {
+    background-color: var(--vscode-charts-orange);
+}
+div.node.color-green .color-bar {
+    background-color: var(--vscode-charts-green);
+}
+div.node.color-purple .color-bar {
+    background-color: var(--vscode-charts-purple);
 }
 
 div.node .title {

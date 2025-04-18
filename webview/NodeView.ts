@@ -190,9 +190,11 @@ export class NodeView {
             (v) => v.startsWith("color-"),
         );
         this.element.classList.remove(...existingColorClasses);
+        this.element.classList.remove("color");
 
         if (colorName) {
             this.element.classList.add("color-" + colorName);
+            this.element.classList.add("color");
         }
     }
 
