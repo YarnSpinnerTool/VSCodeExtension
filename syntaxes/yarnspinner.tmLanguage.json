@@ -63,7 +63,6 @@
                 }
             ]
         },
-
         "comments": {
             "patterns": [
                 {
@@ -116,7 +115,7 @@
             "patterns": [
                 {
                     "name": "keyword.control.yarnspinner",
-                    "match": "\\b(if|set|endif|else|elseif)\\b"
+                    "match": "\\b(if|set|endif|else|elseif|enum|endenum|case|once|endonce|jump|detour|return)\\b"
                 }
             ]
         },

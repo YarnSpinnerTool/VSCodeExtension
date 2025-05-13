@@ -13,6 +13,7 @@
 - Clicking on the colour bar at the top of a node view in the graph will now cycle between the available color options.
 - The extension will now activate when the workspace contains a .yarn or .yarnproject file, rather than waiting for a .yarn file to be opened.
 - Comments inside node headers are now correctly syntax-highlighted.
+- Keywords like `jump`, `detour`, `enum` and so on are now syntax-highlighted correctly.
 
 ### Changed
 
@@ -89,18 +90,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                                        <pre>
-                                        title: NodeA
-                                        <b>group: Cool Nodes</b>
-                                        ---
-                                        Lines here...
-                                        ===
-                                        title: NodeB
-                                        <b>group: Cool Nodes</b>
-                                        ---
-                                        Lines here...
-                                        ===
-                                        </pre>
+                                          <pre>
+                                          title: NodeA
+                                          <b>group: Cool Nodes</b>
+                                          ---
+                                          Lines here...
+                                          ===
+                                          title: NodeB
+                                          <b>group: Cool Nodes</b>
+                                          ---
+                                          Lines here...
+                                          ===
+                                          </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -126,13 +127,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                                        <pre>
-                                        title: MyNode
-                                        <b>color: red</b>
-                                        ---
-                                        Lines here...
-                                        ===
-                                        </pre>
+                                          <pre>
+                                          title: MyNode
+                                          <b>color: red</b>
+                                          ---
+                                          Lines here...
+                                          ===
+                                          </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 
