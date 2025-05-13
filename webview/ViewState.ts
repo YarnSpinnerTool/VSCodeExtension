@@ -26,7 +26,15 @@ enum MouseGestureType {
     Pan,
 }
 
-const AvailableColors = ["red", "blue", "yellow", "orange", "green", "purple"];
+const AvailableColors = [
+    "red",
+    "blue",
+    "yellow",
+    "orange",
+    "green",
+    "purple",
+    null,
+];
 
 export class ViewState {
     /** Enables the view-state debugging display. */
