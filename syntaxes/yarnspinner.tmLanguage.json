@@ -20,6 +20,9 @@
                 },
                 {
                     "include": "#nodebody"
+                },
+                {
+                    "include": "#comments"
                 }
             ]
         },
