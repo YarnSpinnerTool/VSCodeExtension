@@ -595,7 +595,7 @@ async function launchLanguageServer(
             let compileResult: Promise<YarnData | null> =
                 compileWorkspace(client);
 
-            compileResult
+            return compileResult
                 .then((result) => {
                     return result;
                 });
