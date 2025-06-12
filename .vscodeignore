@@ -5,3 +5,8 @@ vsc-extension-quickstart.md
 src/**
 LanguageServer/**
 .github/**
+.env
+.husky
+art-source
+.gitmodules
+.prettierignore
