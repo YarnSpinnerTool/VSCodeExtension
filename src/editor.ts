@@ -450,7 +450,10 @@ export class YarnSpinnerEditorProvider
                     <div class="nodes"></div>
                 </div>
                 <div id="nodes-header">
-                    <vscode-button id="add-node">Add Node</vscode-button>
+                    <div>
+                        <vscode-button appearance="primary" id="add-node">Add Node</vscode-button>
+                        <vscode-button appearance="secondary" id="add-stickynote">Add Sticky Note</vscode-button>
+                    </div>
                     <div id="nodes-header-right">
                         <vscode-dropdown id="node-jump">
                             <span slot="indicator" id="icon" class="codicon codicon-compass"></span>

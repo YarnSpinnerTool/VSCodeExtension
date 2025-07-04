@@ -166,6 +166,20 @@ viewState.onSelectionChanged = (nodes) => {
         });
     });
 
+    const addStickyNoteButton =
+        buttonsContainer.querySelector("#add-stickynote");
+
+    if (addStickyNoteButton) {
+        addStickyNoteButton.addEventListener("click", () => {
+            let nodePosition = viewState.getPositionForNewNode();
+            vscode.postMessage({
+                type: "add",
+                position: nodePosition,
+                headers: { style: "note" },
+            });
+        });
+    }
+
     window.addEventListener("message", (e: any) => {
         const event = e.data as WebViewEvent;
 
