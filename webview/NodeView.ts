@@ -161,24 +161,17 @@ export class NodeView {
         const titleElement = this.element.querySelector(
             ".title",
         ) as HTMLElement;
-        if (!newTitle) {
-            titleElement.style.display = "none";
-        } else {
-            titleElement.style.display = "block";
-            titleElement.innerText = newTitle;
-        }
+        this.element.classList.toggle("has-title", newTitle !== undefined);
+        titleElement.innerText = newTitle ?? "";
     }
 
     public set subtitle(newTitle: string | undefined) {
         const subtitleElement = this.element.querySelector(
             ".subtitle",
         ) as HTMLElement;
-        if (!newTitle) {
-            subtitleElement.style.display = "none";
-        } else {
-            subtitleElement.style.display = "block";
-            subtitleElement.innerText = newTitle;
-        }
+
+        this.element.classList.toggle("has-subtitle", newTitle !== undefined);
+        subtitleElement.innerText = newTitle ?? "";
     }
 
     public set preview(newPreview: string) {

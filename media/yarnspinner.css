@@ -146,10 +146,21 @@ div.node.color-purple .color-bar {
 div.node .title {
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
+    display: none;
 }
+
 div.node .subtitle {
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
+    display: none;
+}
+
+div.node.has-title .title {
+    display: block;
+}
+
+div.node.has-subtitle .subtitle {
+    display: block;
 }
 
 div.node .preview {
