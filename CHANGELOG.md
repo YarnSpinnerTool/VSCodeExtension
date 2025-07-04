@@ -5,6 +5,7 @@
 ### Added
 
 - Added support for sticky note nodes, which use a custom visual appearance. Sticky note nodes are nodes in your `.yarn` files that have the header `style: note`.
+- Node views now show an indicator if they link to a node in a different file.
 
 ### Changed
 
@@ -106,18 +107,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                                                  <pre>
-                                                  title: NodeA
-                                                  <b>group: Cool Nodes</b>
-                                                  ---
-                                                  Lines here...
-                                                  ===
-                                                  title: NodeB
-                                                  <b>group: Cool Nodes</b>
-                                                  ---
-                                                  Lines here...
-                                                  ===
-                                                  </pre>
+                                                    <pre>
+                                                    title: NodeA
+                                                    <b>group: Cool Nodes</b>
+                                                    ---
+                                                    Lines here...
+                                                    ===
+                                                    title: NodeB
+                                                    <b>group: Cool Nodes</b>
+                                                    ---
+                                                    Lines here...
+                                                    ===
+                                                    </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -143,13 +144,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                                                  <pre>
-                                                  title: MyNode
-                                                  <b>color: red</b>
-                                                  ---
-                                                  Lines here...
-                                                  ===
-                                                  </pre>
+                                                    <pre>
+                                                    title: MyNode
+                                                    <b>color: red</b>
+                                                    ---
+                                                    Lines here...
+                                                    ===
+                                                    </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 

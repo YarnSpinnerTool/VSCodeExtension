@@ -42,6 +42,8 @@ export function getLinesSVGForNodes(
 
     let arrowDescriptors: ArrowDescriptor[] = [];
 
+    const nodesWithExternalJumps: NodeView[] = [];
+
     for (const fromNode of nodes) {
         for (const toNode of fromNode.outgoingConnections) {
             try {
@@ -115,6 +117,10 @@ export function getLinesSVGForNodes(
                 console.error(e);
             }
         }
+
+        if (fromNode.containsExternalJumps) {
+            nodesWithExternalJumps.push(fromNode);
+        }
     }
 
     const SVG = "http://www.w3.org/2000/svg";
@@ -144,39 +150,81 @@ export function getLinesSVGForNodes(
 
         svg.appendChild(line);
 
-        let arrowHeadEnd = document.createElementNS(SVG, "polygon");
-
-        arrowHeadEnd.setAttribute(
-            "points",
-            `0,${-arrowHeadSize} ${arrowHeadSize * 2},0, 0,${arrowHeadSize}`,
-        );
-        arrowHeadEnd.setAttribute(
-            "transform",
-            `translate(${ex}, ${ey}) rotate(${ae})`,
-        );
-        arrowHeadEnd.setAttribute("fill", color);
-        arrowHeadEnd.id = "arrow-end";
-
-        svg.appendChild(arrowHeadEnd);
+        svg.appendChild(getArrowHead("arrow-end", ex, ey, ae));
 
         if (type === "Detour") {
             // Show an arrow head at the start for detours
-            let arrowHeadStart = document.createElementNS(SVG, "polygon");
-            arrowHeadStart.id = "arrow-start";
-
-            arrowHeadStart.setAttribute(
-                "points",
-                `0,${-arrowHeadSize} ${arrowHeadSize * 2},0, 0,${arrowHeadSize}`,
-            );
-            arrowHeadStart.setAttribute(
-                "transform",
-                `translate(${sx}, ${sy}) rotate(${as})`,
-            );
-            arrowHeadStart.setAttribute("fill", color);
-
-            svg.appendChild(arrowHeadStart);
+            svg.appendChild(getArrowHead("arrow-start", sx, sy, as));
         }
     }
 
+    for (const node of nodesWithExternalJumps) {
+        const startPos: Position = {
+            x: node.position.x + node.size.width,
+            y: node.position.y + node.size.height / 2,
+        };
+        const endPos: Position = {
+            x: startPos.x + 50,
+            y: startPos.y,
+        };
+
+        let line = document.createElementNS(SVG, "line");
+        line.setAttribute("x1", startPos.x.toString());
+        line.setAttribute("y1", startPos.y.toString());
+        line.setAttribute("x2", endPos.x.toString());
+        line.setAttribute("y2", endPos.y.toString());
+
+        line.setAttribute("stroke", color);
+        line.setAttribute("stroke-width", lineThickness.toString());
+        line.setAttribute("fill", "none");
+        line.id = "external-jumps-" + node.nodeName;
+
+        svg.appendChild(line);
+
+        svg.appendChild(getArrowHead("external-jump", endPos.x, endPos.y, 0));
+
+        const externalJumpRadius = 5;
+        const externalJumpCirclePos: Position = {
+            x: endPos.x + arrowHeadSize * 2 + externalJumpRadius,
+            y: endPos.y,
+        };
+
+        const externalJumpCircle = document.createElementNS(SVG, "circle");
+        externalJumpCircle.setAttribute(
+            "cx",
+            externalJumpCirclePos.x.toString(),
+        );
+        externalJumpCircle.setAttribute(
+            "cy",
+            externalJumpCirclePos.y.toString(),
+        );
+        externalJumpCircle.setAttribute("r", externalJumpRadius.toString());
+        externalJumpCircle.setAttribute("stroke", color);
+        externalJumpCircle.setAttribute(
+            "stroke-width",
+            lineThickness.toString(),
+        );
+        externalJumpCircle.style.opacity = "0.5";
+
+        externalJumpCircle.setAttribute("fill", "none");
+        svg.appendChild(externalJumpCircle);
+    }
+
     return svg;
+
+    function getArrowHead(id: string, x: number, y: number, angleEnd: number) {
+        let arrowHead = document.createElementNS(SVG, "polygon");
+
+        arrowHead.setAttribute(
+            "points",
+            `0,${-arrowHeadSize} ${arrowHeadSize * 2},0, 0,${arrowHeadSize}`,
+        );
+        arrowHead.setAttribute(
+            "transform",
+            `translate(${x}, ${y}) rotate(${angleEnd})`,
+        );
+        arrowHead.setAttribute("fill", color);
+        arrowHead.id = id;
+        return arrowHead;
+    }
 }

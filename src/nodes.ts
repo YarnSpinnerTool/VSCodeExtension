@@ -14,6 +14,7 @@ export interface NodeInfo {
     headers: NodeHeader[];
     jumps: NodeJump[];
     previewText: string;
+    containsExternalJumps: boolean;
 }
 
 export interface NodeHeader {
@@ -24,6 +25,7 @@ export interface NodeHeader {
 export interface NodeJump {
     destinationTitle: string;
     type: "Jump" | "Detour";
+    destinationFileUri: string;
 }
 
 export namespace DidChangeNodesNotification {

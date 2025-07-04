@@ -26,6 +26,8 @@ export class NodeView {
 
     private _color: string | null = null;
 
+    private _containsExternalJumps = false;
+
     outgoingConnections: OutgoingConnection[] = [];
 
     public onNodeEditClicked: (node: NodeView) => void = () => {};
@@ -161,6 +163,8 @@ export class NodeView {
                 (h) => h.key === "style" && h.value === "note",
             ) !== undefined;
         this.isNote = isNote;
+
+        this.containsExternalJumps = node.containsExternalJumps;
     }
 
     public set title(newTitle: string | undefined) {
@@ -201,6 +205,15 @@ export class NodeView {
 
     public set isNote(value: boolean) {
         this.element.classList.toggle("note", value);
+    }
+
+    public get containsExternalJumps(): boolean {
+        return this._containsExternalJumps;
+    }
+
+    public set containsExternalJumps(value: boolean) {
+        this._containsExternalJumps = value;
+        this.element.classList.toggle("external-jumps", value);
     }
 
     public set color(colorName: string | null) {
