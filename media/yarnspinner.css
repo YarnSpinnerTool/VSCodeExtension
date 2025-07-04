@@ -15,6 +15,21 @@ body {
             center,
         var(--vscode-foreground);
     background-size: 22px 22px;
+
+    --note-yellow: hsl(62, 100%, 60%);
+    --note-blue: hsl(177, 100%, 60%);
+    --note-red: hsl(348, 100%, 60%);
+    --note-orange: hsl(37, 100%, 60%);
+    --note-green: hsl(133, 100%, 60%);
+    --note-purple: hsl(296, 100%, 60%);
+
+    --note-bg-color: var(--note-yellow);
+
+    --note-background: color-mix(
+        in srgb,
+        var(--note-bg-color) 50%,
+        var(--vscode-editor-background) 50%
+    );
 }
 
 div.nodes {
@@ -88,6 +103,13 @@ div.node {
 
     box-sizing: border-box;
     overflow: hidden;
+
+    &.note {
+        background-color: var(--note-background);
+        height: unset;
+        rotate: 2deg;
+        transform-origin: center center;
+    }
 }
 
 div.node .content {
@@ -109,6 +131,10 @@ div.node .node-preview-fade {
     position: absolute;
     left: 0px;
     bottom: 0px;
+}
+
+div.node.note .node-preview-fade {
+    display: none;
 }
 
 div.node .color-bar {
@@ -143,6 +169,49 @@ div.node.color-purple .color-bar {
     background-color: var(--vscode-charts-purple);
 }
 
+div.node.note.color-red {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-red) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+div.node.note.color-yellow {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-yellow) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+div.node.note.color-orange {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-orange) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+div.node.note.color-purple {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-purple) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+div.node.note.color-blue {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-blue) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+div.node.note.color-green {
+    --note-background: color-mix(
+        in srgb,
+        var(--note-green) 50%,
+        var(--vscode-editor-background) 50%
+    );
+}
+
 div.node .title {
     text-overflow: ellipsis;
     overflow-wrap: anywhere;
@@ -163,9 +232,19 @@ div.node.has-subtitle .subtitle {
     display: block;
 }
 
+div.node.note .title {
+    display: none;
+}
+div.node.note .subtitle {
+    display: none;
+}
 div.node .preview {
     font-size: 0.75em;
     opacity: 0.5;
+}
+div.node.note .preview {
+    opacity: 1;
+    font-size: 0.9em;
 }
 
 div.node#node-template {

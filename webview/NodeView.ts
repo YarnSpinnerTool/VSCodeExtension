@@ -155,6 +155,12 @@ export class NodeView {
         } else {
             this.color = null;
         }
+
+        const isNote =
+            node.headers.find(
+                (h) => h.key === "style" && h.value === "note",
+            ) !== undefined;
+        this.isNote = isNote;
     }
 
     public set title(newTitle: string | undefined) {
@@ -191,6 +197,10 @@ export class NodeView {
 
     public get color(): string | null {
         return this._color;
+    }
+
+    public set isNote(value: boolean) {
+        this.element.classList.toggle("note", value);
     }
 
     public set color(colorName: string | null) {
