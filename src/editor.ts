@@ -81,7 +81,7 @@ export class YarnSpinnerEditorProvider
         webviewPanel.webview.onDidReceiveMessage((e) => {
             switch (e.type) {
                 case "add":
-                    this.addNode(document, e.position);
+                    this.addNode(document, e.position, e.headers);
                     return;
 
                 case "delete":
@@ -260,15 +260,17 @@ export class YarnSpinnerEditorProvider
     async addNode(
         document: vscode.TextDocument,
         position: { x: number; y: number },
+        headers?: Record<string, string>,
     ) {
-        var headers = {
+        var nodeHeaders = {
+            ...(headers ?? {}),
             position: `${Math.round(position.x)},${Math.round(position.y)}`,
         };
 
         var edit = await this.executeCommand<TextDocumentEdit>(
             Commands.AddNode,
             document.uri.fsPath,
-            headers,
+            nodeHeaders,
         );
 
         await this.applyTextDocumentEdit(edit);
