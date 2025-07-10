@@ -18,7 +18,7 @@ jobs:
     # This workflow contains a single job called "build"
     build:
         env:
-            RELEASE_FLAG: false
+            RELEASE_FLAG: ""
             LANGUAGESERVER_REF: "000000"
 
         # The type of runner that the job will run on
