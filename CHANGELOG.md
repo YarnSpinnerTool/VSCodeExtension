@@ -8,7 +8,7 @@
 
 ### Removed
 
-## [3.0.355] 2025-07-10
+## [3.0.357] 2025-07-10
 
 ### Added
 
@@ -111,18 +111,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                                                      <pre>
-                                                      title: NodeA
-                                                      <b>group: Cool Nodes</b>
-                                                      ---
-                                                      Lines here...
-                                                      ===
-                                                      title: NodeB
-                                                      <b>group: Cool Nodes</b>
-                                                      ---
-                                                      Lines here...
-                                                      ===
-                                                      </pre>
+                                                        <pre>
+                                                        title: NodeA
+                                                        <b>group: Cool Nodes</b>
+                                                        ---
+                                                        Lines here...
+                                                        ===
+                                                        title: NodeB
+                                                        <b>group: Cool Nodes</b>
+                                                        ---
+                                                        Lines here...
+                                                        ===
+                                                        </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -148,13 +148,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                                                      <pre>
-                                                      title: MyNode
-                                                      <b>color: red</b>
-                                                      ---
-                                                      Lines here...
-                                                      ===
-                                                      </pre>
+                                                        <pre>
+                                                        title: MyNode
+                                                        <b>color: red</b>
+                                                        ---
+                                                        Lines here...
+                                                        ===
+                                                        </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 
