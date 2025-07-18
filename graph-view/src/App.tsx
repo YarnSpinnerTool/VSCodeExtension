@@ -1,6 +1,7 @@
 import { vscode } from "./utilities/vscode";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import "./App.css";
+import GraphView from "./components/GraphView";
 
 function App() {
     function handleHowdyClick() {
@@ -10,12 +11,7 @@ function App() {
         });
     }
 
-    return (
-        <main className="">
-            <h1 className="text-2xl font-bold">Hello World!</h1>
-            <VSCodeButton onClick={handleHowdyClick}>Howdy!!!!!!</VSCodeButton>
-        </main>
-    );
+    return <GraphView />;
 }
 
 export default App;

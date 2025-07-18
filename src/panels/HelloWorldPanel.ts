@@ -1,17 +1,15 @@
 import {
-    Disposable,
-    Webview,
-    WebviewPanel,
-    window,
-    Uri,
-    ViewColumn,
-    workspace,
-    RelativePattern,
-    commands,
-    WebviewViewProvider,
     CancellationToken,
+    commands,
+    Disposable,
+    RelativePattern,
+    Uri,
+    Webview,
     WebviewView,
+    WebviewViewProvider,
     WebviewViewResolveContext,
+    window,
+    workspace,
 } from "vscode";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
@@ -23,6 +21,7 @@ export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
     private _extensionUri: Uri;
 
     public static readonly viewType = "yarnspinner.graph-view";
+    private _currentPanel?: HelloWorldPanel;
 
     constructor(extensionUri: Uri) {
         this._extensionUri = extensionUri;
@@ -33,7 +32,10 @@ export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
         context: WebviewViewResolveContext,
         token: CancellationToken,
     ): Thenable<void> | void {
-        const panel = new HelloWorldPanel(webviewView, this._extensionUri);
+        this._currentPanel = new HelloWorldPanel(
+            webviewView,
+            this._extensionUri,
+        );
     }
 }
 
@@ -50,7 +52,7 @@ export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
 export class HelloWorldPanel {
     public static currentPanel: HelloWorldPanel | undefined;
     private readonly _view?: WebviewView;
-    private readonly _webview?: Webview;
+    private readonly _webview: Webview;
     private _disposables: Disposable[] = [];
 
     /**
