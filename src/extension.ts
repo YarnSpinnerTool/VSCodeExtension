@@ -23,7 +23,7 @@ import { YarnPreviewPanel } from "./preview";
 import { LanguageClient } from "vscode-languageclient/node";
 import { ChildProcess, spawn } from "child_process";
 import { unescape } from "querystring";
-import { HelloWorldWebviewViewProvider } from "./panels/HelloWorldPanel";
+import { YarnSpinnerGraphViewProvider } from "./panels/YarnSpinnerGraphView";
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -78,12 +78,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
 
-    const graphViewProvider = new HelloWorldWebviewViewProvider(
+    const graphViewProvider = new YarnSpinnerGraphViewProvider(
         context.extensionUri,
     );
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider(
-            HelloWorldWebviewViewProvider.viewType,
+            YarnSpinnerGraphViewProvider.viewType,
             graphViewProvider,
         ),
     );

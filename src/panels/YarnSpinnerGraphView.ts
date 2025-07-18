@@ -17,11 +17,11 @@ import { getWebviewUri } from "../utilities/getWebviewUri";
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
 
-export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
+export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     private _extensionUri: Uri;
 
     public static readonly viewType = "yarnspinner.graph-view";
-    private _currentPanel?: HelloWorldPanel;
+    private _currentPanel?: YarnSpinnerGraphView;
 
     constructor(extensionUri: Uri) {
         this._extensionUri = extensionUri;
@@ -32,7 +32,7 @@ export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
         context: WebviewViewResolveContext,
         token: CancellationToken,
     ): Thenable<void> | void {
-        this._currentPanel = new HelloWorldPanel(
+        this._currentPanel = new YarnSpinnerGraphView(
             webviewView,
             this._extensionUri,
         );
@@ -49,8 +49,8 @@ export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
  * - Setting the HTML (and by proxy CSS/JavaScript) content of the webview panel
  * - Setting message listeners so data can be passed between the webview and extension
  */
-export class HelloWorldPanel {
-    public static currentPanel: HelloWorldPanel | undefined;
+export class YarnSpinnerGraphView {
+    public static currentPanel: YarnSpinnerGraphView | undefined;
     private readonly _view?: WebviewView;
     private readonly _webview: Webview;
     private _disposables: Disposable[] = [];
@@ -110,7 +110,7 @@ export class HelloWorldPanel {
      * Cleans up and disposes of webview resources when the webview panel is closed.
      */
     public dispose() {
-        HelloWorldPanel.currentPanel = undefined;
+        YarnSpinnerGraphView.currentPanel = undefined;
 
         // Dispose of all disposables (i.e. commands) for the current webview panel
         while (this._disposables.length) {
