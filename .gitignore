@@ -163,3 +163,5 @@ src/.antlr
 media/yarnspinner.js*
 
 src/types/*.d.ts
+
+build/
