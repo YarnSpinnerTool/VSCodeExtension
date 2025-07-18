@@ -11,7 +11,7 @@ import { Uri, Webview } from "vscode";
  * @param pathList An array of strings representing the path to a file/resource
  * @returns A URI pointing to the file/resource
  */
-export function getUri(
+export function getWebviewUri(
     webview: Webview,
     extensionUri: Uri,
     pathList: string[],

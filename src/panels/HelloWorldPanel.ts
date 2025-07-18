@@ -13,8 +13,8 @@ import {
     WebviewView,
     WebviewViewResolveContext,
 } from "vscode";
-import { getUri } from "../utilities/getUri";
 import { getNonce } from "../utilities/getNonce";
+import { getWebviewUri } from "../utilities/getWebviewUri";
 
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
@@ -132,9 +132,9 @@ export class HelloWorldPanel {
      */
     private _getWebviewContent(webview: Webview, extensionUri: Uri) {
         // The CSS file from the React build output
-        const stylesUri = getUri(webview, extensionUri, stylesAssetPath);
+        const stylesUri = getWebviewUri(webview, extensionUri, stylesAssetPath);
         // The JS file from the React build output
-        const scriptUri = getUri(webview, extensionUri, scriptAssetPath);
+        const scriptUri = getWebviewUri(webview, extensionUri, scriptAssetPath);
 
         const nonce = getNonce();
 
