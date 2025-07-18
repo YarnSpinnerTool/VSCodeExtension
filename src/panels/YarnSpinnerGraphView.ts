@@ -2,6 +2,8 @@ import {
     CancellationToken,
     commands,
     Disposable,
+    Event,
+    ExtensionContext,
     RelativePattern,
     Uri,
     Webview,
@@ -13,18 +15,25 @@ import {
 } from "vscode";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
+import { DidChangeNodesParams, NodeInfo } from "../nodes";
+import { type NodesUpdatedEvent } from "../editor";
 
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
 
 export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
-    private _extensionUri: Uri;
+    private _extensionContext: ExtensionContext;
 
     public static readonly viewType = "yarnspinner.graph-view";
     private _currentPanel?: YarnSpinnerGraphView;
+    private _onDidChangeNodes: Event<DidChangeNodesParams>;
 
-    constructor(extensionUri: Uri) {
-        this._extensionUri = extensionUri;
+    constructor(
+        extensionContext: ExtensionContext,
+        onDidChangeNodes: Event<DidChangeNodesParams>,
+    ) {
+        this._extensionContext = extensionContext;
+        this._onDidChangeNodes = onDidChangeNodes;
     }
 
     resolveWebviewView(
@@ -34,7 +43,8 @@ export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     ): Thenable<void> | void {
         this._currentPanel = new YarnSpinnerGraphView(
             webviewView,
-            this._extensionUri,
+            this._extensionContext,
+            this._onDidChangeNodes,
         );
     }
 }
@@ -55,14 +65,23 @@ export class YarnSpinnerGraphView {
     private readonly _webview: Webview;
     private _disposables: Disposable[] = [];
 
+    private _documentNodes: Map<string, NodeInfo[]>;
+
     /**
      * The HelloWorldPanel class private constructor (called only from the render method).
      *
      * @param panel A reference to the webview panel
      * @param extensionUri The URI of the directory containing the extension
      */
-    constructor(panel: WebviewView, extensionUri: Uri) {
+    constructor(
+        panel: WebviewView,
+        context: ExtensionContext,
+        onDidChangeNodes: Event<DidChangeNodesParams>,
+    ) {
         this._view = panel;
+        this._documentNodes = new Map();
+
+        const extensionUri = context.extensionUri;
 
         // Set an event listener to listen for when the panel is disposed (i.e. when the user closes
         // the panel or when the panel is closed programmatically)
@@ -94,16 +113,76 @@ export class YarnSpinnerGraphView {
             new RelativePattern(extensionUri, "graph-view/build/*"),
         );
         commands.executeCommand("workbench.action.webview.reloadWebviewAction");
-        const reloadWebViews = () =>
-            commands.executeCommand(
+        const reloadWebViews = async () => {
+            await commands.executeCommand(
                 "workbench.action.webview.reloadWebviewAction",
             );
+
+            var delayPromise = new Promise<void>((resolve) => {
+                setTimeout(resolve, 500);
+            });
+
+            await delayPromise;
+
+            const editor = window.activeTextEditor;
+            const nodes =
+                editor !== undefined
+                    ? (this._documentNodes.get(
+                          editor.document.uri.toString(),
+                      ) ?? [])
+                    : [];
+
+            this._webview.postMessage({
+                type: "update",
+                nodes: nodes,
+            } satisfies NodesUpdatedEvent);
+        };
 
         // React to changes in the dist directory
         watcher.onDidChange(reloadWebViews);
         watcher.onDidCreate(reloadWebViews);
         watcher.onDidDelete(reloadWebViews);
         this._disposables.push(watcher);
+
+        const onNodesChanged = onDidChangeNodes((n) => {
+            try {
+                const documentUri = Uri.parse(n.uri, false);
+                this._documentNodes.set(documentUri.toString(), n.nodes);
+            } catch {}
+            if (n.uri === window.activeTextEditor?.document.uri.toString()) {
+                // console.log(
+                //     `Nodes recompiled for ${n.uri}; ${n.nodes.length} nodes`,
+                // );
+
+                this._webview.postMessage({
+                    type: "update",
+                    nodes: n.nodes,
+                } satisfies NodesUpdatedEvent);
+            }
+        });
+
+        this._disposables.push(onNodesChanged);
+
+        const onDocumentChanged = window.onDidChangeActiveTextEditor(
+            (editor) => {
+                const nodes =
+                    editor !== undefined
+                        ? (this._documentNodes.get(
+                              editor.document.uri.toString(),
+                          ) ?? [])
+                        : [];
+
+                // console.log(
+                //     `Active document changed to ${editor?.document?.uri.toString() ?? "<no url>"}; ${nodes.length} nodes`,
+                // );
+
+                this._webview.postMessage({
+                    type: "update",
+                    nodes: nodes,
+                } satisfies NodesUpdatedEvent);
+            },
+        );
+        this._disposables.push(onDocumentChanged);
     }
 
     /**

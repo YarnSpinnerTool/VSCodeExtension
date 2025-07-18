@@ -78,16 +78,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
 
-    const graphViewProvider = new YarnSpinnerGraphViewProvider(
-        context.extensionUri,
-    );
-    context.subscriptions.push(
-        vscode.window.registerWebviewViewProvider(
-            YarnSpinnerGraphViewProvider.viewType,
-            graphViewProvider,
-        ),
-    );
-
     if (enableLanguageServer) {
         // The language server is enabled. Launch it!
         launchLanguageServer(context, configs, outputChannel);
@@ -332,6 +322,18 @@ async function launchLanguageServer(
             client,
             onDidChangeNodes.event,
             onDidRequestNodeInGraphView.event,
+        ),
+    );
+
+    // Register our graph view provider.
+    const graphViewProvider = new YarnSpinnerGraphViewProvider(
+        context,
+        onDidChangeNodes.event,
+    );
+    context.subscriptions.push(
+        vscode.window.registerWebviewViewProvider(
+            YarnSpinnerGraphViewProvider.viewType,
+            graphViewProvider,
         ),
     );
 

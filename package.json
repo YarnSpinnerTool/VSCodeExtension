@@ -54,24 +54,24 @@
     "devDependencies": {
         "@interactjs/types": "^1.10.17",
         "@types/jest": "^27.0.1",
-        "@types/node": "^12.12.0",
-        "@types/vscode": "^1.63.0",
+        "@types/node": "^22.16.4",
+        "@types/vscode": "^1.102.0",
         "@typescript-eslint/eslint-plugin": "^4.16.0",
         "@typescript-eslint/parser": "^4.16.0",
+        "@vscode/vsce": "^3.4.0",
         "antlr4ts-cli": "^0.5.0-alpha.4",
         "concurrently": "^7.5.0",
         "env-cmd": "^10.1.0",
         "eslint": "^7.21.0",
         "husky": "^9.1.7",
-        "jest": "^27.1.1",
+        "jest": "^30.0.4",
         "jest-each": "^27.1.1",
         "leader-line-types": "^1.0.5-2",
         "lint-staged": "^15.5.1",
         "prettier": "3.5.3",
-        "ts-jest": "^27.0.5",
+        "ts-jest": "^29.4.0",
         "ts-loader": "^9.4.1",
-        "typescript": "^4.2.2",
-        "@vscode/vsce": "^3.4.0",
+        "typescript": "^5.4.5",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0"
     },
@@ -310,12 +310,12 @@
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
         "@vscode/extension-telemetry": "^0.5.2",
-        "@vscode/webview-ui-toolkit": "^0.8.4",
+        "@vscode/webview-ui-toolkit": "^1.4.0",
         "antlr4ts": "^0.5.0-alpha.4",
         "curved-arrows": "git+https://github.com/desplesda/curved-arrows.git#fa1edc2ad372c7b9ec668af7f0506702129a5ced",
         "leader-line": "^1.0.5",
-        "vscode-jsonrpc": "^8.0.0",
-        "vscode-languageclient": "^8.0.0"
+        "vscode-jsonrpc": "^8.2.1",
+        "vscode-languageclient": "^9.0.1"
     },
     "extensionDependencies": [
         "ms-dotnettools.vscode-dotnet-runtime"
