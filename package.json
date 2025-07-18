@@ -76,6 +76,16 @@
         "webpack-cli": "^4.10.0"
     },
     "contributes": {
+        "views": {
+            "explorer": [
+                {
+                    "type": "webview",
+                    "id": "yarnspinner.graph-view",
+                    "name": "Yarn Spinner",
+                    "contextualTitle": "Yarn Spinner"
+                }
+            ]
+        },
         "menus": {
             "editor/title": [
                 {

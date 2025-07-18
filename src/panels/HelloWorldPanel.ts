@@ -8,12 +8,34 @@ import {
     workspace,
     RelativePattern,
     commands,
+    WebviewViewProvider,
+    CancellationToken,
+    WebviewView,
+    WebviewViewResolveContext,
 } from "vscode";
 import { getUri } from "../utilities/getUri";
 import { getNonce } from "../utilities/getNonce";
 
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
+
+export class HelloWorldWebviewViewProvider implements WebviewViewProvider {
+    private _extensionUri: Uri;
+
+    public static readonly viewType = "yarnspinner.graph-view";
+
+    constructor(extensionUri: Uri) {
+        this._extensionUri = extensionUri;
+    }
+
+    resolveWebviewView(
+        webviewView: WebviewView,
+        context: WebviewViewResolveContext,
+        token: CancellationToken,
+    ): Thenable<void> | void {
+        const panel = new HelloWorldPanel(webviewView, this._extensionUri);
+    }
+}
 
 /**
  * This class manages the state and behavior of HelloWorld webview panels.
@@ -27,7 +49,8 @@ const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
  */
 export class HelloWorldPanel {
     public static currentPanel: HelloWorldPanel | undefined;
-    private readonly _panel: WebviewPanel;
+    private readonly _view?: WebviewView;
+    private readonly _webview?: Webview;
     private _disposables: Disposable[] = [];
 
     /**
@@ -36,21 +59,33 @@ export class HelloWorldPanel {
      * @param panel A reference to the webview panel
      * @param extensionUri The URI of the directory containing the extension
      */
-    private constructor(panel: WebviewPanel, extensionUri: Uri) {
-        this._panel = panel;
+    constructor(panel: WebviewView, extensionUri: Uri) {
+        this._view = panel;
 
         // Set an event listener to listen for when the panel is disposed (i.e. when the user closes
         // the panel or when the panel is closed programmatically)
-        this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
+        this._view.onDidDispose(() => this.dispose(), null, this._disposables);
+
+        this._webview = panel.webview;
+
+        this._webview.options = {
+            // Enable JavaScript in the webview
+            enableScripts: true,
+            // Restrict the webview to only load resources from the `out` and `graph-view/build` directories
+            localResourceRoots: [
+                Uri.joinPath(extensionUri, "out"),
+                Uri.joinPath(extensionUri, "graph-view/build"),
+            ],
+        };
 
         // Set the HTML content for the webview panel
-        this._panel.webview.html = this._getWebviewContent(
-            this._panel.webview,
+        this._view.webview.html = this._getWebviewContent(
+            this._view.webview,
             extensionUri,
         );
 
         // Set an event listener to listen for messages passed from the webview context
-        this._setWebviewMessageListener(this._panel.webview);
+        this._setWebviewMessageListener(this._view.webview);
 
         // Watch the dist directory for changes; if any do, we reload all webviews
         const watcher = workspace.createFileSystemWatcher(
@@ -70,51 +105,10 @@ export class HelloWorldPanel {
     }
 
     /**
-     * Renders the current webview panel if it exists otherwise a new webview panel
-     * will be created and displayed.
-     *
-     * @param extensionUri The URI of the directory containing the extension.
-     */
-    public static render(extensionUri: Uri) {
-        if (HelloWorldPanel.currentPanel) {
-            // If the webview panel already exists reveal it
-            HelloWorldPanel.currentPanel._panel.reveal(ViewColumn.One);
-        } else {
-            // If a webview panel does not already exist create and show a new one
-            const panel = window.createWebviewPanel(
-                // Panel view type
-                "showHelloWorld",
-                // Panel title
-                "Hello World",
-                // The editor column the panel should be displayed in
-                ViewColumn.One,
-                // Extra panel configurations
-                {
-                    // Enable JavaScript in the webview
-                    enableScripts: true,
-                    // Restrict the webview to only load resources from the `out` and `graph-view/build` directories
-                    localResourceRoots: [
-                        Uri.joinPath(extensionUri, "out"),
-                        Uri.joinPath(extensionUri, "graph-view/build"),
-                    ],
-                },
-            );
-
-            HelloWorldPanel.currentPanel = new HelloWorldPanel(
-                panel,
-                extensionUri,
-            );
-        }
-    }
-
-    /**
      * Cleans up and disposes of webview resources when the webview panel is closed.
      */
     public dispose() {
         HelloWorldPanel.currentPanel = undefined;
-
-        // Dispose of the current webview panel
-        this._panel.dispose();
 
         // Dispose of all disposables (i.e. commands) for the current webview panel
         while (this._disposables.length) {
