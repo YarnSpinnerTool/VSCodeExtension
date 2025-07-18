@@ -12,18 +12,13 @@ import {
     NodeInfo,
 } from "./nodes";
 
-export enum MessageTypes {
-    Update = "update",
-    ShowNode = "show-node",
-}
-
 export interface NodesUpdatedEvent {
-    type: MessageTypes.Update;
+    type: "update";
     nodes: NodeInfo[];
 }
 
 export interface ShowNodeEvent {
-    type: MessageTypes.ShowNode;
+    type: "show-node";
     node: string;
 }
 
@@ -110,14 +105,14 @@ export class YarnSpinnerEditorProvider
 
         function updateWebView(nodes: NodeInfo[]) {
             postWebviewMessage({
-                type: MessageTypes.Update,
+                type: "update",
                 nodes: nodes,
             });
         }
 
         function showNodeInGraphView(nodeName: string) {
             postWebviewMessage({
-                type: MessageTypes.ShowNode,
+                type: "show-node",
                 node: nodeName,
             });
         }

@@ -5,7 +5,7 @@ import { NodeView } from "./NodeView";
 import { getLinesSVGForNodes } from "./svg";
 import { getPositionFromNodeInfo } from "./util";
 
-import { MessageTypes, WebViewEvent } from "../src/types/editor";
+import { WebViewEvent } from "../src/types/editor";
 import { newNodeOffset } from "./constants";
 
 interface VSCode {
