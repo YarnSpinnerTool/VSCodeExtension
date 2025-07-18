@@ -7,9 +7,7 @@
         "sourceMap": true,
         "strict": true,
         "rootDir": ".",
-        "allowJs": true,
-        "declaration": true,
-        "declarationDir": "types"
+        "allowJs": true
     },
     "include": ["."],
     "exclude": ["types"]

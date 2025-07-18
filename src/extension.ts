@@ -23,6 +23,7 @@ import { YarnPreviewPanel } from "./preview";
 import { LanguageClient } from "vscode-languageclient/node";
 import { ChildProcess, spawn } from "child_process";
 import { unescape } from "querystring";
+import { HelloWorldPanel } from "./panels/HelloWorldPanel";
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 
@@ -76,6 +77,17 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     const outputChannel = vscode.window.createOutputChannel("Yarn Spinner");
+
+    // Create the show hello world command
+    const showHelloWorldCommand = vscode.commands.registerCommand(
+        "hello-world.showHelloWorld",
+        () => {
+            HelloWorldPanel.render(context.extensionUri);
+        },
+    );
+
+    // Add command to the extension context
+    context.subscriptions.push(showHelloWorldCommand);
 
     if (enableLanguageServer) {
         // The language server is enabled. Launch it!
