@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
     ReactFlow,
     Controls,
@@ -6,39 +6,25 @@ import {
     Edge as GraphEdge,
     NodeProps,
     Handle,
-    Position,
     Background,
     BackgroundVariant,
     MarkerType,
     ReactFlowProvider,
     OnNodesChange,
+    applyNodeChanges,
+    OnNodeDrag,
+    Position,
+    MiniMap,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
 import type { NodeInfo } from "../../../src/nodes";
-import NodeInspector from "./NodeInspector";
-
-const initialNodes = [
-    { id: "n1", position: { x: 0, y: 0 }, data: { label: "Holy Moly" } },
-    {
-        id: "n2",
-        position: { x: 0, y: 100 },
-        data: { label: "It's Yarn Spinner" },
-    },
-    { id: "n3", position: { x: 0, y: 200 }, data: { label: "Wow" } },
-];
-const initialEdges = [
-    { id: "n1-n2", source: "n1", target: "n2" },
-    { id: "n2-n3", source: "n2", target: "n3" },
-];
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
 const GroupPadding = 20;
 
-type YarnNodeData = {
-    nodeInfo: NodeInfo;
-};
+type YarnNodeData = { nodeInfo?: NodeInfo; groupName?: string };
 
 function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     return (
@@ -46,7 +32,7 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
             className="text-[13px] bg-white border-gray-200 p-2"
             style={{ ...NodeSize }}
         >
-            {props.data.nodeInfo.sourceTitle}
+            {props.data.nodeInfo?.sourceTitle}
             <Handle type="target" position={Position.Top} />
             <Handle type="source" position={Position.Bottom} />
         </div>
@@ -100,11 +86,9 @@ function getEdges(nodes: NodeInfo[]): GraphEdge[] {
         .filter((n) => n !== null);
 }
 
-export default function GraphView() {
-    const context = useContext(GraphViewContext);
-
+function getContentNodes(nodes: NodeInfo[]): GraphNode<YarnNodeData>[] {
     let nodesWithoutPositions = 0;
-    const nodes = context.nodes.map<GraphNode<YarnNodeData>>((n, i) => {
+    const contentNodes = nodes.map<GraphNode<YarnNodeData>>((n, i) => {
         const positionHeader = n.headers.find(
             (h) => h.key === "position",
         )?.value;
@@ -123,7 +107,6 @@ export default function GraphView() {
                 .map((s) => (isNaN(s) ? 0 : s));
             position = { x, y };
         }
-
         return {
             id: n.uniqueTitle ?? "Node-" + i,
             data: { nodeInfo: n },
@@ -132,8 +115,12 @@ export default function GraphView() {
         };
     });
 
+    return contentNodes;
+}
+
+function getGroupNodes(contentNodes: GraphNode<YarnNodeData>[]): GraphNode[] {
     const groupedNodes = Object.entries(
-        Object.groupBy(nodes, (n) => n.data.nodeInfo.nodeGroup ?? "{}"),
+        Object.groupBy(contentNodes, (n) => n.data.nodeInfo?.nodeGroup ?? "{}"),
     );
 
     const nodeGroups = groupedNodes
@@ -170,25 +157,60 @@ export default function GraphView() {
 
             return {
                 id: groupName,
-                data: {},
+                data: { groupName },
                 position: groupPosition,
                 ...groupSize,
                 type: "group",
             };
         })
         .filter((n) => n !== null);
+    return nodeGroups;
+}
 
-    const edges = getEdges(context.nodes);
+export default function GraphView() {
+    const context = useContext(GraphViewContext);
+
+    const [contentNodes, setContentNodes] = useState(
+        getContentNodes(context.nodes),
+    );
+    const [groupNodes, setGroupNodes] = useState(getGroupNodes(contentNodes));
+    const [edges, setEdges] = useState(getEdges(context.nodes));
+
+    useEffect(() => {
+        setContentNodes(getContentNodes(context.nodes));
+        setEdges(getEdges(context.nodes));
+    }, [context.nodes]);
+
+    useEffect(() => {
+        setGroupNodes(getGroupNodes(contentNodes));
+    }, [contentNodes]);
+
+    const onNodesChange: OnNodesChange<GraphNode<YarnNodeData>> = useCallback(
+        (changes) => {
+            // Apply the changes to our content nodes. This will trigger group
+            // nodes to recalculate as well.
+            setContentNodes((snapshot) => applyNodeChanges(changes, snapshot));
+        },
+        [],
+    );
+
+    const onNodeDragStop: OnNodeDrag = (evt, node, nodes) => {
+        console.log("Nodes finished dragging", nodes);
+    };
 
     return (
         <>
             <div className="size-full">
                 <ReactFlowProvider>
                     <ReactFlow
-                        nodes={[...nodeGroups, ...nodes]}
+                        nodes={[...groupNodes, ...contentNodes]}
                         edges={edges}
                         nodeTypes={nodeTypes}
                         minZoom={0.1}
+                        edgesFocusable={false}
+                        nodesConnectable={false}
+                        onNodeDragStop={onNodeDragStop}
+                        onNodesChange={onNodesChange}
                         fitView
                         proOptions={{ hideAttribution: true }}
                     >
@@ -198,6 +220,7 @@ export default function GraphView() {
                             gap={40}
                         />
                         <Controls />
+                        <MiniMap pannable draggable />
                     </ReactFlow>
                 </ReactFlowProvider>
             </div>
