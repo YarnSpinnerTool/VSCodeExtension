@@ -225,6 +225,8 @@ export default function GraphView(props: {
                         edgesFocusable={false}
                         nodesConnectable={false}
                         onNodeDragStop={onNodeDragStop}
+                        selectNodesOnDrag={true}
+                        selectionKeyCode={"Shift"}
                         onNodesChange={onNodesChange}
                         fitView
                         proOptions={{ hideAttribution: true }}
