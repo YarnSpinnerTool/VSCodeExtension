@@ -15,6 +15,7 @@ import {
 export interface NodesUpdatedEvent {
     type: "update";
     nodes: NodeInfo[];
+    documentUri: string | null;
 }
 
 export interface ShowNodeEvent {
@@ -24,7 +25,7 @@ export interface ShowNodeEvent {
 
 export type WebViewEvent = NodesUpdatedEvent | ShowNodeEvent;
 
-enum Commands {
+export enum Commands {
     AddNode = "yarnspinner.create-node",
     RemoveNode = "yarnspinner.remove-node",
     ListNodes = "yarnspinner.list-nodes",
@@ -107,6 +108,7 @@ export class YarnSpinnerEditorProvider
             postWebviewMessage({
                 type: "update",
                 nodes: nodes,
+                documentUri: document.uri.toString(),
             });
         }
 

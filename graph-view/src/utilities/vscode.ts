@@ -1,4 +1,5 @@
 import type { WebviewApi } from "vscode-webview";
+import type { WebviewMessage } from "../../../src/panels/YarnSpinnerGraphView";
 
 /**
  * A utility wrapper around the acquireVsCodeApi() function, which enables
@@ -28,7 +29,7 @@ class VSCodeAPIWrapper {
      *
      * @param message Abitrary data (must be JSON serializable) to send to the extension context.
      */
-    public postMessage(message: unknown) {
+    public postMessage(message: WebviewMessage) {
         if (this.vsCodeApi) {
             this.vsCodeApi.postMessage(message);
         } else {

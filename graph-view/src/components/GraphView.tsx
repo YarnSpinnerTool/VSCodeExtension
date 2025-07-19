@@ -167,7 +167,9 @@ function getGroupNodes(contentNodes: GraphNode<YarnNodeData>[]): GraphNode[] {
     return nodeGroups;
 }
 
-export default function GraphView() {
+export default function GraphView(props: {
+    onNodesMoved: (nodes: { id: string; x: number; y: number }[]) => void;
+}) {
     const context = useContext(GraphViewContext);
 
     const [contentNodes, setContentNodes] = useState(
@@ -191,12 +193,25 @@ export default function GraphView() {
             // nodes to recalculate as well.
             setContentNodes((snapshot) => applyNodeChanges(changes, snapshot));
         },
-        [],
+        [setContentNodes, setGroupNodes],
     );
 
-    const onNodeDragStop: OnNodeDrag = (evt, node, nodes) => {
-        console.log("Nodes finished dragging", nodes);
-    };
+    const onNodeDragStop: OnNodeDrag<GraphNode<YarnNodeData>> = useCallback(
+        (_ev, _node, nodes) => {
+            const positions = nodes
+                .map((n) => ({
+                    id: n.data.nodeInfo?.uniqueTitle ?? "<unknown>",
+                    x: n.position.x,
+                    y: n.position.y,
+                }))
+                .filter((n) => n.id !== "<unknown>");
+
+            if (positions.length > 0) {
+                props.onNodesMoved(positions);
+            }
+        },
+        [props.onNodesMoved],
+    );
 
     return (
         <>

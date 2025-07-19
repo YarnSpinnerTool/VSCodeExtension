@@ -6,20 +6,57 @@ import {
     ExtensionContext,
     RelativePattern,
     Uri,
+    Range,
     Webview,
     WebviewView,
     WebviewViewProvider,
     WebviewViewResolveContext,
     window,
     workspace,
+    WorkspaceEdit,
 } from "vscode";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
 import { DidChangeNodesParams, NodeInfo } from "../nodes";
-import { type NodesUpdatedEvent } from "../editor";
+import { Commands, type NodesUpdatedEvent } from "../editor";
+
+import {
+    ExecuteCommandRequest,
+    type ExecuteCommandParams,
+    type LanguageClient,
+    type TextDocumentEdit,
+} from "vscode-languageclient/node";
 
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
+
+export type WebviewMessage = {
+    type: "move";
+    documentUri: string;
+    positions: Record<string, { x: number; y: number }>;
+};
+
+/*
+ switch (e.type) {
+                case "add":
+                    this.addNode(document, e.position, e.headers);
+                    return;
+
+                case "delete":
+                    this.deleteNode(document, e.id);
+                    return;
+
+                case "move":
+                    this.moveNode(document, e.positions);
+                    return;
+
+                case "open":
+                    this.openNode(document, e.id);
+                    return;
+
+                case "update-header":
+                    this.updateNodeHeader(document, e.nodeName, e.key, e.value);
+            }*/
 
 export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     private _extensionContext: ExtensionContext;
@@ -27,12 +64,15 @@ export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     public static readonly viewType = "yarnspinner.graph-view";
     private _currentPanel?: YarnSpinnerGraphView;
     private _onDidChangeNodes: Event<DidChangeNodesParams>;
+    private _languageClient: LanguageClient;
 
     constructor(
         extensionContext: ExtensionContext,
+        languageClient: LanguageClient,
         onDidChangeNodes: Event<DidChangeNodesParams>,
     ) {
         this._extensionContext = extensionContext;
+        this._languageClient = languageClient;
         this._onDidChangeNodes = onDidChangeNodes;
     }
 
@@ -44,6 +84,7 @@ export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
         this._currentPanel = new YarnSpinnerGraphView(
             webviewView,
             this._extensionContext,
+            this._languageClient,
             this._onDidChangeNodes,
         );
     }
@@ -65,7 +106,8 @@ export class YarnSpinnerGraphView {
     private readonly _webview: Webview;
     private _disposables: Disposable[] = [];
 
-    private _documentNodes: Map<string, NodeInfo[]>;
+    private static _documentNodes: Map<string, NodeInfo[]> = new Map();
+    private _languageClient: LanguageClient;
 
     /**
      * The HelloWorldPanel class private constructor (called only from the render method).
@@ -76,10 +118,11 @@ export class YarnSpinnerGraphView {
     constructor(
         panel: WebviewView,
         context: ExtensionContext,
+        languageClient: LanguageClient,
         onDidChangeNodes: Event<DidChangeNodesParams>,
     ) {
         this._view = panel;
-        this._documentNodes = new Map();
+        this._languageClient = languageClient;
 
         const extensionUri = context.extensionUri;
 
@@ -127,7 +170,7 @@ export class YarnSpinnerGraphView {
             const editor = window.activeTextEditor;
             const nodes =
                 editor !== undefined
-                    ? (this._documentNodes.get(
+                    ? (YarnSpinnerGraphView._documentNodes.get(
                           editor.document.uri.toString(),
                       ) ?? [])
                     : [];
@@ -135,6 +178,7 @@ export class YarnSpinnerGraphView {
             this._webview.postMessage({
                 type: "update",
                 nodes: nodes,
+                documentUri: editor?.document.uri.toString() ?? null,
             } satisfies NodesUpdatedEvent);
         };
 
@@ -146,17 +190,19 @@ export class YarnSpinnerGraphView {
 
         const onNodesChanged = onDidChangeNodes((n) => {
             try {
+                // Update our cached nodes for this uri
                 const documentUri = Uri.parse(n.uri, false);
-                this._documentNodes.set(documentUri.toString(), n.nodes);
+                YarnSpinnerGraphView._documentNodes.set(
+                    documentUri.toString(),
+                    n.nodes,
+                );
             } catch {}
-            if (n.uri === window.activeTextEditor?.document.uri.toString()) {
-                // console.log(
-                //     `Nodes recompiled for ${n.uri}; ${n.nodes.length} nodes`,
-                // );
-
+            const uriString = window.activeTextEditor?.document.uri.toString();
+            if (n.uri === uriString) {
                 this._webview.postMessage({
                     type: "update",
                     nodes: n.nodes,
+                    documentUri: uriString,
                 } satisfies NodesUpdatedEvent);
             }
         });
@@ -167,18 +213,17 @@ export class YarnSpinnerGraphView {
             (editor) => {
                 const nodes =
                     editor !== undefined
-                        ? (this._documentNodes.get(
+                        ? (YarnSpinnerGraphView._documentNodes.get(
                               editor.document.uri.toString(),
                           ) ?? [])
                         : [];
 
-                // console.log(
-                //     `Active document changed to ${editor?.document?.uri.toString() ?? "<no url>"}; ${nodes.length} nodes`,
-                // );
+                // TODO: if we don't have any cached nodes for this document, request them from the Language Client
 
                 this._webview.postMessage({
                     type: "update",
                     nodes: nodes,
+                    documentUri: editor?.document.uri.toString() ?? null,
                 } satisfies NodesUpdatedEvent);
             },
         );
@@ -247,21 +292,98 @@ export class YarnSpinnerGraphView {
      */
     private _setWebviewMessageListener(webview: Webview) {
         webview.onDidReceiveMessage(
-            (message: any) => {
-                const command = message.command;
-                const text = message.text;
-
-                switch (command) {
-                    case "hello":
-                        // Code that should run in response to the hello message command
-                        window.showInformationMessage(text);
-                        return;
-                    // Add more switch case statements here as more webview message commands
-                    // are created within the webview context (i.e. inside media/main.js)
+            (message: WebviewMessage) => {
+                switch (message.type) {
+                    case "move":
+                        this.moveNode(
+                            Uri.parse(message.documentUri, true),
+                            message.positions,
+                        );
+                        break;
                 }
             },
             undefined,
             this._disposables,
         );
+    }
+
+    private async moveNode(
+        uri: Uri,
+        positions: Record<string, { x: number; y: number }>,
+    ): Promise<void> {
+        let computedEdit: TextDocumentEdit | undefined;
+
+        // For each node in 'positions', update (or add) the 'position' header
+        // for this node in the document. We'll accumulate all of the edits that
+        // result, and apply it all at once.
+        for (const nodeName in positions) {
+            const position = positions[nodeName];
+
+            // Send a request to the language server to change the 'position' header
+            // for this node
+            var documentEdit = await this.executeCommand<TextDocumentEdit>(
+                Commands.UpdateNodeHeader,
+                uri.fsPath,
+                nodeName,
+                "position",
+                `${Math.round(position.x)},${Math.round(position.y)}`,
+            );
+            if (!computedEdit) {
+                computedEdit = documentEdit;
+            } else {
+                computedEdit.edits.push(...documentEdit.edits);
+            }
+        }
+
+        // We have an edit to apply that updates these positions
+        if (computedEdit) {
+            // Apply the document change that we received
+            await this.applyTextDocumentEdit(computedEdit);
+        }
+    }
+
+    async executeCommand<T>(
+        command: string,
+        ...commandArguments: any[]
+    ): Promise<T> {
+        const params: ExecuteCommandParams = {
+            command: command,
+            arguments: commandArguments,
+        };
+        return this._languageClient.sendRequest(
+            ExecuteCommandRequest.type,
+            params,
+        );
+    }
+
+    /**
+     * Applies the given TextDocumentEdit to the workspace.
+     * @param documentEdit The edit to apply.
+     * @returns A promise that resolves to whether the edit could be applied.
+     */
+    private async applyTextDocumentEdit(
+        documentEdit: TextDocumentEdit,
+    ): Promise<boolean> {
+        // Construct a new workspace edit that modifies this specific document.
+
+        var workspaceEdit = new WorkspaceEdit();
+        for (const edit of documentEdit.edits) {
+            // Parse the uri string into a vscode.Uri
+            const documentUri = Uri.parse(documentEdit.textDocument.uri);
+
+            // Convert the language server Range to a vscode.Range
+            const editRange = new Range(
+                edit.range.start.line,
+                edit.range.start.character,
+                edit.range.end.line,
+                edit.range.end.character,
+            );
+
+            // Add the replacement
+            workspaceEdit.replace(documentUri, editRange, edit.newText);
+        }
+
+        // Apply this new edit
+        return workspace.applyEdit(workspaceEdit);
     }
 }

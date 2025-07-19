@@ -328,6 +328,7 @@ async function launchLanguageServer(
     // Register our graph view provider.
     const graphViewProvider = new YarnSpinnerGraphViewProvider(
         context,
+        client,
         onDidChangeNodes.event,
     );
     context.subscriptions.push(
