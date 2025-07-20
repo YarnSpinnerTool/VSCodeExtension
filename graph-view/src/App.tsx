@@ -4,6 +4,7 @@ import GraphView from "./components/GraphView";
 import type { WebViewEvent } from "../../src/editor";
 import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext, GraphViewState } from "./context";
+import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
 function App() {
     const [state, setState] = useState<GraphViewState>({
@@ -70,7 +71,7 @@ function App() {
                 {state.documentUri ?? "No document"}
             </div> */}
             <div className="absolute right-2 top-2 z-10">
-                <button onClick={addNode}>Add Node</button>
+                <VSCodeButton onClick={addNode}>Add Node</VSCodeButton>
             </div>
             <GraphView onNodesMoved={onNodesMoved} />
         </GraphViewContext.Provider>
