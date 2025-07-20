@@ -17,6 +17,7 @@ import {
     MiniMap,
     XYPosition,
     NodeToolbar,
+    OnSelectionChangeFunc,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
@@ -269,6 +270,7 @@ function getEdges(nodes: NodeInfo[]): GraphEdge[] {
 function getContentNodes(
     nodes: NodeInfo[],
     eventHandlers: NodeEventHandlers,
+    selectedNodes: string[],
 ): GraphNode<YarnNodeData>[] {
     let nodesWithoutPositions = 0;
     const contentNodes = nodes.map<GraphNode<YarnNodeData>>((n, i) => {
@@ -290,11 +292,13 @@ function getContentNodes(
                 .map((s) => (isNaN(s) ? 0 : s));
             position = { x, y };
         }
+        const id = n.uniqueTitle ?? "Node-" + i;
         return {
-            id: n.uniqueTitle ?? "Node-" + i,
+            id,
             data: { nodeInfo: n, ...eventHandlers },
             position,
             width: NodeSize.width,
+            selected: selectedNodes.includes(id),
             height: NodeSize.height,
             type: "yarnNode",
         };
@@ -371,14 +375,16 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     const context = useContext(GraphViewContext);
 
+    const [selectedNodes, setSelectedNodes] = useState<string[]>([]);
+
     const [contentNodes, setContentNodes] = useState(
-        getContentNodes(context.nodes, props),
+        getContentNodes(context.nodes, props, selectedNodes),
     );
     const [groupNodes, setGroupNodes] = useState(getGroupNodes(contentNodes));
     const [edges, setEdges] = useState(getEdges(context.nodes));
 
     useEffect(() => {
-        setContentNodes(getContentNodes(context.nodes, props));
+        setContentNodes(getContentNodes(context.nodes, props, selectedNodes));
         setEdges(getEdges(context.nodes));
     }, [context.nodes]);
 
@@ -412,6 +418,18 @@ export function GraphViewInProvider(props: GraphViewProps) {
         [props.onNodesMoved],
     );
 
+    const onSelectionChange: OnSelectionChangeFunc<GraphNode<YarnNodeData>> =
+        useCallback(
+            (params) => {
+                setSelectedNodes(
+                    params.nodes.map(
+                        (n) => n.data.nodeInfo?.uniqueTitle ?? "<unknown>",
+                    ),
+                );
+            },
+            [setSelectedNodes],
+        );
+
     return (
         <>
             <div className="size-full" ref={containerRef}>
@@ -426,6 +444,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     selectNodesOnDrag={true}
                     selectionKeyCode={"Shift"}
                     onNodesChange={onNodesChange}
+                    onSelectionChange={onSelectionChange}
                     fitView
                     proOptions={{ hideAttribution: true }}
                 >
