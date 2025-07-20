@@ -38,6 +38,9 @@ import IconAlignLeft from "../images/align-left.svg?react";
 import IconAlignRight from "../images/align-right.svg?react";
 import IconAlignTop from "../images/align-top.svg?react";
 import IconAlignBottom from "../images/align-bottom.svg?react";
+import IconAutoLayout from "../images/auto-layout.svg?react";
+
+import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
@@ -384,6 +387,8 @@ export type GraphViewStateRef = {
     position: XYPosition;
 };
 
+const elk = new ELK();
+
 export function GraphViewInProvider(props: GraphViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -502,6 +507,66 @@ export function GraphViewInProvider(props: GraphViewProps) {
         props.onNodesMoved(nodeMovements);
     }
 
+    function autoLayoutSelectedNodes() {
+        // const nodes =
+        //     selectedNodes.length > 0
+        //         ? contentNodes.filter((n) => selectedNodes.includes(n.id))
+        //         : contentNodes;
+        const nodes = contentNodes;
+
+        const graph: ElkNode = {
+            id: "root",
+            layoutOptions: {
+                "elk.algorithm": "layered",
+                "elk.direction": "DOWN",
+                "elk.layered.spacing.nodeNodeBetweenLayers": "100",
+                "elk.spacing.nodeNode": "80",
+            },
+            children: nodes.map<ElkNode>((n) => ({
+                ...n,
+            })),
+            edges: edges
+                .filter(
+                    (e) =>
+                        nodes.find((n) => n.id == e.source) &&
+                        nodes.find((n) => n.id == e.target),
+                )
+                .map<ElkExtendedEdge>((e) => {
+                    return {
+                        id: e.id,
+                        sources: [e.source],
+                        targets: [e.target],
+                    };
+                }),
+        };
+
+        elk.layout(graph)
+            .then((result) => {
+                const layoutedNodes = (result.children ?? []).map<GraphNode>(
+                    (n) => ({
+                        ...n,
+                        position: { x: n.x ?? 0, y: n.y ?? 0 },
+                        data: {},
+                    }),
+                );
+
+                let nodeMovements: { id: string; x: number; y: number }[] = [];
+                for (const node of layoutedNodes) {
+                    flow.updateNode(node.id, { position: node.position });
+                    nodeMovements.push({
+                        id: node.id,
+                        ...node.position,
+                    });
+                }
+                props.onNodesMoved(nodeMovements);
+                flow.fitView({
+                    nodes,
+                    padding: "20px",
+                });
+            })
+            .catch(console.error);
+    }
+
     return (
         <>
             <div className="size-full" ref={containerRef}>
@@ -549,6 +614,12 @@ export function GraphViewInProvider(props: GraphViewProps) {
                             icon={IconAlignBottom}
                             enabled={multipleNodesSelected}
                             onClick={() => alignSelectedNodes("bottom")}
+                        />
+                        <div></div>
+                        <IconButton
+                            icon={IconAutoLayout}
+                            enabled
+                            onClick={() => autoLayoutSelectedNodes()}
                         />
                     </Panel>
 
