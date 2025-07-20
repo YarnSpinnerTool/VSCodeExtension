@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import {
     ReactFlow,
     Controls,
@@ -15,6 +15,7 @@ import {
     OnNodeDrag,
     Position,
     MiniMap,
+    XYPosition,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
@@ -167,9 +168,23 @@ function getGroupNodes(contentNodes: GraphNode<YarnNodeData>[]): GraphNode[] {
     return nodeGroups;
 }
 
-export default function GraphView(props: {
-    onNodesMoved: (nodes: { id: string; x: number; y: number }[]) => void;
-}) {
+type GraphViewProps = {
+    onNodesMoved: (
+        nodes: {
+            id: string;
+            x: number;
+            y: number;
+        }[],
+    ) => void;
+};
+
+export type GraphViewStateRef = {
+    position: XYPosition;
+};
+
+export function GraphViewInProvider(props: GraphViewProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
+
     const context = useContext(GraphViewContext);
 
     const [contentNodes, setContentNodes] = useState(
@@ -215,32 +230,38 @@ export default function GraphView(props: {
 
     return (
         <>
-            <div className="size-full">
-                <ReactFlowProvider>
-                    <ReactFlow
-                        nodes={[...groupNodes, ...contentNodes]}
-                        edges={edges}
-                        nodeTypes={nodeTypes}
-                        minZoom={0.1}
-                        edgesFocusable={false}
-                        nodesConnectable={false}
-                        onNodeDragStop={onNodeDragStop}
-                        selectNodesOnDrag={true}
-                        selectionKeyCode={"Shift"}
-                        onNodesChange={onNodesChange}
-                        fitView
-                        proOptions={{ hideAttribution: true }}
-                    >
-                        <Background
-                            variant={BackgroundVariant.Dots}
-                            size={2}
-                            gap={40}
-                        />
-                        <Controls />
-                        <MiniMap pannable draggable />
-                    </ReactFlow>
-                </ReactFlowProvider>
+            <div className="size-full" ref={containerRef}>
+                <ReactFlow
+                    nodes={[...groupNodes, ...contentNodes]}
+                    edges={edges}
+                    nodeTypes={nodeTypes}
+                    minZoom={0.1}
+                    edgesFocusable={false}
+                    nodesConnectable={false}
+                    onNodeDragStop={onNodeDragStop}
+                    selectNodesOnDrag={true}
+                    selectionKeyCode={"Shift"}
+                    onNodesChange={onNodesChange}
+                    fitView
+                    proOptions={{ hideAttribution: true }}
+                >
+                    <Background
+                        variant={BackgroundVariant.Dots}
+                        size={2}
+                        gap={40}
+                    />
+                    <Controls />
+                    <MiniMap pannable draggable />
+                </ReactFlow>
             </div>
         </>
+    );
+}
+
+export default function GraphView(props: GraphViewProps) {
+    return (
+        <ReactFlowProvider>
+            <GraphViewInProvider {...props} />
+        </ReactFlowProvider>
     );
 }

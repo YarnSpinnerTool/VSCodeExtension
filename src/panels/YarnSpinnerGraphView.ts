@@ -30,11 +30,20 @@ import {
 const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
 const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
 
-export type WebviewMessage = {
-    type: "move";
-    documentUri: string;
-    positions: Record<string, { x: number; y: number }>;
-};
+type XYPosition = { x: number; y: number };
+
+export type WebviewMessage =
+    | {
+          type: "move";
+          documentUri: string;
+          positions: Record<string, XYPosition>;
+      }
+    | {
+          type: "add";
+          documentUri: string;
+          position: XYPosition;
+          headers: Record<string, string>;
+      };
 
 /*
  switch (e.type) {
@@ -300,11 +309,36 @@ export class YarnSpinnerGraphView {
                             message.positions,
                         );
                         break;
+                    case "add":
+                        this.addNode(
+                            Uri.parse(message.documentUri, true),
+                            message.position,
+                            message.headers,
+                        );
+                        break;
                 }
             },
             undefined,
             this._disposables,
         );
+    }
+    private async addNode(
+        uri: Uri,
+        position: XYPosition,
+        headers: Record<string, string>,
+    ) {
+        var nodeHeaders = {
+            ...(headers ?? {}),
+            position: `${Math.round(position.x)},${Math.round(position.y)}`,
+        };
+
+        var edit = await this.executeCommand<TextDocumentEdit>(
+            Commands.AddNode,
+            uri.fsPath,
+            nodeHeaders,
+        );
+
+        await this.applyTextDocumentEdit(edit);
     }
 
     private async moveNode(

@@ -2,7 +2,7 @@ import { vscode } from "./utilities/vscode";
 import "./App.css";
 import GraphView from "./components/GraphView";
 import type { WebViewEvent } from "../../src/editor";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext, GraphViewState } from "./context";
 
 function App() {
@@ -29,28 +29,50 @@ function App() {
         };
     });
 
+    const addNode = useCallback(() => {
+        if (!state.documentUri) {
+            console.warn(
+                "Node added callback fired but webview has no document uri!",
+            );
+            return;
+        }
+
+        vscode.postMessage({
+            type: "add",
+            documentUri: state.documentUri,
+            position: { x: 0, y: 0 },
+            headers: {},
+        });
+    }, [state.documentUri]);
+
+    const onNodesMoved = useCallback(
+        (nodes: { id: string; x: number; y: number }[]): void => {
+            if (!state.documentUri) {
+                console.warn(
+                    "Nodes moved callback fired but webview has no document uri!",
+                );
+                return;
+            }
+            vscode.postMessage({
+                type: "move",
+                documentUri: state.documentUri,
+                positions: Object.fromEntries(
+                    nodes.map((n) => [n.id, { x: n.x, y: n.y }]),
+                ),
+            });
+        },
+        [state.documentUri],
+    );
+
     return (
         <GraphViewContext.Provider value={state}>
-            <div className="absolute top-2 left-2">
+            {/* <div className="absolute top-2 left-2">
                 {state.documentUri ?? "No document"}
+            </div> */}
+            <div className="absolute right-2 top-2 z-10">
+                <button onClick={addNode}>Add Node</button>
             </div>
-            <GraphView
-                onNodesMoved={(nodes) => {
-                    if (!state.documentUri) {
-                        console.warn(
-                            "Nodes moved callback fired but webview has no document uri!",
-                        );
-                        return;
-                    }
-                    vscode.postMessage({
-                        type: "move",
-                        documentUri: state.documentUri,
-                        positions: Object.fromEntries(
-                            nodes.map((n) => [n.id, { x: n.x, y: n.y }]),
-                        ),
-                    });
-                }}
-            />
+            <GraphView onNodesMoved={onNodesMoved} />
         </GraphViewContext.Provider>
     );
 }
