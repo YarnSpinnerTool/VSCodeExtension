@@ -28,4 +28,42 @@ main {
     --color-orange: var(--vscode-charts-orange, #d18616);
     --color-green: var(--vscode-charts-green, #388a34);
     --color-purple: var(--vscode-charts-purple, #652d90);
+
+    --color-note-yellow: hsl(62, 100%, 60%);
+    --color-note-blue: hsl(177, 100%, 60%);
+    --color-note-red: hsl(348, 100%, 60%);
+    --color-note-orange: hsl(37, 100%, 60%);
+    --color-note-green: hsl(133, 100%, 60%);
+    --color-note-purple: hsl(296, 100%, 60%);
+
+    --color-note-yellow-bg: color-mix(
+        in srgb,
+        var(--color-note-yellow) 50%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-note-blue-bg: color-mix(
+        in srgb,
+        var(--color-note-blue) 50%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-note-red-bg: color-mix(
+        in srgb,
+        var(--color-note-red) 50%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-note-orange-bg: color-mix(
+        in srgb,
+        var(--color-note-orange) 50%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-note-green-bg: color-mix(
+        in srgb,
+        var(--color-note-green) 50%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-note-purple-bg: color-mix(
+        in srgb,
+        var(--color-note-purple) 50%,
+        var(--vscode-editor-background, #fff)
+    );
 }

@@ -39,6 +39,11 @@ type NodeEventHandlers = {
 };
 
 function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
+    const isNote =
+        props.data.nodeInfo?.headers.find(
+            (h) => h.key === "style" && h.value === "note",
+        ) !== undefined;
+
     return (
         <>
             <NodeToolbar
@@ -62,25 +67,41 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                     Delete
                 </VSCodeButton>
             </NodeToolbar>
-            <div
-                className={clsx(
-                    "text-[13px] bg-white flex flex-col overflow-clip p-2 box-border border-2 rounded-sm",
-                    {
-                        "border-transparent": !props.selected,
-                        "border-selected": props.selected,
-                    },
-                )}
-                style={{ ...NodeSize }}
-            >
-                <div className="font-bold">
-                    {props.data.nodeInfo?.sourceTitle}
-                </div>
-                <div className="whitespace-pre-line">
+            {isNote && (
+                <div
+                    style={{ width: props.width, height: props.height }}
+                    className={clsx(
+                        "bg-note-yellow-bg p-2 border-2 shadow-lg rotate-3",
+                        {
+                            "border-transparent": !props.selected,
+                            "border-note-orange": props.selected,
+                        },
+                    )}
+                >
                     {props.data.nodeInfo?.previewText}
                 </div>
-                <Handle type="target" position={Position.Top} />
-                <Handle type="source" position={Position.Bottom} />
-            </div>
+            )}
+            {!isNote && (
+                <div
+                    className={clsx(
+                        "text-[13px] bg-white flex flex-col overflow-clip p-2 box-border border-2 rounded-sm",
+                        {
+                            "border-transparent": !props.selected,
+                            "border-selected": props.selected,
+                        },
+                    )}
+                    style={{ width: props.width, height: props.height }}
+                >
+                    <div className="font-bold">
+                        {props.data.nodeInfo?.sourceTitle}
+                    </div>
+                    <div className="whitespace-pre-line">
+                        {props.data.nodeInfo?.previewText}
+                    </div>
+                    <Handle type="target" position={Position.Top} />
+                    <Handle type="source" position={Position.Bottom} />
+                </div>
+            )}
         </>
     );
 }
@@ -160,6 +181,8 @@ function getContentNodes(
             id: n.uniqueTitle ?? "Node-" + i,
             data: { nodeInfo: n, ...eventHandlers },
             position,
+            width: NodeSize.width,
+            height: NodeSize.height,
             type: "yarnNode",
         };
     });

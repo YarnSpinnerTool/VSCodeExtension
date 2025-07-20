@@ -49,6 +49,16 @@ function App() {
         });
     }, [state.documentUri]);
 
+    const addStickyNote = useCallback(() => {
+        assertStateHasDocument(state);
+        vscode.postMessage({
+            type: "add",
+            documentUri: state.documentUri,
+            position: { x: 0, y: 0 },
+            headers: { style: "note" },
+        });
+    }, [state.documentUri]);
+
     const onNodesMoved = useCallback(
         (nodes: { id: string; x: number; y: number }[]): void => {
             assertStateHasDocument(state);
@@ -92,8 +102,11 @@ function App() {
             {/* <div className="absolute top-2 left-2">
                 {state.documentUri ?? "No document"}
             </div> */}
-            <div className="absolute right-2 top-2 z-10">
+            <div className="absolute right-2 top-2 z-10 flex flex-col gap-1">
                 <VSCodeButton onClick={addNode}>Add Node</VSCodeButton>
+                <VSCodeButton onClick={addStickyNote}>
+                    Add Sticky Note
+                </VSCodeButton>
             </div>
             <GraphView
                 onNodesMoved={onNodesMoved}
