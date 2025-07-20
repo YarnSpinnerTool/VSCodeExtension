@@ -38,11 +38,56 @@ type NodeEventHandlers = {
     onNodeDeleted?: (id: string) => void;
 };
 
+const nodeBackgroundClasses: Record<string, string[]> = {
+    red: ["bg-node-red-bg"],
+    blue: ["bg-node-blue-bg"],
+    yellow: ["bg-node-yellow-bg"],
+    orange: ["bg-node-orange-bg"],
+    green: ["bg-node-green-bg"],
+    purple: ["bg-node-purple-bg"],
+    __default: ["bg-editor-background"],
+};
+
+const topBarClasses: Record<string, string[]> = {
+    red: ["bg-red"],
+    blue: ["bg-blue"],
+    yellow: ["bg-yellow"],
+    orange: ["bg-orange"],
+    green: ["bg-green"],
+    purple: ["bg-purple"],
+    __default: ["bg-editor-background"],
+};
+
+const stickyNoteBackgroundClasses: Record<string, string[]> = {
+    red: ["bg-stickynote-red-bg"],
+    blue: ["bg-stickynote-blue-bg"],
+    yellow: ["bg-stickynote-yellow-bg"],
+    orange: ["bg-stickynote-orange-bg"],
+    green: ["bg-stickynote-green-bg"],
+    purple: ["bg-stickynote-purple-bg"],
+    __default: ["bg-stickynote-yellow-bg"],
+};
+
 function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     const isNote =
         props.data.nodeInfo?.headers.find(
             (h) => h.key === "style" && h.value === "note",
         ) !== undefined;
+
+    const colour = props.data.nodeInfo?.headers.find(
+        (h) => h.key === "color",
+    )?.value;
+
+    const thisNodeBackgroundClasses = isNote
+        ? stickyNoteBackgroundClasses
+        : nodeBackgroundClasses;
+
+    const backgroundClass =
+        thisNodeBackgroundClasses[colour ?? "__default"] ??
+        topBarClasses["__default"];
+
+    const topBarClass =
+        topBarClasses[colour ?? "__default"] ?? topBarClasses["__default"];
 
     return (
         <>
@@ -71,7 +116,8 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                 <div
                     style={{ width: props.width, height: props.height }}
                     className={clsx(
-                        "bg-note-yellow-bg p-2 border-2 shadow-lg rotate-3",
+                        "p-2 border-2 shadow-lg rotate-3 rounded-md",
+                        ...backgroundClass,
                         {
                             "border-transparent": !props.selected,
                             "border-note-orange": props.selected,
@@ -84,7 +130,8 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
             {!isNote && (
                 <div
                     className={clsx(
-                        "text-[13px] bg-white flex flex-col overflow-clip p-2 box-border border-2 rounded-sm",
+                        "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm",
+                        ...backgroundClass,
                         {
                             "border-transparent": !props.selected,
                             "border-selected": props.selected,
@@ -92,11 +139,22 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                     )}
                     style={{ width: props.width, height: props.height }}
                 >
-                    <div className="font-bold">
-                        {props.data.nodeInfo?.sourceTitle}
-                    </div>
-                    <div className="whitespace-pre-line">
-                        {props.data.nodeInfo?.previewText}
+                    {colour !== undefined && (
+                        <div
+                            className={clsx(
+                                "h-1 shrink-0",
+                                ...topBarClass,
+                                "w-full",
+                            )}
+                        ></div>
+                    )}
+                    <div className="p-2">
+                        <div className="font-bold">
+                            {props.data.nodeInfo?.sourceTitle}
+                        </div>
+                        <div className="whitespace-pre-line">
+                            {props.data.nodeInfo?.previewText}
+                        </div>
                     </div>
                     <Handle type="target" position={Position.Top} />
                     <Handle type="source" position={Position.Bottom} />

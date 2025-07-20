@@ -21,7 +21,10 @@ main {
     --color-white: #fff;
     --color-black: #000;
 
-    --color-selected: var(--vscode-list-focusOutline);
+    --color-editor-foreground: var(--vscode-editor-foreground, #3b3b3b);
+    --color-editor-background: var(--vscode-editor-background, #ffffff);
+
+    --color-selected: var(--vscode-list-focusOutline, #0000ff);
     --color-red: var(--vscode-charts-red, #e51400);
     --color-blue: var(--vscode-charts-blue, #1a85ff);
     --color-yellow: var(--vscode-charts-yellow, #bf8803);
@@ -29,41 +32,72 @@ main {
     --color-green: var(--vscode-charts-green, #388a34);
     --color-purple: var(--vscode-charts-purple, #652d90);
 
-    --color-note-yellow: hsl(62, 100%, 60%);
-    --color-note-blue: hsl(177, 100%, 60%);
-    --color-note-red: hsl(348, 100%, 60%);
-    --color-note-orange: hsl(37, 100%, 60%);
-    --color-note-green: hsl(133, 100%, 60%);
-    --color-note-purple: hsl(296, 100%, 60%);
+    --color-node-yellow-bg: color-mix(
+        in srgb,
+        var(--color-yellow) 25%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-node-blue-bg: color-mix(
+        in srgb,
+        var(--color-blue) 25%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-node-red-bg: color-mix(
+        in srgb,
+        var(--color-red) 25%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-node-orange-bg: color-mix(
+        in srgb,
+        var(--color-orange) 25%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-node-green-bg: color-mix(
+        in srgb,
+        var(--color-green) 25%,
+        var(--vscode-editor-background, #fff)
+    );
+    --color-node-purple-bg: color-mix(
+        in srgb,
+        var(--color-purple) 25%,
+        var(--vscode-editor-background, #fff)
+    );
 
-    --color-note-yellow-bg: color-mix(
+    --color-stickynote-yellow: hsl(62, 100%, 60%);
+    --color-stickynote-blue: hsl(177, 100%, 60%);
+    --color-stickynote-red: hsl(348, 100%, 60%);
+    --color-stickynote-orange: hsl(37, 100%, 60%);
+    --color-stickynote-green: hsl(133, 100%, 60%);
+    --color-stickynote-purple: hsl(296, 100%, 60%);
+
+    --color-stickynote-yellow-bg: color-mix(
         in srgb,
-        var(--color-note-yellow) 50%,
+        var(--color-stickynote-yellow) 50%,
         var(--vscode-editor-background, #fff)
     );
-    --color-note-blue-bg: color-mix(
+    --color-stickynote-blue-bg: color-mix(
         in srgb,
-        var(--color-note-blue) 50%,
+        var(--color-stickynote-blue) 50%,
         var(--vscode-editor-background, #fff)
     );
-    --color-note-red-bg: color-mix(
+    --color-stickynote-red-bg: color-mix(
         in srgb,
-        var(--color-note-red) 50%,
+        var(--color-stickynote-red) 50%,
         var(--vscode-editor-background, #fff)
     );
-    --color-note-orange-bg: color-mix(
+    --color-stickynote-orange-bg: color-mix(
         in srgb,
-        var(--color-note-orange) 50%,
+        var(--color-stickynote-orange) 50%,
         var(--vscode-editor-background, #fff)
     );
-    --color-note-green-bg: color-mix(
+    --color-stickynote-green-bg: color-mix(
         in srgb,
-        var(--color-note-green) 50%,
+        var(--color-stickynote-green) 50%,
         var(--vscode-editor-background, #fff)
     );
-    --color-note-purple-bg: color-mix(
+    --color-stickynote-purple-bg: color-mix(
         in srgb,
-        var(--color-note-purple) 50%,
+        var(--color-stickynote-purple) 50%,
         var(--vscode-editor-background, #fff)
     );
 }
