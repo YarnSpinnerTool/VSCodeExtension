@@ -285,7 +285,7 @@ export class YarnSpinnerGraphView {
           <title>Hello World</title>
         </head>
         <body>
-          <div id="root"></div>
+          <div id="root" data-vscode-context='{"preventDefaultContextMenuItems": true}'></div>
           <script type="module" nonce="${nonce}" src="${scriptUri}"></script>
         </body>
       </html>
