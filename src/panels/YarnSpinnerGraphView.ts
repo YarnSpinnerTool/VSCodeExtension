@@ -43,6 +43,11 @@ export type WebviewMessage =
           documentUri: string;
           position: XYPosition;
           headers: Record<string, string>;
+      }
+    | {
+          type: "delete";
+          documentUri: string;
+          node: string;
       };
 
 /*
@@ -316,6 +321,12 @@ export class YarnSpinnerGraphView {
                             message.headers,
                         );
                         break;
+                    case "delete":
+                        this.deleteNode(
+                            Uri.parse(message.documentUri, true),
+                            message.node,
+                        );
+                        break;
                 }
             },
             undefined,
@@ -374,6 +385,16 @@ export class YarnSpinnerGraphView {
             // Apply the document change that we received
             await this.applyTextDocumentEdit(computedEdit);
         }
+    }
+
+    async deleteNode(uri: Uri, id: string): Promise<void> {
+        var deletionEdit = await this.executeCommand<TextDocumentEdit>(
+            Commands.RemoveNode,
+            uri.fsPath,
+            id,
+        );
+
+        await this.applyTextDocumentEdit(deletionEdit);
     }
 
     async executeCommand<T>(

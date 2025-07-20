@@ -16,21 +16,43 @@ import {
     Position,
     MiniMap,
     XYPosition,
+    NodeToolbar,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
 import type { NodeInfo } from "../../../src/nodes";
 import clsx from "clsx";
+import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
 const GroupPadding = 20;
 
-type YarnNodeData = { nodeInfo?: NodeInfo; groupName?: string };
+type YarnNodeData = {
+    nodeInfo?: NodeInfo;
+    groupName?: string;
+} & NodeEventHandlers;
+
+type NodeEventHandlers = {
+    onNodeDeleted?: (id: string) => void;
+};
 
 function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     return (
         <>
+            <NodeToolbar
+                className="flex flex-col gap-2"
+                position={Position.Right}
+            >
+                <VSCodeButton
+                    onClick={() =>
+                        props.data.onNodeDeleted &&
+                        props.data.onNodeDeleted(props.id)
+                    }
+                >
+                    Delete
+                </VSCodeButton>
+            </NodeToolbar>
             <div
                 className={clsx(
                     "text-[13px] bg-white flex flex-col overflow-clip p-2 box-border border-2 rounded-sm",
@@ -40,9 +62,16 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                     },
                 )}
                 style={{ ...NodeSize }}
-            ></div>
-            <Handle type="target" position={Position.Top} />
-            <Handle type="source" position={Position.Bottom} />
+            >
+                <div className="font-bold">
+                    {props.data.nodeInfo?.sourceTitle}
+                </div>
+                <div className="whitespace-pre-line">
+                    {props.data.nodeInfo?.previewText}
+                </div>
+                <Handle type="target" position={Position.Top} />
+                <Handle type="source" position={Position.Bottom} />
+            </div>
         </>
     );
 }
@@ -94,7 +123,10 @@ function getEdges(nodes: NodeInfo[]): GraphEdge[] {
         .filter((n) => n !== null);
 }
 
-function getContentNodes(nodes: NodeInfo[]): GraphNode<YarnNodeData>[] {
+function getContentNodes(
+    nodes: NodeInfo[],
+    eventHandlers: NodeEventHandlers,
+): GraphNode<YarnNodeData>[] {
     let nodesWithoutPositions = 0;
     const contentNodes = nodes.map<GraphNode<YarnNodeData>>((n, i) => {
         const positionHeader = n.headers.find(
@@ -117,7 +149,7 @@ function getContentNodes(nodes: NodeInfo[]): GraphNode<YarnNodeData>[] {
         }
         return {
             id: n.uniqueTitle ?? "Node-" + i,
-            data: { nodeInfo: n },
+            data: { nodeInfo: n, ...eventHandlers },
             position,
             type: "yarnNode",
         };
@@ -183,7 +215,7 @@ type GraphViewProps = {
             y: number;
         }[],
     ) => void;
-};
+} & NodeEventHandlers;
 
 export type GraphViewStateRef = {
     position: XYPosition;
@@ -195,13 +227,13 @@ export function GraphViewInProvider(props: GraphViewProps) {
     const context = useContext(GraphViewContext);
 
     const [contentNodes, setContentNodes] = useState(
-        getContentNodes(context.nodes),
+        getContentNodes(context.nodes, props),
     );
     const [groupNodes, setGroupNodes] = useState(getGroupNodes(contentNodes));
     const [edges, setEdges] = useState(getEdges(context.nodes));
 
     useEffect(() => {
-        setContentNodes(getContentNodes(context.nodes));
+        setContentNodes(getContentNodes(context.nodes, props));
         setEdges(getEdges(context.nodes));
     }, [context.nodes]);
 

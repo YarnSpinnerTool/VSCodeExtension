@@ -65,6 +65,23 @@ function App() {
         [state.documentUri],
     );
 
+    const onNodeDeleted = useCallback(
+        (id: string): void => {
+            if (!state.documentUri) {
+                console.warn(
+                    "Node deleted callback fired but webview has no document uri!",
+                );
+                return;
+            }
+            vscode.postMessage({
+                type: "delete",
+                documentUri: state.documentUri,
+                node: id,
+            });
+        },
+        [state.documentUri],
+    );
+
     return (
         <GraphViewContext.Provider value={state}>
             {/* <div className="absolute top-2 left-2">
@@ -73,7 +90,10 @@ function App() {
             <div className="absolute right-2 top-2 z-10">
                 <VSCodeButton onClick={addNode}>Add Node</VSCodeButton>
             </div>
-            <GraphView onNodesMoved={onNodesMoved} />
+            <GraphView
+                onNodesMoved={onNodesMoved}
+                onNodeDeleted={onNodeDeleted}
+            />
         </GraphViewContext.Provider>
     );
 }
