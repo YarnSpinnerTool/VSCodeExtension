@@ -1,4 +1,11 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+    FunctionComponent,
+    useCallback,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import {
     ReactFlow,
     Controls,
@@ -17,13 +24,20 @@ import {
     MiniMap,
     XYPosition,
     NodeToolbar,
+    Panel,
     OnSelectionChangeFunc,
+    useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
 import type { NodeInfo } from "../../../src/nodes";
 import clsx from "clsx";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
+
+import IconAlignLeft from "../images/align-left.svg?react";
+import IconAlignRight from "../images/align-right.svg?react";
+import IconAlignTop from "../images/align-top.svg?react";
+import IconAlignBottom from "../images/align-bottom.svg?react";
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
@@ -383,6 +397,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
     const [groupNodes, setGroupNodes] = useState(getGroupNodes(contentNodes));
     const [edges, setEdges] = useState(getEdges(context.nodes));
 
+    const flow = useReactFlow<GraphNode<YarnNodeData>>();
+
     useEffect(() => {
         setContentNodes(getContentNodes(context.nodes, props, selectedNodes));
         setEdges(getEdges(context.nodes));
@@ -430,6 +446,62 @@ export function GraphViewInProvider(props: GraphViewProps) {
             [setSelectedNodes],
         );
 
+    const multipleNodesSelected = selectedNodes.length > 1;
+
+    function alignSelectedNodes(
+        alignment: "top" | "bottom" | "left" | "right",
+    ) {
+        const selectedNodes = contentNodes.filter((n) => n.selected === true);
+
+        const min = selectedNodes.reduce(
+            (prev, curr) => ({
+                x: Math.min(prev.x, curr.position.x),
+                y: Math.min(prev.y, curr.position.y),
+            }),
+            { x: Infinity, y: Infinity },
+        );
+        const max = selectedNodes.reduce(
+            (prev, curr) => ({
+                x: Math.max(prev.x, curr.position.x),
+                y: Math.max(prev.y, curr.position.y),
+            }),
+            { x: -Infinity, y: -Infinity },
+        );
+
+        let update: Partial<XYPosition>;
+
+        switch (alignment) {
+            case "top":
+                update = { y: min.y };
+                break;
+            case "bottom":
+                update = { y: max.y };
+                break;
+            case "left":
+                update = { x: min.x };
+                break;
+            case "right":
+                update = { x: max.x };
+                break;
+        }
+
+        let nodeMovements: { id: string; x: number; y: number }[] = [];
+
+        for (const node of selectedNodes) {
+            const newPosition = { ...node.position, ...update };
+            flow.updateNode(node.id, {
+                position: newPosition,
+            });
+            nodeMovements.push({
+                id: node.id,
+                x: newPosition.x,
+                y: newPosition.y,
+            });
+        }
+
+        props.onNodesMoved(nodeMovements);
+    }
+
     return (
         <>
             <div className="size-full" ref={containerRef}>
@@ -454,10 +526,56 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         gap={40}
                     />
                     <Controls />
+                    <Panel
+                        position="bottom-center"
+                        className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm"
+                    >
+                        <IconButton
+                            icon={IconAlignLeft}
+                            enabled={multipleNodesSelected}
+                            onClick={() => alignSelectedNodes("left")}
+                        />
+                        <IconButton
+                            icon={IconAlignRight}
+                            enabled={multipleNodesSelected}
+                            onClick={() => alignSelectedNodes("right")}
+                        />
+                        <IconButton
+                            icon={IconAlignTop}
+                            enabled={multipleNodesSelected}
+                            onClick={() => alignSelectedNodes("top")}
+                        />
+                        <IconButton
+                            icon={IconAlignBottom}
+                            enabled={multipleNodesSelected}
+                            onClick={() => alignSelectedNodes("bottom")}
+                        />
+                    </Panel>
+
                     <MiniMap pannable draggable />
                 </ReactFlow>
             </div>
         </>
+    );
+}
+
+function IconButton(props: {
+    icon: FunctionComponent;
+    enabled?: boolean;
+    onClick?: React.MouseEventHandler;
+}) {
+    return (
+        <div
+            onClick={props.onClick}
+            className={clsx("h-[20px] flex", {
+                "fill-editor-foreground/75 hover:fill-editor-foreground cursor-pointer":
+                    props.enabled === true || props.enabled === undefined,
+                "fill-editor-foreground/25 cursor-auto":
+                    props.enabled === false,
+            })}
+        >
+            <props.icon />
+        </div>
     );
 }
 
