@@ -14,6 +14,9 @@ import {
     window,
     workspace,
     WorkspaceEdit,
+    ViewColumn,
+    TextEditorRevealType,
+    Selection,
 } from "vscode";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
@@ -46,6 +49,11 @@ export type WebviewMessage =
       }
     | {
           type: "delete";
+          documentUri: string;
+          node: string;
+      }
+    | {
+          type: "open";
           documentUri: string;
           node: string;
       };
@@ -327,6 +335,12 @@ export class YarnSpinnerGraphView {
                             message.node,
                         );
                         break;
+                    case "open":
+                        this.openNode(
+                            Uri.parse(message.documentUri, true),
+                            message.node,
+                        );
+                        break;
                 }
             },
             undefined,
@@ -395,6 +409,55 @@ export class YarnSpinnerGraphView {
         );
 
         await this.applyTextDocumentEdit(deletionEdit);
+    }
+
+    async openNode(uri: Uri, id: string): Promise<void> {
+        var nodeInfos: NodeInfo[] =
+            (await this.executeCommand(Commands.ListNodes, uri.fsPath)) ?? [];
+
+        // Filter to only include the node(s) that have this title. (Node names
+        // must be unique, but the user may have entered invalid code, so we
+        // handle this case.)
+        nodeInfos = nodeInfos.filter((n) => n.uniqueTitle == id);
+
+        if (nodeInfos.length > 0) {
+            const nodeInfo = nodeInfos[0];
+
+            // Figure out which view column an existing editor showing this
+            // document has. If we can't find one, default to the active column.
+            const existingEditor = window.visibleTextEditors.filter(
+                (editor) => editor.document.uri == uri,
+            );
+            const viewColumn =
+                existingEditor[0]?.viewColumn ?? ViewColumn.Active;
+
+            const editor = await window.showTextDocument(uri, {
+                viewColumn: viewColumn,
+            });
+
+            // Scroll the editor so that the start of the node is at the top of the editor.
+            const startOfNode = new Range(
+                nodeInfo.headerStartLine,
+                0,
+                nodeInfo.headerStartLine,
+                0,
+            );
+
+            editor.revealRange(startOfNode, TextEditorRevealType.AtTop);
+
+            // Place the selection at the start of the body.
+            const startOfBody = new Range(
+                nodeInfo.bodyStartLine,
+                0,
+                nodeInfo.bodyStartLine,
+                0,
+            );
+
+            editor.selection = new Selection(
+                startOfBody.start,
+                startOfBody.end,
+            );
+        }
     }
 
     async executeCommand<T>(

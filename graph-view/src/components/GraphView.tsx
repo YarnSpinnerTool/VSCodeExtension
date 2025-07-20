@@ -34,6 +34,7 @@ type YarnNodeData = {
 } & NodeEventHandlers;
 
 type NodeEventHandlers = {
+    onNodeOpened?: (id: string) => void;
     onNodeDeleted?: (id: string) => void;
 };
 
@@ -44,6 +45,14 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                 className="flex flex-col gap-2"
                 position={Position.Right}
             >
+                <VSCodeButton
+                    onClick={() =>
+                        props.data.onNodeOpened &&
+                        props.data.onNodeOpened(props.id)
+                    }
+                >
+                    Edit
+                </VSCodeButton>
                 <VSCodeButton
                     onClick={() =>
                         props.data.onNodeDeleted &&

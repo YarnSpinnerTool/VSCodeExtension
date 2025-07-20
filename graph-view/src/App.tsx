@@ -82,6 +82,23 @@ function App() {
         [state.documentUri],
     );
 
+    const onNodeOpened = useCallback(
+        (id: string): void => {
+            if (!state.documentUri) {
+                console.warn(
+                    "Node opened callback fired but webview has no document uri!",
+                );
+                return;
+            }
+            vscode.postMessage({
+                type: "open",
+                documentUri: state.documentUri,
+                node: id,
+            });
+        },
+        [state.documentUri],
+    );
+
     return (
         <GraphViewContext.Provider value={state}>
             {/* <div className="absolute top-2 left-2">
@@ -92,6 +109,7 @@ function App() {
             </div>
             <GraphView
                 onNodesMoved={onNodesMoved}
+                onNodeOpened={onNodeOpened}
                 onNodeDeleted={onNodeDeleted}
             />
         </GraphViewContext.Provider>
