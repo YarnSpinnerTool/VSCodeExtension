@@ -591,36 +591,41 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         gap={40}
                     />
                     <Controls />
-                    <Panel
-                        position="bottom-center"
-                        className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm"
-                    >
-                        <IconButton
-                            icon={IconAlignLeft}
-                            enabled={multipleNodesSelected}
-                            onClick={() => alignSelectedNodes("left")}
-                        />
-                        <IconButton
-                            icon={IconAlignRight}
-                            enabled={multipleNodesSelected}
-                            onClick={() => alignSelectedNodes("right")}
-                        />
-                        <IconButton
-                            icon={IconAlignTop}
-                            enabled={multipleNodesSelected}
-                            onClick={() => alignSelectedNodes("top")}
-                        />
-                        <IconButton
-                            icon={IconAlignBottom}
-                            enabled={multipleNodesSelected}
-                            onClick={() => alignSelectedNodes("bottom")}
-                        />
-                        <div></div>
-                        <IconButton
-                            icon={IconAutoLayout}
-                            enabled
-                            onClick={() => autoLayoutSelectedNodes()}
-                        />
+                    <Panel position="bottom-center" className="flex gap-2">
+                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
+                            <IconButton
+                                icon={IconAlignLeft}
+                                title="Align Selected to Left"
+                                enabled={multipleNodesSelected}
+                                onClick={() => alignSelectedNodes("left")}
+                            />
+                            <IconButton
+                                icon={IconAlignRight}
+                                title="Align Selected to Right"
+                                enabled={multipleNodesSelected}
+                                onClick={() => alignSelectedNodes("right")}
+                            />
+                            <IconButton
+                                icon={IconAlignTop}
+                                title="Align Selected to Top"
+                                enabled={multipleNodesSelected}
+                                onClick={() => alignSelectedNodes("top")}
+                            />
+                            <IconButton
+                                icon={IconAlignBottom}
+                                title="Align Selected to Bottom"
+                                enabled={multipleNodesSelected}
+                                onClick={() => alignSelectedNodes("bottom")}
+                            />
+                        </div>
+                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
+                            <IconButton
+                                icon={IconAutoLayout}
+                                title="Auto Layout"
+                                enabled
+                                onClick={() => autoLayoutSelectedNodes()}
+                            />
+                        </div>
                     </Panel>
 
                     <MiniMap pannable draggable />
@@ -634,10 +639,12 @@ function IconButton(props: {
     icon: FunctionComponent;
     enabled?: boolean;
     onClick?: React.MouseEventHandler;
+    title?: string;
 }) {
     return (
         <div
             onClick={props.onClick}
+            title={props.title}
             className={clsx("h-[20px] flex", {
                 "fill-editor-foreground/75 hover:fill-editor-foreground cursor-pointer":
                     props.enabled === true || props.enabled === undefined,
