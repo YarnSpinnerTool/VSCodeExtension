@@ -6,6 +6,14 @@ import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext, GraphViewState } from "./context";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
+function assertStateHasDocument(
+    state: GraphViewState,
+): asserts state is GraphViewState & { documentUri: string } {
+    if (state.documentUri === null) {
+        throw new Error("Graph view has no document uri!");
+    }
+}
+
 function App() {
     const [state, setState] = useState<GraphViewState>({
         nodes: [],
@@ -31,12 +39,7 @@ function App() {
     });
 
     const addNode = useCallback(() => {
-        if (!state.documentUri) {
-            console.warn(
-                "Node added callback fired but webview has no document uri!",
-            );
-            return;
-        }
+        assertStateHasDocument(state);
 
         vscode.postMessage({
             type: "add",
@@ -48,12 +51,7 @@ function App() {
 
     const onNodesMoved = useCallback(
         (nodes: { id: string; x: number; y: number }[]): void => {
-            if (!state.documentUri) {
-                console.warn(
-                    "Nodes moved callback fired but webview has no document uri!",
-                );
-                return;
-            }
+            assertStateHasDocument(state);
             vscode.postMessage({
                 type: "move",
                 documentUri: state.documentUri,
@@ -67,12 +65,7 @@ function App() {
 
     const onNodeDeleted = useCallback(
         (id: string): void => {
-            if (!state.documentUri) {
-                console.warn(
-                    "Node deleted callback fired but webview has no document uri!",
-                );
-                return;
-            }
+            assertStateHasDocument(state);
             vscode.postMessage({
                 type: "delete",
                 documentUri: state.documentUri,
@@ -84,12 +77,7 @@ function App() {
 
     const onNodeOpened = useCallback(
         (id: string): void => {
-            if (!state.documentUri) {
-                console.warn(
-                    "Node opened callback fired but webview has no document uri!",
-                );
-                return;
-            }
+            assertStateHasDocument(state);
             vscode.postMessage({
                 type: "open",
                 documentUri: state.documentUri,
