@@ -20,6 +20,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import { GraphViewContext } from "../context";
 import type { NodeInfo } from "../../../src/nodes";
+import clsx from "clsx";
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
@@ -29,14 +30,20 @@ type YarnNodeData = { nodeInfo?: NodeInfo; groupName?: string };
 
 function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     return (
-        <div
-            className="text-[13px] bg-white border-gray-200 p-2"
-            style={{ ...NodeSize }}
-        >
-            {props.data.nodeInfo?.sourceTitle}
+        <>
+            <div
+                className={clsx(
+                    "text-[13px] bg-white flex flex-col overflow-clip p-2 box-border border-2 rounded-sm",
+                    {
+                        "border-transparent": !props.selected,
+                        "border-selected": props.selected,
+                    },
+                )}
+                style={{ ...NodeSize }}
+            ></div>
             <Handle type="target" position={Position.Top} />
             <Handle type="source" position={Position.Bottom} />
-        </div>
+        </>
     );
 }
 

@@ -15,3 +15,17 @@ main {
     align-items: flex-start;
     height: 100%;
 }
+
+@theme {
+    --color-*: initial;
+    --color-white: #fff;
+    --color-black: #000;
+
+    --color-selected: var(--vscode-list-focusOutline);
+    --color-red: var(--vscode-charts-red, #e51400);
+    --color-blue: var(--vscode-charts-blue, #1a85ff);
+    --color-yellow: var(--vscode-charts-yellow, #bf8803);
+    --color-orange: var(--vscode-charts-orange, #d18616);
+    --color-green: var(--vscode-charts-green, #388a34);
+    --color-purple: var(--vscode-charts-purple, #652d90);
+}

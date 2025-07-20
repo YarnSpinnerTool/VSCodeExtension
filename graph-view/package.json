@@ -12,6 +12,7 @@
     "dependencies": {
         "@vscode/webview-ui-toolkit": "^1.4.0",
         "@xyflow/react": "^12.8.2",
+        "clsx": "^2.1.1",
         "react": "^19.1.0",
         "react-dom": "^19.1.0"
     },
