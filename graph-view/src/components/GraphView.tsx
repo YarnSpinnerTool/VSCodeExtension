@@ -36,9 +36,25 @@ type YarnNodeData = {
 type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
     onNodeDeleted?: (id: string) => void;
+    onNodeHeadersUpdated?: (
+        id: string,
+        headers: Record<string, string | null>,
+    ) => void;
 };
 
-const nodeBackgroundClasses: Record<string, string[]> = {
+const KnownColours = [
+    "red",
+    "blue",
+    "yellow",
+    "orange",
+    "green",
+    "purple",
+    null,
+];
+
+type ColourClassMap = Record<string, string[]>;
+
+const nodeBackgroundClasses: ColourClassMap = {
     red: ["bg-node-red-bg"],
     blue: ["bg-node-blue-bg"],
     yellow: ["bg-node-yellow-bg"],
@@ -48,7 +64,7 @@ const nodeBackgroundClasses: Record<string, string[]> = {
     __default: ["bg-editor-background"],
 };
 
-const topBarClasses: Record<string, string[]> = {
+const nodeTopBarClasses: ColourClassMap = {
     red: ["bg-red"],
     blue: ["bg-blue"],
     yellow: ["bg-yellow"],
@@ -58,7 +74,17 @@ const topBarClasses: Record<string, string[]> = {
     __default: ["bg-editor-background"],
 };
 
-const stickyNoteBackgroundClasses: Record<string, string[]> = {
+const stickyNoteTopBarClasses: ColourClassMap = {
+    red: ["bg-stickynote-red"],
+    blue: ["bg-stickynote-blue"],
+    yellow: ["bg-stickynote-yellow"],
+    orange: ["bg-stickynote-orange"],
+    green: ["bg-stickynote-green"],
+    purple: ["bg-stickynote-purple"],
+    __default: ["bg-editor-background"],
+};
+
+const stickyNoteBackgroundClasses: ColourClassMap = {
     red: ["bg-stickynote-red-bg"],
     blue: ["bg-stickynote-blue-bg"],
     yellow: ["bg-stickynote-yellow-bg"],
@@ -74,7 +100,7 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
             (h) => h.key === "style" && h.value === "note",
         ) !== undefined;
 
-    const colour = props.data.nodeInfo?.headers.find(
+    const nodeColour = props.data.nodeInfo?.headers.find(
         (h) => h.key === "color",
     )?.value;
 
@@ -82,17 +108,46 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
         ? stickyNoteBackgroundClasses
         : nodeBackgroundClasses;
 
-    const backgroundClass =
-        thisNodeBackgroundClasses[colour ?? "__default"] ??
-        topBarClasses["__default"];
+    const thisNodeTopbarClasses = isNote
+        ? stickyNoteTopBarClasses
+        : nodeTopBarClasses;
 
-    const topBarClass =
-        topBarClasses[colour ?? "__default"] ?? topBarClasses["__default"];
+    const backgroundClass =
+        thisNodeBackgroundClasses[nodeColour ?? "__default"];
+
+    const topBarClass = thisNodeTopbarClasses[nodeColour ?? "__default"];
 
     return (
         <>
             <NodeToolbar
-                className="flex flex-col gap-2"
+                position={Position.Top}
+                className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-1"
+            >
+                {KnownColours.map((colour, i) => {
+                    return (
+                        <div
+                            className={clsx(
+                                "rounded-full w-4 h-4 cursor-pointer",
+                                {
+                                    "border-2 border-selected":
+                                        colour === nodeColour,
+                                    "border border-editor-foreground/25":
+                                        colour !== nodeColour,
+                                },
+                                thisNodeTopbarClasses[colour ?? "__default"],
+                            )}
+                            onClick={() =>
+                                props.data.onNodeHeadersUpdated &&
+                                props.data.onNodeHeadersUpdated(props.id, {
+                                    color: colour,
+                                })
+                            }
+                        ></div>
+                    );
+                })}
+            </NodeToolbar>
+            <NodeToolbar
+                className="flex flex-col bg-editor-background shadow-widget-shadow shadow-lg rounded-md p-2 gap-2"
                 position={Position.Right}
             >
                 <VSCodeButton
@@ -139,7 +194,7 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                     )}
                     style={{ width: props.width, height: props.height }}
                 >
-                    {colour !== undefined && (
+                    {nodeColour !== undefined && (
                         <div
                             className={clsx(
                                 "h-1 shrink-0",

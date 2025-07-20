@@ -97,6 +97,19 @@ function App() {
         [state.documentUri],
     );
 
+    const onNodeHeadersUpdated = useCallback(
+        (id: string, headers: Record<string, string | null>): void => {
+            assertStateHasDocument(state);
+            vscode.postMessage({
+                type: "update-headers",
+                documentUri: state.documentUri,
+                node: id,
+                headers: headers,
+            });
+        },
+        [state.documentUri],
+    );
+
     return (
         <GraphViewContext.Provider value={state}>
             {/* <div className="absolute top-2 left-2">
@@ -112,6 +125,7 @@ function App() {
                 onNodesMoved={onNodesMoved}
                 onNodeOpened={onNodeOpened}
                 onNodeDeleted={onNodeDeleted}
+                onNodeHeadersUpdated={onNodeHeadersUpdated}
             />
         </GraphViewContext.Provider>
     );

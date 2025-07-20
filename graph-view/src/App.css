@@ -32,6 +32,8 @@ main {
     --color-green: var(--vscode-charts-green, #388a34);
     --color-purple: var(--vscode-charts-purple, #652d90);
 
+    --color-widget-shadow: var(--vscode-widget-shadow, #888);
+
     --color-node-yellow-bg: color-mix(
         in srgb,
         var(--color-yellow) 25%,

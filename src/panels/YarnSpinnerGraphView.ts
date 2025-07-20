@@ -56,6 +56,12 @@ export type WebviewMessage =
           type: "open";
           documentUri: string;
           node: string;
+      }
+    | {
+          type: "update-headers";
+          documentUri: string;
+          node: string;
+          headers: Record<string, string | null>;
       };
 
 /*
@@ -341,6 +347,12 @@ export class YarnSpinnerGraphView {
                             message.node,
                         );
                         break;
+                    case "update-headers":
+                        this.updateNodeHeaders(
+                            Uri.parse(message.documentUri, true),
+                            message.node,
+                            message.headers,
+                        );
                 }
             },
             undefined,
@@ -457,6 +469,23 @@ export class YarnSpinnerGraphView {
                 startOfBody.start,
                 startOfBody.end,
             );
+        }
+    }
+
+    async updateNodeHeaders(
+        uri: Uri,
+        nodeUniqueName: string,
+        headers: Record<string, string | null>,
+    ) {
+        for (const [headerKey, headerValue] of Object.entries(headers)) {
+            var documentEdit = await this.executeCommand<TextDocumentEdit>(
+                Commands.UpdateNodeHeader,
+                uri.fsPath,
+                nodeUniqueName,
+                headerKey,
+                headerValue,
+            );
+            await this.applyTextDocumentEdit(documentEdit);
         }
     }
 
