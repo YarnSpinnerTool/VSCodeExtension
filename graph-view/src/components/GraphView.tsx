@@ -397,6 +397,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     const [selectedNodes, setSelectedNodes] = useState<string[]>([]);
 
+    const [interactive, setInteractive] = useState(true);
+
     const [contentNodes, setContentNodes] = useState(
         getContentNodes(context.nodes, props, selectedNodes),
     );
@@ -591,31 +593,31 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         size={2}
                         gap={40}
                     />
-                    <Controls />
+                    <Controls onInteractiveChange={setInteractive} />
                     <Panel position="bottom-center" className="flex gap-2">
                         <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
                             <IconButton
                                 icon={IconAlignLeft}
                                 title="Align Selected to Left"
-                                enabled={multipleNodesSelected}
+                                enabled={interactive && multipleNodesSelected}
                                 onClick={() => alignSelectedNodes("left")}
                             />
                             <IconButton
                                 icon={IconAlignRight}
                                 title="Align Selected to Right"
-                                enabled={multipleNodesSelected}
+                                enabled={interactive && multipleNodesSelected}
                                 onClick={() => alignSelectedNodes("right")}
                             />
                             <IconButton
                                 icon={IconAlignTop}
                                 title="Align Selected to Top"
-                                enabled={multipleNodesSelected}
+                                enabled={interactive && multipleNodesSelected}
                                 onClick={() => alignSelectedNodes("top")}
                             />
                             <IconButton
                                 icon={IconAlignBottom}
                                 title="Align Selected to Bottom"
-                                enabled={multipleNodesSelected}
+                                enabled={interactive && multipleNodesSelected}
                                 onClick={() => alignSelectedNodes("bottom")}
                             />
                         </div>
@@ -623,11 +625,13 @@ export function GraphViewInProvider(props: GraphViewProps) {
                             <IconButton
                                 icon={IconAutoLayoutVertical}
                                 title="Auto Layout Vertically"
+                                enabled={interactive}
                                 onClick={() => autoLayoutSelectedNodes("DOWN")}
                             />
                             <IconButton
                                 icon={IconAutoLayoutHorizontal}
                                 title="Auto Layout Horizontally"
+                                enabled={interactive}
                                 onClick={() => autoLayoutSelectedNodes("RIGHT")}
                             />
                         </div>
