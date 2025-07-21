@@ -250,6 +250,7 @@ function GroupNode(props: {} & NodeProps) {
                 top: 0,
                 left: 0,
             }}
+            className="nodrag"
         >
             {props.id}
             <Handle type="target" position={Position.Top} />
