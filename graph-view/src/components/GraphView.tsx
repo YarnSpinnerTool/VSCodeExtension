@@ -114,7 +114,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         props,
                         prev.selectedNodes,
                     );
-                    const groupNodes = getGroupNodes(contentNodes);
+                    const groupNodes = getGroupNodes(update.graphContents);
                     const edges = getEdges(update.graphContents);
 
                     return {

@@ -2,6 +2,7 @@ import { Node as GraphNode } from "@xyflow/react";
 import type { NodeInfo } from "../../../src/nodes";
 import { NodeOffset, NodeSize } from "./constants";
 import { NodeEventHandlers, YarnNodeData } from "../components/GraphView";
+import { getNodePosition } from "./getNodePosition";
 
 export function getContentNodes(
     nodes: NodeInfo[],
@@ -10,42 +11,39 @@ export function getContentNodes(
 ): GraphNode<YarnNodeData>[] {
     let nodesWithoutPositions = 0;
 
-    const contentNodes = nodes.map<GraphNode<YarnNodeData>>((n, i) => {
-        const positionHeader = n.headers.find(
-            (h) => h.key === "position",
-        )?.value;
+    const contentNodes = nodes.map<GraphNode<YarnNodeData> | undefined>(
+        (n, i) => {
+            // Content nodes in a node group get drawn as a single combined
+            // node, so don't include them here
+            const isNodeGroup = n.nodeGroup != undefined;
+            if (isNodeGroup) {
+                return undefined;
+            }
 
-        let position: { x: number; y: number };
+            let position = getNodePosition(n);
 
-        if (!positionHeader) {
-            position = {
-                x: NodeOffset * nodesWithoutPositions,
-                y: NodeOffset * nodesWithoutPositions,
+            if (!position) {
+                position = {
+                    x: NodeOffset * nodesWithoutPositions,
+                    y: NodeOffset * nodesWithoutPositions,
+                };
+
+                nodesWithoutPositions += 1;
+            }
+
+            const id = n.uniqueTitle ?? "Node-" + i;
+
+            return {
+                id,
+                data: { nodeInfo: n, ...eventHandlers },
+                position,
+                width: NodeSize.width,
+                selected: selectedNodes.includes(id),
+                height: NodeSize.height,
+                type: "yarnNode",
             };
+        },
+    );
 
-            nodesWithoutPositions += 1;
-        } else {
-            const [x, y] = positionHeader
-                .split(",")
-                .map((s) => s.trim())
-                .map((s) => parseInt(s))
-                .map((s) => (isNaN(s) ? 0 : s));
-
-            position = { x, y };
-        }
-
-        const id = n.uniqueTitle ?? "Node-" + i;
-
-        return {
-            id,
-            data: { nodeInfo: n, ...eventHandlers },
-            position,
-            width: NodeSize.width,
-            selected: selectedNodes.includes(id),
-            height: NodeSize.height,
-            type: "yarnNode",
-        };
-    });
-
-    return contentNodes;
+    return contentNodes.filter((n) => n !== undefined);
 }
