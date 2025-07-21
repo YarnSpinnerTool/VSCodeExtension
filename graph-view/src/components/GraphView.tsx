@@ -3,6 +3,7 @@ import {
     useCallback,
     useContext,
     useEffect,
+    useReducer,
     useRef,
     useState,
 } from "react";
@@ -18,7 +19,6 @@ import {
     MarkerType,
     ReactFlowProvider,
     OnNodesChange,
-    applyNodeChanges,
     OnNodeDrag,
     Position,
     MiniMap,
@@ -27,9 +27,10 @@ import {
     Panel,
     OnSelectionChangeFunc,
     useReactFlow,
+    applyNodeChanges,
+    NodeChange,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { GraphViewContext } from "../context";
 import type { NodeInfo } from "../../../src/nodes";
 import clsx from "clsx";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
@@ -42,6 +43,7 @@ import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
 import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
 
 import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
+import { GraphViewContext } from "../context";
 
 const NodeOffset = 10;
 const NodeSize = { width: 200, height: 125 };
@@ -261,7 +263,7 @@ const nodeTypes = {
 };
 
 function getEdges(nodes: NodeInfo[]): GraphEdge[] {
-    return nodes
+    const allEdges = nodes
         .flatMap<GraphEdge | null>((n) => {
             if (n.sourceTitle === undefined || n.uniqueTitle === undefined) {
                 return null;
@@ -283,6 +285,18 @@ function getEdges(nodes: NodeInfo[]): GraphEdge[] {
             }));
         })
         .filter((n) => n !== null);
+
+    const result: GraphEdge[] = [];
+    const seenIDs = new Set<string>();
+
+    for (const edge of allEdges) {
+        if (seenIDs.has(edge.id)) {
+            continue;
+        }
+        seenIDs.add(edge.id);
+        result.push(edge);
+    }
+    return result;
 }
 
 function getContentNodes(
@@ -325,42 +339,56 @@ function getContentNodes(
     return contentNodes;
 }
 
+function getGroupRect(nodes: { position: { x: number; y: number } }[]): {
+    position: XYPosition;
+    size: {
+        width: number;
+        height: number;
+    };
+} {
+    const min = nodes.reduce(
+        (prev, curr) => ({
+            x: Math.min(prev.x, curr.position.x),
+            y: Math.min(prev.y, curr.position.y),
+        }),
+        { x: Infinity, y: Infinity },
+    );
+    const max = nodes.reduce(
+        (prev, curr) => ({
+            x: Math.max(prev.x, curr.position.x),
+            y: Math.max(prev.y, curr.position.y),
+        }),
+        { x: -Infinity, y: -Infinity },
+    );
+
+    const groupPosition = {
+        x: min.x - GroupPadding,
+        y: min.y - GroupPadding,
+    };
+    const groupSize = {
+        width: max.x - min.x + NodeSize.width + GroupPadding * 2,
+        height: max.y - min.y + NodeSize.height + GroupPadding * 2,
+    };
+
+    return { position: groupPosition, size: groupSize };
+}
+
 function getGroupNodes(contentNodes: GraphNode<YarnNodeData>[]): GraphNode[] {
     const groupedNodes = Object.entries(
         Object.groupBy(contentNodes, (n) => n.data.nodeInfo?.nodeGroup ?? "{}"),
     );
 
     const nodeGroups = groupedNodes
-        .map<GraphNode | null>(([groupName, nodes], i) => {
+        .map<GraphNode | null>(([groupName, nodes]) => {
             if (groupName === "{}") {
                 return null;
             }
             if (!nodes) {
                 return null;
             }
-            const min = nodes.reduce(
-                (prev, curr) => ({
-                    x: Math.min(prev.x, curr.position.x),
-                    y: Math.min(prev.y, curr.position.y),
-                }),
-                { x: Infinity, y: Infinity },
-            );
-            const max = nodes.reduce(
-                (prev, curr) => ({
-                    x: Math.max(prev.x, curr.position.x),
-                    y: Math.max(prev.y, curr.position.y),
-                }),
-                { x: -Infinity, y: -Infinity },
-            );
 
-            const groupPosition = {
-                x: min.x - GroupPadding,
-                y: min.y - GroupPadding,
-            };
-            const groupSize = {
-                width: max.x - min.x + NodeSize.width + GroupPadding * 2,
-                height: max.y - min.y + NodeSize.height + GroupPadding * 2,
-            };
+            const { position: groupPosition, size: groupSize } =
+                getGroupRect(nodes);
 
             return {
                 id: groupName,
@@ -399,30 +427,130 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     const [interactive, setInteractive] = useState(true);
 
-    const [contentNodes, setContentNodes] = useState(
-        getContentNodes(context.nodes, props, selectedNodes),
+    type GraphUpdate =
+        | {
+              type: "replace-graph";
+              graphContents: NodeInfo[];
+          }
+        | { type: "nodes-moved"; changes: { id: string; position: XYPosition } }
+        | { type: "nodes-updated"; changes: NodeChange[] }
+        | { type: "selection-changed"; selection: string[] };
+
+    type GraphState = {
+        nodeData: NodeInfo[];
+        contentNodes: GraphNode<YarnNodeData>[];
+        groupNodes: GraphNode<YarnNodeData>[];
+        edges: GraphEdge[];
+        selectedNodes: string[];
+    };
+
+    const [graphContents, updateGraphContents] = useReducer(
+        (prev: GraphState, update: GraphUpdate): GraphState => {
+            console.log(update);
+            switch (update.type) {
+                case "replace-graph": {
+                    const contentNodes = getContentNodes(
+                        update.graphContents,
+                        props,
+                        prev.selectedNodes,
+                    );
+                    const groupNodes = getGroupNodes(contentNodes);
+                    const edges = getEdges(update.graphContents);
+
+                    return {
+                        nodeData: update.graphContents,
+                        contentNodes,
+                        groupNodes,
+                        edges,
+                        selectedNodes: prev.selectedNodes,
+                    };
+                }
+                case "nodes-moved":
+                    return prev;
+                case "nodes-updated": {
+                    return {
+                        ...prev,
+                        contentNodes: applyNodeChanges(
+                            update.changes,
+                            prev.contentNodes,
+                        ),
+                        groupNodes: applyNodeChanges(
+                            update.changes,
+                            prev.groupNodes,
+                        ),
+                        // groupNodes: applyNodeChanges(
+                        //     update.changes,
+                        //     prev.groupNodes,
+                        // ),
+                    };
+                }
+                case "selection-changed": {
+                    const contentNodes = getContentNodes(
+                        prev.nodeData,
+                        props,
+                        update.selection,
+                    );
+                    return {
+                        ...prev,
+                        contentNodes,
+                    };
+                }
+            }
+        },
+        {
+            contentNodes: [],
+            edges: [],
+            groupNodes: [],
+            selectedNodes: [],
+            nodeData: [],
+        },
     );
-    const [groupNodes, setGroupNodes] = useState(getGroupNodes(contentNodes));
-    const [edges, setEdges] = useState(getEdges(context.nodes));
+
+    useEffect(() => {
+        // When our source data changes, replace the entire graph view contents
+        updateGraphContents({
+            type: "replace-graph",
+            graphContents: context.nodes,
+        });
+    }, [context.nodes]);
 
     const flow = useReactFlow<GraphNode<YarnNodeData>>();
 
-    useEffect(() => {
-        setContentNodes(getContentNodes(context.nodes, props, selectedNodes));
-        setEdges(getEdges(context.nodes));
-    }, [context.nodes]);
-
-    useEffect(() => {
-        setGroupNodes(getGroupNodes(contentNodes));
-    }, [contentNodes]);
+    const { onNodesMoved } = props;
 
     const onNodesChange: OnNodesChange<GraphNode<YarnNodeData>> = useCallback(
         (changes) => {
-            // Apply the changes to our content nodes. This will trigger group
-            // nodes to recalculate as well.
-            setContentNodes((snapshot) => applyNodeChanges(changes, snapshot));
+            updateGraphContents({ type: "nodes-updated", changes });
         },
-        [setContentNodes, setGroupNodes],
+        [],
+    );
+
+    const onNodeDrag: OnNodeDrag<GraphNode<YarnNodeData>> = useCallback(
+        (_event, _node, draggedNodes) => {
+            const movedNodes = draggedNodes;
+            // Find the groups that these nodes are in
+            const groups = Object.groupBy(
+                movedNodes,
+                (n) => n.data.nodeInfo?.nodeGroup ?? "{}",
+            );
+
+            const nodes = graphContents.contentNodes;
+
+            for (const [groupName] of Object.entries(groups)) {
+                console.log(`Updating group ${groupName}`);
+
+                const nodesInGroup = nodes.filter(
+                    (n) => n.data.nodeInfo?.nodeGroup == groupName,
+                );
+                const updatedGroupDimensions = getGroupRect(nodesInGroup);
+
+                flow.updateNode(groupName, {
+                    position: updatedGroupDimensions.position,
+                    ...updatedGroupDimensions.size,
+                });
+            }
+        },
+        [flow, graphContents.contentNodes],
     );
 
     const onNodeDragStop: OnNodeDrag<GraphNode<YarnNodeData>> = useCallback(
@@ -436,10 +564,10 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 .filter((n) => n.id !== "<unknown>");
 
             if (positions.length > 0) {
-                props.onNodesMoved(positions);
+                onNodesMoved(positions);
             }
         },
-        [props.onNodesMoved],
+        [onNodesMoved],
     );
 
     const onSelectionChange: OnSelectionChangeFunc<GraphNode<YarnNodeData>> =
@@ -459,7 +587,9 @@ export function GraphViewInProvider(props: GraphViewProps) {
     function alignSelectedNodes(
         alignment: "top" | "bottom" | "left" | "right",
     ) {
-        const selectedNodes = contentNodes.filter((n) => n.selected === true);
+        const selectedNodes = graphContents.contentNodes.filter(
+            (n) => n.selected === true,
+        );
 
         const min = selectedNodes.reduce(
             (prev, curr) => ({
@@ -515,7 +645,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         //     selectedNodes.length > 0
         //         ? contentNodes.filter((n) => selectedNodes.includes(n.id))
         //         : contentNodes;
-        const nodes = contentNodes;
+        const nodes = graphContents.contentNodes;
 
         const graph: ElkNode = {
             id: "root",
@@ -528,7 +658,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
             children: nodes.map<ElkNode>((n) => ({
                 ...n,
             })),
-            edges: edges
+            edges: graphContents.edges
                 .filter(
                     (e) =>
                         nodes.find((n) => n.id == e.source) &&
@@ -562,6 +692,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         ...node.position,
                     });
                 }
+
                 props.onNodesMoved(nodeMovements);
                 flow.fitView({
                     nodes,
@@ -575,12 +706,16 @@ export function GraphViewInProvider(props: GraphViewProps) {
         <>
             <div className="size-full" ref={containerRef}>
                 <ReactFlow
-                    nodes={[...groupNodes, ...contentNodes]}
-                    edges={edges}
+                    nodes={[
+                        ...graphContents.groupNodes,
+                        ...graphContents.contentNodes,
+                    ]}
+                    edges={graphContents.edges}
                     nodeTypes={nodeTypes}
                     minZoom={0.1}
                     edgesFocusable={false}
                     nodesConnectable={false}
+                    onNodeDrag={onNodeDrag}
                     onNodeDragStop={onNodeDragStop}
                     selectNodesOnDrag={true}
                     selectionKeyCode={"Shift"}
