@@ -38,7 +38,8 @@ import IconAlignLeft from "../images/align-left.svg?react";
 import IconAlignRight from "../images/align-right.svg?react";
 import IconAlignTop from "../images/align-top.svg?react";
 import IconAlignBottom from "../images/align-bottom.svg?react";
-import IconAutoLayout from "../images/auto-layout.svg?react";
+import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
+import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
 
 import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
 
@@ -507,7 +508,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         props.onNodesMoved(nodeMovements);
     }
 
-    function autoLayoutSelectedNodes() {
+    function autoLayoutSelectedNodes(direction: "RIGHT" | "DOWN") {
         // const nodes =
         //     selectedNodes.length > 0
         //         ? contentNodes.filter((n) => selectedNodes.includes(n.id))
@@ -518,7 +519,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
             id: "root",
             layoutOptions: {
                 "elk.algorithm": "layered",
-                "elk.direction": "DOWN",
+                "elk.direction": direction,
                 "elk.layered.spacing.nodeNodeBetweenLayers": "100",
                 "elk.spacing.nodeNode": "80",
             },
@@ -620,10 +621,14 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         </div>
                         <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
                             <IconButton
-                                icon={IconAutoLayout}
-                                title="Auto Layout"
-                                enabled
-                                onClick={() => autoLayoutSelectedNodes()}
+                                icon={IconAutoLayoutVertical}
+                                title="Auto Layout Vertically"
+                                onClick={() => autoLayoutSelectedNodes("DOWN")}
+                            />
+                            <IconButton
+                                icon={IconAutoLayoutHorizontal}
+                                title="Auto Layout Horizontally"
+                                onClick={() => autoLayoutSelectedNodes("RIGHT")}
                             />
                         </div>
                     </Panel>
