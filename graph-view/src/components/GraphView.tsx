@@ -1,5 +1,23 @@
 import {
-    FunctionComponent,
+    applyNodeChanges,
+    Background,
+    BackgroundVariant,
+    Controls,
+    Edge as GraphEdge,
+    Node as GraphNode,
+    MiniMap,
+    NodeChange,
+    OnNodeDrag,
+    OnNodesChange,
+    OnSelectionChangeFunc,
+    Panel,
+    ReactFlow,
+    ReactFlowProvider,
+    useReactFlow,
+    XYPosition,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+import {
     useCallback,
     useContext,
     useEffect,
@@ -7,54 +25,32 @@ import {
     useRef,
     useState,
 } from "react";
-import {
-    ReactFlow,
-    Controls,
-    Node as GraphNode,
-    Edge as GraphEdge,
-    NodeProps,
-    Handle,
-    Background,
-    BackgroundVariant,
-    MarkerType,
-    ReactFlowProvider,
-    OnNodesChange,
-    OnNodeDrag,
-    Position,
-    MiniMap,
-    XYPosition,
-    NodeToolbar,
-    Panel,
-    OnSelectionChangeFunc,
-    useReactFlow,
-    applyNodeChanges,
-    NodeChange,
-} from "@xyflow/react";
-import "@xyflow/react/dist/style.css";
-import type { NodeInfo } from "../../../src/nodes";
-import clsx from "clsx";
-import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
+import type { NodeInfo } from "../../../src/nodes";
+
+import IconAlignBottom from "../images/align-bottom.svg?react";
 import IconAlignLeft from "../images/align-left.svg?react";
 import IconAlignRight from "../images/align-right.svg?react";
 import IconAlignTop from "../images/align-top.svg?react";
-import IconAlignBottom from "../images/align-bottom.svg?react";
-import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
 import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
+import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
 
-import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
 import { GraphViewContext } from "../context";
+import { ContentNode } from "./ContentNode";
+import { GroupNode } from "./GroupNode";
+import { IconButton } from "./IconButton";
+import { autoLayoutNodes } from "../utilities/autoLayout";
+import { getContentNodes } from "../utilities/getContentNodes";
+import { getEdges } from "../utilities/getEdges";
+import { getGroupNodes } from "../utilities/getGroupNodes";
+import { getGroupRect } from "../utilities/getGroupRect";
 
-const NodeOffset = 10;
-const NodeSize = { width: 200, height: 125 };
-const GroupPadding = 20;
-
-type YarnNodeData = {
+export type YarnNodeData = {
     nodeInfo?: NodeInfo;
     groupName?: string;
 } & NodeEventHandlers;
 
-type NodeEventHandlers = {
+export type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
     onNodeDeleted?: (id: string) => void;
     onNodeHeadersUpdated?: (
@@ -63,345 +59,10 @@ type NodeEventHandlers = {
     ) => void;
 };
 
-const KnownColours = [
-    "red",
-    "blue",
-    "yellow",
-    "orange",
-    "green",
-    "purple",
-    null,
-];
-
-type ColourClassMap = Record<string, string[]>;
-
-const nodeBackgroundClasses: ColourClassMap = {
-    red: ["bg-node-red-bg"],
-    blue: ["bg-node-blue-bg"],
-    yellow: ["bg-node-yellow-bg"],
-    orange: ["bg-node-orange-bg"],
-    green: ["bg-node-green-bg"],
-    purple: ["bg-node-purple-bg"],
-    __default: ["bg-editor-background"],
-};
-
-const nodeTopBarClasses: ColourClassMap = {
-    red: ["bg-red"],
-    blue: ["bg-blue"],
-    yellow: ["bg-yellow"],
-    orange: ["bg-orange"],
-    green: ["bg-green"],
-    purple: ["bg-purple"],
-    __default: ["bg-editor-background"],
-};
-
-const stickyNoteTopBarClasses: ColourClassMap = {
-    red: ["bg-stickynote-red"],
-    blue: ["bg-stickynote-blue"],
-    yellow: ["bg-stickynote-yellow"],
-    orange: ["bg-stickynote-orange"],
-    green: ["bg-stickynote-green"],
-    purple: ["bg-stickynote-purple"],
-    __default: ["bg-editor-background"],
-};
-
-const stickyNoteBackgroundClasses: ColourClassMap = {
-    red: ["bg-stickynote-red-bg"],
-    blue: ["bg-stickynote-blue-bg"],
-    yellow: ["bg-stickynote-yellow-bg"],
-    orange: ["bg-stickynote-orange-bg"],
-    green: ["bg-stickynote-green-bg"],
-    purple: ["bg-stickynote-purple-bg"],
-    __default: ["bg-stickynote-yellow-bg"],
-};
-
-function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
-    const isNote =
-        props.data.nodeInfo?.headers.find(
-            (h) => h.key === "style" && h.value === "note",
-        ) !== undefined;
-
-    const nodeColour = props.data.nodeInfo?.headers.find(
-        (h) => h.key === "color",
-    )?.value;
-
-    const thisNodeBackgroundClasses = isNote
-        ? stickyNoteBackgroundClasses
-        : nodeBackgroundClasses;
-
-    const thisNodeTopbarClasses = isNote
-        ? stickyNoteTopBarClasses
-        : nodeTopBarClasses;
-
-    const backgroundClass =
-        thisNodeBackgroundClasses[nodeColour ?? "__default"];
-
-    const topBarClass = thisNodeTopbarClasses[nodeColour ?? "__default"];
-
-    return (
-        <>
-            <NodeToolbar
-                position={Position.Top}
-                className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-1"
-            >
-                {KnownColours.map((colour) => {
-                    return (
-                        <div
-                            className={clsx(
-                                "rounded-full w-4 h-4 cursor-pointer",
-                                {
-                                    "border-2 border-selected":
-                                        colour === nodeColour,
-                                    "border border-editor-foreground/25":
-                                        colour !== nodeColour,
-                                },
-                                thisNodeTopbarClasses[colour ?? "__default"],
-                            )}
-                            onClick={() =>
-                                props.data.onNodeHeadersUpdated &&
-                                props.data.onNodeHeadersUpdated(props.id, {
-                                    color: colour,
-                                })
-                            }
-                        ></div>
-                    );
-                })}
-            </NodeToolbar>
-            <NodeToolbar
-                className="flex flex-col bg-editor-background shadow-widget-shadow shadow-lg rounded-md p-2 gap-2"
-                position={Position.Right}
-            >
-                <VSCodeButton
-                    onClick={() =>
-                        props.data.onNodeOpened &&
-                        props.data.onNodeOpened(props.id)
-                    }
-                >
-                    Edit
-                </VSCodeButton>
-                <VSCodeButton
-                    onClick={() =>
-                        props.data.onNodeDeleted &&
-                        props.data.onNodeDeleted(props.id)
-                    }
-                >
-                    Delete
-                </VSCodeButton>
-            </NodeToolbar>
-            {isNote && (
-                <div
-                    style={{ width: props.width, height: props.height }}
-                    className={clsx(
-                        "p-2 border-2 shadow-lg rotate-3 rounded-md",
-                        ...backgroundClass,
-                        {
-                            "border-transparent": !props.selected,
-                            "border-note-orange": props.selected,
-                        },
-                    )}
-                >
-                    {props.data.nodeInfo?.previewText}
-                </div>
-            )}
-            {!isNote && (
-                <div
-                    className={clsx(
-                        "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm",
-                        ...backgroundClass,
-                        {
-                            "border-transparent": !props.selected,
-                            "border-selected": props.selected,
-                        },
-                    )}
-                    style={{ width: props.width, height: props.height }}
-                >
-                    {nodeColour !== undefined && (
-                        <div
-                            className={clsx(
-                                "h-1 shrink-0",
-                                ...topBarClass,
-                                "w-full",
-                            )}
-                        ></div>
-                    )}
-                    <div className="p-2">
-                        <div className="font-bold">
-                            {props.data.nodeInfo?.sourceTitle}
-                        </div>
-                        <div className="whitespace-pre-line">
-                            {props.data.nodeInfo?.previewText}
-                        </div>
-                    </div>
-                    <Handle type="target" position={Position.Top} />
-                    <Handle type="source" position={Position.Bottom} />
-                </div>
-            )}
-        </>
-    );
-}
-
-function GroupNode(props: {} & NodeProps) {
-    return (
-        <div
-            style={{
-                width: props.width,
-                height: props.height,
-                position: "absolute",
-                top: 0,
-                left: 0,
-            }}
-            className="nodrag"
-        >
-            {props.id}
-            <Handle type="target" position={Position.Top} />
-        </div>
-    );
-}
-
 const nodeTypes = {
-    yarnNode: YarnNode,
+    yarnNode: ContentNode,
     group: GroupNode,
 };
-
-function getEdges(nodes: NodeInfo[]): GraphEdge[] {
-    const allEdges = nodes
-        .flatMap<GraphEdge | null>((n) => {
-            if (n.sourceTitle === undefined || n.uniqueTitle === undefined) {
-                return null;
-            }
-
-            return n.jumps.map<GraphEdge>((j) => ({
-                id: `${n.sourceTitle}-${j.destinationTitle}`,
-                source: n.uniqueTitle ?? "<unknown>",
-                target: j.destinationTitle,
-                style: {
-                    strokeWidth: 2,
-                },
-
-                markerEnd: {
-                    type: MarkerType.ArrowClosed,
-                    width: 20,
-                    height: 20,
-                },
-            }));
-        })
-        .filter((n) => n !== null);
-
-    const result: GraphEdge[] = [];
-    const seenIDs = new Set<string>();
-
-    for (const edge of allEdges) {
-        if (seenIDs.has(edge.id)) {
-            continue;
-        }
-        seenIDs.add(edge.id);
-        result.push(edge);
-    }
-    return result;
-}
-
-function getContentNodes(
-    nodes: NodeInfo[],
-    eventHandlers: NodeEventHandlers,
-    selectedNodes: string[],
-): GraphNode<YarnNodeData>[] {
-    let nodesWithoutPositions = 0;
-    const contentNodes = nodes.map<GraphNode<YarnNodeData>>((n, i) => {
-        const positionHeader = n.headers.find(
-            (h) => h.key === "position",
-        )?.value;
-        let position: { x: number; y: number };
-        if (!positionHeader) {
-            position = {
-                x: NodeOffset * nodesWithoutPositions,
-                y: NodeOffset * nodesWithoutPositions,
-            };
-            nodesWithoutPositions += 1;
-        } else {
-            const [x, y] = positionHeader
-                .split(",")
-                .map((s) => s.trim())
-                .map((s) => parseInt(s))
-                .map((s) => (isNaN(s) ? 0 : s));
-            position = { x, y };
-        }
-        const id = n.uniqueTitle ?? "Node-" + i;
-        return {
-            id,
-            data: { nodeInfo: n, ...eventHandlers },
-            position,
-            width: NodeSize.width,
-            selected: selectedNodes.includes(id),
-            height: NodeSize.height,
-            type: "yarnNode",
-        };
-    });
-
-    return contentNodes;
-}
-
-function getGroupRect(nodes: { position: { x: number; y: number } }[]): {
-    position: XYPosition;
-    size: {
-        width: number;
-        height: number;
-    };
-} {
-    const min = nodes.reduce(
-        (prev, curr) => ({
-            x: Math.min(prev.x, curr.position.x),
-            y: Math.min(prev.y, curr.position.y),
-        }),
-        { x: Infinity, y: Infinity },
-    );
-    const max = nodes.reduce(
-        (prev, curr) => ({
-            x: Math.max(prev.x, curr.position.x),
-            y: Math.max(prev.y, curr.position.y),
-        }),
-        { x: -Infinity, y: -Infinity },
-    );
-
-    const groupPosition = {
-        x: min.x - GroupPadding,
-        y: min.y - GroupPadding,
-    };
-    const groupSize = {
-        width: max.x - min.x + NodeSize.width + GroupPadding * 2,
-        height: max.y - min.y + NodeSize.height + GroupPadding * 2,
-    };
-
-    return { position: groupPosition, size: groupSize };
-}
-
-function getGroupNodes(contentNodes: GraphNode<YarnNodeData>[]): GraphNode[] {
-    const groupedNodes = Object.entries(
-        Object.groupBy(contentNodes, (n) => n.data.nodeInfo?.nodeGroup ?? "{}"),
-    );
-
-    const nodeGroups = groupedNodes
-        .map<GraphNode | null>(([groupName, nodes]) => {
-            if (groupName === "{}") {
-                return null;
-            }
-            if (!nodes) {
-                return null;
-            }
-
-            const { position: groupPosition, size: groupSize } =
-                getGroupRect(nodes);
-
-            return {
-                id: groupName,
-                data: { groupName },
-                position: groupPosition,
-                ...groupSize,
-                type: "group",
-            };
-        })
-        .filter((n) => n !== null);
-    return nodeGroups;
-}
 
 type GraphViewProps = {
     onNodesMoved: (
@@ -417,7 +78,13 @@ export type GraphViewStateRef = {
     position: XYPosition;
 };
 
-const elk = new ELK();
+export type GraphState = {
+    nodeData: NodeInfo[];
+    contentNodes: GraphNode<YarnNodeData>[];
+    groupNodes: GraphNode<YarnNodeData>[];
+    edges: GraphEdge[];
+    selectedNodes: string[];
+};
 
 export function GraphViewInProvider(props: GraphViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -436,14 +103,6 @@ export function GraphViewInProvider(props: GraphViewProps) {
         | { type: "nodes-moved"; changes: { id: string; position: XYPosition } }
         | { type: "nodes-updated"; changes: NodeChange[] }
         | { type: "selection-changed"; selection: string[] };
-
-    type GraphState = {
-        nodeData: NodeInfo[];
-        contentNodes: GraphNode<YarnNodeData>[];
-        groupNodes: GraphNode<YarnNodeData>[];
-        edges: GraphEdge[];
-        selectedNodes: string[];
-    };
 
     const [graphContents, updateGraphContents] = useReducer(
         (prev: GraphState, update: GraphUpdate): GraphState => {
@@ -641,67 +300,27 @@ export function GraphViewInProvider(props: GraphViewProps) {
         props.onNodesMoved(nodeMovements);
     }
 
-    function autoLayoutSelectedNodes(direction: "RIGHT" | "DOWN") {
-        // const nodes =
-        //     selectedNodes.length > 0
-        //         ? contentNodes.filter((n) => selectedNodes.includes(n.id))
-        //         : contentNodes;
-        const nodes = graphContents.contentNodes;
+    const autolayout = async (direction: "RIGHT" | "DOWN") => {
+        const layoutedNodes = await autoLayoutNodes(
+            { nodes: graphContents.contentNodes, edges: graphContents.edges },
+            direction,
+        );
 
-        const graph: ElkNode = {
-            id: "root",
-            layoutOptions: {
-                "elk.algorithm": "layered",
-                "elk.direction": direction,
-                "elk.layered.spacing.nodeNodeBetweenLayers": "100",
-                "elk.spacing.nodeNode": "80",
-            },
-            children: nodes.map<ElkNode>((n) => ({
-                ...n,
-            })),
-            edges: graphContents.edges
-                .filter(
-                    (e) =>
-                        nodes.find((n) => n.id == e.source) &&
-                        nodes.find((n) => n.id == e.target),
-                )
-                .map<ElkExtendedEdge>((e) => {
-                    return {
-                        id: e.id,
-                        sources: [e.source],
-                        targets: [e.target],
-                    };
-                }),
-        };
+        const nodeMovements: { id: string; x: number; y: number }[] = [];
+        for (const node of layoutedNodes) {
+            flow.updateNode(node.id, { position: node.position });
+            nodeMovements.push({
+                id: node.id,
+                ...node.position,
+            });
+        }
 
-        elk.layout(graph)
-            .then((result) => {
-                const layoutedNodes = (result.children ?? []).map<GraphNode>(
-                    (n) => ({
-                        ...n,
-                        position: { x: n.x ?? 0, y: n.y ?? 0 },
-                        data: {},
-                    }),
-                );
-
-                const nodeMovements: { id: string; x: number; y: number }[] =
-                    [];
-                for (const node of layoutedNodes) {
-                    flow.updateNode(node.id, { position: node.position });
-                    nodeMovements.push({
-                        id: node.id,
-                        ...node.position,
-                    });
-                }
-
-                props.onNodesMoved(nodeMovements);
-                flow.fitView({
-                    nodes,
-                    padding: "20px",
-                });
-            })
-            .catch(console.error);
-    }
+        props.onNodesMoved(nodeMovements);
+        flow.fitView({
+            nodes: layoutedNodes,
+            padding: "20px",
+        });
+    };
 
     return (
         <>
@@ -764,41 +383,19 @@ export function GraphViewInProvider(props: GraphViewProps) {
                                 icon={IconAutoLayoutVertical}
                                 title="Auto Layout Vertically"
                                 enabled={interactive}
-                                onClick={() => autoLayoutSelectedNodes("DOWN")}
+                                onClick={() => autolayout("DOWN")}
                             />
                             <IconButton
                                 icon={IconAutoLayoutHorizontal}
                                 title="Auto Layout Horizontally"
                                 enabled={interactive}
-                                onClick={() => autoLayoutSelectedNodes("RIGHT")}
+                                onClick={() => autolayout("RIGHT")}
                             />
                         </div>
                     </Panel>
                 </ReactFlow>
             </div>
         </>
-    );
-}
-
-function IconButton(props: {
-    icon: FunctionComponent;
-    enabled?: boolean;
-    onClick?: React.MouseEventHandler;
-    title?: string;
-}) {
-    return (
-        <div
-            onClick={props.onClick}
-            title={props.title}
-            className={clsx("h-[20px] flex", {
-                "fill-editor-foreground/75 hover:fill-editor-foreground cursor-pointer":
-                    props.enabled === true || props.enabled === undefined,
-                "fill-editor-foreground/25 cursor-auto":
-                    props.enabled === false,
-            })}
-        >
-            <props.icon />
-        </div>
     );
 }
 
