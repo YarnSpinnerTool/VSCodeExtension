@@ -733,7 +733,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     <Controls onInteractiveChange={setInteractive} />
                     <MiniMap pannable draggable />
                     <Panel position="bottom-center" className="flex gap-2">
-                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
+                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0">
                             <IconButton
                                 icon={IconAlignLeft}
                                 title="Align Selected to Left"
@@ -759,7 +759,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                                 onClick={() => alignSelectedNodes("bottom")}
                             />
                         </div>
-                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
+                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0">
                             <IconButton
                                 icon={IconAutoLayoutVertical}
                                 title="Auto Layout Vertically"
