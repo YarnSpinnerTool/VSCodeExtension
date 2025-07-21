@@ -142,7 +142,7 @@ function YarnNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                 position={Position.Top}
                 className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-1"
             >
-                {KnownColours.map((colour, i) => {
+                {KnownColours.map((colour) => {
                     return (
                         <div
                             className={clsx(
@@ -493,7 +493,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 break;
         }
 
-        let nodeMovements: { id: string; x: number; y: number }[] = [];
+        const nodeMovements: { id: string; x: number; y: number }[] = [];
 
         for (const node of selectedNodes) {
             const newPosition = { ...node.position, ...update };
@@ -553,7 +553,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     }),
                 );
 
-                let nodeMovements: { id: string; x: number; y: number }[] = [];
+                const nodeMovements: { id: string; x: number; y: number }[] =
+                    [];
                 for (const node of layoutedNodes) {
                     flow.updateNode(node.id, { position: node.position });
                     nodeMovements.push({

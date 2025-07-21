@@ -6,10 +6,8 @@ import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext, GraphViewState } from "./context";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
-function assertStateHasDocument(
-    state: GraphViewState,
-): asserts state is GraphViewState & { documentUri: string } {
-    if (state.documentUri === null) {
+function assertDocumentURIValid(uri?: string | null): asserts uri is string {
+    if (uri === null) {
         throw new Error("Graph view has no document uri!");
     }
 }
@@ -21,7 +19,7 @@ function App() {
     });
 
     useEffect(() => {
-        const messageHandler = (event: MessageEvent<any>): void => {
+        const messageHandler = (event: MessageEvent<unknown>): void => {
             const message = event.data as WebViewEvent;
             if (message.type === "update") {
                 setState({
@@ -38,76 +36,78 @@ function App() {
         };
     });
 
+    const documentUri = state.documentUri;
+
     const addNode = useCallback(() => {
-        assertStateHasDocument(state);
+        assertDocumentURIValid(documentUri);
 
         vscode.postMessage({
             type: "add",
-            documentUri: state.documentUri,
+            documentUri,
             position: { x: 0, y: 0 },
             headers: {},
         });
-    }, [state.documentUri]);
+    }, [documentUri]);
 
     const addStickyNote = useCallback(() => {
-        assertStateHasDocument(state);
+        assertDocumentURIValid(documentUri);
         vscode.postMessage({
             type: "add",
-            documentUri: state.documentUri,
+            documentUri,
             position: { x: 0, y: 0 },
             headers: { style: "note" },
         });
-    }, [state.documentUri]);
+    }, [documentUri]);
 
     const onNodesMoved = useCallback(
         (nodes: { id: string; x: number; y: number }[]): void => {
-            assertStateHasDocument(state);
+            assertDocumentURIValid(documentUri);
             vscode.postMessage({
                 type: "move",
-                documentUri: state.documentUri,
+                documentUri,
                 positions: Object.fromEntries(
                     nodes.map((n) => [n.id, { x: n.x, y: n.y }]),
                 ),
             });
         },
-        [state.documentUri],
+        [documentUri],
     );
 
     const onNodeDeleted = useCallback(
         (id: string): void => {
-            assertStateHasDocument(state);
+            assertDocumentURIValid(documentUri);
             vscode.postMessage({
                 type: "delete",
-                documentUri: state.documentUri,
+                documentUri,
                 node: id,
             });
         },
-        [state.documentUri],
+        [documentUri],
     );
 
     const onNodeOpened = useCallback(
         (id: string): void => {
-            assertStateHasDocument(state);
+            assertDocumentURIValid(documentUri);
             vscode.postMessage({
                 type: "open",
-                documentUri: state.documentUri,
+                documentUri,
                 node: id,
             });
         },
-        [state.documentUri],
+        [documentUri],
     );
 
     const onNodeHeadersUpdated = useCallback(
         (id: string, headers: Record<string, string | null>): void => {
-            assertStateHasDocument(state);
+            assertDocumentURIValid(documentUri);
             vscode.postMessage({
                 type: "update-headers",
-                documentUri: state.documentUri,
+                documentUri,
                 node: id,
                 headers: headers,
             });
         },
-        [state.documentUri],
+        [documentUri],
     );
 
     return (
