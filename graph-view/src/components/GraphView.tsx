@@ -731,6 +731,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         gap={40}
                     />
                     <Controls onInteractiveChange={setInteractive} />
+                    <MiniMap pannable draggable />
                     <Panel position="bottom-center" className="flex gap-2">
                         <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm">
                             <IconButton
@@ -773,8 +774,6 @@ export function GraphViewInProvider(props: GraphViewProps) {
                             />
                         </div>
                     </Panel>
-
-                    <MiniMap pannable draggable />
                 </ReactFlow>
             </div>
         </>
