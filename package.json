@@ -29,7 +29,7 @@
         "theme": "light"
     },
     "engines": {
-        "vscode": "^1.74.0"
+        "vscode": "^1.102.0"
     },
     "categories": [
         "Programming Languages"
@@ -39,7 +39,7 @@
         "vscode:prepublish": "npm run buildProduction",
         "buildExtension": "tsc -p ./src/tsconfig.json && cp src/runner.html out/",
         "buildWebViewDevelopment": "webpack --mode=development -c ./webview/webpack.config.js",
-        "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js",
+        "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js; npm --prefix graph-view run build",
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
         "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewProduction",
         "buildServerDevelopment": "env-cmd --no-override -x dotnet build --no-restore -c Debug '$LANGUAGESERVER_CSPROJ_PATH'",
