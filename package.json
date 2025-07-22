@@ -82,7 +82,8 @@
                     "type": "webview",
                     "id": "yarnspinner.graph-view",
                     "name": "Yarn Spinner",
-                    "contextualTitle": "Yarn Spinner"
+                    "contextualTitle": "Yarn Spinner",
+                    "when": "config.yarnspinner.enableExperimentalFeatures"
                 }
             ]
         },
