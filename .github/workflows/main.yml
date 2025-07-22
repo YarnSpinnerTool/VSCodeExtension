@@ -56,7 +56,7 @@ jobs:
                   dotnet-version: 9.0.x
 
             - name: Clean install dependencies
-              run: npm ci
+              run: npm ci && npm --prefix graph-view ci
 
             - name: Run unit tests
               run: npm test
