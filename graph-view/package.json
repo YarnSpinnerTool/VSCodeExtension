@@ -5,9 +5,9 @@
     "private": true,
     "scripts": {
         "start": "vite",
-        "build": "tsc && vite build",
+        "build": "tsc --noEmit && vite build",
         "preview": "vite preview",
-        "watch": "vite build --watch"
+        "watch": "NODE_ENV=development vite build --mode development --watch"
     },
     "dependencies": {
         "@vscode/webview-ui-toolkit": "^1.4.0",
