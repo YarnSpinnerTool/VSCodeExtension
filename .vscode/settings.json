@@ -3,6 +3,9 @@
     "omnisharp.useModernNet": true,
     "files.insertFinalNewline": true,
     "editor.formatOnSave": true,
+    "emmet.showAbbreviationSuggestions": false,
+    "emmet.useInlineCompletions": false,
+    "emmet.showExpandedAbbreviation": "never",
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
