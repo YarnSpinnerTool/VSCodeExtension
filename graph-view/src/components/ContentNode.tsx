@@ -7,7 +7,6 @@ import {
     Handle,
 } from "@xyflow/react";
 import clsx from "clsx";
-import { YarnNodeData } from "./GraphView";
 import {
     stickyNoteBackgroundClasses,
     nodeBackgroundClasses,
@@ -15,6 +14,7 @@ import {
     nodeTopBarClasses,
     KnownColours,
 } from "../utilities/nodeColours";
+import { YarnNodeData } from "../utilities/nodeData";
 
 export function ContentNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     const isNote =

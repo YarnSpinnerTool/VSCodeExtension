@@ -44,11 +44,7 @@ import { getContentNodes } from "../utilities/getContentNodes";
 import { getEdges } from "../utilities/getEdges";
 import { getGroupNodes } from "../utilities/getGroupNodes";
 import { getGroupRect } from "../utilities/getGroupRect";
-
-export type YarnNodeData = {
-    nodeInfo?: NodeInfo;
-    groupName?: string;
-} & NodeEventHandlers;
+import { YarnNodeData } from "../utilities/nodeData";
 
 export type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
