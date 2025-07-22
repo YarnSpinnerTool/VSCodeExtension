@@ -24,6 +24,13 @@ main {
     --color-editor-foreground: var(--vscode-editor-foreground, #3b3b3b);
     --color-editor-background: var(--vscode-editor-background, #ffffff);
 
+    --color-minimap-background: var(--vscode-editor-background, #ffffff);
+    --color-minimap-mask: color-mix(
+        in srgb,
+        var(--vscode-editor-background, #ffffff) 50%,
+        transparent
+    );
+
     --color-selected: var(--vscode-list-focusOutline, #0000ff);
     --color-red: var(--vscode-charts-red, #e51400);
     --color-blue: var(--vscode-charts-blue, #1a85ff);

@@ -16,8 +16,7 @@ export function getContentNodes(
         (n, i) => {
             // Content nodes in a node group get drawn as a single combined
             // node, so don't include them here
-            const isNodeGroup = n.nodeGroup != undefined;
-            if (isNodeGroup) {
+            if (n.nodeGroup != undefined) {
                 return undefined;
             }
 
@@ -36,15 +35,71 @@ export function getContentNodes(
 
             return {
                 id,
-                data: { nodeInfo: n, ...eventHandlers },
+                data: {
+                    isNodeGroup: false,
+                    nodeInfos: [n],
+                    ...eventHandlers,
+                } satisfies YarnNodeData,
                 position,
-                width: NodeSize.width,
                 selected: selectedNodes.includes(id),
+                width: NodeSize.width,
                 height: NodeSize.height,
                 type: "yarnNode",
             };
         },
     );
 
-    return contentNodes.filter((n) => n !== undefined);
+    // Now create content graph nodes that represent node groups (collections of
+    // Yarn nodes that all appear as a single element)
+    const nodeGroups: Map<string, NodeInfo[]> = new Map();
+
+    for (const contentNode of nodes) {
+        if (!contentNode.nodeGroup) {
+            continue;
+        }
+
+        const groupName = contentNode.nodeGroup;
+        if (!nodeGroups.has(groupName)) {
+            nodeGroups.set(groupName, []);
+        }
+
+        nodeGroups.get(groupName)!.push(contentNode);
+    }
+
+    const nodeGroupsNodes: GraphNode<YarnNodeData>[] = [];
+
+    for (const nodeGroupName of nodeGroups.keys()) {
+        const nodesInGroup = nodeGroups.get(nodeGroupName) ?? [];
+
+        if (nodesInGroup.length == 0) {
+            continue;
+        }
+
+        const positions = nodesInGroup.map(
+            (n) => getNodePosition(n) ?? { x: 0, y: 0 },
+        );
+        const averagePosition = positions.reduce(
+            (sum, next) => ({ x: sum.x + next.x, y: sum.y + next.y }),
+            { x: 0, y: 0 },
+        );
+        averagePosition.x /= positions.length;
+        averagePosition.y /= positions.length;
+
+        nodeGroupsNodes.push({
+            id: nodeGroupName,
+            data: {
+                nodeInfos: nodesInGroup,
+                isNodeGroup: true,
+                groupName: undefined,
+                ...eventHandlers,
+            } satisfies YarnNodeData,
+            position: averagePosition,
+            width: NodeSize.width,
+            type: "yarnNode",
+            height: NodeSize.height,
+            selected: selectedNodes.includes(nodeGroupName),
+        });
+    }
+
+    return [...contentNodes.filter((n) => n !== undefined), ...nodeGroupsNodes];
 }

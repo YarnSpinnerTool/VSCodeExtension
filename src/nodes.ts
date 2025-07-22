@@ -15,6 +15,7 @@ export interface NodeInfo {
     jumps: NodeJump[];
     previewText: string;
     containsExternalJumps: boolean;
+    nodeGroupComplexity?: number;
 }
 
 export interface NodeHeader {

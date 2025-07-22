@@ -1,4 +1,4 @@
-type ColourClassMap = Record<string, string[]>;
+export type ColourClassMap = Record<string, string[]>;
 
 export const KnownColours = [
     "red",

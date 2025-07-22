@@ -2,11 +2,14 @@ import { Node as GraphNode } from "@xyflow/react";
 import { getGroupRect } from "./getGroupRect";
 import { NodeInfo } from "../../../src/nodes";
 import { getNodePosition } from "./getNodePosition";
+import { YarnNodeData } from "./nodeData";
 
-export function getGroupNodes(contentNodes: NodeInfo[]): GraphNode[] {
+export function getGroupNodes(
+    nodeInfos: NodeInfo[],
+): GraphNode<YarnNodeData>[] {
     const groupedNodes: Record<string, NodeInfo[]> = {};
 
-    for (const contentNode of contentNodes) {
+    for (const contentNode of nodeInfos) {
         const groupHeaders =
             contentNode.headers
                 .filter((h) => h.key == "group")
@@ -21,7 +24,7 @@ export function getGroupNodes(contentNodes: NodeInfo[]): GraphNode[] {
     }
 
     const nodeGroups = Object.entries(groupedNodes)
-        .map<GraphNode | null>(([groupName, nodes]) => {
+        .map<GraphNode<YarnNodeData> | null>(([groupName, nodes]) => {
             if (groupName === "{}") {
                 return null;
             }
@@ -38,7 +41,10 @@ export function getGroupNodes(contentNodes: NodeInfo[]): GraphNode[] {
 
             return {
                 id: groupName,
-                data: { groupName },
+                data: {
+                    groupName,
+                    nodeInfos: undefined,
+                } satisfies YarnNodeData,
                 position: groupPosition,
                 ...groupSize,
                 type: "group",

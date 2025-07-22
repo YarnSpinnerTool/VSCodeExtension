@@ -2,6 +2,18 @@ import type { NodeInfo } from "../../../src/nodes";
 import type { NodeEventHandlers } from "../components/GraphView";
 
 export type YarnNodeData = {
-    nodeInfo?: NodeInfo;
+    isNodeGroup?: boolean;
+    nodeInfos?: NodeInfo[];
     groupName?: string;
-} & NodeEventHandlers;
+} & (
+    | { nodeInfos: undefined; groupName: string }
+    | {
+          nodeInfos: [NodeInfo];
+          isNodeGroup: false;
+      }
+    | {
+          nodeInfos: NodeInfo[];
+          isNodeGroup: true;
+      }
+) &
+    NodeEventHandlers;

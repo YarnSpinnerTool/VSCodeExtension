@@ -1,5 +1,11 @@
 import { XYPosition } from "@xyflow/react";
 import { GroupPadding, NodeSize } from "./constants";
+import { NodeInfo } from "../../../src/nodes";
+
+export function getGroupForNode(node: NodeInfo) {
+    const groupHeader = node.headers.find((h) => h.key === "group");
+    return groupHeader?.value ?? null;
+}
 
 export function getGroupRect(nodes: { position: { x: number; y: number } }[]): {
     position: XYPosition;
