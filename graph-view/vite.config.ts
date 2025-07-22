@@ -8,6 +8,7 @@ export default defineConfig((config) => ({
     plugins: [react(), tailwindcss(), svgr()],
     build: {
         sourcemap: config.mode === "development" ? "inline" : false,
+        reportCompressedSize: config.mode !== "development",
         outDir: "build",
         rollupOptions: {
             output: {
