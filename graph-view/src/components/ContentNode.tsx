@@ -107,7 +107,7 @@ export function ContentNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
             {!isNote && (
                 <div
                     className={clsx(
-                        "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm",
+                        "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm shadow-md shadow-widget-shadow",
                         ...backgroundClass,
                         {
                             "border-transparent": !props.selected,
