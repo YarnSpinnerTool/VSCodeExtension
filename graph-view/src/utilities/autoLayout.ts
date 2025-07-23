@@ -1,17 +1,18 @@
 import type { Node as GraphNode, Edge as GraphEdge } from "@xyflow/react";
 import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
+import type { YarnNodeData } from "./nodeData";
 
 const elk = new ELK();
 
 export async function autoLayoutNodes(
-    graphContents: { nodes: GraphNode[]; edges: GraphEdge[] },
+    graphContents: { nodes: GraphNode<YarnNodeData>[]; edges: GraphEdge[] },
     direction: "RIGHT" | "DOWN",
-): Promise<GraphNode[]> {
-    // const nodes =
-    //     selectedNodes.length > 0
-    //         ? contentNodes.filter((n) => selectedNodes.includes(n.id))
-    //         : contentNodes;
+): Promise<GraphNode<YarnNodeData>[]> {
     const nodes = graphContents.nodes;
+
+    const nodeData = new Map<string, YarnNodeData>(
+        nodes.map((n) => [n.id, n.data]),
+    );
 
     const graph: ElkNode = {
         id: "root",
@@ -40,11 +41,13 @@ export async function autoLayoutNodes(
     };
 
     const result = await elk.layout(graph);
-    const layoutedNodes = (result.children ?? []).map<GraphNode>((n) => ({
-        ...n,
-        position: { x: n.x ?? 0, y: n.y ?? 0 },
-        data: {},
-    }));
+    const layoutedNodes = (result.children ?? []).map<GraphNode<YarnNodeData>>(
+        (n) => ({
+            ...n,
+            position: { x: n.x ?? 0, y: n.y ?? 0 },
+            data: nodeData.get(n.id) ?? { nodeInfos: [], isNodeGroup: true },
+        }),
+    );
 
     return layoutedNodes;
 }

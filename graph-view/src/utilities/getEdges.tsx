@@ -10,7 +10,7 @@ export function getEdges(nodes: NodeInfo[]): GraphEdge[] {
 
             return n.jumps.map<GraphEdge>((j) => ({
                 id: `${n.sourceTitle}-${j.destinationTitle}`,
-                source: n.uniqueTitle ?? "<unknown>",
+                source: n.sourceTitle ?? "<unknown>",
                 target: j.destinationTitle,
                 style: {
                     strokeWidth: 2,

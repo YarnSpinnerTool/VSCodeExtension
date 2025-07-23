@@ -333,10 +333,15 @@ export function GraphViewInProvider(props: GraphViewProps) {
         const nodeMovements: { id: string; x: number; y: number }[] = [];
         for (const node of layoutedNodes) {
             flow.updateNode(node.id, { position: node.position });
-            nodeMovements.push({
-                id: node.id,
-                ...node.position,
-            });
+            for (const nodeInfo of node.data.nodeInfos ?? []) {
+                if (!nodeInfo.uniqueTitle) {
+                    continue;
+                }
+                nodeMovements.push({
+                    id: nodeInfo.uniqueTitle,
+                    ...node.position,
+                });
+            }
         }
 
         props.onNodesMoved(nodeMovements);
