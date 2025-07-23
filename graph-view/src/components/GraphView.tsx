@@ -491,7 +491,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         pannable
                         draggable
                         bgColor="var(--color-minimap-background)"
-                        maskColor="var (--color-minimap-mask)"
+                        maskColor="var(--color-minimap-mask)"
                         className="bg-editor-background border border-editor-foreground/50 rounded-sm"
                     />
                     <Panel position="top-right" className="flex flex-col gap-1">

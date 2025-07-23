@@ -27,7 +27,7 @@ main {
     --color-minimap-background: var(--vscode-editor-background, #ffffff);
     --color-minimap-mask: color-mix(
         in srgb,
-        var(--vscode-editor-background, #ffffff) 50%,
+        var(--vscode-editor-background, #ffffff) 75%,
         transparent
     );
 
