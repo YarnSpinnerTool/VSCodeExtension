@@ -77,6 +77,8 @@ type GraphViewProps = {
             y: number;
         }[],
     ) => void;
+    onNodeAdded: (position: XYPosition) => void;
+    onStickyNoteAdded: (position: XYPosition) => void;
 } & NodeEventHandlers;
 
 export type GraphViewStateRef = {
@@ -344,6 +346,23 @@ export function GraphViewInProvider(props: GraphViewProps) {
         });
     };
 
+    const getViewCenterInFlow = (offset?: XYPosition): XYPosition => {
+        if (!containerRef.current) {
+            return { x: 0, y: 0 };
+        }
+        const clientRect = containerRef.current.getBoundingClientRect();
+        const flowCenter = flow.screenToFlowPosition({
+            x: clientRect.x + clientRect.width / 2,
+            y: clientRect.y + clientRect.height / 2,
+        });
+
+        if (offset) {
+            flowCenter.x += offset.x;
+            flowCenter.y += offset.y;
+        }
+        return flowCenter;
+    };
+
     return (
         <>
             <div className="size-full" ref={containerRef}>
@@ -393,6 +412,35 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         maskColor="var (--color-minimap-mask)"
                         className="bg-editor-background border border-editor-foreground/50 rounded-sm"
                     />
+                    <Panel position="top-right" className="flex flex-col gap-1">
+                        <VSCodeButton
+                            onClick={() =>
+                                // Insert a new node in the center of the view
+                                props.onNodeAdded(
+                                    getViewCenterInFlow({
+                                        x: -NodeSize.width / 2,
+                                        y: -NodeSize.height / 2,
+                                    }),
+                                )
+                            }
+                        >
+                            Add Node
+                        </VSCodeButton>
+                        <VSCodeButton
+                            onClick={() =>
+                                // Insert a new sticky note in the center of the
+                                // view
+                                props.onStickyNoteAdded(
+                                    getViewCenterInFlow({
+                                        x: -NodeSize.width / 2,
+                                        y: -NodeSize.height / 2,
+                                    }),
+                                )
+                            }
+                        >
+                            Add Sticky Note
+                        </VSCodeButton>
+                    </Panel>
                     <Panel position="bottom-center" className="flex gap-2">
                         <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0">
                             <IconButton
