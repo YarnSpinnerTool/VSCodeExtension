@@ -77,9 +77,9 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
             (h) => h.key === "style" && h.value === "note",
         ) !== undefined;
 
-    const nodeColour =
-        (isSingleNode(props.data) && getNodeColour(props.data.nodeInfos[0])) ||
-        null;
+    const nodeColour = isSingleNode(props.data)
+        ? getNodeColour(props.data.nodeInfos[0])
+        : null;
 
     const thisNodeTopbarClasses = isNote
         ? stickyNoteTopBarClasses

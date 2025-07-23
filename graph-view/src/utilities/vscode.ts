@@ -51,6 +51,8 @@ class VSCodeAPIWrapper {
             return this.vsCodeApi.getState() as GraphViewState | undefined;
         } else {
             const state = localStorage.getItem("vscodeState");
+
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return state ? JSON.parse(state) : undefined;
         }
     }

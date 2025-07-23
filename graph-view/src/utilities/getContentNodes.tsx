@@ -51,7 +51,7 @@ export function getContentNodes(
 
     // Now create content graph nodes that represent node groups (collections of
     // Yarn nodes that all appear as a single element)
-    const nodeGroups: Map<string, NodeInfo[]> = new Map();
+    const nodeGroups = new Map<string, NodeInfo[]>();
 
     for (const contentNode of nodes) {
         if (!contentNode.nodeGroup) {

@@ -345,7 +345,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         }
 
         props.onNodesMoved(nodeMovements);
-        flow.fitView({
+        void flow.fitView({
             nodes: layoutedNodes,
             padding: "20px",
         });
@@ -478,13 +478,13 @@ export function GraphViewInProvider(props: GraphViewProps) {
                                 icon={IconAutoLayoutVertical}
                                 title="Auto Layout Vertically"
                                 enabled={interactive}
-                                onClick={() => autolayout("DOWN")}
+                                onClick={() => void autolayout("DOWN")}
                             />
                             <IconButton
                                 icon={IconAutoLayoutHorizontal}
                                 title="Auto Layout Horizontally"
                                 enabled={interactive}
-                                onClick={() => autolayout("RIGHT")}
+                                onClick={() => void autolayout("RIGHT")}
                             />
                         </div>
                     </Panel>
