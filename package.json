@@ -77,8 +77,17 @@
         "webpack-cli": "^4.10.0"
     },
     "contributes": {
+        "viewsContainers": {
+            "panel": [
+                {
+                    "icon": "",
+                    "title": "Yarn Spinner",
+                    "id": "yarnspinner"
+                }
+            ]
+        },
         "views": {
-            "explorer": [
+            "yarnspinner": [
                 {
                     "type": "webview",
                     "id": "yarnspinner.graph-view",
