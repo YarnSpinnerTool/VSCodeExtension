@@ -40,6 +40,8 @@ function isNodeGroup(
 
 const NoColour = "__default";
 
+const zoomSelector = (s: ReactFlowState) => s.transform[2] <= 0.5;
+
 export function ColourPicker(props: {
     nodeColour: string | null;
     availableClasses: ColourClassMap;
@@ -84,6 +86,8 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
     const thisNodeTopbarClasses = isNote
         ? stickyNoteTopBarClasses
         : nodeTopBarClasses;
+
+    const isZoomedOut = useStore(zoomSelector);
 
     return (
         <>
@@ -156,6 +160,7 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                 <GraphContentSingleNode
                     nodeInfo={props.data.nodeInfos[0]}
                     colour={nodeColour}
+                    showPreview={!isZoomedOut}
                     width={props.width ?? NodeSize.width}
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}
@@ -207,13 +212,12 @@ function GraphStickyNote(props: {
     );
 }
 
-const zoomSelector = (s: ReactFlowState) => s.transform[2] >= 0.5;
-
 export function GraphContentSingleNode(
     props: {
         colour: string | null | undefined;
         selected: boolean;
         showTitle?: boolean;
+        showPreview?: boolean;
         width: number;
         height: number;
         nodeInfo: NodeInfo;
@@ -223,7 +227,7 @@ export function GraphContentSingleNode(
     const topBarClass = nodeTopBarClasses[props.colour ?? "__default"];
 
     const showTitle = props.showTitle ?? true;
-    const showPreview = useStore(zoomSelector);
+    const showPreview = props.showPreview ?? true;
 
     return (
         <>
