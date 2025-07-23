@@ -304,20 +304,12 @@ function GraphContentNodeGroup(props: {
                             )}
                         ></div>
                     )}
-                    <div className="p-2 flex flex-col grow gap-2">
-                        <div className="font-bold">
-                            {nodeGroupName} ({nodeCount}{" "}
-                            {nodeCount == 1 ? "node" : "nodes"})
+                    <div className="p-2 flex flex-col justify-center items-center grow gap-2">
+                        <div className="font-bold text-2xl">
+                            {nodeGroupName}
                         </div>
-                        <div className="flex flex-col gap-2 justify-stretch">
-                            {props.nodeInfos.slice(0, 3).map((n, i) => {
-                                return (
-                                    <div
-                                        className="bg-editor-foreground/20 rounded-sm h-4 grow"
-                                        key={i}
-                                    ></div>
-                                );
-                            })}
+                        <div className="font-bold text-lg">
+                            {nodeCount} {nodeCount == 1 ? "node" : "nodes"}
                         </div>
                     </div>
                 </div>
