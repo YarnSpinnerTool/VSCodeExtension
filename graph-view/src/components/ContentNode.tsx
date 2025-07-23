@@ -258,6 +258,22 @@ export function GraphContentSingleNode(
                             {props.nodeInfo.previewText}
                         </div>
                     )}
+                    {!showPreview && (
+                        <div className="flex flex-col gap-2 justify-stretch py-2">
+                            <div
+                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                key={0}
+                            />
+                            <div
+                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                key={1}
+                            />
+                            <div
+                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                key={2}
+                            />
+                        </div>
+                    )}
                 </div>
                 {props.children}
             </div>
