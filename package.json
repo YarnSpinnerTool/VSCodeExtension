@@ -80,7 +80,7 @@
         "viewsContainers": {
             "panel": [
                 {
-                    "icon": "",
+                    "icon": "media/yarnspinner-view-container.svg",
                     "title": "Yarn Spinner",
                     "id": "yarnspinner"
                 }
