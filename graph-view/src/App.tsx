@@ -126,18 +126,21 @@ function App() {
 
     return (
         <GraphViewContext.Provider value={state}>
-            {/* <div className="absolute top-2 left-2">
-                {state.documentUri ?? "No document"}
-            </div> */}
-            <GraphView
-                key={documentUri}
-                onStickyNoteAdded={(position) => addStickyNote(position)}
-                onNodeAdded={(position) => addNode(position)}
-                onNodesMoved={onNodesMoved}
-                onNodeOpened={onNodeOpened}
-                onNodeDeleted={onNodeDeleted}
-                onNodeHeadersUpdated={onNodeHeadersUpdated}
-            />
+            {state.documentUri?.endsWith(".yarn") ? (
+                <GraphView
+                    key={documentUri}
+                    onStickyNoteAdded={(position) => addStickyNote(position)}
+                    onNodeAdded={(position) => addNode(position)}
+                    onNodesMoved={onNodesMoved}
+                    onNodeOpened={onNodeOpened}
+                    onNodeDeleted={onNodeDeleted}
+                    onNodeHeadersUpdated={onNodeHeadersUpdated}
+                />
+            ) : (
+                <div className="size-full flex justify-center items-center select-none">
+                    Select a Yarn Spinner script to show the graph view.
+                </div>
+            )}
         </GraphViewContext.Provider>
     );
 }
