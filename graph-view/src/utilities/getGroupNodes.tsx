@@ -4,6 +4,10 @@ import { NodeInfo } from "../../../src/nodes";
 import { getNodePosition } from "./getNodePosition";
 import { YarnNodeData } from "./nodeData";
 
+export function getGraphIdForGroup(groupName: string): string {
+    return "#Group#" + groupName;
+}
+
 export function getGroupNodes(
     nodeInfos: NodeInfo[],
 ): GraphNode<YarnNodeData>[] {
@@ -40,7 +44,7 @@ export function getGroupNodes(
                 getGroupRect(nodePositions);
 
             return {
-                id: groupName,
+                id: getGraphIdForGroup(groupName),
                 data: {
                     groupName,
                     nodeInfos: undefined,

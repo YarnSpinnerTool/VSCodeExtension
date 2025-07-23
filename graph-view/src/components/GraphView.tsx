@@ -12,6 +12,7 @@ import {
     OnSelectionChangeFunc,
     Panel,
     ReactFlow,
+    ReactFlowInstance,
     ReactFlowProvider,
     useReactFlow,
     XYPosition,
@@ -47,7 +48,7 @@ import { IconButton } from "./IconButton";
 import { autoLayoutNodes } from "../utilities/autoLayout";
 import { getContentNodes } from "../utilities/getContentNodes";
 import { getEdges } from "../utilities/getEdges";
-import { getGroupNodes } from "../utilities/getGroupNodes";
+import { getGraphIdForGroup, getGroupNodes } from "../utilities/getGroupNodes";
 import { getGroupForNode, getGroupRect } from "../utilities/getGroupRect";
 import { YarnNodeData } from "../utilities/nodeData";
 import { NodeSize } from "../utilities/constants";
@@ -213,8 +214,6 @@ export function GraphViewInProvider(props: GraphViewProps) {
             const nodes = graphContents.contentNodes;
 
             for (const [groupName] of groupNames.entries()) {
-                console.log(`Updating group ${groupName}`);
-
                 // A graph node is in the group if any of its NodeInfos are in the group
                 const allGraphNodesInGroup = nodes.filter((n) =>
                     n.data.nodeInfos?.find(
@@ -225,7 +224,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 const updatedGroupDimensions =
                     getGroupRect(allGraphNodesInGroup);
 
-                flow.updateNode(groupName, {
+                flow.updateNode(getGraphIdForGroup(groupName), {
                     position: updatedGroupDimensions.position,
                     ...updatedGroupDimensions.size,
                 });
@@ -271,18 +270,18 @@ export function GraphViewInProvider(props: GraphViewProps) {
     function alignSelectedNodes(
         alignment: "top" | "bottom" | "left" | "right",
     ) {
-        const selectedNodes = graphContents.contentNodes.filter(
+        const selectedGraphNodes = graphContents.contentNodes.filter(
             (n) => n.selected === true,
         );
 
-        const min = selectedNodes.reduce(
+        const min = selectedGraphNodes.reduce(
             (prev, curr) => ({
                 x: Math.min(prev.x, curr.position.x),
                 y: Math.min(prev.y, curr.position.y),
             }),
             { x: Infinity, y: Infinity },
         );
-        const max = selectedNodes.reduce(
+        const max = selectedGraphNodes.reduce(
             (prev, curr) => ({
                 x: Math.max(prev.x, curr.position.x),
                 y: Math.max(prev.y, curr.position.y),
@@ -309,17 +308,37 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
         const nodeMovements: { id: string; x: number; y: number }[] = [];
 
-        for (const node of selectedNodes) {
+        const graphNodeMovements: { id: string; x: number; y: number }[] = [];
+
+        for (const node of selectedGraphNodes) {
             const newPosition = { ...node.position, ...update };
             flow.updateNode(node.id, {
                 position: newPosition,
             });
-            nodeMovements.push({
-                id: node.id,
-                x: newPosition.x,
-                y: newPosition.y,
-            });
+
+            graphNodeMovements.push({ id: node.id, ...newPosition });
+
+            for (const nodeInfo of node.data.nodeInfos ?? []) {
+                if (!nodeInfo.uniqueTitle) {
+                    continue;
+                }
+
+                nodeMovements.push({
+                    id: nodeInfo.uniqueTitle,
+                    x: newPosition.x,
+                    y: newPosition.y,
+                });
+            }
         }
+
+        // Update all groups
+        updateGroupRects(
+            flow,
+            graphNodeMovements.map((move) => ({
+                id: move.id,
+                position: { ...move },
+            })),
+        );
 
         props.onNodesMoved(nodeMovements);
     }
@@ -331,6 +350,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         );
 
         const nodeMovements: { id: string; x: number; y: number }[] = [];
+
         for (const node of layoutedNodes) {
             flow.updateNode(node.id, { position: node.position });
             for (const nodeInfo of node.data.nodeInfos ?? []) {
@@ -344,12 +364,48 @@ export function GraphViewInProvider(props: GraphViewProps) {
             }
         }
 
+        // Update all groups
+        updateGroupRects(flow, layoutedNodes);
+
         props.onNodesMoved(nodeMovements);
         void flow.fitView({
             nodes: layoutedNodes,
             padding: "20px",
         });
     };
+
+    function updateGroupRects(
+        flow: ReactFlowInstance<GraphNode<YarnNodeData>>,
+        graphNodes: { id: string; position: XYPosition }[],
+    ) {
+        const groups = new Map<string, XYPosition[]>();
+
+        for (const graphNode of graphNodes) {
+            const nodeInfos = graphContents.contentNodes.find(
+                (n) => n.id === graphNode.id,
+            )?.data.nodeInfos;
+            if (!nodeInfos) {
+                continue;
+            }
+            for (const nodeInfo of nodeInfos) {
+                const groupName = getGroupForNode(nodeInfo);
+                if (groupName) {
+                    const members = groups.get(groupName) ?? [];
+                    if (!groups.has(groupName)) {
+                        groups.set(groupName, members);
+                    }
+                    members.push(graphNode.position);
+                }
+            }
+        }
+
+        for (const [groupName, groupMembers] of groups.entries()) {
+            const rect = getGroupRect(
+                groupMembers.map((p) => ({ position: p })),
+            );
+            flow.updateNode(getGraphIdForGroup(groupName), { ...rect });
+        }
+    }
 
     const getViewCenterInFlow = (offset?: XYPosition): XYPosition => {
         if (!containerRef.current) {
