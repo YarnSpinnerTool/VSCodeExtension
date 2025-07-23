@@ -2,7 +2,6 @@ import {
     applyNodeChanges,
     Background,
     BackgroundVariant,
-    Controls,
     Edge as GraphEdge,
     Node as GraphNode,
     MiniMap,
@@ -15,10 +14,12 @@ import {
     ReactFlowInstance,
     ReactFlowProvider,
     useReactFlow,
+    useViewport,
     XYPosition,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
+    PropsWithChildren,
     useCallback,
     useContext,
     useEffect,
@@ -35,6 +36,11 @@ import IconAlignRight from "../images/align-right.svg?react";
 import IconAlignTop from "../images/align-top.svg?react";
 import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
 import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
+import IconZoomIn from "../images/zoom-in.svg?react";
+import IconZoomOut from "../images/zoom-out.svg?react";
+import IconZoomFit from "../images/zoom-fit.svg?react";
+import IconLock from "../images/lock.svg?react";
+import IconUnlock from "../images/unlock.svg?react";
 
 import { GraphViewContext } from "../context";
 import {
@@ -54,6 +60,7 @@ import { YarnNodeData } from "../utilities/nodeData";
 import { NodeSize } from "../utilities/constants";
 import { nodeTopBarClasses } from "../utilities/nodeColours";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
+import clsx from "clsx";
 
 export type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
@@ -424,6 +431,9 @@ export function GraphViewInProvider(props: GraphViewProps) {
         return flowCenter;
     };
 
+    const MaxZoom = 2;
+    const MinZoom = 0.1;
+
     return (
         <>
             <div className="size-full" ref={containerRef}>
@@ -448,13 +458,15 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     ]}
                     edges={graphContents.edges}
                     nodeTypes={nodeTypes}
-                    minZoom={0.1}
+                    minZoom={MinZoom}
+                    maxZoom={MaxZoom}
                     edgesFocusable={false}
                     nodesConnectable={false}
                     onNodeDrag={onNodeDrag}
                     onNodeDragStop={onNodeDragStop}
                     selectNodesOnDrag={true}
                     selectionKeyCode={"Shift"}
+                    nodesDraggable={interactive}
                     onNodesChange={onNodesChange}
                     onSelectionChange={onSelectionChange}
                     fitView
@@ -465,7 +477,16 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         size={2}
                         gap={40}
                     />
-                    <Controls onInteractiveChange={setInteractive} />
+                    <Panel position="bottom-left">
+                        <ButtonGroup direction="vertical">
+                            <FlowControls
+                                interactive={interactive}
+                                onInteractiveChanged={setInteractive}
+                                maxZoom={MaxZoom}
+                                minZoom={MinZoom}
+                            />
+                        </ButtonGroup>
+                    </Panel>
                     <MiniMap
                         pannable
                         draggable
@@ -503,7 +524,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         </VSCodeButton>
                     </Panel>
                     <Panel position="bottom-center" className="flex gap-2">
-                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0">
+                        <ButtonGroup direction="horizontal">
                             <IconButton
                                 icon={IconAlignLeft}
                                 title="Align Selected to Left"
@@ -528,8 +549,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
                                 enabled={interactive && multipleNodesSelected}
                                 onClick={() => alignSelectedNodes("bottom")}
                             />
-                        </div>
-                        <div className="flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0">
+                        </ButtonGroup>
+                        <ButtonGroup direction="horizontal">
                             <IconButton
                                 icon={IconAutoLayoutVertical}
                                 title="Auto Layout Vertically"
@@ -542,11 +563,66 @@ export function GraphViewInProvider(props: GraphViewProps) {
                                 enabled={interactive}
                                 onClick={() => void autolayout("RIGHT")}
                             />
-                        </div>
+                        </ButtonGroup>
                     </Panel>
                 </ReactFlow>
             </div>
         </>
+    );
+}
+
+function FlowControls(props: {
+    interactive: boolean;
+    onInteractiveChanged: (value: boolean) => void;
+    maxZoom: number;
+    minZoom: number;
+}) {
+    const viewport = useViewport();
+    const flow = useReactFlow();
+
+    const currentZoom = viewport.zoom;
+    const zoomInAvailable = currentZoom < props.maxZoom;
+    const zoomOutAvailable = currentZoom > props.minZoom;
+    return (
+        <>
+            <IconButton
+                icon={IconZoomIn}
+                title="Zoom In"
+                enabled={zoomInAvailable}
+                onClick={() => void flow.zoomIn()}
+            />
+            <IconButton
+                icon={IconZoomOut}
+                title="Zoom Out"
+                enabled={zoomOutAvailable}
+                onClick={() => void flow.zoomOut()}
+            />
+            <IconButton
+                icon={IconZoomFit}
+                title="Zoom to Fit"
+                onClick={() => void flow.fitView()}
+            />
+            <IconButton
+                icon={props.interactive ? IconUnlock : IconLock}
+                title={props.interactive ? "Lock View" : "Unlock View"}
+                onClick={() => props.onInteractiveChanged(!props.interactive)}
+            />
+        </>
+    );
+}
+
+function ButtonGroup(
+    props: { direction: "vertical" | "horizontal" } & PropsWithChildren,
+) {
+    return (
+        <div
+            className={clsx(
+                "flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0",
+                { "flex-col": props.direction === "vertical" },
+            )}
+        >
+            {props.children}
+        </div>
     );
 }
 
