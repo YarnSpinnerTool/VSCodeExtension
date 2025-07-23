@@ -5,6 +5,8 @@ import {
     NodeToolbar,
     Position,
     Handle,
+    useStore,
+    ReactFlowState,
 } from "@xyflow/react";
 import clsx from "clsx";
 import {
@@ -205,6 +207,8 @@ function GraphStickyNote(props: {
     );
 }
 
+const zoomSelector = (s: ReactFlowState) => s.transform[2] >= 0.5;
+
 export function GraphContentSingleNode(
     props: {
         colour: string | null | undefined;
@@ -219,6 +223,8 @@ export function GraphContentSingleNode(
     const topBarClass = nodeTopBarClasses[props.colour ?? "__default"];
 
     const showTitle = props.showTitle ?? true;
+    const showPreview = useStore(zoomSelector);
+
     return (
         <>
             <div
@@ -247,9 +253,11 @@ export function GraphContentSingleNode(
                             {props.nodeInfo.sourceTitle}
                         </div>
                     )}
-                    <div className="whitespace-pre-line">
-                        {props.nodeInfo.previewText}
-                    </div>
+                    {showPreview && (
+                        <div className="whitespace-pre-line">
+                            {props.nodeInfo.previewText}
+                        </div>
+                    )}
                 </div>
                 {props.children}
             </div>
