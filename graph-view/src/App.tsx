@@ -130,6 +130,7 @@ function App() {
                 </VSCodeButton>
             </div>
             <GraphView
+                key={documentUri}
                 onNodesMoved={onNodesMoved}
                 onNodeOpened={onNodeOpened}
                 onNodeDeleted={onNodeDeleted}
