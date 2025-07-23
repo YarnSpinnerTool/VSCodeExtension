@@ -20,7 +20,7 @@ import { YarnNodeData } from "../utilities/nodeData";
 import { NodeInfo } from "../../../src/nodes";
 import { NodeSize } from "../utilities/constants";
 import { MouseEventHandler, PropsWithChildren } from "react";
-import { getNodeColour } from "./getNodeColour";
+import { getNodeColour } from "../utilities/getNodeColour";
 
 function isSingleNode(
     data: YarnNodeData,
