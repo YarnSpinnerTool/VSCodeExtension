@@ -113,7 +113,6 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     const [graphContents, updateGraphContents] = useReducer(
         (prev: GraphState, update: GraphUpdate): GraphState => {
-            console.log(update);
             switch (update.type) {
                 case "replace-graph": {
                     const contentNodes = getContentNodes(
