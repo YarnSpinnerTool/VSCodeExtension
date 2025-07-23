@@ -264,6 +264,10 @@ function GraphContentNodeGroup(props: {
     onDoubleClick: MouseEventHandler<HTMLDivElement>;
 }) {
     const topBarClass = nodeTopBarClasses[props.colour ?? "__default"];
+
+    const nodeGroupName = props.nodeInfos[0].nodeGroup ?? "(unknown)";
+    const nodeCount = props.nodeInfos.length;
+
     return (
         <>
             {/* Stacking context */}
@@ -290,8 +294,8 @@ function GraphContentNodeGroup(props: {
                     )}
                     <div className="p-2 flex flex-col grow gap-2">
                         <div className="font-bold">
-                            {props.nodeInfos[0].nodeGroup} (
-                            {props.nodeInfos.length} nodes)
+                            {nodeGroupName} ({nodeCount}{" "}
+                            {nodeCount == 1 ? "node" : "nodes"})
                         </div>
                         <div className="flex flex-col gap-2 justify-stretch">
                             {props.nodeInfos.slice(0, 3).map((n, i) => {
