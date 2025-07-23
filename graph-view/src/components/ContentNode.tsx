@@ -23,13 +23,17 @@ import { getNodeColour } from "./getNodeColour";
 function isSingleNode(
     data: YarnNodeData,
 ): data is { nodeInfos: [NodeInfo]; isNodeGroup: false } {
-    return data.isNodeGroup === false && data.nodeInfos?.length === 1;
+    return data.isNodeGroup == false && data.nodeInfos?.length === 1;
 }
 
 function isNodeGroup(
     data: YarnNodeData,
 ): data is { nodeInfos: NodeInfo[]; isNodeGroup: true } {
-    return !!data.nodeInfos && data.nodeInfos.length > 1;
+    return (
+        data.isNodeGroup == true &&
+        !!data.nodeInfos &&
+        data.nodeInfos.length >= 1
+    );
 }
 
 const NoColour = "__default";
