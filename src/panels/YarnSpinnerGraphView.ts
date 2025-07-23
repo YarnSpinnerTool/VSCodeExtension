@@ -256,6 +256,18 @@ export class YarnSpinnerGraphView {
             },
         );
         this._disposables.push(onDocumentChanged);
+
+        // Request nodes from the language client to populate the web view
+        const activeDocumentUri = window.activeTextEditor?.document?.uri;
+        if (activeDocumentUri) {
+            this.getNodes(activeDocumentUri).then((nodes) => {
+                this._webview.postMessage({
+                    type: "update",
+                    nodes: nodes,
+                    documentUri: activeDocumentUri.toString(),
+                } satisfies NodesUpdatedEvent);
+            });
+        }
     }
 
     /**
@@ -424,8 +436,7 @@ export class YarnSpinnerGraphView {
     }
 
     async openNode(uri: Uri, id: string): Promise<void> {
-        var nodeInfos: NodeInfo[] =
-            (await this.executeCommand(Commands.ListNodes, uri.fsPath)) ?? [];
+        var nodeInfos: NodeInfo[] = await this.getNodes(uri);
 
         // Filter to only include the node(s) that have this title. (Node names
         // must be unique, but the user may have entered invalid code, so we
@@ -470,6 +481,12 @@ export class YarnSpinnerGraphView {
                 startOfBody.end,
             );
         }
+    }
+
+    private async getNodes(uri: Uri): Promise<NodeInfo[]> {
+        return (
+            (await this.executeCommand(Commands.ListNodes, uri.fsPath)) ?? []
+        );
     }
 
     async updateNodeHeaders(

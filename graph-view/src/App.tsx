@@ -6,6 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext, GraphViewState } from "./context";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 
+// Attempt to restore state when we start up.
+const restoredState = vscode.getState();
+
 function assertDocumentURIValid(uri?: string | null): asserts uri is string {
     if (uri === null) {
         throw new Error("Graph view has no document uri!");
@@ -13,20 +16,25 @@ function assertDocumentURIValid(uri?: string | null): asserts uri is string {
 }
 
 function App() {
-    const [state, setState] = useState<GraphViewState>({
-        nodes: [],
-        documentUri: null,
-    });
+    const [state, setState] = useState<GraphViewState>(
+        restoredState ?? {
+            nodes: [],
+            documentUri: null,
+        },
+    );
 
     useEffect(() => {
         const messageHandler = (event: MessageEvent<unknown>): void => {
             const message = event.data as WebViewEvent;
             if (message.type === "update") {
-                setState({
+                const newState = {
                     ...state,
                     nodes: message.nodes,
                     documentUri: message.documentUri,
-                });
+                };
+                // Persist this state in case the webview is hidden
+                vscode.setState(newState);
+                setState(newState);
             }
         };
         window.addEventListener("message", messageHandler);

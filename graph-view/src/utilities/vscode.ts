@@ -1,5 +1,6 @@
 import type { WebviewApi } from "vscode-webview";
 import type { WebviewMessage } from "../../../src/panels/YarnSpinnerGraphView";
+import type { GraphViewState } from "../context";
 
 /**
  * A utility wrapper around the acquireVsCodeApi() function, which enables
@@ -45,9 +46,9 @@ class VSCodeAPIWrapper {
      *
      * @return The current state or `undefined` if no state has been set.
      */
-    public getState(): unknown | undefined {
+    public getState(): GraphViewState | undefined {
         if (this.vsCodeApi) {
-            return this.vsCodeApi.getState();
+            return this.vsCodeApi.getState() as GraphViewState | undefined;
         } else {
             const state = localStorage.getItem("vscodeState");
             return state ? JSON.parse(state) : undefined;
@@ -65,7 +66,7 @@ class VSCodeAPIWrapper {
      *
      * @return The new state.
      */
-    public setState<T extends unknown | undefined>(newState: T): T {
+    public setState(newState: GraphViewState): GraphViewState {
         if (this.vsCodeApi) {
             return this.vsCodeApi.setState(newState);
         } else {
