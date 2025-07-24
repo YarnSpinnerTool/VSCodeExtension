@@ -37,13 +37,16 @@ import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
 
 import { GraphViewContext } from "../context";
 import { ContentNode } from "./ContentNode";
-import { GroupNode } from "./GroupNode";
+import { ClusterNode } from "./ClusterNode";
 import { IconButton } from "./IconButton";
 import { autoLayoutNodes } from "../utilities/autoLayout";
 import { getContentNodes } from "../utilities/getContentNodes";
 import { getEdges } from "../utilities/getEdges";
-import { getGraphIdForGroup, getGroupNodes } from "../utilities/getGroupNodes";
-import { getGroupForNode, getGroupRect } from "../utilities/getGroupRect";
+import {
+    getGraphIdForCluster,
+    getClusterNodes,
+} from "../utilities/getClusterNodes";
+import { getClusterForNode, getClusterRect } from "../utilities/getClusterRect";
 import { YarnNodeData } from "../utilities/nodeData";
 import { NodeSize } from "../utilities/constants";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
@@ -63,7 +66,7 @@ export type NodeEventHandlers = {
 
 const nodeTypes = {
     yarnNode: ContentNode,
-    group: GroupNode,
+    cluster: ClusterNode,
 };
 
 type GraphViewProps = {
@@ -81,7 +84,7 @@ type GraphViewProps = {
 export type GraphState = {
     nodeData: NodeInfo[];
     contentNodes: GraphNode<YarnNodeData>[];
-    groupNodes: GraphNode<YarnNodeData>[];
+    clusterNodes: GraphNode<YarnNodeData>[];
     edges: GraphEdge[];
     selectedNodes: string[];
 };
@@ -120,13 +123,13 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         { ...props, onNodeGroupExpanded: setCurrentNodeGroup },
                         prev.selectedNodes,
                     );
-                    const groupNodes = getGroupNodes(update.graphContents);
+                    const clusterNodes = getClusterNodes(update.graphContents);
                     const edges = getEdges(update.graphContents);
 
                     return {
                         nodeData: update.graphContents,
                         contentNodes,
-                        groupNodes,
+                        clusterNodes,
                         edges,
                         selectedNodes: prev.selectedNodes,
                     };
@@ -140,9 +143,9 @@ export function GraphViewInProvider(props: GraphViewProps) {
                             update.changes,
                             prev.contentNodes,
                         ),
-                        groupNodes: applyNodeChanges(
+                        clusterNodes: applyNodeChanges(
                             update.changes,
-                            prev.groupNodes,
+                            prev.clusterNodes,
                         ),
                     };
                 }
@@ -162,7 +165,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         {
             contentNodes: [],
             edges: [],
-            groupNodes: [],
+            clusterNodes: [],
             selectedNodes: [],
             nodeData: [],
         },
@@ -191,33 +194,34 @@ export function GraphViewInProvider(props: GraphViewProps) {
         (_event, _node, draggedGraphNodes) => {
             // Find the groups that these nodes are in
 
-            const groupNames = new Set<string>();
+            const clusterNames = new Set<string>();
 
             for (const node of draggedGraphNodes) {
                 for (const nodeInfo of node.data.nodeInfos ?? []) {
-                    const group = getGroupForNode(nodeInfo);
-                    if (group) {
-                        groupNames.add(group);
+                    const cluster = getClusterForNode(nodeInfo);
+                    if (cluster) {
+                        clusterNames.add(cluster);
                     }
                 }
             }
 
             const nodes = graphContents.contentNodes;
 
-            for (const [groupName] of groupNames.entries()) {
-                // A graph node is in the group if any of its NodeInfos are in the group
-                const allGraphNodesInGroup = nodes.filter((n) =>
+            for (const [clusterName] of clusterNames.entries()) {
+                // A graph node is in the cluster if any of its NodeInfos are in the cluster
+                const allGraphNodesInCluster = nodes.filter((n) =>
                     n.data.nodeInfos?.find(
-                        (n) => getGroupForNode(n) === groupName,
+                        (n) => getClusterForNode(n) === clusterName,
                     ),
                 );
 
-                const updatedGroupDimensions =
-                    getGroupRect(allGraphNodesInGroup);
+                const updatedClusterDimensions = getClusterRect(
+                    allGraphNodesInCluster,
+                );
 
-                flow.updateNode(getGraphIdForGroup(groupName), {
-                    position: updatedGroupDimensions.position,
-                    ...updatedGroupDimensions.size,
+                flow.updateNode(getGraphIdForCluster(clusterName), {
+                    position: updatedClusterDimensions.position,
+                    ...updatedClusterDimensions.size,
                 });
             }
         },
@@ -322,8 +326,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
             }
         }
 
-        // Update all groups
-        updateGroupRects(
+        // Update all clusters
+        updateClusterRects(
             flow,
             graphNodeMovements.map((move) => ({
                 id: move.id,
@@ -355,8 +359,8 @@ export function GraphViewInProvider(props: GraphViewProps) {
             }
         }
 
-        // Update all groups
-        updateGroupRects(flow, layoutedNodes);
+        // Update all clusters
+        updateClusterRects(flow, layoutedNodes);
 
         props.onNodesMoved(nodeMovements);
         void flow.fitView({
@@ -365,11 +369,11 @@ export function GraphViewInProvider(props: GraphViewProps) {
         });
     };
 
-    function updateGroupRects(
+    function updateClusterRects(
         flow: ReactFlowInstance<GraphNode<YarnNodeData>>,
         graphNodes: { id: string; position: XYPosition }[],
     ) {
-        const groups = new Map<string, XYPosition[]>();
+        const clusters = new Map<string, XYPosition[]>();
 
         for (const graphNode of graphNodes) {
             const nodeInfos = graphContents.contentNodes.find(
@@ -379,22 +383,22 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 continue;
             }
             for (const nodeInfo of nodeInfos) {
-                const groupName = getGroupForNode(nodeInfo);
-                if (groupName) {
-                    const members = groups.get(groupName) ?? [];
-                    if (!groups.has(groupName)) {
-                        groups.set(groupName, members);
+                const clusterName = getClusterForNode(nodeInfo);
+                if (clusterName) {
+                    const members = clusters.get(clusterName) ?? [];
+                    if (!clusters.has(clusterName)) {
+                        clusters.set(clusterName, members);
                     }
                     members.push(graphNode.position);
                 }
             }
         }
 
-        for (const [groupName, groupMembers] of groups.entries()) {
-            const rect = getGroupRect(
-                groupMembers.map((p) => ({ position: p })),
+        for (const [clusterName, clusterMembers] of clusters.entries()) {
+            const rect = getClusterRect(
+                clusterMembers.map((p) => ({ position: p })),
             );
-            flow.updateNode(getGraphIdForGroup(groupName), { ...rect });
+            flow.updateNode(getGraphIdForCluster(clusterName), { ...rect });
         }
     }
 
@@ -437,7 +441,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 )}
                 <ReactFlow
                     nodes={[
-                        ...graphContents.groupNodes,
+                        ...graphContents.clusterNodes,
                         ...graphContents.contentNodes,
                     ]}
                     edges={graphContents.edges}

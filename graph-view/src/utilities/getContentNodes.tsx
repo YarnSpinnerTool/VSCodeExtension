@@ -90,7 +90,7 @@ export function getContentNodes(
             data: {
                 nodeInfos: nodesInGroup,
                 isNodeGroup: true,
-                groupName: undefined,
+                clusterName: undefined,
                 ...eventHandlers,
             } satisfies YarnNodeData,
             position: averagePosition,

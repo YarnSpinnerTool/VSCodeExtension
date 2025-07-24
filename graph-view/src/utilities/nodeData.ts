@@ -4,9 +4,9 @@ import type { NodeEventHandlers } from "../components/GraphView";
 export type YarnNodeData = {
     isNodeGroup?: boolean;
     nodeInfos?: NodeInfo[];
-    groupName?: string;
+    clusterName?: string;
 } & (
-    | { nodeInfos: undefined; groupName: string }
+    | { nodeInfos: undefined; clusterName: string }
     | {
           nodeInfos: [NodeInfo];
           isNodeGroup: false;

@@ -2,7 +2,7 @@ import { NodeProps, Handle, Position } from "@xyflow/react";
 import { YarnNodeData } from "../utilities/nodeData";
 import { Node as GraphNode } from "@xyflow/react";
 
-export function GroupNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
+export function ClusterNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     return (
         <div
             style={{
@@ -14,7 +14,7 @@ export function GroupNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
             }}
             className="nodrag"
         >
-            {props.data.groupName}
+            {props.data.clusterName}
             <Handle type="target" position={Position.Top} />
         </div>
     );
