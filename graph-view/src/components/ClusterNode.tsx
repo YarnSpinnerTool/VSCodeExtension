@@ -12,7 +12,7 @@ export function ClusterNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
                 top: 0,
                 left: 0,
             }}
-            className="nodrag"
+            className="nodrag bg-editor-foreground/5 border border-editor-foreground rounded-lg p-2"
         >
             {props.data.clusterName}
             <Handle type="target" position={Position.Top} />
