@@ -1,7 +1,8 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import { NodeSize } from "../utilities/constants";
 import { nodeTopBarClasses } from "../utilities/nodeColours";
-import { GraphContentSingleNode, ColourPicker } from "./ContentNode";
+import { GraphContentSingleNode } from "./ContentNode";
+import { ColourPicker } from "./ColourPicker";
 import { getNodeColour } from "../utilities/getNodeColour";
 import { GraphState, NodeEventHandlers } from "./GraphView";
 

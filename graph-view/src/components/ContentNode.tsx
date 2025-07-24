@@ -13,14 +13,13 @@ import {
     stickyNoteBackgroundClasses,
     stickyNoteTopBarClasses,
     nodeTopBarClasses,
-    KnownColours,
-    ColourClassMap,
 } from "../utilities/nodeColours";
 import { YarnNodeData } from "../utilities/nodeData";
 import { NodeInfo } from "../../../src/nodes";
 import { NodeSize } from "../utilities/constants";
 import { MouseEventHandler, PropsWithChildren } from "react";
 import { getNodeColour } from "../utilities/getNodeColour";
+import { ColourPicker } from "./ColourPicker";
 
 function isSingleNode(
     data: YarnNodeData,
@@ -38,39 +37,9 @@ function isNodeGroup(
     );
 }
 
-const NoColour = "__default";
+export const NoColour = "__default";
 
 const zoomSelector = (s: ReactFlowState) => s.transform[2] <= 0.5;
-
-export function ColourPicker(props: {
-    nodeColour: string | null;
-    availableClasses: ColourClassMap;
-    onColourSelected: (colour: string | null) => void;
-}) {
-    const { nodeColour, availableClasses } = props;
-    return (
-        <div className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-1">
-            {KnownColours.map((colour) => {
-                return (
-                    <div
-                        key={"colour" + (colour ?? "none")}
-                        className={clsx(
-                            "rounded-full w-4 h-4 cursor-pointer",
-                            {
-                                "border-2 border-selected":
-                                    colour === nodeColour,
-                                "border border-editor-foreground/25":
-                                    colour !== nodeColour,
-                            },
-                            availableClasses[colour ?? NoColour],
-                        )}
-                        onClick={() => props.onColourSelected(colour)}
-                    ></div>
-                );
-            })}
-        </div>
-    );
-}
 
 export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
     const isNote =
