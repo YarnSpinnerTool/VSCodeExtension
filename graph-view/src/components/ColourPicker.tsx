@@ -9,7 +9,7 @@ export function ColourPicker(props: {
 }) {
     const { nodeColour, availableClasses } = props;
     return (
-        <div className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-1">
+        <div className="flex bg-editor-background shadow-widget-shadow shadow-lg rounded-full p-2 gap-2">
             {KnownColours.map((colour) => {
                 return (
                     <div
@@ -17,10 +17,8 @@ export function ColourPicker(props: {
                         className={clsx(
                             "rounded-full w-4 h-4 cursor-pointer",
                             {
-                                "border-2 border-selected":
+                                "outline-2 outline-selected outline-offset-2":
                                     colour === nodeColour,
-                                "border border-editor-foreground/25":
-                                    colour !== nodeColour,
                             },
                             availableClasses[colour ?? NoColour],
                         )}
