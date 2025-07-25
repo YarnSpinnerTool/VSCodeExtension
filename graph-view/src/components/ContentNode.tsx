@@ -80,14 +80,6 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     >
                         <VSCodeButton
                             onClick={() =>
-                                props.data.onNodeOpened &&
-                                props.data.onNodeOpened(props.id)
-                            }
-                        >
-                            Edit
-                        </VSCodeButton>
-                        <VSCodeButton
-                            onClick={() =>
                                 props.data.onNodeDeleted &&
                                 props.data.onNodeDeleted(props.id)
                             }
@@ -133,6 +125,10 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     width={props.width ?? NodeSize.width}
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}
+                    onClick={() =>
+                        props.data.onNodeOpened &&
+                        props.data.onNodeOpened(props.id)
+                    }
                 />
             )}
             {!isNote && isNodeGroup(props.data) && (
