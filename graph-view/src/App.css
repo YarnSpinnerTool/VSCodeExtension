@@ -31,6 +31,9 @@ main {
         transparent
     );
 
+    --color-panel-background: var(--vscode-panel-background, #eeeeee);
+    --color-panel-border: var(--vscode-panel-border, #888888);
+
     --color-selected: var(--vscode-list-focusOutline, #0000ff);
     --color-red: var(--vscode-charts-red, #e51400);
     --color-blue: var(--vscode-charts-blue, #1a85ff);

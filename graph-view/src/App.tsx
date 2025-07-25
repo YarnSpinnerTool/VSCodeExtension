@@ -137,7 +137,7 @@ function App() {
                     onNodeHeadersUpdated={onNodeHeadersUpdated}
                 />
             ) : (
-                <div className="size-full flex justify-center items-center select-none">
+                <div className="size-full flex justify-center text-center items-center select-none p-4">
                     Select a Yarn Spinner script to show the graph view.
                 </div>
             )}

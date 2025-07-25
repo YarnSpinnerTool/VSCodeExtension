@@ -35,6 +35,8 @@ import IconAlignTop from "../images/align-top.svg?react";
 import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
 import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
 
+import IconYarnSpinnerLogo from "../images/yarnspinner-logo.svg?react";
+
 import { GraphViewContext } from "../context";
 import { ContentNode } from "./ContentNode";
 import { ClusterNode } from "./ClusterNode";
@@ -424,7 +426,41 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     return (
         <>
-            <div className="size-full" ref={containerRef}>
+            <div className="size-full flex flex-col" ref={containerRef}>
+                <div className="bg-panel-background flex items-stretch p-1 gap-1 border-b border-b-panel-border shadow-sm shadow-widget-shadow">
+                    <IconYarnSpinnerLogo className="fill-editor-foreground size-8 shrink-0" />
+                    <div className="shrink grow text-lg font-bold whitespace-nowrap text-ellipsis">
+                        Yarn Spinner
+                    </div>
+
+                    <VSCodeButton
+                        onClick={() =>
+                            // Insert a new node in the center of the view
+                            props.onNodeAdded(
+                                getViewCenterInFlow({
+                                    x: -NodeSize.width / 2,
+                                    y: -NodeSize.height / 2,
+                                }),
+                            )
+                        }
+                    >
+                        Add Node
+                    </VSCodeButton>
+                    <VSCodeButton
+                        onClick={() =>
+                            // Insert a new sticky note in the center of the
+                            // view
+                            props.onStickyNoteAdded(
+                                getViewCenterInFlow({
+                                    x: -NodeSize.width / 2,
+                                    y: -NodeSize.height / 2,
+                                }),
+                            )
+                        }
+                    >
+                        Add Sticky Note
+                    </VSCodeButton>
+                </div>
                 {currentNodeGroup && (
                     <NodeGroupView
                         currentNodeGroup={currentNodeGroup}
@@ -482,35 +518,6 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         maskColor="var(--color-minimap-mask)"
                         className="bg-editor-background border border-editor-foreground/50 rounded-sm"
                     />
-                    <Panel position="top-right" className="flex flex-col gap-1">
-                        <VSCodeButton
-                            onClick={() =>
-                                // Insert a new node in the center of the view
-                                props.onNodeAdded(
-                                    getViewCenterInFlow({
-                                        x: -NodeSize.width / 2,
-                                        y: -NodeSize.height / 2,
-                                    }),
-                                )
-                            }
-                        >
-                            Add Node
-                        </VSCodeButton>
-                        <VSCodeButton
-                            onClick={() =>
-                                // Insert a new sticky note in the center of the
-                                // view
-                                props.onStickyNoteAdded(
-                                    getViewCenterInFlow({
-                                        x: -NodeSize.width / 2,
-                                        y: -NodeSize.height / 2,
-                                    }),
-                                )
-                            }
-                        >
-                            Add Sticky Note
-                        </VSCodeButton>
-                    </Panel>
                     <Panel position="bottom-center" className="flex gap-2">
                         <ButtonGroup direction="horizontal">
                             <IconButton
