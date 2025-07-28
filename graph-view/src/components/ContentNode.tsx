@@ -170,7 +170,7 @@ function GraphStickyNote(props: {
             style={{ width: props.width, height: props.height }}
             onClick={props.onClick}
             className={clsx(
-                "p-2 border-2 shadow-lg rotate-3 rounded-md",
+                "p-2 border-2 text-lg shadow-lg rotate-3 rounded-md",
                 ...backgroundClass,
                 {
                     "border-transparent": !props.selected,
