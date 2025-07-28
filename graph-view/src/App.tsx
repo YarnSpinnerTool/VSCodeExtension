@@ -137,8 +137,17 @@ function App() {
                     onNodeHeadersUpdated={onNodeHeadersUpdated}
                 />
             ) : (
-                <div className="size-full flex justify-center text-center items-center select-none p-4">
-                    Select a Yarn Spinner script to show the graph view.
+                <div className="size-full flex flex-col justify-center text-center items-center select-none p-4 gap-2">
+                    <div>
+                        Select a Yarn Spinner script to show the graph view.
+                    </div>
+                    <div>
+                        See the{" "}
+                        <a href="https://docs.yarnspinner.dev/write-yarn-scripts/yarn-spinner-editor">
+                            Yarn Spinner docs
+                        </a>{" "}
+                        for more information.
+                    </div>
                 </div>
             )}
         </GraphViewContext.Provider>
