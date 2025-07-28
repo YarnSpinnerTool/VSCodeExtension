@@ -115,6 +115,10 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     width={props.width ?? NodeSize.width}
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}
+                    onClick={() =>
+                        props.data.onNodeOpened &&
+                        props.data.onNodeOpened(props.id)
+                    }
                 />
             )}
             {!isNote && isSingleNode(props.data) && (
@@ -157,12 +161,14 @@ function GraphStickyNote(props: {
     colour: string | null | undefined;
     selected: boolean;
     data: YarnNodeData;
+    onClick?: MouseEventHandler;
 }) {
     const backgroundClass =
         stickyNoteBackgroundClasses[props.colour ?? "__default"];
     return (
         <div
             style={{ width: props.width, height: props.height }}
+            onClick={props.onClick}
             className={clsx(
                 "p-2 border-2 shadow-lg rotate-3 rounded-md",
                 ...backgroundClass,
