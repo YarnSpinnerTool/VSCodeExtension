@@ -178,10 +178,9 @@ function GraphStickyNote(props: {
         stickyNoteBackgroundClasses[props.colour ?? "__default"];
     return (
         <div
-            style={{ width: props.width, height: props.height }}
             onClick={props.onClick}
             className={clsx(
-                "p-2 border-2 text-lg shadow-lg rotate-3 rounded-md",
+                "p-2 border-2 text-2xl shadow-lg rotate-3 rounded-md overflow-clip size-full",
                 ...backgroundClass,
                 {
                     "border-transparent": !props.selected,
