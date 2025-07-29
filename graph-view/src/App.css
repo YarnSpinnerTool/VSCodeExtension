@@ -112,4 +112,6 @@ main {
         var(--color-stickynote-purple) 50%,
         var(--vscode-editor-background, #fff)
     );
+
+    --color-graph-edge: var(--vscode-charts-lines);
 }
