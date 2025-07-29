@@ -21,6 +21,8 @@ import { MouseEventHandler, PropsWithChildren } from "react";
 import { getNodeColour } from "../utilities/getNodeColour";
 import { ColourPicker } from "./ColourPicker";
 
+import IconExternalFileJump from "../images/external-file-jump.svg?react";
+
 function isSingleNode(
     data: YarnNodeData,
 ): data is { nodeInfos: [NodeInfo]; isNodeGroup: false } {
@@ -151,6 +153,15 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     selected={props.selected}
                 />
             )}
+            {props.data.nodeInfos &&
+                props.data.nodeInfos.find((n) => n.containsExternalJumps) && (
+                    <div
+                        title="Contains a jump to a node in another file."
+                        className=" absolute top-[50%] -right-[48px] w-[48px]   fill-editor-foreground"
+                    >
+                        <IconExternalFileJump />
+                    </div>
+                )}
         </>
     );
 }
