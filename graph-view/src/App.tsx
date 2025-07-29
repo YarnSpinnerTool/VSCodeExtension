@@ -55,6 +55,7 @@ function App() {
                 documentUri,
                 position,
                 headers: {},
+                body: "New node",
             });
         },
         [documentUri],
@@ -68,6 +69,7 @@ function App() {
                 documentUri,
                 position,
                 headers: { style: "note" },
+                body: "NOTE: ",
             });
         },
         [documentUri],

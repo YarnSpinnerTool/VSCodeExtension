@@ -46,6 +46,7 @@ export type WebviewMessage =
           documentUri: string;
           position: XYPosition;
           headers: Record<string, string>;
+          body: string;
       }
     | {
           type: "delete";
@@ -345,6 +346,7 @@ export class YarnSpinnerGraphView {
                             Uri.parse(message.documentUri, true),
                             message.position,
                             message.headers,
+                            message.body,
                         );
                         break;
                     case "delete":
@@ -375,6 +377,7 @@ export class YarnSpinnerGraphView {
         uri: Uri,
         position: XYPosition,
         headers: Record<string, string>,
+        body: string,
     ) {
         var nodeHeaders = {
             ...(headers ?? {}),
@@ -385,6 +388,7 @@ export class YarnSpinnerGraphView {
             Commands.AddNode,
             uri.fsPath,
             nodeHeaders,
+            body,
         );
 
         await this.applyTextDocumentEdit(edit);
