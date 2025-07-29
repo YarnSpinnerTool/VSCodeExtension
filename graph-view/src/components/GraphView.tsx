@@ -514,9 +514,10 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     <MiniMap
                         pannable
                         draggable
+                        style={{ width: 100, height: 100 }}
                         bgColor="var(--color-minimap-background)"
                         maskColor="var(--color-minimap-mask)"
-                        className="bg-editor-background border border-editor-foreground/50 rounded-sm"
+                        className="bg-editor-background border outline-1 border-none outline-editor-foreground/50 rounded-sm"
                     />
                     <Panel position="bottom-center" className="flex gap-2">
                         <ButtonGroup direction="horizontal">
