@@ -215,10 +215,9 @@ export function GraphContentSingleNode(
         <>
             <div
                 className={clsx(
-                    "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm shadow-md shadow-widget-shadow bg-editor-background",
+                    "text-[13px] flex flex-col overflow-clip box-border border-1 border-editor-foreground/50  rounded-sm shadow-md shadow-widget-shadow bg-editor-background",
                     {
-                        "border-transparent": !props.selected,
-                        "border-selected": props.selected,
+                        "outline-selected outline-2": props.selected,
                     },
                 )}
                 style={{ width: props.width, height: props.height }}
