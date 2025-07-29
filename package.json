@@ -102,7 +102,7 @@
                 {
                     "command": "yarnspinner.show-graph",
                     "group": "navigation",
-                    "when": "editorLangId == yarnspinner"
+                    "when": "editorLangId == yarnspinner && !config.yarnspinner.enableExperimentalFeatures"
                 }
             ],
             "commandPalette": [
