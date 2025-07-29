@@ -4,9 +4,12 @@
 
 ### Added
 
+- Added a new graph view (turn on 'experimental Yarn Spinner features' to enable it)
+
 ### Changed
 
 - Nodes can now be visually collected into a box using the `cluster:` header. (The earlier `group:` header still works, but is deprecated.) This change was done to help disambiguate between what we used to call 'groups' (drawing a box around nodes), and 'node groups' (the automatic content selection system.)
+- Clicking on sticky notes selects them in the text editor.
 
 ### Removed
 
@@ -113,18 +116,18 @@
 
     - To group nodes together, add a `group` header to one or more nodes:
 
-                                                          <pre>
-                                                          title: NodeA
-                                                          <b>group: Cool Nodes</b>
-                                                          ---
-                                                          Lines here...
-                                                          ===
-                                                          title: NodeB
-                                                          <b>group: Cool Nodes</b>
-                                                          ---
-                                                          Lines here...
-                                                          ===
-                                                          </pre>
+                                                            <pre>
+                                                            title: NodeA
+                                                            <b>group: Cool Nodes</b>
+                                                            ---
+                                                            Lines here...
+                                                            ===
+                                                            title: NodeB
+                                                            <b>group: Cool Nodes</b>
+                                                            ---
+                                                            Lines here...
+                                                            ===
+                                                            </pre>
 
     - You can have as many groups in a document as you like, but each node can only be in a single group at a time.
 
@@ -150,13 +153,13 @@
 
     - To use this feature, add the `color` header to a node:
 
-                                                          <pre>
-                                                          title: MyNode
-                                                          <b>color: red</b>
-                                                          ---
-                                                          Lines here...
-                                                          ===
-                                                          </pre>
+                                                            <pre>
+                                                            title: MyNode
+                                                            <b>color: red</b>
+                                                            ---
+                                                            Lines here...
+                                                            ===
+                                                            </pre>
 
     - Valid colours are: `red`, `green`, `blue`, `orange`, `yellow`, and `purple`.
 
