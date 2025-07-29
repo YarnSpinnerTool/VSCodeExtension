@@ -14,6 +14,7 @@ export function getEdges(nodes: NodeInfo[]): GraphEdge[] {
                 target: j.destinationTitle,
                 style: {
                     strokeWidth: 2,
+                    stroke: "var(--color-graph-edge)",
                 },
 
                 markerEnd: {

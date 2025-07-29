@@ -157,7 +157,7 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                 props.data.nodeInfos.find((n) => n.containsExternalJumps) && (
                     <div
                         title="Contains a jump to a node in another file."
-                        className=" absolute top-[50%] -right-[48px] w-[48px]   fill-editor-foreground"
+                        className=" absolute top-[50%] -right-[48px] w-[48px]   fill-graph-edge"
                     >
                         <IconExternalFileJump />
                     </div>
