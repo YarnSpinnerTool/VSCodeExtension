@@ -226,7 +226,11 @@ export function GraphContentSingleNode(
                 {props.colour !== undefined && (
                     <div
                         className={clsx(
-                            "h-1 shrink-0",
+                            {
+                                "h-2": showPreview,
+                                "h-4": !showPreview,
+                            },
+                            "shrink-0",
                             ...topBarClass,
                             "w-full",
                         )}
