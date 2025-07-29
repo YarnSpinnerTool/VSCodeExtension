@@ -114,4 +114,7 @@ main {
     );
 
     --color-graph-edge: var(--vscode-charts-lines);
+
+    --graph-bg: transparent;
+    --graph-bg-pattern: var(--vscode-foreground);
 }

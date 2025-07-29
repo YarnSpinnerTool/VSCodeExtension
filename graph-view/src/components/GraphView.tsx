@@ -498,7 +498,9 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 >
                     <Background
                         variant={BackgroundVariant.Dots}
-                        size={2}
+                        size={3}
+                        bgColor="var(--color-graph-bg)"
+                        color="var(--color-graph-bg-pattern)"
                         gap={40}
                     />
                     <Panel position="bottom-left">
