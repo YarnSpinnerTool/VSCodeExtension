@@ -43,12 +43,22 @@ export function getClusterRect(
     );
 
     const clusterPosition = {
-        x: min.x - ClusterPadding,
-        y: min.y - ClusterPadding,
+        x: min.x - ClusterPadding.left,
+        y: min.y - ClusterPadding.top,
     };
     const groupSize = {
-        width: max.x - min.x + NodeSize.width + ClusterPadding * 2,
-        height: max.y - min.y + NodeSize.height + ClusterPadding * 2,
+        width:
+            max.x -
+            min.x +
+            NodeSize.width +
+            ClusterPadding.left +
+            ClusterPadding.right,
+        height:
+            max.y -
+            min.y +
+            NodeSize.height +
+            ClusterPadding.top +
+            ClusterPadding.bottom,
     };
 
     return { position: clusterPosition, size: groupSize };
