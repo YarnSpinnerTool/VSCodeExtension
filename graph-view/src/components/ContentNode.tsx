@@ -214,7 +214,7 @@ export function GraphContentSingleNode(
         <>
             <div
                 className={clsx(
-                    "text-[13px] flex flex-col overflow-clip box-border border-1 border-editor-foreground/50  rounded-sm shadow-md shadow-widget-shadow bg-editor-background",
+                    "text-[13px] flex flex-col overflow-clip box-border border-1 border-editor-foreground/50  rounded-sm shadow-md shadow-widget-shadow bg-single-node-background",
                     {
                         "outline-selected outline-2": props.selected,
                     },
@@ -279,8 +279,6 @@ function GraphContentNodeGroup(props: {
     nodeInfos: NodeInfo[];
     onDoubleClick: MouseEventHandler<HTMLDivElement>;
 }) {
-    const topBarClass = nodeTopBarClasses[props.colour ?? "__default"];
-
     const nodeGroupName = props.nodeInfos[0].nodeGroup ?? "(unknown)";
     const nodeCount = props.nodeInfos.length;
 
@@ -291,23 +289,15 @@ function GraphContentNodeGroup(props: {
                 {/* Top layer */}
                 <div
                     className={clsx(
-                        "text-[13px] flex flex-col overflow-clip box-border border-2 rounded-sm shadow-md shadow-widget-shadow bg-editor-background",
+                        "text-[13px] flex flex-col overflow-clip box-border border-4  rounded-sm shadow-md shadow-widget-shadow bg-node-group-background",
                         {
-                            "border-transparent": !props.selected,
-                            "border-selected": props.selected,
+                            "border-purple/50": props.selected,
+                            "border-purple": !props.selected,
+                            "outline-selected outline-2": props.selected,
                         },
                     )}
                     style={{ width: props.width, height: props.height }}
                 >
-                    {props.colour !== undefined && (
-                        <div
-                            className={clsx(
-                                "h-1 shrink-0",
-                                ...topBarClass,
-                                "w-full",
-                            )}
-                        ></div>
-                    )}
                     <div className="p-2 flex flex-col justify-center items-center grow gap-2">
                         <div className="font-bold text-2xl">
                             {nodeGroupName}
@@ -330,7 +320,11 @@ function GraphContentNodeGroup(props: {
                                 left: i * 5,
                             }}
                             className={clsx(
-                                "bg-editor-background shadow-md absolute rounded-sm shadow-widget-shadow",
+                                "shadow-md absolute rounded-sm shadow-widget-shadow bg-node-group-background",
+                                {
+                                    "border-purple/50": props.selected,
+                                    "border-purple": !props.selected,
+                                },
                             )}
                         ></div>
                     );

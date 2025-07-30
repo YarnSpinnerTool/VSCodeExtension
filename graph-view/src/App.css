@@ -117,4 +117,11 @@ main {
 
     --graph-bg: transparent;
     --graph-bg-pattern: var(--vscode-foreground);
+
+    --color-single-node-background: var(--color-editor-background);
+    --color-node-group-background: color-mix(
+        in srgb,
+        var(--color-editor-background),
+        var(--color-purple) 5%
+    );
 }
