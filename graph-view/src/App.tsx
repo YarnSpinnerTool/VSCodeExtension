@@ -1,9 +1,9 @@
 import { vscode } from "./utilities/vscode";
 import "./App.css";
 import GraphView from "./components/GraphView";
-import type { WebViewEvent } from "../../src/editor";
+import type { DocumentState, WebViewEvent } from "../../src/editor";
 import { useCallback, useEffect, useState } from "react";
-import { GraphViewContext, GraphViewState } from "./context";
+import { GraphViewContext } from "./context";
 import { XYPosition } from "@xyflow/react";
 
 // Attempt to restore state when we start up.
@@ -16,25 +16,19 @@ function assertDocumentURIValid(uri?: string | null): asserts uri is string {
 }
 
 function App() {
-    const [state, setState] = useState<GraphViewState>(
+    const [viewState, setViewState] = useState<DocumentState>(
         restoredState ?? {
-            nodes: [],
-            documentUri: null,
+            state: "Unknown",
         },
     );
 
     useEffect(() => {
         const messageHandler = (event: MessageEvent<unknown>): void => {
             const message = event.data as WebViewEvent;
-            if (message.type === "update") {
-                const newState = {
-                    ...state,
-                    nodes: message.nodes,
-                    documentUri: message.documentUri,
-                };
+            if (message.type === "updateState") {
                 // Persist this state in case the webview is hidden
-                vscode.setState(newState);
-                setState(newState);
+                vscode.setState(message.state ?? { state: "Unknown" });
+                setViewState(message.state ?? { state: "Unknown" });
             }
         };
         window.addEventListener("message", messageHandler);
@@ -44,7 +38,7 @@ function App() {
         };
     });
 
-    const documentUri = state.documentUri;
+    const documentUri = viewState.uri;
 
     const addNode = useCallback(
         (position: XYPosition) => {
@@ -126,9 +120,13 @@ function App() {
         [documentUri],
     );
 
+    if (!viewState.uri) {
+        return;
+    }
+
     return (
-        <GraphViewContext.Provider value={state}>
-            {state.documentUri?.endsWith(".yarn") ? (
+        <GraphViewContext.Provider value={viewState}>
+            {viewState.uri?.endsWith(".yarn") ? (
                 <GraphView
                     key={documentUri}
                     onStickyNoteAdded={(position) => addStickyNote(position)}

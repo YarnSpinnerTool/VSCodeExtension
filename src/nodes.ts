@@ -4,11 +4,13 @@ import {
     ProtocolNotificationType,
 } from "vscode-languageclient";
 
+type MaybeNullish<T> = T | null | undefined;
+
 export interface NodeInfo {
-    uniqueTitle?: string;
-    sourceTitle?: string;
-    subtitle?: string;
-    nodeGroup?: string;
+    uniqueTitle?: MaybeNullish<string>;
+    sourceTitle?: MaybeNullish<string>;
+    subtitle?: MaybeNullish<string>;
+    nodeGroup?: MaybeNullish<string>;
     bodyStartLine: number;
     headerStartLine: number;
     headers: NodeHeader[];

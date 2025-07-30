@@ -1,6 +1,46 @@
 import type { WebviewApi } from "vscode-webview";
 import type { WebviewMessage } from "../../../src/panels/YarnSpinnerGraphView";
-import type { GraphViewState } from "../context";
+import type { DocumentState } from "../../../src/editor";
+import type { NodeHeader, NodeInfo, NodeJump } from "../../../src/nodes";
+
+import { z, ZodType } from "zod";
+
+const NodeHeaderSchema = z.object({
+    key: z.string(),
+    value: z.string(),
+}) satisfies ZodType<NodeHeader>;
+
+const NodeJumpSchema = z.object({
+    destinationFileUri: z.string(),
+    type: z.enum(["Jump", "Detour"]),
+    destinationTitle: z.string(),
+}) satisfies ZodType<NodeJump>;
+
+const NodeInfoSchema = z.object({
+    uniqueTitle: z.string().nullish(),
+    sourceTitle: z.string().nullish(),
+    subtitle: z.string().nullish(),
+    nodeGroup: z.string().nullish(),
+    bodyStartLine: z.number().default(0),
+    headerStartLine: z.number().default(0),
+    headers: z.array(NodeHeaderSchema).default([]),
+    jumps: z.array(NodeJumpSchema).default([]),
+    previewText: z.string().default(""),
+    containsExternalJumps: z.boolean().default(false),
+    nodeGroupComplexity: z.number().default(0),
+}) satisfies ZodType<NodeInfo>;
+
+const DocumentStateSchema = z.object({
+    state: z.enum([
+        "Unknown",
+        "NotFound",
+        "InvalidUri",
+        "ContainsErrors",
+        "Valid",
+    ]),
+    nodes: z.array(NodeInfoSchema).optional(),
+    uri: z.string().optional(),
+}) satisfies z.ZodType<DocumentState>;
 
 /**
  * A utility wrapper around the acquireVsCodeApi() function, which enables
@@ -46,14 +86,21 @@ class VSCodeAPIWrapper {
      *
      * @return The current state or `undefined` if no state has been set.
      */
-    public getState(): GraphViewState | undefined {
-        if (this.vsCodeApi) {
-            return this.vsCodeApi.getState() as GraphViewState | undefined;
-        } else {
-            const state = localStorage.getItem("vscodeState");
+    public getState(): DocumentState | undefined {
+        let loadedContent: unknown;
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return state ? JSON.parse(state) : undefined;
+        if (this.vsCodeApi) {
+            loadedContent = this.vsCodeApi.getState();
+        } else {
+            loadedContent = localStorage.getItem("vscodeState");
+        }
+
+        const state = DocumentStateSchema.safeParse(loadedContent);
+
+        if (state.success) {
+            return state.data;
+        } else {
+            return undefined;
         }
     }
 
@@ -68,7 +115,7 @@ class VSCodeAPIWrapper {
      *
      * @return The new state.
      */
-    public setState(newState: GraphViewState): GraphViewState {
+    public setState(newState: DocumentState): DocumentState {
         if (this.vsCodeApi) {
             return this.vsCodeApi.setState(newState);
         } else {

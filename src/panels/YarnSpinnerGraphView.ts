@@ -17,11 +17,17 @@ import {
     ViewColumn,
     TextEditorRevealType,
     Selection,
+    TextEditor,
 } from "vscode";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
 import { DidChangeNodesParams, NodeInfo } from "../nodes";
-import { Commands, type NodesUpdatedEvent } from "../editor";
+import {
+    Commands,
+    DocumentState,
+    StateUpdatedEvent,
+    type NodesUpdatedEvent,
+} from "../editor";
 
 import {
     ExecuteCommandRequest,
@@ -94,6 +100,14 @@ export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     private _currentPanel?: YarnSpinnerGraphView;
     private _onDidChangeNodes: Event<DidChangeNodesParams>;
     private _languageClient: LanguageClient;
+    private _currentView?: WebviewView;
+
+    get currentPanel() {
+        return this._currentPanel;
+    }
+    get currentView() {
+        return this._currentView;
+    }
 
     constructor(
         extensionContext: ExtensionContext,
@@ -110,6 +124,7 @@ export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
         context: WebviewViewResolveContext,
         token: CancellationToken,
     ): Thenable<void> | void {
+        this._currentView = webviewView;
         this._currentPanel = new YarnSpinnerGraphView(
             webviewView,
             this._extensionContext,
@@ -135,7 +150,6 @@ export class YarnSpinnerGraphView {
     private readonly _webview: Webview;
     private _disposables: Disposable[] = [];
 
-    private static _documentNodes: Map<string, NodeInfo[]> = new Map();
     private _languageClient: LanguageClient;
 
     /**
@@ -197,18 +211,13 @@ export class YarnSpinnerGraphView {
             await delayPromise;
 
             const editor = window.activeTextEditor;
-            const nodes =
-                editor !== undefined
-                    ? (YarnSpinnerGraphView._documentNodes.get(
-                          editor.document.uri.toString(),
-                      ) ?? [])
-                    : [];
+            const state = await this.getStateForEditor(editor);
 
             this._webview.postMessage({
-                type: "update",
-                nodes: nodes,
+                type: "updateState",
+                state: state,
                 documentUri: editor?.document.uri.toString() ?? null,
-            } satisfies NodesUpdatedEvent);
+            } satisfies StateUpdatedEvent);
         };
 
         // React to changes in the dist directory
@@ -217,43 +226,28 @@ export class YarnSpinnerGraphView {
         watcher.onDidDelete(reloadWebViews);
         this._disposables.push(watcher);
 
-        const onNodesChanged = onDidChangeNodes((n) => {
-            try {
-                // Update our cached nodes for this uri
-                const documentUri = Uri.parse(n.uri, false);
-                YarnSpinnerGraphView._documentNodes.set(
-                    documentUri.toString(),
-                    n.nodes,
-                );
-            } catch {}
-            const uriString = window.activeTextEditor?.document.uri.toString();
-            if (n.uri === uriString) {
-                this._webview.postMessage({
-                    type: "update",
-                    nodes: n.nodes,
-                    documentUri: uriString,
-                } satisfies NodesUpdatedEvent);
-            }
+        const onNodesChanged = onDidChangeNodes(async (n) => {
+            const editor = window.activeTextEditor;
+            const state = await this.getStateForEditor(editor);
+
+            this._webview.postMessage({
+                type: "updateState",
+                state: state,
+                documentUri: editor?.document.uri.toString() ?? null,
+            } satisfies StateUpdatedEvent);
         });
 
         this._disposables.push(onNodesChanged);
 
         const onDocumentChanged = window.onDidChangeActiveTextEditor(
-            (editor) => {
-                const nodes =
-                    editor !== undefined
-                        ? (YarnSpinnerGraphView._documentNodes.get(
-                              editor.document.uri.toString(),
-                          ) ?? [])
-                        : [];
-
-                // TODO: if we don't have any cached nodes for this document, request them from the Language Client
+            async (editor) => {
+                const state = await this.getStateForEditor(editor);
 
                 this._webview.postMessage({
-                    type: "update",
-                    nodes: nodes,
+                    type: "updateState",
+                    state: state,
                     documentUri: editor?.document.uri.toString() ?? null,
-                } satisfies NodesUpdatedEvent);
+                } satisfies StateUpdatedEvent);
             },
         );
         this._disposables.push(onDocumentChanged);
@@ -284,6 +278,27 @@ export class YarnSpinnerGraphView {
                 disposable.dispose();
             }
         }
+    }
+
+    private getStateForEditor(editor?: TextEditor) {
+        if (!editor) {
+            return undefined;
+        }
+        if (editor.document.languageId != "yarnspinner") {
+            return undefined;
+        }
+        return this.getStateForDocument(editor.document.uri);
+    }
+
+    private async getStateForDocument(uri?: Uri) {
+        if (!uri) {
+            return undefined;
+        }
+
+        return await this.executeCommand<DocumentState>(
+            Commands.GetDocumentState,
+            uri.toString(),
+        );
     }
 
     /**

@@ -12,6 +12,12 @@ import {
     NodeInfo,
 } from "./nodes";
 
+export interface StateUpdatedEvent {
+    type: "updateState";
+    state?: DocumentState;
+    documentUri: string | null;
+}
+
 export interface NodesUpdatedEvent {
     type: "update";
     nodes: NodeInfo[];
@@ -23,7 +29,10 @@ export interface ShowNodeEvent {
     node: string;
 }
 
-export type WebViewEvent = NodesUpdatedEvent | ShowNodeEvent;
+export type WebViewEvent =
+    | NodesUpdatedEvent
+    | StateUpdatedEvent
+    | ShowNodeEvent;
 
 export enum Commands {
     AddNode = "yarnspinner.create-node",
@@ -32,7 +41,21 @@ export enum Commands {
     UpdateNodeHeader = "yarnspinner.update-node-header",
     CompileWorkspace = "yarnspinner.compile",
     ExtractString = "yarnspinner.extract-spreadsheet",
+    GetDocumentState = "yarnspinner.getDocumentState",
 }
+
+type DocumentStateType =
+    | "Unknown"
+    | "NotFound"
+    | "InvalidUri"
+    | "ContainsErrors"
+    | "Valid";
+
+export type DocumentState = {
+    uri?: string;
+    nodes?: NodeInfo[];
+    state: DocumentStateType;
+};
 
 export class YarnSpinnerEditorProvider
     implements vscode.CustomTextEditorProvider

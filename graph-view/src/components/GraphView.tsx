@@ -177,7 +177,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
         // When our source data changes, replace the entire graph view contents
         updateGraphContents({
             type: "replace-graph",
-            graphContents: context.nodes,
+            graphContents: context.nodes ?? [],
         });
     }, [context.nodes]);
 

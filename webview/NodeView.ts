@@ -133,8 +133,10 @@ export class NodeView {
         this.element.id = "node-" + (node.uniqueTitle ?? "$error.unknown");
         this.element.dataset.nodeName = node.uniqueTitle ?? "$error.unknown";
 
-        this.title = isInNodeGroup ? undefined : node.sourceTitle;
-        this.subtitle = node.subtitle;
+        this.title = isInNodeGroup
+            ? undefined
+            : (node.sourceTitle ?? undefined);
+        this.subtitle = node.subtitle ?? undefined;
 
         this.preview = node.previewText;
 

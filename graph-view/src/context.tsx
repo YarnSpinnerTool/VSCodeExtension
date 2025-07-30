@@ -1,11 +1,6 @@
 import { createContext } from "react";
-import type { NodeInfo } from "../../src/nodes";
+import { type DocumentState } from "../../src/editor";
 
-export type GraphViewState = {
-    nodes: NodeInfo[];
-    documentUri: string | null;
-};
-export const GraphViewContext = createContext<GraphViewState>({
-    nodes: [],
-    documentUri: null,
+export const GraphViewContext = createContext<DocumentState>({
+    state: "Unknown",
 });
