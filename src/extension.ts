@@ -172,6 +172,7 @@ async function launchLanguageServer(
             server = spawn(languageServerExe, [
                 absoluteLanguageServerPath,
                 ...[isDebugMode() ? "--waitForDebugger" : ""],
+                "--launched-from-extension",
             ]);
 
             const launchMessage = `Started language server: ${absoluteLanguageServerPath} - PID ${server.pid}`;
