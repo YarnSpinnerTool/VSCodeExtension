@@ -46,7 +46,7 @@ const zoomSelector = (s: ReactFlowState) => s.transform[2] <= 0.5;
 export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
     const isNote =
         isSingleNode(props.data) &&
-        props.data.nodeInfos[0].headers.find(
+        props.data.nodeInfos[0].headers?.find(
             (h) => h.key === "style" && h.value === "note",
         ) !== undefined;
 

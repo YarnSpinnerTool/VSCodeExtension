@@ -4,13 +4,13 @@ import { NodeInfo } from "../../../src/nodes";
 
 export function getClusterForNode(node: NodeInfo) {
     // Look for a 'cluster' header first
-    const clusterHeader = node.headers.find((h) => h.key === "cluster");
+    const clusterHeader = node.headers?.find((h) => h.key === "cluster");
     if (clusterHeader) {
         return clusterHeader.value;
     }
 
     // If we don't have one, look for the older 'group' header
-    const groupHeader = node.headers.find((h) => h.key === "group");
+    const groupHeader = node.headers?.find((h) => h.key === "group");
 
     if (groupHeader) {
         return groupHeader.value;

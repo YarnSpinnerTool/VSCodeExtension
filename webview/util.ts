@@ -76,7 +76,9 @@ export function getWindowCenter(): Position {
 export function getPositionFromNodeInfo(node: NodeInfo): Position | null {
     // Try and find a 'position' header in this node, and parse it; if
     // we can't find one, or can't parse it, default to (0,0).
-    const positionString = node.headers.find((h) => h.key == "position")?.value;
+    const positionString = node.headers?.find(
+        (h) => h.key == "position",
+    )?.value;
 
     if (positionString) {
         try {

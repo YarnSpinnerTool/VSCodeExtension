@@ -8,21 +8,23 @@ export function getEdges(nodes: NodeInfo[]): GraphEdge[] {
                 return null;
             }
 
-            return n.jumps.map<GraphEdge>((j) => ({
-                id: `${n.sourceTitle}-${j.destinationTitle}`,
-                source: n.sourceTitle ?? "<unknown>",
-                target: j.destinationTitle,
-                style: {
-                    strokeWidth: 2,
-                    stroke: "var(--color-graph-edge)",
-                },
+            return (
+                n.jumps?.map<GraphEdge>((j) => ({
+                    id: `${n.sourceTitle}-${j.destinationTitle}`,
+                    source: n.sourceTitle ?? "<unknown>",
+                    target: j.destinationTitle,
+                    style: {
+                        strokeWidth: 2,
+                        stroke: "var(--color-graph-edge)",
+                    },
 
-                markerEnd: {
-                    type: MarkerType.ArrowClosed,
-                    width: 20,
-                    height: 20,
-                },
-            }));
+                    markerEnd: {
+                        type: MarkerType.ArrowClosed,
+                        width: 20,
+                        height: 20,
+                    },
+                })) ?? []
+            );
         })
         .filter((n) => n !== null);
 

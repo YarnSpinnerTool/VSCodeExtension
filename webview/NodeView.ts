@@ -138,20 +138,20 @@ export class NodeView {
             : (node.sourceTitle ?? undefined);
         this.subtitle = node.subtitle ?? undefined;
 
-        this.preview = node.previewText;
+        this.preview = node.previewText ?? "";
 
         // 'groups' is defined as an array, but here we only fetch a single
         // 'group' header, so it currently only ever has zero or one elements.
         // Once we have a defined way to say a node can be in multiple groups,
         // update this code to populate 'groups' with the right number of
         // elements.
-        var groupHeaders = node.headers.filter(
+        var groupHeaders = node.headers?.filter(
             (header) => header.key == "group",
         )[0];
         this.taggedGroups = groupHeaders ? [groupHeaders.value] : [];
         this.nodeGroup = isInNodeGroup ? (node.sourceTitle ?? null) : null;
 
-        var colorHeader = node.headers.filter(
+        var colorHeader = node.headers?.filter(
             (header) => header.key == "color",
         )[0];
         if (colorHeader) {
@@ -161,12 +161,12 @@ export class NodeView {
         }
 
         const isNote =
-            node.headers.find(
+            node.headers?.find(
                 (h) => h.key === "style" && h.value === "note",
             ) !== undefined;
         this.isNote = isNote;
 
-        this.containsExternalJumps = node.containsExternalJumps;
+        this.containsExternalJumps = node.containsExternalJumps ?? false;
     }
 
     public set title(newTitle: string | undefined) {

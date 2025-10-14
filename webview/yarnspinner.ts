@@ -264,6 +264,9 @@ viewState.onSelectionChanged = (nodes) => {
                     x: newNodeOffset * nodesWithDefaultPosition,
                     y: newNodeOffset * nodesWithDefaultPosition,
                 };
+                if (!nodeInfo.headers) {
+                    nodeInfo.headers = [];
+                }
                 nodeInfo.headers.push({
                     key: "position",
                     value: `${position.x},${position.y}`,

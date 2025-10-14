@@ -485,7 +485,7 @@ export class ViewState {
 
             nodeView.outgoingConnections = [];
 
-            for (const destination of node.jumps) {
+            for (const destination of node.jumps ?? []) {
                 if (nodeGroups.has(destination.destinationTitle)) {
                     const groupView = this.groupViews.get(
                         destination.destinationTitle,

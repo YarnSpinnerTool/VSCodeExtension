@@ -193,9 +193,9 @@ export class YarnSpinnerEditorProvider
 
             // Scroll the editor so that the start of the node is at the top of the editor.
             const startOfNode = new vscode.Range(
-                nodeInfo.headerStartLine,
+                nodeInfo.headerStartLine ?? 0,
                 0,
-                nodeInfo.headerStartLine,
+                nodeInfo.headerStartLine ?? 0,
                 0,
             );
 
@@ -203,9 +203,9 @@ export class YarnSpinnerEditorProvider
 
             // Place the selection at the start of the body.
             const startOfBody = new vscode.Range(
-                nodeInfo.bodyStartLine,
+                nodeInfo.bodyStartLine ?? 0,
                 0,
-                nodeInfo.bodyStartLine,
+                nodeInfo.bodyStartLine ?? 0,
                 0,
             );
 

@@ -479,9 +479,9 @@ export class YarnSpinnerGraphView {
 
             // Scroll the editor so that the start of the node is at the top of the editor.
             const startOfNode = new Range(
-                nodeInfo.headerStartLine,
+                nodeInfo.headerStartLine ?? 0,
                 0,
-                nodeInfo.headerStartLine,
+                nodeInfo.headerStartLine ?? 0,
                 0,
             );
 
@@ -489,9 +489,9 @@ export class YarnSpinnerGraphView {
 
             // Place the selection at the start of the body.
             const startOfBody = new Range(
-                nodeInfo.bodyStartLine,
+                nodeInfo.bodyStartLine ?? 0,
                 0,
-                nodeInfo.bodyStartLine,
+                nodeInfo.bodyStartLine ?? 0,
                 0,
             );
 

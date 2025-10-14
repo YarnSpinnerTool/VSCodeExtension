@@ -11,12 +11,12 @@ export interface NodeInfo {
     sourceTitle?: MaybeNullish<string>;
     subtitle?: MaybeNullish<string>;
     nodeGroup?: MaybeNullish<string>;
-    bodyStartLine: number;
-    headerStartLine: number;
-    headers: NodeHeader[];
-    jumps: NodeJump[];
-    previewText: string;
-    containsExternalJumps: boolean;
+    bodyStartLine?: number;
+    headerStartLine?: number;
+    headers?: NodeHeader[];
+    jumps?: NodeJump[];
+    previewText?: string;
+    containsExternalJumps?: boolean;
     nodeGroupComplexity?: number;
 }
 
