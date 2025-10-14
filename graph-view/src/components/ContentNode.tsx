@@ -205,7 +205,9 @@ export function GraphContentSingleNode(
         onClick?: MouseEventHandler;
     } & PropsWithChildren,
 ) {
-    const topBarClass = nodeTopBarClasses[props.colour ?? "__default"];
+    const topBarClass = nodeTopBarClasses[props.colour ?? "__default"] ?? [
+        "bg-editor-background",
+    ];
 
     const showTitle = props.showTitle ?? true;
     const showPreview = props.showPreview ?? true;
