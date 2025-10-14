@@ -5,6 +5,7 @@ import type { DocumentState, WebViewEvent } from "../../src/editor";
 import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext } from "./context";
 import { XYPosition } from "@xyflow/react";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 
 // Attempt to restore state when we start up.
 const restoredState = vscode.getState();
@@ -125,32 +126,52 @@ function App() {
     }
 
     return (
-        <GraphViewContext.Provider value={viewState}>
-            {viewState.uri?.endsWith(".yarn") ? (
-                <GraphView
-                    key={documentUri}
-                    onStickyNoteAdded={(position) => addStickyNote(position)}
-                    onNodeAdded={(position) => addNode(position)}
-                    onNodesMoved={onNodesMoved}
-                    onNodeOpened={onNodeOpened}
-                    onNodeDeleted={onNodeDeleted}
-                    onNodeHeadersUpdated={onNodeHeadersUpdated}
-                />
-            ) : (
-                <div className="size-full flex flex-col justify-center text-center items-center select-none p-4 gap-2">
-                    <div>
-                        Select a Yarn Spinner script to show the graph view.
+        <ErrorBoundary fallbackRender={ErrorPresenter}>
+            <GraphViewContext.Provider value={viewState}>
+                {viewState.uri?.endsWith(".yarn") ? (
+                    <GraphView
+                        key={documentUri}
+                        onStickyNoteAdded={(position) =>
+                            addStickyNote(position)
+                        }
+                        onNodeAdded={(position) => addNode(position)}
+                        onNodesMoved={onNodesMoved}
+                        onNodeOpened={onNodeOpened}
+                        onNodeDeleted={onNodeDeleted}
+                        onNodeHeadersUpdated={onNodeHeadersUpdated}
+                    />
+                ) : (
+                    <div className="size-full flex flex-col justify-center text-center items-center select-none p-4 gap-2">
+                        <div>
+                            Select a Yarn Spinner script to show the graph view.
+                        </div>
+                        <div>
+                            See the{" "}
+                            <a href="https://docs.yarnspinner.dev/write-yarn-scripts/yarn-spinner-editor">
+                                Yarn Spinner docs
+                            </a>{" "}
+                            for more information.
+                        </div>
                     </div>
-                    <div>
-                        See the{" "}
-                        <a href="https://docs.yarnspinner.dev/write-yarn-scripts/yarn-spinner-editor">
-                            Yarn Spinner docs
-                        </a>{" "}
-                        for more information.
-                    </div>
-                </div>
-            )}
-        </GraphViewContext.Provider>
+                )}
+            </GraphViewContext.Provider>
+        </ErrorBoundary>
+    );
+}
+
+function ErrorPresenter({ error, resetErrorBoundary }: FallbackProps) {
+    console.log("Error render");
+    // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+    return (
+        <div role="alert">
+            <p>Something went wrong:</p>
+            <pre style={{ color: "red" }}>{(error as Error).message}</pre>
+            <pre style={{ color: "red" }}>{(error as Error).stack}</pre>
+            <p>
+                <button onClick={resetErrorBoundary}>Retry</button>
+            </p>
+        </div>
     );
 }
 
