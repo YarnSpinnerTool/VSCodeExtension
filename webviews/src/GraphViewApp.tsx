@@ -1,9 +1,10 @@
 import type { XYPosition } from "@xyflow/react";
 import { useCallback, useEffect, useState } from "react";
-import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { DocumentState, WebViewEvent } from "@/extension/editor";
+
+import { ErrorPresenter } from "@/components/ErrorPresenter";
 
 import "./App.css";
 import GraphView from "./components/graph-view/GraphView";
@@ -159,21 +160,5 @@ export default function App() {
                 )}
             </GraphViewContext.Provider>
         </ErrorBoundary>
-    );
-}
-
-function ErrorPresenter({ error, resetErrorBoundary }: FallbackProps) {
-    console.log("Error render");
-    // Call resetErrorBoundary() to reset the error boundary and retry the render.
-
-    return (
-        <div role="alert">
-            <p>Something went wrong:</p>
-            <pre style={{ color: "red" }}>{(error as Error).message}</pre>
-            <pre style={{ color: "red" }}>{(error as Error).stack}</pre>
-            <p>
-                <button onClick={resetErrorBoundary}>Retry</button>
-            </p>
-        </div>
     );
 }

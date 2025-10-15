@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { DocumentState, WebViewEvent } from "@/extension/editor";
 
+import { ErrorPresenter } from "@/components/ErrorPresenter";
 import { StoryPreview } from "@/components/preview/StoryPreview";
 
 import { vscode } from "@/utilities/vscode";
@@ -40,21 +40,5 @@ export default function App() {
         <ErrorBoundary fallbackRender={ErrorPresenter}>
             <StoryPreview />
         </ErrorBoundary>
-    );
-}
-
-function ErrorPresenter({ error, resetErrorBoundary }: FallbackProps) {
-    console.log("Error render");
-    // Call resetErrorBoundary() to reset the error boundary and retry the render.
-
-    return (
-        <div role="alert">
-            <p>Something went wrong:</p>
-            <pre style={{ color: "red" }}>{(error as Error).message}</pre>
-            <pre style={{ color: "red" }}>{(error as Error).stack}</pre>
-            <p>
-                <button onClick={resetErrorBoundary}>Retry</button>
-            </p>
-        </div>
     );
 }
