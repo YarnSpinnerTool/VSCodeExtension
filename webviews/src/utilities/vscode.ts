@@ -3,7 +3,8 @@ import type { WebviewMessage } from "../../../src/panels/YarnSpinnerGraphView";
 import type { DocumentState } from "../../../src/editor";
 import type { NodeHeader, NodeInfo, NodeJump } from "../../../src/nodes";
 
-import { z, ZodType } from "zod";
+import type { ZodType } from "zod";
+import { z } from "zod";
 
 const NodeHeaderSchema = z.object({
     key: z.string(),

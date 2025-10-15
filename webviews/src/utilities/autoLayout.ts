@@ -1,5 +1,5 @@
 import type { Node as GraphNode, Edge as GraphEdge } from "@xyflow/react";
-import { YarnNodeData } from "./nodeData";
+import type { YarnNodeData } from "./nodeData";
 
 export async function autoLayoutNodes(
     graphContents: { nodes: GraphNode<YarnNodeData>[]; edges: GraphEdge[] },

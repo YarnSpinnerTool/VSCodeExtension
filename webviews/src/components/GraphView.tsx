@@ -1,20 +1,22 @@
-import {
-    applyNodeChanges,
-    Background,
-    BackgroundVariant,
+import type {
     Edge as GraphEdge,
     Node as GraphNode,
-    MiniMap,
     NodeChange,
     OnNodeDrag,
     OnNodesChange,
     OnSelectionChangeFunc,
+    ReactFlowInstance,
+    XYPosition,
+} from "@xyflow/react";
+import {
+    applyNodeChanges,
+    Background,
+    BackgroundVariant,
+    MiniMap,
     Panel,
     ReactFlow,
-    ReactFlowInstance,
     ReactFlowProvider,
     useReactFlow,
-    XYPosition,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
@@ -49,7 +51,7 @@ import {
     getClusterNodes,
 } from "../utilities/getClusterNodes";
 import { getClusterForNode, getClusterRect } from "../utilities/getClusterRect";
-import { YarnNodeData } from "../utilities/nodeData";
+import type { YarnNodeData } from "../utilities/nodeData";
 import { NodeSize } from "../utilities/constants";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import { NodeGroupView } from "./NodeGroupView";

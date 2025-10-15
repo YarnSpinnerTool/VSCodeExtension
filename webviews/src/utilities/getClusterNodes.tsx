@@ -1,8 +1,8 @@
-import { Node as GraphNode } from "@xyflow/react";
+import type { Node as GraphNode } from "@xyflow/react";
 import { getClusterForNode, getClusterRect } from "./getClusterRect";
-import { NodeInfo } from "../../../src/nodes";
+import type { NodeInfo } from "../../../src/nodes";
 import { getNodePosition } from "./getNodePosition";
-import { YarnNodeData } from "./nodeData";
+import type { YarnNodeData } from "./nodeData";
 
 export function getGraphIdForCluster(groupName: string): string {
     return "#Cluster#" + groupName;

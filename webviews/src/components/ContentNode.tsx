@@ -1,23 +1,20 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
-import {
+import type {
     NodeProps,
     Node as GraphNode,
-    NodeToolbar,
-    Position,
-    Handle,
-    useStore,
     ReactFlowState,
 } from "@xyflow/react";
+import { NodeToolbar, Position, Handle, useStore } from "@xyflow/react";
 import clsx from "clsx";
 import {
     stickyNoteBackgroundClasses,
     stickyNoteTopBarClasses,
     nodeTopBarClasses,
 } from "../utilities/nodeColours";
-import { YarnNodeData } from "../utilities/nodeData";
-import { NodeInfo } from "../../../src/nodes";
+import type { YarnNodeData } from "../utilities/nodeData";
+import type { NodeInfo } from "../../../src/nodes";
 import { NodeSize } from "../utilities/constants";
-import { MouseEventHandler, PropsWithChildren } from "react";
+import type { MouseEventHandler, PropsWithChildren } from "react";
 import { getNodeColour } from "../utilities/getNodeColour";
 import { ColourPicker } from "./ColourPicker";
 

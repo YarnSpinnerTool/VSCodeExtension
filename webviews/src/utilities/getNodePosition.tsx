@@ -1,4 +1,4 @@
-import { XYPosition } from "@xyflow/react";
+import type { XYPosition } from "@xyflow/react";
 import type { NodeInfo } from "../../../src/nodes";
 
 export function getNodePosition(n: NodeInfo): XYPosition | null {

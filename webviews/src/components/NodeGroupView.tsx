@@ -4,7 +4,7 @@ import { nodeTopBarClasses } from "../utilities/nodeColours";
 import { GraphContentSingleNode } from "./ContentNode";
 import { ColourPicker } from "./ColourPicker";
 import { getNodeColour } from "../utilities/getNodeColour";
-import { GraphState, NodeEventHandlers } from "./GraphView";
+import type { GraphState, NodeEventHandlers } from "./GraphView";
 
 export function NodeGroupView(
     props: {

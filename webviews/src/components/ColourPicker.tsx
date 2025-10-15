@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { ColourClassMap, KnownColours } from "../utilities/nodeColours";
+import type { ColourClassMap } from "../utilities/nodeColours";
+import { KnownColours } from "../utilities/nodeColours";
 import { NoColour } from "./ContentNode";
 
 export function ColourPicker(props: {

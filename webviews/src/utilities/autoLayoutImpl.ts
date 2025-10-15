@@ -1,5 +1,6 @@
 import type { Node as GraphNode, Edge as GraphEdge } from "@xyflow/react";
-import ELK, { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
+import type { ElkExtendedEdge, ElkNode } from "elkjs/lib/elk.bundled";
+import ELK from "elkjs/lib/elk.bundled";
 import type { YarnNodeData } from "./nodeData";
 
 const elk = new ELK();

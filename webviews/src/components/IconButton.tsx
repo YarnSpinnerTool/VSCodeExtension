@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 
 export function IconButton(props: {
     icon: FunctionComponent;

@@ -4,8 +4,9 @@ import GraphView from "./components/GraphView";
 import type { DocumentState, WebViewEvent } from "../../src/editor";
 import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext } from "./context";
-import { XYPosition } from "@xyflow/react";
-import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+import type { XYPosition } from "@xyflow/react";
+import type { FallbackProps } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
 
 // Attempt to restore state when we start up.
 const restoredState = vscode.getState();

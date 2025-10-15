@@ -1,6 +1,7 @@
-import { NodeProps, Handle, Position } from "@xyflow/react";
-import { YarnNodeData } from "../utilities/nodeData";
-import { Node as GraphNode } from "@xyflow/react";
+import type { NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
+import type { YarnNodeData } from "../utilities/nodeData";
+import type { Node as GraphNode } from "@xyflow/react";
 
 export function ClusterNode(props: {} & NodeProps<GraphNode<YarnNodeData>>) {
     return (

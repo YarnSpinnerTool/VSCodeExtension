@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 export function ButtonGroup(
     props: { direction: "vertical" | "horizontal" } & PropsWithChildren,

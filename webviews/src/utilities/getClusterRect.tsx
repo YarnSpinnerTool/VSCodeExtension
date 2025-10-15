@@ -1,6 +1,6 @@
-import { XYPosition } from "@xyflow/react";
+import type { XYPosition } from "@xyflow/react";
 import { GroupPadding as ClusterPadding, NodeSize } from "./constants";
-import { NodeInfo } from "../../../src/nodes";
+import type { NodeInfo } from "../../../src/nodes";
 
 export function getClusterForNode(node: NodeInfo) {
     // Look for a 'cluster' header first
