@@ -36,8 +36,20 @@ import {
     type TextDocumentEdit,
 } from "vscode-languageclient/node";
 
-const stylesAssetPath = ["graph-view", "build", "assets", "index.css"];
-const scriptAssetPath = ["graph-view", "build", "assets", "index.js"];
+const stylesAssetPath = [
+    "webviews",
+    "build",
+    "graph-view",
+    "assets",
+    "main.css",
+];
+const scriptAssetPath = [
+    "webviews",
+    "build",
+    "graph-view",
+    "assets",
+    "main.js",
+];
 
 type XYPosition = { x: number; y: number };
 
@@ -181,7 +193,7 @@ export class YarnSpinnerGraphView {
             // Restrict the webview to only load resources from the `out` and `graph-view/build` directories
             localResourceRoots: [
                 Uri.joinPath(extensionUri, "out"),
-                Uri.joinPath(extensionUri, "graph-view/build"),
+                Uri.joinPath(extensionUri, "webviews/build/graph-view"),
             ],
         };
 
@@ -196,7 +208,7 @@ export class YarnSpinnerGraphView {
 
         // Watch the dist directory for changes; if any do, we reload all webviews
         const watcher = workspace.createFileSystemWatcher(
-            new RelativePattern(extensionUri, "graph-view/build/*"),
+            new RelativePattern(extensionUri, "webviews/build/graph-view/*"),
         );
         commands.executeCommand("workbench.action.webview.reloadWebviewAction");
         const reloadWebViews = async () => {
