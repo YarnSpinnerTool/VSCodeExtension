@@ -7,8 +7,8 @@
         "start": "vite",
         "build": "tsc --noEmit && vite build --mode graph-view:production && vite build --mode preview:production",
         "preview": "vite preview",
-        "watch:graph-view": "vite build --mode graph-view:development --watch",
-        "watch:preview": "vite build --mode preview:development --watch"
+        "watch:graph-view": "NODE_ENV=development vite build --mode graph-view:development --watch",
+        "watch:preview": "NODE_ENV=development vite build --mode preview:development --watch"
     },
     "dependencies": {
         "@vscode/webview-ui-toolkit": "^1.4.0",
