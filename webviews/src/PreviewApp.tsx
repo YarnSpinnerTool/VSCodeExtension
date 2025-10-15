@@ -1,9 +1,12 @@
-import { vscode } from "./utilities/vscode";
-import "./App.css";
-import type { DocumentState, WebViewEvent } from "@/extension/editor";
 import { useEffect, useState } from "react";
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
+
+import type { DocumentState, WebViewEvent } from "@/extension/editor";
+
+import { vscode } from "@/utilities/vscode";
+
+import "./App.css";
 
 // Attempt to restore state when we start up.
 const restoredState = vscode.getState();

@@ -1,6 +1,6 @@
 import { GroupView } from "./GroupView";
 import { NodeInfo } from "./nodes";
-import { getPositionFromNodeInfo, Position, Size } from "./util";
+import { Position, Size, getPositionFromNodeInfo } from "./util";
 
 type OutgoingConnection = {
     connectionType: "Jump" | "Detour";

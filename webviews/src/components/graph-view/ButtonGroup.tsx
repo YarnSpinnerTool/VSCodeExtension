@@ -7,7 +7,7 @@ export function ButtonGroup(
     return (
         <div
             className={clsx(
-                "flex gap-2 p-1 bg-editor-background shadow-md shadow-widget-shadow rounded-sm shrink-0",
+                "bg-editor-background shadow-widget-shadow flex shrink-0 gap-2 rounded-sm p-1 shadow-md",
                 { "flex-col": props.direction === "vertical" },
             )}
         >

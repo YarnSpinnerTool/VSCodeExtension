@@ -1,11 +1,12 @@
 import { useReactFlow, useViewport } from "@xyflow/react";
-import { IconButton } from "./IconButton";
 
-import IconZoomIn from "@/images/zoom-in.svg?react";
-import IconZoomOut from "@/images/zoom-out.svg?react";
-import IconZoomFit from "@/images/zoom-fit.svg?react";
 import IconLock from "@/images/lock.svg?react";
 import IconUnlock from "@/images/unlock.svg?react";
+import IconZoomFit from "@/images/zoom-fit.svg?react";
+import IconZoomIn from "@/images/zoom-in.svg?react";
+import IconZoomOut from "@/images/zoom-out.svg?react";
+
+import { IconButton } from "./IconButton";
 
 export function FlowControls(props: {
     interactive: boolean;

@@ -1,12 +1,11 @@
 import { NodesUpdatedEvent } from "../src/types/editor";
+import { WebViewEvent } from "../src/types/editor";
 
-import { Alignment, ViewState } from "./ViewState";
 import { NodeView } from "./NodeView";
+import { Alignment, ViewState } from "./ViewState";
+import { newNodeOffset } from "./constants";
 import { getLinesSVGForNodes } from "./svg";
 import { getPositionFromNodeInfo } from "./util";
-
-import { WebViewEvent } from "../src/types/editor";
-import { newNodeOffset } from "./constants";
 
 interface VSCode {
     postMessage(message: any): void;

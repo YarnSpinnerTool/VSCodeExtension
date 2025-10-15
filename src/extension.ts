@@ -1,29 +1,26 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
-import * as path from "path";
 import TelemetryReporter from "@vscode/extension-telemetry";
-
-import * as languageClient from "vscode-languageclient/node";
-
+import { ChildProcess, spawn } from "child_process";
+import * as fs from "fs";
+import * as path from "path";
+import { unescape } from "querystring";
+import * as vscode from "vscode";
+import { EventEmitter } from "vscode";
 import { Trace } from "vscode-jsonrpc/node";
+import * as languageClient from "vscode-languageclient/node";
+import { LanguageClient } from "vscode-languageclient/node";
 
 import { YarnSpinnerEditorProvider } from "./editor";
-import * as fs from "fs";
-import { EventEmitter } from "vscode";
 import {
     CompilerOutput,
     DidChangeNodesNotification,
     DidRequestNodeInGraphViewParams,
     MetadataEntry,
 } from "./nodes";
-
 import { DidChangeNodesParams, VOStringExport } from "./nodes";
-import { YarnPreviewPanel } from "./preview";
-import { LanguageClient } from "vscode-languageclient/node";
-import { ChildProcess, spawn } from "child_process";
-import { unescape } from "querystring";
 import { YarnSpinnerGraphViewProvider } from "./panels/YarnSpinnerGraphView";
+import { YarnPreviewPanel } from "./preview";
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
 

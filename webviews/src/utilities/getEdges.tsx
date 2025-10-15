@@ -1,5 +1,6 @@
 import type { Edge as GraphEdge } from "@xyflow/react";
 import { MarkerType } from "@xyflow/react";
+
 import type { NodeInfo } from "@/extension/nodes";
 
 export function getEdges(nodes: NodeInfo[]): GraphEdge[] {

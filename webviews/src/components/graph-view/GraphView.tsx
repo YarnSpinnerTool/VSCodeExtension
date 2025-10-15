@@ -1,3 +1,4 @@
+import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import type {
     Edge as GraphEdge,
     Node as GraphNode,
@@ -9,13 +10,13 @@ import type {
     XYPosition,
 } from "@xyflow/react";
 import {
-    applyNodeChanges,
     Background,
     BackgroundVariant,
     MiniMap,
     Panel,
     ReactFlow,
     ReactFlowProvider,
+    applyNodeChanges,
     useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -30,33 +31,33 @@ import {
 
 import type { NodeInfo } from "@/extension/nodes";
 
+import { autoLayoutNodes } from "@/utilities/autoLayout";
+import { NodeSize } from "@/utilities/constants";
+import {
+    getClusterNodes,
+    getGraphIdForCluster,
+} from "@/utilities/getClusterNodes";
+import { getClusterForNode, getClusterRect } from "@/utilities/getClusterRect";
+import { getContentNodes } from "@/utilities/getContentNodes";
+import { getEdges } from "@/utilities/getEdges";
+import type { YarnNodeData } from "@/utilities/nodeData";
+
+import { GraphViewContext } from "@/context";
+
 import IconAlignBottom from "@/images/align-bottom.svg?react";
 import IconAlignLeft from "@/images/align-left.svg?react";
 import IconAlignRight from "@/images/align-right.svg?react";
 import IconAlignTop from "@/images/align-top.svg?react";
 import IconAutoLayoutHorizontal from "@/images/auto-layout-horizontal.svg?react";
 import IconAutoLayoutVertical from "@/images/auto-layout-vertical.svg?react";
-
 import IconYarnSpinnerLogo from "@/images/yarnspinner-logo.svg?react";
 
-import { GraphViewContext } from "@/context";
-import { ContentNode } from "./ContentNode";
-import { ClusterNode } from "./ClusterNode";
-import { IconButton } from "./IconButton";
-import { autoLayoutNodes } from "@/utilities/autoLayout";
-import { getContentNodes } from "@/utilities/getContentNodes";
-import { getEdges } from "@/utilities/getEdges";
-import {
-    getGraphIdForCluster,
-    getClusterNodes,
-} from "@/utilities/getClusterNodes";
-import { getClusterForNode, getClusterRect } from "@/utilities/getClusterRect";
-import type { YarnNodeData } from "@/utilities/nodeData";
-import { NodeSize } from "@/utilities/constants";
-import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
-import { NodeGroupView } from "./NodeGroupView";
 import { ButtonGroup } from "./ButtonGroup";
+import { ClusterNode } from "./ClusterNode";
+import { ContentNode } from "./ContentNode";
 import { FlowControls } from "./FlowControls";
+import { IconButton } from "./IconButton";
+import { NodeGroupView } from "./NodeGroupView";
 
 export type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
@@ -428,10 +429,10 @@ export function GraphViewInProvider(props: GraphViewProps) {
 
     return (
         <>
-            <div className="size-full flex flex-col" ref={containerRef}>
-                <div className="bg-panel-background flex items-stretch p-1 gap-1 border-b border-b-panel-border shadow-sm shadow-widget-shadow">
+            <div className="flex size-full flex-col" ref={containerRef}>
+                <div className="bg-panel-background border-b-panel-border shadow-widget-shadow flex items-stretch gap-1 border-b p-1 shadow-sm">
                     <IconYarnSpinnerLogo className="fill-editor-foreground size-8 shrink-0" />
-                    <div className="shrink grow text-lg font-bold whitespace-nowrap text-ellipsis">
+                    <div className="shrink grow text-lg font-bold text-ellipsis whitespace-nowrap">
                         Yarn Spinner
                     </div>
 
@@ -521,7 +522,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         style={{ width: 100, height: 100 }}
                         bgColor="var(--color-minimap-background)"
                         maskColor="var(--color-minimap-mask)"
-                        className="bg-editor-background border outline-1 border-none outline-editor-foreground/50 rounded-sm"
+                        className="bg-editor-background outline-editor-foreground/50 rounded-sm border border-none outline-1"
                     />
                     <Panel position="bottom-center" className="flex gap-2">
                         <ButtonGroup direction="horizontal">

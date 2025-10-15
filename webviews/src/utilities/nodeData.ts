@@ -1,4 +1,5 @@
 import type { NodeInfo } from "@/extension/nodes";
+
 import type { NodeEventHandlers } from "@/components/graph-view/GraphView";
 
 export type YarnNodeData = {

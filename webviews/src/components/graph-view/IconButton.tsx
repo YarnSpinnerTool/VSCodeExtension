@@ -11,7 +11,7 @@ export function IconButton(props: {
         <div
             onClick={props.onClick}
             title={props.title}
-            className={clsx("h-[20px] flex", {
+            className={clsx("flex h-[20px]", {
                 "fill-editor-foreground/75 hover:fill-editor-foreground cursor-pointer":
                     props.enabled === true || props.enabled === undefined,
                 "fill-editor-foreground/25 cursor-auto":

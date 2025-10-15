@@ -1,9 +1,11 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
+
 import { NodeSize } from "@/utilities/constants";
-import { nodeTopBarClasses } from "@/utilities/nodeColours";
-import { GraphContentSingleNode } from "./ContentNode";
-import { ColourPicker } from "./ColourPicker";
 import { getNodeColour } from "@/utilities/getNodeColour";
+import { nodeTopBarClasses } from "@/utilities/nodeColours";
+
+import { ColourPicker } from "./ColourPicker";
+import { GraphContentSingleNode } from "./ContentNode";
 import type { GraphState, NodeEventHandlers } from "./GraphView";
 
 export function NodeGroupView(
@@ -25,24 +27,24 @@ export function NodeGroupView(
 
     return (
         // Overlay
-        <div className="size-full p-10 z-10  absolute top-0 left-0 bg-black/50">
+        <div className="absolute top-0 left-0 z-10 size-full bg-black/50 p-10">
             {/* Contents */}
-            <div className="bg-editor-background relative size-full p-2 rounded-2xl shadow-2xl shadow-widget-shadow flex flex-col gap-1">
+            <div className="bg-editor-background shadow-widget-shadow relative flex size-full flex-col gap-1 rounded-2xl p-2 shadow-2xl">
                 {/* Top Bar */}
-                <div className="w-full flex justify-between">
+                <div className="flex w-full justify-between">
                     <div className="font-bold">{currentNodeGroup}</div>
                     <div onClick={props.onClose} className="cursor-pointer">
                         Close
                     </div>
                 </div>
                 <div className="grow overflow-auto">
-                    <div className="flex flex-wrap  justify-around gap-4 align-top p-4">
+                    <div className="flex flex-wrap justify-around gap-4 p-4 align-top">
                         {graphContents.nodeData
                             .filter((n) => n.nodeGroup === currentNodeGroup)
                             .map((n, i) => {
                                 const color = getNodeColour(n);
                                 return (
-                                    <div className="relative cursor-default mt-8">
+                                    <div className="relative mt-8 cursor-default">
                                         <GraphContentSingleNode
                                             key={i}
                                             colour={color}
@@ -63,7 +65,7 @@ export function NodeGroupView(
                                         >
                                             <div
                                                 title="Complexity score"
-                                                className="bg-editor-background absolute  min-w-8 flex justify-center items-center font-bold -top-2 -right-2 p-1 aspect-square rounded-full shadow-widget-shadow shadow-sm"
+                                                className="bg-editor-background shadow-widget-shadow absolute -top-2 -right-2 flex aspect-square min-w-8 items-center justify-center rounded-full p-1 font-bold shadow-sm"
                                             >
                                                 {n.nodeGroupComplexity}
                                             </div>
@@ -71,7 +73,7 @@ export function NodeGroupView(
                                                 n.uniqueTitle && (
                                                 <>
                                                     {/* Top toolbar */}
-                                                    <div className="absolute -top-8  flex justify-center w-full">
+                                                    <div className="absolute -top-8 flex w-full justify-center">
                                                         <ColourPicker
                                                             nodeColour={color}
                                                             availableClasses={
@@ -92,7 +94,7 @@ export function NodeGroupView(
                                                         />
                                                     </div>
                                                     {/* Bottom toolbar */}
-                                                    <div className="absolute -bottom-8 flex gap-1 justify-center w-full">
+                                                    <div className="absolute -bottom-8 flex w-full justify-center gap-1">
                                                         <VSCodeButton
                                                             onClick={() =>
                                                                 n.uniqueTitle &&

@@ -53,6 +53,7 @@
     },
     "devDependencies": {
         "@interactjs/types": "^1.10.17",
+        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
         "@types/jest": "^27.0.1",
         "@types/node": "^22.16.4",
         "@types/vscode": "^1.102.0",
@@ -69,6 +70,7 @@
         "leader-line-types": "^1.0.5-2",
         "lint-staged": "^15.5.1",
         "prettier": "3.5.3",
+        "prettier-plugin-tailwindcss": "^0.7.0",
         "rimraf": "^6.0.1",
         "ts-jest": "^29.4.0",
         "ts-loader": "^9.4.1",

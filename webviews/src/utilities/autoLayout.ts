@@ -1,4 +1,5 @@
-import type { Node as GraphNode, Edge as GraphEdge } from "@xyflow/react";
+import type { Edge as GraphEdge, Node as GraphNode } from "@xyflow/react";
+
 import type { YarnNodeData } from "./nodeData";
 
 export async function autoLayoutNodes(

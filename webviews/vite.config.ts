@@ -1,9 +1,9 @@
-import { defineConfig, UserConfig } from "vite";
-import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import svgr from "vite-plugin-svgr";
+import react from "@vitejs/plugin-react";
 import path from "path";
+import { UserConfig, defineConfig } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
+import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 function isDevelopment(config: { mode: string }) {

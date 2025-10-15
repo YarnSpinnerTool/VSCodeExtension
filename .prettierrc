@@ -1,3 +1,23 @@
 {
-    "tabWidth": 4
+    "printWidth": 80,
+    "trailingComma": "all",
+    "singleQuote": false,
+    "semi": true,
+    "importOrder": [
+        "^@/extension",
+        "^@/components",
+        "^@/utilities",
+        "^@/(?!images)",
+        "^@/images",
+        "^\\./"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "quoteProps": "consistent",
+    "endOfLine": "lf",
+    "tabWidth": 4,
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ]
 }

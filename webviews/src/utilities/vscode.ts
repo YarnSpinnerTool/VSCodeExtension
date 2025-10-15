@@ -1,10 +1,10 @@
 import type { WebviewApi } from "vscode-webview";
-import type { WebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
-import type { DocumentState } from "@/extension/editor";
-import type { NodeHeader, NodeInfo, NodeJump } from "@/extension/nodes";
-
 import type { ZodType } from "zod";
 import { z } from "zod";
+
+import type { DocumentState } from "@/extension/editor";
+import type { NodeHeader, NodeInfo, NodeJump } from "@/extension/nodes";
+import type { WebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
 
 const NodeHeaderSchema = z.object({
     key: z.string(),

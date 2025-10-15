@@ -1,15 +1,16 @@
-import * as constants from "./constants";
+import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
+
+import { GroupType, GroupView } from "./GroupView";
 import { NodeView } from "./NodeView";
-import {
-    decomposeTransformMatrix,
-    getWindowCenter,
-    Position,
-    Size,
-} from "./util";
+import * as constants from "./constants";
 import { NodeInfo } from "./nodes";
 import { getLinesSVGForNodes } from "./svg";
-import { arrayDiff } from "vscode-languageclient/lib/common/workspaceFolder";
-import { GroupType, GroupView } from "./GroupView";
+import {
+    Position,
+    Size,
+    decomposeTransformMatrix,
+    getWindowCenter,
+} from "./util";
 
 export enum Alignment {
     Left = "LEFT",

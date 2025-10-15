@@ -1,5 +1,6 @@
-import * as vscode from "vscode";
 import * as fs from "fs";
+import * as vscode from "vscode";
+
 import { YarnData, getActiveWorkspaceUri } from "./extension";
 
 export class YarnPreviewPanel {

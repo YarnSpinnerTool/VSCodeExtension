@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
+import * as languageclient from "vscode-languageclient";
 import {
     Event,
     ExecuteCommandParams,
     LanguageClient,
     TextDocumentEdit,
 } from "vscode-languageclient/node";
-import * as languageclient from "vscode-languageclient";
+
 import {
     DidChangeNodesParams,
     DidRequestNodeInGraphViewParams,

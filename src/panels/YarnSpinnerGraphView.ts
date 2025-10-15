@@ -1,37 +1,36 @@
 import {
+    Commands,
+    DocumentState,
+    type NodesUpdatedEvent,
+    StateUpdatedEvent,
+} from "../editor";
+import { DidChangeNodesParams, NodeInfo } from "../nodes";
+import { getNonce } from "../utilities/getNonce";
+import { getWebviewUri } from "../utilities/getWebviewUri";
+import {
     CancellationToken,
-    commands,
     Disposable,
     Event,
     ExtensionContext,
-    RelativePattern,
-    Uri,
     Range,
+    RelativePattern,
+    Selection,
+    TextEditor,
+    TextEditorRevealType,
+    Uri,
+    ViewColumn,
     Webview,
     WebviewView,
     WebviewViewProvider,
     WebviewViewResolveContext,
+    WorkspaceEdit,
+    commands,
     window,
     workspace,
-    WorkspaceEdit,
-    ViewColumn,
-    TextEditorRevealType,
-    Selection,
-    TextEditor,
 } from "vscode";
-import { getNonce } from "../utilities/getNonce";
-import { getWebviewUri } from "../utilities/getWebviewUri";
-import { DidChangeNodesParams, NodeInfo } from "../nodes";
 import {
-    Commands,
-    DocumentState,
-    StateUpdatedEvent,
-    type NodesUpdatedEvent,
-} from "../editor";
-
-import {
-    ExecuteCommandRequest,
     type ExecuteCommandParams,
+    ExecuteCommandRequest,
     type LanguageClient,
     type TextDocumentEdit,
 } from "vscode-languageclient/node";

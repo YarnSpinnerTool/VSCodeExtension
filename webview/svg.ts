@@ -1,4 +1,5 @@
 import * as CurvedArrows from "curved-arrows";
+
 import { NodeView } from "./NodeView";
 import { NodeSize } from "./constants";
 import { Position, Size } from "./util";

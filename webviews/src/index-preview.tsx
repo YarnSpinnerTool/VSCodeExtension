@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+
 import PreviewApp from "./PreviewApp";
 
 const rootElement = document.getElementById("root");

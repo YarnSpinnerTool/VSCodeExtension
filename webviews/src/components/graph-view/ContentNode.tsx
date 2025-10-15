@@ -1,24 +1,27 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import type {
-    NodeProps,
     Node as GraphNode,
+    NodeProps,
     ReactFlowState,
 } from "@xyflow/react";
-import { NodeToolbar, Position, Handle, useStore } from "@xyflow/react";
+import { Handle, NodeToolbar, Position, useStore } from "@xyflow/react";
 import clsx from "clsx";
+import type { MouseEventHandler, PropsWithChildren } from "react";
+
+import type { NodeInfo } from "@/extension/nodes";
+
+import { NodeSize } from "@/utilities/constants";
+import { getNodeColour } from "@/utilities/getNodeColour";
 import {
+    nodeTopBarClasses,
     stickyNoteBackgroundClasses,
     stickyNoteTopBarClasses,
-    nodeTopBarClasses,
 } from "@/utilities/nodeColours";
 import type { YarnNodeData } from "@/utilities/nodeData";
-import type { NodeInfo } from "@/extension/nodes";
-import { NodeSize } from "@/utilities/constants";
-import type { MouseEventHandler, PropsWithChildren } from "react";
-import { getNodeColour } from "@/utilities/getNodeColour";
-import { ColourPicker } from "./ColourPicker";
 
 import IconExternalFileJump from "@/images/external-file-jump.svg?react";
+
+import { ColourPicker } from "./ColourPicker";
 
 function isSingleNode(
     data: YarnNodeData,
@@ -74,7 +77,7 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                         />
                     </NodeToolbar>
                     <NodeToolbar
-                        className="flex flex-col bg-editor-background shadow-widget-shadow shadow-lg rounded-md p-2 gap-2"
+                        className="bg-editor-background shadow-widget-shadow flex flex-col gap-2 rounded-md p-2 shadow-lg"
                         position={Position.Right}
                     >
                         <VSCodeButton
@@ -90,7 +93,7 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
             )}
             {isNodeGroup(props.data) && (
                 <NodeToolbar
-                    className="flex flex-col bg-editor-background shadow-widget-shadow shadow-lg rounded-md p-2 gap-2"
+                    className="bg-editor-background shadow-widget-shadow flex flex-col gap-2 rounded-md p-2 shadow-lg"
                     position={Position.Right}
                 >
                     <VSCodeButton
@@ -154,7 +157,7 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                 props.data.nodeInfos.find((n) => n.containsExternalJumps) && (
                     <div
                         title="Contains a jump to a node in another file."
-                        className=" absolute top-[50%] -right-[48px] w-[48px]   fill-graph-edge"
+                        className="fill-graph-edge absolute top-[50%] -right-[48px] w-[48px]"
                     >
                         <IconExternalFileJump />
                     </div>
@@ -177,7 +180,7 @@ function GraphStickyNote(props: {
         <div
             onClick={props.onClick}
             className={clsx(
-                "p-2 border-2 text-2xl shadow-lg rotate-3 rounded-md overflow-clip size-full whitespace-pre-line font-bold",
+                "size-full rotate-3 overflow-clip rounded-md border-2 p-2 text-2xl font-bold whitespace-pre-line shadow-lg",
                 ...backgroundClass,
                 {
                     "border-transparent": !props.selected,
@@ -213,7 +216,7 @@ export function GraphContentSingleNode(
         <>
             <div
                 className={clsx(
-                    "text-[13px] flex flex-col overflow-clip box-border border-1 border-editor-foreground/50  rounded-sm shadow-md shadow-widget-shadow bg-single-node-background",
+                    "border-editor-foreground/50 shadow-widget-shadow bg-single-node-background box-border flex flex-col overflow-clip rounded-sm border-1 text-[13px] shadow-md",
                     {
                         "outline-selected outline-2": props.selected,
                     },
@@ -246,17 +249,17 @@ export function GraphContentSingleNode(
                         </div>
                     )}
                     {!showPreview && (
-                        <div className="flex flex-col gap-2 justify-stretch py-2">
+                        <div className="flex flex-col justify-stretch gap-2 py-2">
                             <div
-                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                className="bg-editor-foreground/20 h-4 grow rounded-sm"
                                 key={0}
                             />
                             <div
-                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                className="bg-editor-foreground/20 h-4 grow rounded-sm"
                                 key={1}
                             />
                             <div
-                                className="bg-editor-foreground/20 rounded-sm h-4 grow"
+                                className="bg-editor-foreground/20 h-4 grow rounded-sm"
                                 key={2}
                             />
                         </div>
@@ -288,7 +291,7 @@ function GraphContentNodeGroup(props: {
                 {/* Top layer */}
                 <div
                     className={clsx(
-                        "text-[13px] flex flex-col overflow-clip box-border border-4  rounded-sm shadow-md shadow-widget-shadow bg-node-group-background",
+                        "shadow-widget-shadow bg-node-group-background box-border flex flex-col overflow-clip rounded-sm border-4 text-[13px] shadow-md",
                         {
                             "border-purple/50": props.selected,
                             "border-purple": !props.selected,
@@ -297,11 +300,11 @@ function GraphContentNodeGroup(props: {
                     )}
                     style={{ width: props.width, height: props.height }}
                 >
-                    <div className="p-2 flex flex-col justify-center items-center grow gap-2">
-                        <div className="font-bold text-2xl">
+                    <div className="flex grow flex-col items-center justify-center gap-2 p-2">
+                        <div className="text-2xl font-bold">
                             {nodeGroupName}
                         </div>
-                        <div className="font-bold text-lg">
+                        <div className="text-lg font-bold">
                             {nodeCount} {nodeCount == 1 ? "node" : "nodes"}
                         </div>
                     </div>
@@ -319,7 +322,7 @@ function GraphContentNodeGroup(props: {
                                 left: i * 5,
                             }}
                             className={clsx(
-                                "shadow-md absolute rounded-sm shadow-widget-shadow bg-node-group-background",
+                                "shadow-widget-shadow bg-node-group-background absolute rounded-sm shadow-md",
                                 {
                                     "border-purple/50": props.selected,
                                     "border-purple": !props.selected,

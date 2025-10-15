@@ -1,4 +1,4 @@
 test/input/*.json
 src/runner.html
-build/
+build/**/*
 

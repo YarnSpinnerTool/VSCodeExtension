@@ -1,12 +1,14 @@
-import { vscode } from "./utilities/vscode";
-import "./App.css";
-import GraphView from "./components/graph-view/GraphView";
-import type { DocumentState, WebViewEvent } from "@/extension/editor";
-import { useCallback, useEffect, useState } from "react";
-import { GraphViewContext } from "./context";
 import type { XYPosition } from "@xyflow/react";
+import { useCallback, useEffect, useState } from "react";
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
+
+import type { DocumentState, WebViewEvent } from "@/extension/editor";
+
+import "./App.css";
+import GraphView from "./components/graph-view/GraphView";
+import { GraphViewContext } from "./context";
+import { vscode } from "./utilities/vscode";
 
 // Attempt to restore state when we start up.
 const restoredState = vscode.getState();
@@ -142,7 +144,7 @@ export default function App() {
                         onNodeHeadersUpdated={onNodeHeadersUpdated}
                     />
                 ) : (
-                    <div className="size-full flex flex-col justify-center text-center items-center select-none p-4 gap-2">
+                    <div className="flex size-full flex-col items-center justify-center gap-2 p-4 text-center select-none">
                         <div>
                             Select a Yarn Spinner script to show the graph view.
                         </div>
