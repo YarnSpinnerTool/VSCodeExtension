@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import svgr from "vite-plugin-svgr";
 import path from "path";
+import { analyzer } from "vite-bundle-analyzer";
 
 function isDevelopment(config: { mode: string }) {
     return config.mode.endsWith("development");
@@ -27,7 +28,17 @@ export default defineConfig((config) => {
     const outDir = viewName ? `./build/${viewName}` : "./build";
 
     return {
-        plugins: [react(), tailwindcss(), svgr()],
+        plugins: [
+            react(),
+            tailwindcss(),
+            svgr(),
+            analyzer({
+                enabled: isDevelopment(config),
+                analyzerMode: "static",
+                fileName: viewName ? `stats-${viewName}.html` : "stats.html",
+                openAnalyzer: false,
+            }),
+        ],
         publicDir: path.resolve(__dirname, publicDir),
         build: {
             sourcemap: isDevelopment(config) ? "inline" : false,
