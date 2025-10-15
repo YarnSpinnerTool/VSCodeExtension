@@ -1,6 +1,6 @@
 import type { Node as GraphNode } from "@xyflow/react";
 import { getClusterForNode, getClusterRect } from "./getClusterRect";
-import type { NodeInfo } from "../../../src/nodes";
+import type { NodeInfo } from "@/extension/nodes";
 import { getNodePosition } from "./getNodePosition";
 import type { YarnNodeData } from "./nodeData";
 

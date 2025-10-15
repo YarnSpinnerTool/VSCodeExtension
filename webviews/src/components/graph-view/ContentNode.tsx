@@ -10,15 +10,15 @@ import {
     stickyNoteBackgroundClasses,
     stickyNoteTopBarClasses,
     nodeTopBarClasses,
-} from "../utilities/nodeColours";
-import type { YarnNodeData } from "../utilities/nodeData";
-import type { NodeInfo } from "../../../src/nodes";
-import { NodeSize } from "../utilities/constants";
+} from "@/utilities/nodeColours";
+import type { YarnNodeData } from "@/utilities/nodeData";
+import type { NodeInfo } from "@/extension/nodes";
+import { NodeSize } from "@/utilities/constants";
 import type { MouseEventHandler, PropsWithChildren } from "react";
-import { getNodeColour } from "../utilities/getNodeColour";
+import { getNodeColour } from "@/utilities/getNodeColour";
 import { ColourPicker } from "./ColourPicker";
 
-import IconExternalFileJump from "../images/external-file-jump.svg?react";
+import IconExternalFileJump from "@/images/external-file-jump.svg?react";
 
 function isSingleNode(
     data: YarnNodeData,

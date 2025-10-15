@@ -1,5 +1,5 @@
-import type { NodeInfo } from "../../../src/nodes";
-import type { NodeEventHandlers } from "../components/GraphView";
+import type { NodeInfo } from "@/extension/nodes";
+import type { NodeEventHandlers } from "@/components/graph-view/GraphView";
 
 export type YarnNodeData = {
     isNodeGroup?: boolean;

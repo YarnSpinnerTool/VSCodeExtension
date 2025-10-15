@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import svgr from "vite-plugin-svgr";
 import path from "path";
 import { analyzer } from "vite-bundle-analyzer";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 function isDevelopment(config: { mode: string }) {
     return config.mode.endsWith("development");
@@ -30,6 +31,7 @@ export default defineConfig((config) => {
 
     return {
         plugins: [
+            tsconfigPaths(),
             react(),
             tailwindcss(),
             svgr(),

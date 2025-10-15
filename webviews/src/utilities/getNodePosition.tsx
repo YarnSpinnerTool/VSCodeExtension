@@ -1,5 +1,5 @@
 import type { XYPosition } from "@xyflow/react";
-import type { NodeInfo } from "../../../src/nodes";
+import type { NodeInfo } from "@/extension/nodes";
 
 export function getNodePosition(n: NodeInfo): XYPosition | null {
     const positionHeader = n.headers?.find((h) => h.key === "position")?.value;

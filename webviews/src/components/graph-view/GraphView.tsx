@@ -28,31 +28,31 @@ import {
     useState,
 } from "react";
 
-import type { NodeInfo } from "../../../src/nodes";
+import type { NodeInfo } from "@/extension/nodes";
 
-import IconAlignBottom from "../images/align-bottom.svg?react";
-import IconAlignLeft from "../images/align-left.svg?react";
-import IconAlignRight from "../images/align-right.svg?react";
-import IconAlignTop from "../images/align-top.svg?react";
-import IconAutoLayoutHorizontal from "../images/auto-layout-horizontal.svg?react";
-import IconAutoLayoutVertical from "../images/auto-layout-vertical.svg?react";
+import IconAlignBottom from "@/images/align-bottom.svg?react";
+import IconAlignLeft from "@/images/align-left.svg?react";
+import IconAlignRight from "@/images/align-right.svg?react";
+import IconAlignTop from "@/images/align-top.svg?react";
+import IconAutoLayoutHorizontal from "@/images/auto-layout-horizontal.svg?react";
+import IconAutoLayoutVertical from "@/images/auto-layout-vertical.svg?react";
 
-import IconYarnSpinnerLogo from "../images/yarnspinner-logo.svg?react";
+import IconYarnSpinnerLogo from "@/images/yarnspinner-logo.svg?react";
 
-import { GraphViewContext } from "../context";
+import { GraphViewContext } from "@/context";
 import { ContentNode } from "./ContentNode";
 import { ClusterNode } from "./ClusterNode";
 import { IconButton } from "./IconButton";
-import { autoLayoutNodes } from "../utilities/autoLayout";
-import { getContentNodes } from "../utilities/getContentNodes";
-import { getEdges } from "../utilities/getEdges";
+import { autoLayoutNodes } from "@/utilities/autoLayout";
+import { getContentNodes } from "@/utilities/getContentNodes";
+import { getEdges } from "@/utilities/getEdges";
 import {
     getGraphIdForCluster,
     getClusterNodes,
-} from "../utilities/getClusterNodes";
-import { getClusterForNode, getClusterRect } from "../utilities/getClusterRect";
-import type { YarnNodeData } from "../utilities/nodeData";
-import { NodeSize } from "../utilities/constants";
+} from "@/utilities/getClusterNodes";
+import { getClusterForNode, getClusterRect } from "@/utilities/getClusterRect";
+import type { YarnNodeData } from "@/utilities/nodeData";
+import { NodeSize } from "@/utilities/constants";
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import { NodeGroupView } from "./NodeGroupView";
 import { ButtonGroup } from "./ButtonGroup";

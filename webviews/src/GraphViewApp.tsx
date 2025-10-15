@@ -1,7 +1,7 @@
 import { vscode } from "./utilities/vscode";
 import "./App.css";
-import GraphView from "./components/GraphView";
-import type { DocumentState, WebViewEvent } from "../../src/editor";
+import GraphView from "./components/graph-view/GraphView";
+import type { DocumentState, WebViewEvent } from "@/extension/editor";
 import { useCallback, useEffect, useState } from "react";
 import { GraphViewContext } from "./context";
 import type { XYPosition } from "@xyflow/react";

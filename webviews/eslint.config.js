@@ -32,22 +32,26 @@ export default tseslint.config(
                 "warn",
                 { allowConstantExport: true },
             ],
+            "no-restricted-imports": "off",
+            "@typescript-eslint/no-restricted-imports": [
+                "error",
+                {
+                    patterns: [
+                        {
+                            regex: "^\\.[^/]",
+                            message:
+                                "Do not import files outside the current directory by path; use @/* instead",
+                        },
+                        {
+                            regex: "^@/extension/",
+                            message:
+                                "Only type imports are allowed from the extension. Use 'import type' instead.",
+                            allowTypeImports: true,
+                        },
+                    ],
+                },
+            ],
         },
     },
     eslintConfigPrettier,
-    // {
-    //     rules: {
-    //         "no-restricted-imports": [
-    //             "error",
-    //             {
-    //                 patterns: [
-    //                     {
-    //                         regex: "^\\.",
-    //                         message: "Do not import files by path; use @/* instead",
-    //                     },
-    //                 ],
-    //             },
-    //         ],
-    //     },
-    // },
 );

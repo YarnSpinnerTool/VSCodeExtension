@@ -1,7 +1,7 @@
 import type { WebviewApi } from "vscode-webview";
-import type { WebviewMessage } from "../../../src/panels/YarnSpinnerGraphView";
-import type { DocumentState } from "../../../src/editor";
-import type { NodeHeader, NodeInfo, NodeJump } from "../../../src/nodes";
+import type { WebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
+import type { DocumentState } from "@/extension/editor";
+import type { NodeHeader, NodeInfo, NodeJump } from "@/extension/nodes";
 
 import type { ZodType } from "zod";
 import { z } from "zod";

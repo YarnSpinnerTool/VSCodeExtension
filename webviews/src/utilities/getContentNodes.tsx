@@ -1,8 +1,8 @@
 import { NodeOffset, NodeSize } from "./constants";
 import { getNodePosition } from "./getNodePosition";
 import type { Node as GraphNode } from "@xyflow/react";
-import type { NodeInfo } from "../../../src/nodes";
-import type { NodeEventHandlers } from "../components/GraphView";
+import type { NodeInfo } from "@/extension/nodes";
+import type { NodeEventHandlers } from "@/components/graph-view/GraphView";
 import type { YarnNodeData } from "./nodeData";
 
 export function getContentNodes(
