@@ -64,7 +64,7 @@ export function StoryPreview() {
                     <VSCodeButton appearance="secondary">Restart</VSCodeButton>
                 </div>
             </div>
-            <div className="flex grow flex-col gap-2 overflow-auto p-4">
+            <div className="mx-auto flex max-w-lg grow flex-col gap-2 overflow-auto p-4 lg:max-w-2xl">
                 {lines.map((line, i) => (
                     <LineView
                         line={line}
