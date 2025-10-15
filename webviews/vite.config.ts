@@ -14,6 +14,7 @@ function getViewName(config: { mode: string }) {
 
     switch (name) {
         case "graph-view":
+        case "preview":
             return name;
         default:
             throw new Error(`${config.mode} is not a valid view name`);

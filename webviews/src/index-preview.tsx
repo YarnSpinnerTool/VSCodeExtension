@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import GraphViewApp from "./GraphViewApp";
+import PreviewApp from "./PreviewApp";
 
 const rootElement = document.getElementById("root");
 
@@ -12,6 +12,6 @@ const root = createRoot(rootElement);
 
 root.render(
     <React.StrictMode>
-        <GraphViewApp />
+        <PreviewApp />
     </React.StrictMode>,
 );

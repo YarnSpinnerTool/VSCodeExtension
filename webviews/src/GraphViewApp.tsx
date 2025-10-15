@@ -16,7 +16,7 @@ function assertDocumentURIValid(uri?: string | null): asserts uri is string {
     }
 }
 
-function App() {
+export default function App() {
     const [viewState, setViewState] = useState<DocumentState>(
         restoredState ?? {
             state: "Unknown",
@@ -174,5 +174,3 @@ function ErrorPresenter({ error, resetErrorBoundary }: FallbackProps) {
         </div>
     );
 }
-
-export default App;
