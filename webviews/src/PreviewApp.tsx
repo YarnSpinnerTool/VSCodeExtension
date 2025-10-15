@@ -4,15 +4,17 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import type { DocumentState, WebViewEvent } from "@/extension/editor";
 
+import { StoryPreview } from "@/components/preview/StoryPreview";
+
 import { vscode } from "@/utilities/vscode";
 
-import "./App.css";
+import "@/App.css";
 
 // Attempt to restore state when we start up.
 const restoredState = vscode.getState();
 
 export default function App() {
-    const [viewState, setViewState] = useState<DocumentState>(
+    const [, setViewState] = useState<DocumentState>(
         restoredState ?? {
             state: "Unknown",
         },
@@ -34,13 +36,9 @@ export default function App() {
         };
     });
 
-    if (!viewState.uri) {
-        return;
-    }
-
     return (
         <ErrorBoundary fallbackRender={ErrorPresenter}>
-            <div>Contents</div>
+            <StoryPreview />
         </ErrorBoundary>
     );
 }

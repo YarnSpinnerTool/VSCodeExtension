@@ -82,28 +82,6 @@ export type WebviewMessage =
           headers: Record<string, string | null>;
       };
 
-/*
- switch (e.type) {
-                case "add":
-                    this.addNode(document, e.position, e.headers);
-                    return;
-
-                case "delete":
-                    this.deleteNode(document, e.id);
-                    return;
-
-                case "move":
-                    this.moveNode(document, e.positions);
-                    return;
-
-                case "open":
-                    this.openNode(document, e.id);
-                    return;
-
-                case "update-header":
-                    this.updateNodeHeader(document, e.nodeName, e.key, e.value);
-            }*/
-
 export class YarnSpinnerGraphViewProvider implements WebviewViewProvider {
     private _extensionContext: ExtensionContext;
 

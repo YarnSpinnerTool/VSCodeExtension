@@ -20,6 +20,7 @@ import {
 } from "./nodes";
 import { DidChangeNodesParams, VOStringExport } from "./nodes";
 import { YarnSpinnerGraphViewProvider } from "./panels/YarnSpinnerGraphView";
+import { YarnSpinnerPreviewPanel } from "./panels/YarnSpinnerPreviewPanel";
 import { YarnPreviewPanel } from "./preview";
 
 const isDebugMode = () => process.env.VSCODE_DEBUG_MODE === "true";
@@ -542,6 +543,12 @@ async function launchLanguageServer(
                     });
             },
         ),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("yarnspinner.showPreview2", () => {
+            YarnSpinnerPreviewPanel.createOrShow(context);
+        }),
     );
 
     // perform a compilation and preview the output in an interactive manner

@@ -112,6 +112,10 @@
                     "command": "yarnspinner.showPreview"
                 },
                 {
+                    "command": "yarnspinner.showPreview2",
+                    "when": "config.yarnspinner.enableExperimentalFeatures"
+                },
+                {
                     "command": "yarnspinner.exportPreview"
                 },
                 {
@@ -148,6 +152,12 @@
                 "command": "yarnspinner.showPreview",
                 "category": "Yarn Spinner",
                 "title": "Preview Dialogue",
+                "enablement": "yarnspinner.languageServerLaunched"
+            },
+            {
+                "command": "yarnspinner.showPreview2",
+                "category": "Yarn Spinner",
+                "title": "Preview Dialogue (New UI)",
                 "enablement": "yarnspinner.languageServerLaunched"
             },
             {
