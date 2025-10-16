@@ -37,6 +37,22 @@ export function StoryPreview(props: {
         firstRender.current = false;
     }, [history.length, nextAction]);
 
+    useEffect(() => {
+        // When the spacebar or enter key is pressed, and the current action is
+        // showing a line, advance to the next line
+        const advanceLineOnKeyDown = (evt: KeyboardEvent) => {
+            if (
+                nextAction?.type == "present-line" &&
+                (evt.key == " " || evt.key == "Enter")
+            ) {
+                nextAction.continue();
+            }
+        };
+        window.addEventListener("keydown", advanceLineOnKeyDown);
+        return () =>
+            window.removeEventListener("keydown", advanceLineOnKeyDown);
+    });
+
     return (
         <div className="flex h-full flex-col select-none">
             <div className="border-panel-border flex items-stretch justify-between border-b px-2 py-1 text-lg font-bold">
@@ -123,15 +139,23 @@ export function StoryPreview(props: {
                         </VSCodeButton>
                     )}
                     {nextAction?.type == "select-option" &&
-                        nextAction.options.map((opt, i) => (
-                            <OptionView
-                                key={i}
-                                className="w-full"
-                                option={opt}
-                                stringTable={props.stringTable ?? {}}
-                                onClick={() => nextAction.continue(opt)}
-                            />
-                        ))}
+                        nextAction.options
+                            .filter((opt) => opt.isAvailable)
+                            .map((opt, i) => (
+                                <div
+                                    key={i}
+                                    className="flex w-full items-center gap-2"
+                                >
+                                    <div>{i + 1}.</div>
+                                    <OptionView
+                                        displayedIndex={i + 1}
+                                        className="grow"
+                                        option={opt}
+                                        stringTable={props.stringTable ?? {}}
+                                        onClick={() => nextAction.continue(opt)}
+                                    />
+                                </div>
+                            ))}
                 </div>
             )}
         </div>
