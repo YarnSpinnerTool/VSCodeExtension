@@ -12,7 +12,7 @@ import { GraphViewContext } from "./context";
 import { vscode } from "./utilities/vscode";
 
 // Attempt to restore state when we start up.
-const restoredState = vscode.getState();
+const restoredState = vscode.getGraphViewState();
 
 function assertDocumentURIValid(uri?: string | null): asserts uri is string {
     if (uri === null) {
