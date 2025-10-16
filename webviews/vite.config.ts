@@ -42,12 +42,14 @@ export default defineConfig((config) => {
                 openAnalyzer: false,
             }),
         ],
+        esbuild: {
+            minifyIdentifiers: isDevelopment(config) ? false : undefined,
+        },
         publicDir: path.resolve(__dirname, publicDir),
         build: {
             sourcemap: isDevelopment(config) ? "inline" : false,
             reportCompressedSize: isDevelopment(config) == false,
             outDir,
-
             rollupOptions: {
                 input: {
                     main: path.resolve(__dirname, `src/${viewName}.html`),
