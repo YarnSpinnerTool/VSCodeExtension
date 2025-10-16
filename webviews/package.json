@@ -13,13 +13,15 @@
     "dependencies": {
         "@vscode/webview-ui-toolkit": "^1.4.0",
         "@xyflow/react": "^12.8.2",
+        "@yarnspinnertool/core": "^0.0.1-132",
         "clsx": "^2.1.1",
         "elkjs": "^0.10.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-error-boundary": "^6.0.0",
         "vite-plugin-svgr": "^4.3.0",
-        "zod": "^4.0.13"
+        "zod": "^4.0.13",
+        "zustand": "^5.0.8"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.1.11",
