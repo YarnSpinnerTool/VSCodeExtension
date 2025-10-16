@@ -5,6 +5,7 @@ import { z } from "zod";
 import type { DocumentState } from "@/extension/editor";
 import type { NodeHeader, NodeInfo, NodeJump } from "@/extension/nodes";
 import type { WebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
+import type { PreviewWebViewMessage } from "@/extension/panels/YarnSpinnerPreviewPanel";
 
 const NodeHeaderSchema = z.object({
     key: z.string(),
@@ -71,7 +72,7 @@ class VSCodeAPIWrapper {
      *
      * @param message Abitrary data (must be JSON serializable) to send to the extension context.
      */
-    public postMessage(message: WebviewMessage) {
+    public postMessage(message: WebviewMessage | PreviewWebViewMessage) {
         if (this.vsCodeApi) {
             this.vsCodeApi.postMessage(message);
         } else {
@@ -87,7 +88,7 @@ class VSCodeAPIWrapper {
      *
      * @return The current state or `undefined` if no state has been set.
      */
-    public getState(): DocumentState | undefined {
+    public getGraphViewState(): DocumentState | undefined {
         let loadedContent: unknown;
 
         if (this.vsCodeApi) {
@@ -105,6 +106,13 @@ class VSCodeAPIWrapper {
         }
     }
 
+    public getState(): unknown {
+        return this.vsCodeApi?.getState();
+    }
+    public setState(data: unknown) {
+        this.vsCodeApi?.setState(data);
+    }
+
     /**
      * Set the persistent state stored for this webview.
      *
@@ -116,7 +124,7 @@ class VSCodeAPIWrapper {
      *
      * @return The new state.
      */
-    public setState(newState: DocumentState): DocumentState {
+    public setGraphViewState(newState: DocumentState): DocumentState {
         if (this.vsCodeApi) {
             return this.vsCodeApi.setState(newState);
         } else {

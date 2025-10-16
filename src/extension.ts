@@ -547,19 +547,22 @@ async function launchLanguageServer(
 
     context.subscriptions.push(
         vscode.commands.registerCommand("yarnspinner.showPreview2", () => {
-            YarnSpinnerPreviewPanel.createOrShow(context);
+            YarnSpinnerPreviewPanel.createOrShow(context, () =>
+                // Provide a function that the panel can use to request an
+                // updated compilation result
+                compileWorkspace(client),
+            );
         }),
     );
 
     // perform a compilation and preview the output in an interactive manner
     context.subscriptions.push(
         vscode.commands.registerCommand("yarnspinner.showPreview", () => {
-            let compileResult: Promise<YarnData | null> =
-                compileWorkspace(client);
+            let compileResult = compileWorkspace(client);
 
             compileResult
                 .then((result) => {
-                    if (result) {
+                    if (!("errors" in result)) {
                         YarnPreviewPanel.createOrShow(
                             context.extensionUri,
                             result,
@@ -581,12 +584,11 @@ async function launchLanguageServer(
     // perform a compilation and save the output to a file
     context.subscriptions.push(
         vscode.commands.registerCommand("yarnspinner.exportPreview", () => {
-            let compileResult: Promise<YarnData | null> =
-                compileWorkspace(client);
+            let compileResult = compileWorkspace(client);
 
             compileResult
                 .then((result) => {
-                    if (result) {
+                    if (!("errors" in result)) {
                         var html = YarnPreviewPanel.generateHTML(
                             result,
                             context.extensionUri,
@@ -761,11 +763,11 @@ async function launchLanguageServer(
 
 async function compileWorkspace(
     client: languageClient.LanguageClient,
-): Promise<YarnData | null> {
+): Promise<YarnData | { errors: string[] }> {
     const uri = await getOrChooseProjectUri();
 
     if (!uri) {
-        return null;
+        return { errors: ["No project available to compile."] };
     }
 
     const params: languageClient.ExecuteCommandParams = {
@@ -779,7 +781,7 @@ async function compileWorkspace(
     );
 
     if (result.errors.length > 0) {
-        return null;
+        return { errors: result.errors };
     }
 
     let yarnData: YarnData = {

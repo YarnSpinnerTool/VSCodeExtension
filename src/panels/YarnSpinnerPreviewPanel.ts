@@ -1,3 +1,4 @@
+import { YarnData } from "../extension";
 import { getNonce } from "../utilities/getNonce";
 import { getWebviewUri } from "../utilities/getWebviewUri";
 import {
@@ -11,10 +12,24 @@ import {
 } from "vscode";
 import * as vscode from "vscode";
 
+import { WebviewMessage } from "./YarnSpinnerGraphView";
+
 const stylesAssetPath = ["webviews", "build", "preview", "assets", "main.css"];
 const scriptAssetPath = ["webviews", "build", "preview", "assets", "main.js"];
 
-export type PreviewWebViewMessage = unknown;
+export type PreviewWebViewMessage =
+    | { type: "ready" }
+    | { type: "request-updated-program" };
+
+export type PreviewExtensionMessage =
+    | {
+          type: "program-updated";
+          data: YarnData;
+      }
+    | {
+          type: "program-update-failed";
+          errors: string[];
+      };
 
 /**
  * This class manages the state and behavior of HelloWorld webview panels.
@@ -46,7 +61,11 @@ export class YarnSpinnerPreviewPanel {
         };
     }
 
-    public static createOrShow(context: ExtensionContext) {
+    public static async createOrShow(
+        context: ExtensionContext,
+        getCompiledProgram: () => Promise<YarnData | { errors: string[] }>,
+    ): Promise<YarnSpinnerPreviewPanel> {
+        console.log("Create preview panel");
         const column = vscode.window.activeTextEditor
             ? vscode.window.activeTextEditor.viewColumn
             : undefined;
@@ -55,7 +74,7 @@ export class YarnSpinnerPreviewPanel {
         if (YarnSpinnerPreviewPanel.currentPanel) {
             // YarnSpinnerPreviewPanel.currentPanel.update(yarnData);
             YarnSpinnerPreviewPanel.currentPanel._panel.reveal(column);
-            return;
+            return YarnSpinnerPreviewPanel.currentPanel;
         }
 
         // Otherwise, create a new panel.
@@ -72,15 +91,61 @@ export class YarnSpinnerPreviewPanel {
             YarnSpinnerPreviewPanel.currentPanel = undefined;
         });
 
-        panel.webview.onDidReceiveMessage((message) => {
-            switch (message.command) {
-            }
+        const waitForReadyPromise = new Promise<void>((resolve) => {
+            const messageReceiveDisposer = panel.webview.onDidReceiveMessage(
+                (message: PreviewWebViewMessage) => {
+                    console.log("Received message", message);
+                    if (message.type == "ready") {
+                        messageReceiveDisposer.dispose();
+                        resolve();
+                    }
+                },
+            );
         });
 
-        YarnSpinnerPreviewPanel.currentPanel = new YarnSpinnerPreviewPanel(
-            panel,
-            context,
+        const newPanel = new YarnSpinnerPreviewPanel(panel, context);
+        await waitForReadyPromise;
+        YarnSpinnerPreviewPanel.currentPanel = newPanel;
+
+        const program = await getCompiledProgram();
+        newPanel.updateProgram(
+            program ?? { error: "Failed to compile program" },
         );
+
+        const messageReceiver = panel.webview.onDidReceiveMessage(
+            async (message: PreviewWebViewMessage) => {
+                if (message.type == "request-updated-program") {
+                    const result = await getCompiledProgram();
+                    newPanel.updateProgram(result);
+                }
+            },
+        );
+        newPanel._disposables.push(messageReceiver);
+
+        return newPanel;
+    }
+
+    public updateProgram(program: YarnData | { errors: string[] }) {
+        if (!this._webview) {
+            // No webview available.
+            console.error(
+                "Tried to update program in the preview panel, but no webview was available!",
+            );
+            return;
+        }
+        if ("errors" in program) {
+            console.log("Post program-update-failed");
+            this._webview.postMessage({
+                type: "program-update-failed",
+                errors: program.errors,
+            } satisfies PreviewExtensionMessage);
+        } else {
+            console.log("Post program-updated");
+            this._webview.postMessage({
+                type: "program-updated",
+                data: program,
+            } satisfies PreviewExtensionMessage);
+        }
     }
 
     /**
@@ -134,8 +199,6 @@ export class YarnSpinnerPreviewPanel {
             });
 
             await delayPromise;
-
-            // TODO: Update the web view with the existing state
         };
 
         // React to changes in the dist directory

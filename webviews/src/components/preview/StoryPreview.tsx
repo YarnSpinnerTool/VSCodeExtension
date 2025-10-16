@@ -1,236 +1,41 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
-import type { Line, OptionItem, StringTable } from "@yarnspinnertool/core";
-import { Program, YarnVM } from "@yarnspinnertool/core";
-import { clsx } from "clsx";
+import type { StringTable } from "@yarnspinnertool/core";
 import { useEffect, useRef } from "react";
-import { create } from "zustand";
 
-import { base64ToBytes } from "@/utilities/base64ToBytes";
-
+import SpinnerIcon from "@/images/spinner.svg?react";
 import YarnSpinnerLogo from "@/images/yarnspinner-logo.svg?react";
 
-import type { CompiledYarnProgram } from "./testData";
-import testData from "./testData";
+import { LineView } from "./LineView";
+import { OptionView } from "./OptionView";
+import type { DialogueAction, DialogueHistoryItem } from "./useYarn";
 
-type Store = {
-    vm: YarnVM;
-    history: (
-        | { type: "line"; line: Line }
-        | { type: "selected-option"; option: OptionItem }
-        | { type: "command"; command: string }
-    )[];
-    runProgram: (data: CompiledYarnProgram) => void;
-    currentState:
-        | {
-              type: "present-line";
-              line: Line;
-              continue: () => void;
-          }
-        | {
-              type: "select-option";
-              options: OptionItem[];
-              continue: (option: OptionItem) => void;
-          }
-        | null;
-};
-
-const useYarn = create<Store>((set, get) => {
-    const vm = new YarnVM();
-    vm.lineCallback = (line, signal) =>
-        new Promise((resolve) => {
-            console.log("Run line", line);
-            signal.onabort = () => resolve();
-            set({
-                history: [
-                    ...get().history,
-                    {
-                        type: "line",
-                        line: line,
-                    },
-                ],
-                currentState: {
-                    type: "present-line",
-                    line: line,
-                    continue: () => {
-                        set({
-                            currentState: null,
-                        });
-                        resolve();
-                    },
-                },
-            });
-        });
-
-    vm.commandCallback = (command) => {
-        console.log("Run command", command);
-        set({ history: [...get().history, { type: "command", command }] });
-        return Promise.resolve();
-    };
-
-    vm.optionCallback = (options, signal) => {
-        console.log("Run options", options);
-        return new Promise((resolve) => {
-            signal.onabort = () => resolve(-1);
-
-            set({
-                currentState: {
-                    type: "select-option",
-                    options: options,
-                    continue: (opt) => {
-                        set({
-                            history: [
-                                ...get().history,
-                                {
-                                    type: "selected-option",
-                                    option: opt,
-                                },
-                            ],
-                            currentState: null,
-                        });
-                        resolve(opt.optionID);
-                    },
-                },
-            });
-        });
-    };
-
-    return {
-        history: [],
-        vm: vm,
-        runProgram: (data, startNode = "Start") => {
-            set({
-                currentState: null,
-                history: [],
-            });
-            const newProgram = Program.fromBinary(
-                base64ToBytes(data.programData),
-            );
-
-            const { vm } = get();
-
-            vm.loadProgram(newProgram);
-            vm.setNode(startNode, true);
-            void vm.start();
-        },
-        currentState: null,
-    } satisfies Store;
-});
-
-function getLineText(
-    line: Line,
-    stringTable: StringTable | undefined,
-):
-    | {
-          lineText: string;
-          characterName: string | null;
-          lineTextWithoutName: string;
-      }
-    | { error: string } {
-    if (!stringTable) {
-        return { error: `${line.id} (no string table)` };
-    }
-    const stringInfo = stringTable[line.id];
-    if (!stringInfo) {
-        return { error: `${line.id} (no entry found)` };
-    }
-
-    const lineText = line.substitutions.reduce<string>(
-        (curr, item, idx) => curr.replace("{" + idx + "}", item.toString()),
-        stringInfo,
-    );
-
-    const nameMatch = lineText.match(characterNameRegex);
-
-    return {
-        lineText,
-        characterName: nameMatch != null ? nameMatch[1] : null,
-        lineTextWithoutName: nameMatch != null ? nameMatch[2] : lineText,
-    };
-}
-const characterNameRegex = /^([^:]+):\s*(.*)$/;
-
-function LineView(props: {
-    line: Line;
-    isCurrent?: boolean;
-    stringTable: StringTable;
-    className?: string;
+export function StoryPreview(props: {
+    isLoading: boolean;
+    history: DialogueHistoryItem[];
+    nextAction: DialogueAction | null;
+    errors: string[];
+    stringTable: StringTable | null;
+    onRestart: () => void;
+    onRequestUpdate: () => void;
 }) {
-    const lineResult = getLineText(props.line, props.stringTable);
-    return (
-        <div
-            title={props.line.id}
-            className={clsx(
-                "mx-8 box-content transition-opacity duration-200 select-text",
-                {
-                    "ps-3 opacity-50": !props.isCurrent,
-                    "border-s-selected border-s-4 ps-2": props.isCurrent,
-                },
-                props.className,
-            )}
-        >
-            <div>
-                {"error" in lineResult ? (
-                    lineResult.error
-                ) : lineResult.characterName ? (
-                    <>
-                        <span className="font-bold after:content-[':_']">
-                            {lineResult.characterName}
-                        </span>
-                        {lineResult.lineTextWithoutName}
-                    </>
-                ) : (
-                    lineResult.lineText
-                )}
-            </div>
-        </div>
-    );
-}
+    const { history, nextAction } = props;
 
-function OptionView(props: {
-    option: OptionItem;
-    stringTable: StringTable;
-    onClick?: (option: OptionItem) => void;
-    className?: string;
-}) {
-    const lineResult = getLineText(props.option.line, props.stringTable);
-    return (
-        <VSCodeButton
-            className={clsx(props.className)}
-            onClick={() => props.onClick?.(props.option)}
-        >
-            {"error" in lineResult
-                ? "ERROR: " + lineResult.error
-                : lineResult.lineTextWithoutName}
-        </VSCodeButton>
-    );
-}
-
-export type DialogueState =
-    | null
-    | { type: "line"; line: Line; continue: () => void }
-    | {
-          type: "options";
-          options: OptionItem[];
-          continue: (option: OptionItem) => void;
-      };
-
-export function StoryPreview() {
-    const runProgram = useYarn((s) => s.runProgram);
-    const history = useYarn((s) => s.history);
-    const currentState = useYarn((s) => s.currentState);
-
-    useEffect(() => {
-        runProgram(testData);
-    }, [runProgram]);
-
+    // A ref to an element that's always at the very bottom of the history,
+    // which we can scroll into view
     const scrollToBottomRef = useRef<HTMLDivElement>(null);
 
+    const firstRender = useRef(true);
+
     useEffect(() => {
+        // Scroll to the bottom of the history when our history length changes.
+        // If this is the first render, jump to it instantly; otherwise, scroll
+        // smoothly.
         scrollToBottomRef.current?.scrollIntoView({
             block: "end",
-            behavior: "smooth",
+            behavior: firstRender.current ? "instant" : "smooth",
         });
-    }, [history.length, currentState]);
+        firstRender.current = false;
+    }, [history.length, nextAction]);
 
     return (
         <div className="flex h-full flex-col select-none">
@@ -239,23 +44,52 @@ export function StoryPreview() {
                     <YarnSpinnerLogo className="h-7 fill-current" />
                     <div className="grow">Yarn Spinner Preview</div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                     <VSCodeButton
                         appearance="secondary"
-                        onClick={() => runProgram(testData)}
+                        onClick={() => props.onRequestUpdate()}
                     >
+                        {/* TODO: Temporarily using "Restart" as the label because
+                        until hot-loading is in, updating will always restart
+                        the dialogue */}
                         Restart
                     </VSCodeButton>
+                    {/* <VSCodeButton
+                        appearance="secondary"
+                        onClick={() => props.onRestart()}
+                    >
+                        Restart
+                    </VSCodeButton> */}
                 </div>
             </div>
             <div className="mx-auto flex w-[80%] grow flex-col gap-2 overflow-auto p-4">
+                {props.isLoading && (
+                    <div className="flex size-full flex-col items-center justify-center gap-3">
+                        <div>Loading...</div>
+                        <SpinnerIcon className="fill-selected size-10 animate-spin" />
+                    </div>
+                )}
+                {props.errors.length > 0 && (
+                    <>
+                        <div className="font-bold">
+                            Errors exist in your Yarn Spinner project.
+                        </div>
+                        {props.errors.map((e, i) => {
+                            return (
+                                <div className="text-red select-text" key={i}>
+                                    {e}
+                                </div>
+                            );
+                        })}
+                    </>
+                )}
                 {history.map((historyItem, i) => {
                     if (historyItem.type == "line") {
                         return (
                             <LineView
                                 line={historyItem.line}
                                 key={i}
-                                stringTable={testData.stringTable}
+                                stringTable={props.stringTable ?? {}}
                                 isCurrent={i == history.length - 1}
                             />
                         );
@@ -264,13 +98,13 @@ export function StoryPreview() {
                             <LineView
                                 line={historyItem.option.line}
                                 key={i}
-                                stringTable={testData.stringTable}
+                                stringTable={props.stringTable ?? {}}
                                 className="text-end"
                             />
                         );
                     } else if (historyItem.type == "command") {
                         return (
-                            <div className="ms-20 opacity-40">
+                            <div key={i} className="ms-20 opacity-40">
                                 &lt;&lt;{historyItem.command}&gt;&gt;
                             </div>
                         );
@@ -278,24 +112,24 @@ export function StoryPreview() {
                 })}
                 <div id="historyEnd" ref={scrollToBottomRef} />
             </div>
-            {currentState != null && (
+            {nextAction != null && (
                 <div className="border-panel-border flex shrink-0 flex-col gap-2 overflow-auto border-t p-2 px-10">
-                    {currentState?.type == "present-line" && (
+                    {nextAction?.type == "present-line" && (
                         <VSCodeButton
                             className="w-full"
-                            onClick={() => currentState.continue()}
+                            onClick={() => nextAction.continue()}
                         >
                             Continue
                         </VSCodeButton>
                     )}
-                    {currentState?.type == "select-option" &&
-                        currentState.options.map((opt, i) => (
+                    {nextAction?.type == "select-option" &&
+                        nextAction.options.map((opt, i) => (
                             <OptionView
                                 key={i}
                                 className="w-full"
                                 option={opt}
-                                stringTable={testData.stringTable}
-                                onClick={() => currentState.continue(opt)}
+                                stringTable={props.stringTable ?? {}}
+                                onClick={() => nextAction.continue(opt)}
                             />
                         ))}
                 </div>
