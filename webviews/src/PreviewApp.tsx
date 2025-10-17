@@ -54,10 +54,12 @@ export default function App() {
                 nextAction={state.currentAction}
                 errors={state.compiledProgramErrors}
                 stringTable={state.compiledProgram?.stringTable ?? null}
+                settings={state.previewSettings}
                 onRestart={() =>
                     state.compiledProgram &&
                     state.startOrResumeProgram(state.compiledProgram)
                 }
+                onUpdateSettings={state.updateSettings}
             />
         </ErrorBoundary>
     );

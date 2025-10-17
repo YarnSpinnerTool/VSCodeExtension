@@ -59,7 +59,17 @@ export type DialogueHistoryItem =
     | {
           type: "command";
           command: string;
-      };
+      }
+    | {
+          type: "variable-change";
+          variable: string;
+          value: string | number | boolean;
+      }
+    | {
+          type: "node-jump";
+          node: string;
+      }
+    | { type: "stop" };
 
 export type DialogueAction =
     | {
@@ -72,6 +82,10 @@ export type DialogueAction =
           options: OptionItem[];
           continue: (option: OptionItem) => void;
       };
+
+export type PreviewSettings = {
+    showDetails: boolean;
+};
 
 type Store = {
     vm: YarnVM;
@@ -90,6 +104,9 @@ type Store = {
 
     programState: ProgramState | null;
     currentAction: DialogueAction | null;
+
+    previewSettings: PreviewSettings;
+    updateSettings: (newSettings: Partial<PreviewSettings>) => void;
 };
 
 const restoreVMState = (
@@ -150,12 +167,27 @@ export const useYarn = create<Store>()(
             console.log("Create state");
             const vm = new YarnVM();
             vm.onVariableSet = (variable, value) => {
-                set({
+                set((curr) => ({
+                    history: [
+                        ...curr.history,
+                        { type: "variable-change", variable, value },
+                    ],
                     variableStorage: Object.fromEntries([
-                        ...Object.entries(get().variableStorage),
+                        ...Object.entries(curr.variableStorage),
                         [variable, value],
                     ]),
-                });
+                }));
+            };
+            vm.nodeStartedCallback = (nodeName) => {
+                set((curr) => ({
+                    history: [
+                        ...curr.history,
+                        {
+                            type: "node-jump",
+                            node: nodeName,
+                        },
+                    ],
+                }));
             };
             vm.lineCallback = (line, signal) =>
                 new Promise((resolve) => {
@@ -223,9 +255,10 @@ export const useYarn = create<Store>()(
             };
 
             vm.dialogueCompleteCallback = () => {
-                set({
+                set((curr) => ({
                     programState: captureProgramState(vm),
-                });
+                    history: [...curr.history, { type: "stop" }],
+                }));
                 return Promise.resolve();
             };
 
@@ -281,7 +314,19 @@ export const useYarn = create<Store>()(
                 variableStorage: {},
                 programState: null,
                 currentAction: null,
+                previewSettings: {
+                    showDetails: false,
+                },
                 startOrResumeProgram,
+
+                updateSettings: (newSettings) => {
+                    set((curr) => ({
+                        previewSettings: {
+                            ...curr.previewSettings,
+                            ...newSettings,
+                        },
+                    }));
+                },
 
                 setErrors: (errors) => {
                     set({ compiledProgramErrors: errors });
@@ -297,6 +342,7 @@ export const useYarn = create<Store>()(
                 history: state.history,
                 programState: state.programState,
                 variableStorage: state.variableStorage,
+                previewSettings: state.previewSettings,
             }),
 
             merge: (persistedState, currentState) => {

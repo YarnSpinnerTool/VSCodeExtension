@@ -329,7 +329,6 @@
     "dependencies": {
         "@vscode/codicons": "^0.0.22",
         "@vscode/extension-telemetry": "^0.5.2",
-        "@vscode/webview-ui-toolkit": "^1.4.0",
         "antlr4ts": "^0.5.0-alpha.4",
         "curved-arrows": "git+https://github.com/desplesda/curved-arrows.git#fa1edc2ad372c7b9ec668af7f0506702129a5ced",
         "leader-line": "^1.0.5",
