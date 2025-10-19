@@ -105,6 +105,11 @@
                     "command": "yarnspinner.show-graph",
                     "group": "navigation",
                     "when": "editorLangId == yarnspinner && !config.yarnspinner.enableExperimentalFeatures"
+                },
+                {
+                    "command": "yarnspinner.showPreview2",
+                    "group": "navigation",
+                    "when": "editorLangId == yarnspinner && config.yarnspinner.enableExperimentalFeatures"
                 }
             ],
             "commandPalette": [
@@ -158,6 +163,8 @@
                 "command": "yarnspinner.showPreview2",
                 "category": "Yarn Spinner",
                 "title": "Preview Dialogue (New UI)",
+                "icon": "$(play)",
+                "shortTitle": "Preview Dialogue",
                 "enablement": "yarnspinner.languageServerLaunched"
             },
             {
