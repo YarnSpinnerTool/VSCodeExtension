@@ -66,22 +66,20 @@ export class YarnSpinnerPreviewPanel {
         getCompiledProgram: () => Promise<YarnData | { errors: string[] }>,
     ): Promise<YarnSpinnerPreviewPanel> {
         console.log("Create preview panel");
-        const column = vscode.window.activeTextEditor
-            ? vscode.window.activeTextEditor.viewColumn
-            : undefined;
-
         // If we already have a panel, show it.
         if (YarnSpinnerPreviewPanel.currentPanel) {
             // YarnSpinnerPreviewPanel.currentPanel.update(yarnData);
-            YarnSpinnerPreviewPanel.currentPanel._panel.reveal(column);
+            YarnSpinnerPreviewPanel.currentPanel._panel.reveal(
+                YarnSpinnerPreviewPanel.currentPanel._panel.viewColumn,
+            );
             return YarnSpinnerPreviewPanel.currentPanel;
         }
 
-        // Otherwise, create a new panel.
+        // Otherwise, create a new panel besides the current one.
         const panel = vscode.window.createWebviewPanel(
             YarnSpinnerPreviewPanel.viewType,
             "Dialogue Preview",
-            column || vscode.ViewColumn.One,
+            vscode.ViewColumn.Beside,
             YarnSpinnerPreviewPanel.getWebviewOptions(context.extensionUri),
         );
 
