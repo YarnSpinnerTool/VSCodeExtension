@@ -232,11 +232,13 @@ export class YarnSpinnerGraphView {
             async (editor) => {
                 const state = await this.getStateForEditor(editor);
 
-                this._webview.postMessage({
-                    type: "updateState",
-                    state: state,
-                    documentUri: editor?.document.uri.toString() ?? null,
-                } satisfies StateUpdatedEvent);
+                if (state) {
+                    this._webview.postMessage({
+                        type: "updateState",
+                        state: state,
+                        documentUri: editor?.document.uri.toString() ?? null,
+                    } satisfies StateUpdatedEvent);
+                }
             },
         );
         this._disposables.push(onDocumentChanged);
