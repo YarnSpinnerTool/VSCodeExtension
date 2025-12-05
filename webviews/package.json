@@ -15,7 +15,7 @@
         "@vscode/codicons": "^0.0.41",
         "@vscode/webview-ui-toolkit": "^1.4.0",
         "@xyflow/react": "^12.8.2",
-        "@yarnspinnertool/core": "^0.0.1-138",
+        "@yarnspinnertool/core": "^0.0.1-142",
         "clsx": "^2.1.1",
         "elkjs": "^0.10.0",
         "react": "^19.1.0",
