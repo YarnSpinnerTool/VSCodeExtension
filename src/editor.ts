@@ -58,7 +58,7 @@ export type DocumentState = {
     state: DocumentStateType;
 };
 
-export class YarnSpinnerEditorProvider
+export class YarnSpinnerLegacyNodeEditorProvider
     implements vscode.CustomTextEditorProvider
 {
     static readonly viewType = "yarnspinner.yarnNodes";
@@ -303,14 +303,14 @@ export class YarnSpinnerEditorProvider
         onDidChangeNodes: Event<DidChangeNodesParams>,
         onDidRequestNodeInGraphView: Event<DidRequestNodeInGraphViewParams>,
     ): vscode.Disposable {
-        const provider = new YarnSpinnerEditorProvider(
+        const provider = new YarnSpinnerLegacyNodeEditorProvider(
             context,
             languageClient,
             onDidChangeNodes,
             onDidRequestNodeInGraphView,
         );
         const providerRegistration = vscode.window.registerCustomEditorProvider(
-            YarnSpinnerEditorProvider.viewType,
+            YarnSpinnerLegacyNodeEditorProvider.viewType,
             provider,
             {
                 webviewOptions: {
@@ -432,7 +432,7 @@ export class YarnSpinnerEditorProvider
         );
 
         // Use a nonce to allowlist which scripts can be run
-        const nonce = YarnSpinnerEditorProvider.getNonce();
+        const nonce = YarnSpinnerLegacyNodeEditorProvider.getNonce();
 
         // In development mode, webpack will generate scripts that use 'eval' to
         // execute (to support sourcemaps). This is insecure, so in production

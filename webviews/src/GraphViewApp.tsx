@@ -1,150 +1,131 @@
-import type { XYPosition } from "@xyflow/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import type { DocumentState, WebViewEvent } from "@/extension/editor";
+import type { GraphViewExtensionMessage } from "@/extension/panels/YarnSpinnerGraphView";
 
 import { ErrorPresenter } from "@/components/ErrorPresenter";
+import GraphView from "@/components/graph-view/GraphView";
+import { useGraphViewState } from "@/components/graph-view/useGraphViewState";
+
+import { vscode } from "@/utilities/vscode";
 
 import "./App.css";
-import GraphView from "./components/graph-view/GraphView";
-import { GraphViewContext } from "./context";
-import { vscode } from "./utilities/vscode";
-
-// Attempt to restore state when we start up.
-const restoredState = vscode.getGraphViewState();
-
-function assertDocumentURIValid(uri?: string | null): asserts uri is string {
-    if (uri === null) {
-        throw new Error("Graph view has no document uri!");
-    }
-}
 
 export default function App() {
-    const [viewState, setViewState] = useState<DocumentState>(
-        restoredState ?? {
-            state: "Unknown",
-        },
-    );
+    const { updateState } = useGraphViewState();
 
     useEffect(() => {
         const messageHandler = (event: MessageEvent<unknown>): void => {
-            const message = event.data as WebViewEvent;
+            const message = event.data as GraphViewExtensionMessage;
+            console.log("Message received:", message);
             if (message.type === "updateState") {
-                // Persist this state in case the webview is hidden
-                vscode.setState(message.state ?? { state: "Unknown" });
-                setViewState(message.state ?? { state: "Unknown" });
+                updateState({
+                    nodeData: message.nodes ?? [],
+                    uri: message.documentUri,
+                });
             }
         };
+
+        // Register to receive messages from the extension
         window.addEventListener("message", messageHandler);
 
+        // Let the extension know we're ready to receive the program
+        vscode.postMessage({
+            type: "ready",
+        });
+
         return () => {
+            // Clean up when we unmount
             window.removeEventListener("message", messageHandler);
         };
     });
 
-    const documentUri = viewState.uri;
+    // const documentUri = viewState.uri;
 
-    const addNode = useCallback(
-        (position: XYPosition) => {
-            assertDocumentURIValid(documentUri);
+    // const addNode = useCallback(
+    //     (position: XYPosition) => {
+    //         assertDocumentURIValid(documentUri);
 
-            vscode.postMessage({
-                type: "add",
-                documentUri,
-                position,
-                headers: {},
-                body: "New node",
-            });
-        },
-        [documentUri],
-    );
+    //         vscode.postMessage({
+    //             type: "add",
+    //             documentUri,
+    //             position,
+    //             headers: {},
+    //             body: "New node",
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
-    const addStickyNote = useCallback(
-        (position: XYPosition) => {
-            assertDocumentURIValid(documentUri);
-            vscode.postMessage({
-                type: "add",
-                documentUri,
-                position,
-                headers: { style: "note" },
-                body: "NOTE: ",
-            });
-        },
-        [documentUri],
-    );
+    // const addStickyNote = useCallback(
+    //     (position: XYPosition) => {
+    //         assertDocumentURIValid(documentUri);
+    //         vscode.postMessage({
+    //             type: "add",
+    //             documentUri,
+    //             position,
+    //             headers: { style: "note" },
+    //             body: "NOTE: ",
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
-    const onNodesMoved = useCallback(
-        (nodes: { id: string; x: number; y: number }[]): void => {
-            assertDocumentURIValid(documentUri);
-            vscode.postMessage({
-                type: "move",
-                documentUri,
-                positions: Object.fromEntries(
-                    nodes.map((n) => [n.id, { x: n.x, y: n.y }]),
-                ),
-            });
-        },
-        [documentUri],
-    );
+    // const onNodesMoved = useCallback(
+    //     (nodes: { id: string; x: number; y: number }[]): void => {
+    //         assertDocumentURIValid(documentUri);
+    //         vscode.postMessage({
+    //             type: "move",
+    //             documentUri,
+    //             positions: Object.fromEntries(
+    //                 nodes.map((n) => [n.id, { x: n.x, y: n.y }]),
+    //             ),
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
-    const onNodeDeleted = useCallback(
-        (id: string): void => {
-            assertDocumentURIValid(documentUri);
-            vscode.postMessage({
-                type: "delete",
-                documentUri,
-                node: id,
-            });
-        },
-        [documentUri],
-    );
+    // const onNodeDeleted = useCallback(
+    //     (id: string): void => {
+    //         assertDocumentURIValid(documentUri);
+    //         vscode.postMessage({
+    //             type: "delete",
+    //             documentUri,
+    //             node: id,
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
-    const onNodeOpened = useCallback(
-        (id: string): void => {
-            assertDocumentURIValid(documentUri);
-            vscode.postMessage({
-                type: "open",
-                documentUri,
-                node: id,
-            });
-        },
-        [documentUri],
-    );
+    // const onNodeOpened = useCallback(
+    //     (id: string): void => {
+    //         assertDocumentURIValid(documentUri);
+    //         vscode.postMessage({
+    //             type: "open",
+    //             documentUri,
+    //             node: id,
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
-    const onNodeHeadersUpdated = useCallback(
-        (id: string, headers: Record<string, string | null>): void => {
-            assertDocumentURIValid(documentUri);
-            vscode.postMessage({
-                type: "update-headers",
-                documentUri,
-                node: id,
-                headers: headers,
-            });
-        },
-        [documentUri],
-    );
-
-    if (!viewState.uri) {
-        return;
-    }
+    // const onNodeHeadersUpdated = useCallback(
+    //     (id: string, headers: Record<string, string | null>): void => {
+    //         assertDocumentURIValid(documentUri);
+    //         vscode.postMessage({
+    //             type: "update-headers",
+    //             documentUri,
+    //             node: id,
+    //             headers: headers,
+    //         });
+    //     },
+    //     [documentUri],
+    // );
 
     return (
         <ErrorBoundary fallbackRender={ErrorPresenter}>
-            <GraphViewContext.Provider value={viewState}>
-                {viewState.uri?.endsWith(".yarn") ? (
-                    <GraphView
-                        key={documentUri}
-                        onStickyNoteAdded={(position) =>
-                            addStickyNote(position)
-                        }
-                        onNodeAdded={(position) => addNode(position)}
-                        onNodesMoved={onNodesMoved}
-                        onNodeOpened={onNodeOpened}
-                        onNodeDeleted={onNodeDeleted}
-                        onNodeHeadersUpdated={onNodeHeadersUpdated}
-                    />
-                ) : (
+            <GraphView />
+            {/*                 
                     <div className="flex size-full flex-col items-center justify-center gap-2 p-4 text-center select-none">
                         <div>
                             Select a Yarn Spinner script to show the graph view.
@@ -156,9 +137,7 @@ export default function App() {
                             </a>{" "}
                             for more information.
                         </div>
-                    </div>
-                )}
-            </GraphViewContext.Provider>
+                    </div> */}
         </ErrorBoundary>
     );
 }

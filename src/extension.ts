@@ -11,7 +11,7 @@ import { Trace } from "vscode-jsonrpc/node";
 import * as languageClient from "vscode-languageclient/node";
 import { LanguageClient } from "vscode-languageclient/node";
 
-import { YarnSpinnerEditorProvider } from "./editor";
+import { YarnSpinnerLegacyNodeEditorProvider } from "./editor";
 import {
     CompilerOutput,
     DidChangeNodesNotification,
@@ -316,7 +316,7 @@ async function launchLanguageServer(
     // that the server is ready so that editors know that they're ok to
     // communicate with the server.
     context.subscriptions.push(
-        YarnSpinnerEditorProvider.register(
+        YarnSpinnerLegacyNodeEditorProvider.register(
             context,
             client,
             onDidChangeNodes.event,
@@ -392,14 +392,14 @@ async function launchLanguageServer(
             await vscode.commands.executeCommand(
                 "vscode.openWith",
                 vscode.Uri.parse(uri),
-                YarnSpinnerEditorProvider.viewType,
+                YarnSpinnerLegacyNodeEditorProvider.viewType,
             );
         } else {
             // Open the editor in the column beside us
             await vscode.commands.executeCommand(
                 "vscode.openWith",
                 vscode.Uri.parse(uri),
-                YarnSpinnerEditorProvider.viewType,
+                YarnSpinnerLegacyNodeEditorProvider.viewType,
                 vscode.ViewColumn.Beside,
             );
         }
@@ -422,7 +422,7 @@ async function launchLanguageServer(
             vscode.commands.executeCommand(
                 "vscode.openWith",
                 vscode.window.activeTextEditor?.document.uri,
-                YarnSpinnerEditorProvider.viewType,
+                YarnSpinnerLegacyNodeEditorProvider.viewType,
                 vscode.ViewColumn.Beside,
             );
         }),

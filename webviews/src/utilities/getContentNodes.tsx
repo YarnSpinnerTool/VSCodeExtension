@@ -2,15 +2,12 @@ import type { Node as GraphNode } from "@xyflow/react";
 
 import type { NodeInfo } from "@/extension/nodes";
 
-import type { NodeEventHandlers } from "@/components/graph-view/GraphView";
-
 import { NodeOffset, NodeSize } from "./constants";
 import { getNodePosition } from "./getNodePosition";
 import type { YarnNodeData } from "./nodeData";
 
 export function getContentNodes(
     nodes: NodeInfo[],
-    eventHandlers: NodeEventHandlers,
     selectedNodes: string[],
 ): GraphNode<YarnNodeData>[] {
     let nodesWithoutPositions = 0;
@@ -41,7 +38,6 @@ export function getContentNodes(
                 data: {
                     isNodeGroup: false,
                     nodeInfos: [n],
-                    ...eventHandlers,
                 } satisfies YarnNodeData,
                 position,
                 selected: selectedNodes.includes(id),
@@ -94,7 +90,6 @@ export function getContentNodes(
                 nodeInfos: nodesInGroup,
                 isNodeGroup: true,
                 clusterName: undefined,
-                ...eventHandlers,
             } satisfies YarnNodeData,
             position: averagePosition,
             width: NodeSize.width,

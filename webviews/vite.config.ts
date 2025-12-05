@@ -43,9 +43,13 @@ export default defineConfig((config) => {
             }),
         ],
         publicDir: path.resolve(__dirname, publicDir),
+        esbuild: {
+            // sourcemap: "inline",
+        },
         build: {
             minify: !isDevelopment(config),
-            sourcemap: isDevelopment(config) ? "inline" : false,
+            sourcemap: false,
+
             reportCompressedSize: isDevelopment(config) == false,
             outDir,
             rollupOptions: {
@@ -56,6 +60,7 @@ export default defineConfig((config) => {
                     entryFileNames: `assets/[name].js`,
                     chunkFileNames: `assets/[name].js`,
                     assetFileNames: `assets/[name].[ext]`,
+                    sourcemap: "inline",
                 },
                 plugins: [
                     {

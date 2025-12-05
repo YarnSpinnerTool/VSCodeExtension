@@ -52,7 +52,13 @@ const scriptAssetPath = [
 
 type XYPosition = { x: number; y: number };
 
-export type WebviewMessage =
+export type GraphViewExtensionMessage = {
+    type: "updateState";
+    nodes?: NodeInfo[];
+    documentUri: string | null;
+};
+
+export type GraphWebviewMessage =
     | {
           type: "move";
           documentUri: string;
@@ -204,9 +210,9 @@ export class YarnSpinnerGraphView {
 
             this._webview.postMessage({
                 type: "updateState",
-                state: state,
-                documentUri: editor?.document.uri.toString() ?? null,
-            } satisfies StateUpdatedEvent);
+                nodes: state?.nodes,
+                documentUri: state?.uri ?? null,
+            } satisfies GraphViewExtensionMessage);
         };
 
         // React to changes in the dist directory
@@ -219,11 +225,13 @@ export class YarnSpinnerGraphView {
             const editor = window.activeTextEditor;
             const state = await this.getStateForEditor(editor);
 
-            this._webview.postMessage({
-                type: "updateState",
-                state: state,
-                documentUri: editor?.document.uri.toString() ?? null,
-            } satisfies StateUpdatedEvent);
+            if (state) {
+                this._webview.postMessage({
+                    type: "updateState",
+                    nodes: state?.nodes,
+                    documentUri: state?.uri ?? null,
+                } satisfies GraphViewExtensionMessage);
+            }
         });
 
         this._disposables.push(onNodesChanged);
@@ -235,9 +243,9 @@ export class YarnSpinnerGraphView {
                 if (state) {
                     this._webview.postMessage({
                         type: "updateState",
-                        state: state,
+                        nodes: state.nodes,
                         documentUri: editor?.document.uri.toString() ?? null,
-                    } satisfies StateUpdatedEvent);
+                    } satisfies GraphViewExtensionMessage);
                 }
             },
         );
@@ -248,10 +256,10 @@ export class YarnSpinnerGraphView {
         if (activeDocumentUri) {
             this.getNodes(activeDocumentUri).then((nodes) => {
                 this._webview.postMessage({
-                    type: "update",
+                    type: "updateState",
                     nodes: nodes,
                     documentUri: activeDocumentUri.toString(),
-                } satisfies NodesUpdatedEvent);
+                } satisfies GraphViewExtensionMessage);
             });
         }
     }
@@ -339,7 +347,7 @@ export class YarnSpinnerGraphView {
      */
     private _setWebviewMessageListener(webview: Webview) {
         webview.onDidReceiveMessage(
-            (message: WebviewMessage) => {
+            (message: GraphWebviewMessage) => {
                 switch (message.type) {
                     case "move":
                         this.moveNode(

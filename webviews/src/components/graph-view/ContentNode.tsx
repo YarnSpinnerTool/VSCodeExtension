@@ -6,7 +6,11 @@ import type {
 } from "@xyflow/react";
 import { Handle, NodeToolbar, Position, useStore } from "@xyflow/react";
 import clsx from "clsx";
-import type { MouseEventHandler, PropsWithChildren } from "react";
+import {
+    type MouseEventHandler,
+    type PropsWithChildren,
+    useCallback,
+} from "react";
 
 import type { NodeInfo } from "@/extension/nodes";
 
@@ -22,6 +26,7 @@ import type { YarnNodeData } from "@/utilities/nodeData";
 import IconExternalFileJump from "@/images/external-file-jump.svg?react";
 
 import { ColourPicker } from "./ColourPicker";
+import { useGraphViewState } from "./useGraphViewState";
 
 function isSingleNode(
     data: YarnNodeData,
@@ -60,6 +65,27 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
 
     const isZoomedOut = useStore(zoomSelector);
 
+    const {
+        applyNodeChanges,
+        updateNodeHeaders,
+        openNodeInTextEditor,
+        setCurrentNodeGroup,
+    } = useGraphViewState();
+
+    const deleteNode = useCallback(() => {
+        applyNodeChanges([{ type: "remove", id: props.id }]);
+    }, [applyNodeChanges, props.id]);
+
+    const updateColour = useCallback(
+        (colour: string | null) => {
+            updateNodeHeaders(props.id, { color: colour });
+        },
+        [props.id, updateNodeHeaders],
+    );
+
+    const nodeGroup =
+        (isNodeGroup(props.data) && props.data.nodeInfos[0].nodeGroup) ?? false;
+
     return (
         <>
             {isSingleNode(props.data) && (
@@ -68,43 +94,24 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                         <ColourPicker
                             availableClasses={thisNodeTopbarClasses}
                             nodeColour={nodeColour}
-                            onColourSelected={(colour) =>
-                                props.data.onNodeHeadersUpdated &&
-                                props.data.onNodeHeadersUpdated(props.id, {
-                                    color: colour,
-                                })
-                            }
+                            onColourSelected={updateColour}
                         />
                     </NodeToolbar>
                     <NodeToolbar
                         className="bg-editor-background shadow-widget-shadow flex flex-col gap-2 rounded-md p-2 shadow-lg"
                         position={Position.Right}
                     >
-                        <VSCodeButton
-                            onClick={() =>
-                                props.data.onNodeDeleted &&
-                                props.data.onNodeDeleted(props.id)
-                            }
-                        >
-                            Delete
-                        </VSCodeButton>
+                        <VSCodeButton onClick={deleteNode}>Delete</VSCodeButton>
                     </NodeToolbar>
                 </>
             )}
-            {isNodeGroup(props.data) && (
+            {nodeGroup && (
                 <NodeToolbar
                     className="bg-editor-background shadow-widget-shadow flex flex-col gap-2 rounded-md p-2 shadow-lg"
                     position={Position.Right}
                 >
                     <VSCodeButton
-                        onClick={() =>
-                            props.data.nodeInfos &&
-                            props.data.nodeInfos[0].nodeGroup &&
-                            props.data.onNodeGroupExpanded &&
-                            props.data.onNodeGroupExpanded(
-                                props.data.nodeInfos[0].nodeGroup,
-                            )
-                        }
+                        onClick={() => setCurrentNodeGroup(nodeGroup)}
                     >
                         Expand
                     </VSCodeButton>
@@ -117,10 +124,11 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     width={props.width ?? NodeSize.width}
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}
-                    onClick={() =>
-                        props.data.onNodeOpened &&
-                        props.data.onNodeOpened(props.id)
-                    }
+                    onClick={() => {
+                        openNodeInTextEditor(
+                            props.data.nodeInfos[0].uniqueTitle ?? null,
+                        );
+                    }}
                 />
             )}
             {!isNote && isSingleNode(props.data) && (
@@ -132,22 +140,17 @@ export function ContentNode(props: NodeProps<GraphNode<YarnNodeData>>) {
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}
                     onClick={() =>
-                        props.data.onNodeOpened &&
-                        props.data.onNodeOpened(props.id)
+                        openNodeInTextEditor(
+                            props.data.nodeInfos[0].uniqueTitle ?? null,
+                        )
                     }
                 />
             )}
-            {!isNote && isNodeGroup(props.data) && (
+            {!isNote && nodeGroup && (
                 <GraphContentNodeGroup
                     nodeInfos={props.data.nodeInfos}
                     colour={nodeColour}
-                    onDoubleClick={() =>
-                        props.data.nodeInfos &&
-                        props.data.onNodeGroupExpanded &&
-                        props.data.onNodeGroupExpanded(
-                            props.data.nodeInfos[0].nodeGroup ?? "",
-                        )
-                    }
+                    onDoubleClick={() => setCurrentNodeGroup(nodeGroup)}
                     width={props.width ?? NodeSize.width}
                     height={props.height ?? NodeSize.height}
                     selected={props.selected}

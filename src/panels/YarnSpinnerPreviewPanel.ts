@@ -12,7 +12,7 @@ import {
 } from "vscode";
 import * as vscode from "vscode";
 
-import { WebviewMessage } from "./YarnSpinnerGraphView";
+import { GraphWebviewMessage } from "./YarnSpinnerGraphView";
 
 const stylesAssetPath = ["webviews", "build", "preview", "assets", "main.css"];
 const scriptAssetPath = ["webviews", "build", "preview", "assets", "main.js"];

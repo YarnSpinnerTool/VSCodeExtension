@@ -1,5 +1,3 @@
-import type { XYPosition } from "@xyflow/react";
-
 import type { NodeInfo } from "@/extension/nodes";
 
 import { GroupPadding as ClusterPadding, NodeSize } from "./constants";
@@ -20,48 +18,65 @@ export function getClusterForNode(node: NodeInfo) {
     return null;
 }
 
-export function getClusterRect(
-    nodes: { position: { x: number; y: number } }[],
+export function getBoundingBox<
+    T extends { position: { x: number; y: number } },
+>(
+    nodes: T[] | undefined,
+    selector?: (node: T) => boolean,
+    size = NodeSize,
+    padding = ClusterPadding,
 ): {
-    position: XYPosition;
-    size: {
-        width: number;
-        height: number;
-    };
+    position: { x: number; y: number };
+    size: { width: number; height: number };
 } {
-    const min = nodes.reduce(
-        (prev, curr) => ({
-            x: Math.min(prev.x, curr.position.x),
-            y: Math.min(prev.y, curr.position.y),
-        }),
-        { x: Infinity, y: Infinity },
-    );
-    const max = nodes.reduce(
-        (prev, curr) => ({
-            x: Math.max(prev.x, curr.position.x),
-            y: Math.max(prev.y, curr.position.y),
-        }),
-        { x: -Infinity, y: -Infinity },
+    if (!nodes || nodes.length == 0) {
+        return { position: { x: 0, y: 0 }, size: { width: 0, height: 0 } };
+    }
+    const corners = nodes.reduce(
+        (curr, next) => {
+            if (selector && selector(next) == false) {
+                return curr;
+            } else {
+                return {
+                    topLeft: {
+                        x: Math.min(curr.topLeft.x, next.position.x),
+                        y: Math.min(curr.topLeft.y, next.position.y),
+                    },
+                    bottomRight: {
+                        x: Math.max(
+                            curr.bottomRight.x,
+                            next.position.x + size.width,
+                        ),
+                        y: Math.max(
+                            curr.bottomRight.y,
+                            next.position.y + size.height,
+                        ),
+                    },
+                };
+            }
+        },
+        {
+            topLeft: { x: Infinity, y: Infinity },
+            bottomRight: { x: -Infinity, y: -Infinity },
+        },
     );
 
-    const clusterPosition = {
-        x: min.x - ClusterPadding.left,
-        y: min.y - ClusterPadding.top,
+    return {
+        position: {
+            x: corners.topLeft.x - padding.left,
+            y: corners.topLeft.y - padding.top,
+        },
+        size: {
+            width:
+                corners.bottomRight.x -
+                corners.topLeft.x +
+                padding.left +
+                padding.right,
+            height:
+                corners.bottomRight.y -
+                corners.topLeft.y +
+                padding.top +
+                padding.bottom,
+        },
     };
-    const groupSize = {
-        width:
-            max.x -
-            min.x +
-            NodeSize.width +
-            ClusterPadding.left +
-            ClusterPadding.right,
-        height:
-            max.y -
-            min.y +
-            NodeSize.height +
-            ClusterPadding.top +
-            ClusterPadding.bottom,
-    };
-
-    return { position: clusterPosition, size: groupSize };
 }

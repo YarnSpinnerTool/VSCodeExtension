@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import type { DocumentState } from "@/extension/editor";
 import type { NodeHeader, NodeInfo, NodeJump } from "@/extension/nodes";
-import type { WebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
+import type { GraphWebviewMessage } from "@/extension/panels/YarnSpinnerGraphView";
 import type { PreviewWebViewMessage } from "@/extension/panels/YarnSpinnerPreviewPanel";
 
 const NodeHeaderSchema = z.object({
@@ -72,7 +72,7 @@ class VSCodeAPIWrapper {
      *
      * @param message Abitrary data (must be JSON serializable) to send to the extension context.
      */
-    public postMessage(message: WebviewMessage | PreviewWebViewMessage) {
+    public postMessage(message: GraphWebviewMessage | PreviewWebViewMessage) {
         if (this.vsCodeApi) {
             this.vsCodeApi.postMessage(message);
         } else {

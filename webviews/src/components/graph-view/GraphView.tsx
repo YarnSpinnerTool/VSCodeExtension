@@ -1,12 +1,8 @@
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react";
 import type {
-    Edge as GraphEdge,
     Node as GraphNode,
-    NodeChange,
+    NodePositionChange,
     OnNodeDrag,
-    OnNodesChange,
-    OnSelectionChangeFunc,
-    ReactFlowInstance,
     XYPosition,
 } from "@xyflow/react";
 import {
@@ -16,33 +12,18 @@ import {
     Panel,
     ReactFlow,
     ReactFlowProvider,
-    applyNodeChanges,
+    SelectionMode,
+    ViewportPortal,
     useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import {
-    useCallback,
-    useContext,
-    useEffect,
-    useReducer,
-    useRef,
-    useState,
-} from "react";
-
-import type { NodeInfo } from "@/extension/nodes";
+import clsx from "clsx";
+import { useMemo, useRef, useState } from "react";
 
 import { autoLayoutNodes } from "@/utilities/autoLayout";
 import { NodeSize } from "@/utilities/constants";
-import {
-    getClusterNodes,
-    getGraphIdForCluster,
-} from "@/utilities/getClusterNodes";
-import { getClusterForNode, getClusterRect } from "@/utilities/getClusterRect";
-import { getContentNodes } from "@/utilities/getContentNodes";
-import { getEdges } from "@/utilities/getEdges";
+import { getBoundingBox, getClusterForNode } from "@/utilities/getClusterRect";
 import type { YarnNodeData } from "@/utilities/nodeData";
-
-import { GraphViewContext } from "@/context";
 
 import IconAlignBottom from "@/images/align-bottom.svg?react";
 import IconAlignLeft from "@/images/align-left.svg?react";
@@ -53,11 +34,11 @@ import IconAutoLayoutVertical from "@/images/auto-layout-vertical.svg?react";
 import IconYarnSpinnerLogo from "@/images/yarnspinner-logo.svg?react";
 
 import { ButtonGroup } from "./ButtonGroup";
-import { ClusterNode } from "./ClusterNode";
 import { ContentNode } from "./ContentNode";
 import { FlowControls } from "./FlowControls";
 import { IconButton } from "./IconButton";
 import { NodeGroupView } from "./NodeGroupView";
+import { useGraphViewState } from "./useGraphViewState";
 
 export type NodeEventHandlers = {
     onNodeOpened?: (id: string) => void;
@@ -71,208 +52,36 @@ export type NodeEventHandlers = {
 
 const nodeTypes = {
     yarnNode: ContentNode,
-    cluster: ClusterNode,
 };
 
-type GraphViewProps = {
-    onNodesMoved: (
-        nodes: {
-            id: string;
-            x: number;
-            y: number;
-        }[],
-    ) => void;
-    onNodeAdded: (position: XYPosition) => void;
-    onStickyNoteAdded: (position: XYPosition) => void;
-} & NodeEventHandlers;
-
-export type GraphState = {
-    nodeData: NodeInfo[];
-    contentNodes: GraphNode<YarnNodeData>[];
-    clusterNodes: GraphNode<YarnNodeData>[];
-    edges: GraphEdge[];
-    selectedNodes: string[];
-};
-
-export function GraphViewInProvider(props: GraphViewProps) {
+export function GraphViewInProvider() {
     const containerRef = useRef<HTMLDivElement>(null);
-
-    const context = useContext(GraphViewContext);
-
-    const [selectedNodes, setSelectedNodes] = useState<string[]>([]);
 
     const [interactive, setInteractive] = useState(true);
 
-    const [currentNodeGroup, setCurrentNodeGroup] = useState<string | null>(
-        null,
-    );
-
-    type GraphUpdate =
-        | {
-              type: "replace-graph";
-              graphContents: NodeInfo[];
-          }
-        | { type: "nodes-moved"; changes: { id: string; position: XYPosition } }
-        | {
-              type: "nodes-updated";
-              changes: NodeChange<GraphNode<YarnNodeData>>[];
-          }
-        | { type: "selection-changed"; selection: string[] };
-
-    const [graphContents, updateGraphContents] = useReducer(
-        (prev: GraphState, update: GraphUpdate): GraphState => {
-            switch (update.type) {
-                case "replace-graph": {
-                    const contentNodes = getContentNodes(
-                        update.graphContents,
-                        { ...props, onNodeGroupExpanded: setCurrentNodeGroup },
-                        prev.selectedNodes,
-                    );
-                    const clusterNodes = getClusterNodes(update.graphContents);
-                    const edges = getEdges(update.graphContents);
-
-                    return {
-                        nodeData: update.graphContents,
-                        contentNodes,
-                        clusterNodes,
-                        edges,
-                        selectedNodes: prev.selectedNodes,
-                    };
-                }
-                case "nodes-moved":
-                    return prev;
-                case "nodes-updated": {
-                    return {
-                        ...prev,
-                        contentNodes: applyNodeChanges<GraphNode<YarnNodeData>>(
-                            update.changes,
-                            prev.contentNodes,
-                        ),
-                        clusterNodes: applyNodeChanges(
-                            update.changes,
-                            prev.clusterNodes,
-                        ),
-                    };
-                }
-                case "selection-changed": {
-                    const contentNodes = getContentNodes(
-                        prev.nodeData,
-                        { ...props, onNodeGroupExpanded: setCurrentNodeGroup },
-                        update.selection,
-                    );
-                    return {
-                        ...prev,
-                        contentNodes,
-                    };
-                }
-            }
-        },
-        {
-            contentNodes: [],
-            edges: [],
-            clusterNodes: [],
-            selectedNodes: [],
-            nodeData: [],
-        },
-    );
-
-    useEffect(() => {
-        // When our source data changes, replace the entire graph view contents
-        updateGraphContents({
-            type: "replace-graph",
-            graphContents: context.nodes ?? [],
-        });
-    }, [context.nodes]);
-
     const flow = useReactFlow<GraphNode<YarnNodeData>>();
 
-    const { onNodesMoved } = props;
+    const {
+        nodes,
+        edges,
+        currentNodeGroup,
+        viewport,
 
-    const onNodesChange: OnNodesChange<GraphNode<YarnNodeData>> = useCallback(
-        (changes) => {
-            updateGraphContents({ type: "nodes-updated", changes });
-        },
-        [],
-    );
+        setCurrentNodeGroup,
 
-    const onNodeDrag: OnNodeDrag<GraphNode<YarnNodeData>> = useCallback(
-        (_event, _node, draggedGraphNodes) => {
-            // Find the groups that these nodes are in
+        applyNodeChanges,
+        addNode,
+        addStickyNote,
+        updatePositions,
+        setViewport,
+    } = useGraphViewState();
 
-            const clusterNames = new Set<string>();
-
-            for (const node of draggedGraphNodes) {
-                for (const nodeInfo of node.data.nodeInfos ?? []) {
-                    const cluster = getClusterForNode(nodeInfo);
-                    if (cluster) {
-                        clusterNames.add(cluster);
-                    }
-                }
-            }
-
-            const nodes = graphContents.contentNodes;
-
-            for (const [clusterName] of clusterNames.entries()) {
-                // A graph node is in the cluster if any of its NodeInfos are in the cluster
-                const allGraphNodesInCluster = nodes.filter((n) =>
-                    n.data.nodeInfos?.find(
-                        (n) => getClusterForNode(n) === clusterName,
-                    ),
-                );
-
-                const updatedClusterDimensions = getClusterRect(
-                    allGraphNodesInCluster,
-                );
-
-                flow.updateNode(getGraphIdForCluster(clusterName), {
-                    position: updatedClusterDimensions.position,
-                    ...updatedClusterDimensions.size,
-                });
-            }
-        },
-        [flow, graphContents.contentNodes],
-    );
-
-    const onNodeDragStop: OnNodeDrag<GraphNode<YarnNodeData>> = useCallback(
-        (_ev, _node, nodes) => {
-            const positions: { id: string; x: number; y: number }[] = [];
-
-            for (const draggedNode of nodes) {
-                for (const nodeInfo of draggedNode.data.nodeInfos ?? []) {
-                    if (!nodeInfo.uniqueTitle) {
-                        continue;
-                    }
-                    positions.push({
-                        id: nodeInfo.uniqueTitle ?? "<unknown>",
-                        x: draggedNode.position.x,
-                        y: draggedNode.position.y,
-                    });
-                }
-            }
-
-            if (positions.length > 0) {
-                onNodesMoved(positions);
-            }
-        },
-        [onNodesMoved],
-    );
-
-    const onSelectionChange: OnSelectionChangeFunc<GraphNode<YarnNodeData>> =
-        useCallback(
-            (params) => {
-                setSelectedNodes(params.nodes.map((n) => n.id));
-            },
-            [setSelectedNodes],
-        );
-
-    const multipleNodesSelected = selectedNodes.length > 1;
+    const multipleNodesSelected = nodes.filter((n) => n.selected).length > 1;
 
     function alignSelectedNodes(
         alignment: "top" | "bottom" | "left" | "right",
     ) {
-        const selectedGraphNodes = graphContents.contentNodes.filter(
-            (n) => n.selected === true,
-        );
+        const selectedGraphNodes = nodes.filter((n) => n.selected === true);
 
         const min = selectedGraphNodes.reduce(
             (prev, curr) => ({
@@ -306,46 +115,26 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 break;
         }
 
-        const nodeMovements: { id: string; x: number; y: number }[] = [];
-
-        const graphNodeMovements: { id: string; x: number; y: number }[] = [];
-
-        for (const node of selectedGraphNodes) {
-            const newPosition = { ...node.position, ...update };
-            flow.updateNode(node.id, {
-                position: newPosition,
-            });
-
-            graphNodeMovements.push({ id: node.id, ...newPosition });
-
-            for (const nodeInfo of node.data.nodeInfos ?? []) {
-                if (!nodeInfo.uniqueTitle) {
-                    continue;
-                }
-
-                nodeMovements.push({
-                    id: nodeInfo.uniqueTitle,
-                    x: newPosition.x,
-                    y: newPosition.y,
-                });
-            }
-        }
-
-        // Update all clusters
-        updateClusterRects(
-            flow,
-            graphNodeMovements.map((move) => ({
-                id: move.id,
-                position: { ...move },
-            })),
+        const changes = selectedGraphNodes.map<NodePositionChange>((n) => ({
+            type: "position",
+            id: n.id,
+            position: { ...n.position, ...update },
+        }));
+        applyNodeChanges(changes);
+        updatePositions(
+            changes.map((i) => [i.id, i.position ?? { x: 0, y: 0 }]),
         );
-
-        props.onNodesMoved(nodeMovements);
     }
 
     const autolayout = async (direction: "RIGHT" | "DOWN") => {
         const layoutedNodes = await autoLayoutNodes(
-            { nodes: graphContents.contentNodes, edges: graphContents.edges },
+            {
+                // TODO: Figure out how to auto-layout nodes in a node group
+                nodes: nodes.filter(
+                    (n) => n.data.nodeInfos.some((i) => i.nodeGroup) == false,
+                ),
+                edges: edges,
+            },
             direction,
         );
 
@@ -364,48 +153,49 @@ export function GraphViewInProvider(props: GraphViewProps) {
             }
         }
 
-        // Update all clusters
-        updateClusterRects(flow, layoutedNodes);
+        applyNodeChanges(
+            nodeMovements.map<NodePositionChange>((m) => ({
+                type: "position",
+                id: m.id,
+                position: { x: m.x, y: m.y },
+            })),
+        );
 
-        props.onNodesMoved(nodeMovements);
+        updatePositions(nodeMovements.map((m) => [m.id, { x: m.x, y: m.y }]));
+
         void flow.fitView({
             nodes: layoutedNodes,
             padding: "20px",
         });
     };
+    const onNodeDragStop: OnNodeDrag<GraphNode<YarnNodeData>> = (
+        evt,
+        node,
+        nodes,
+    ) => {
+        updatePositions(nodes.map((n) => [n.id, n.position]));
+    };
 
-    function updateClusterRects(
-        flow: ReactFlowInstance<GraphNode<YarnNodeData>>,
-        graphNodes: { id: string; position: XYPosition }[],
-    ) {
-        const clusters = new Map<string, XYPosition[]>();
+    const groups = useMemo(() => {
+        const groups = new Map<string, GraphNode<YarnNodeData>[]>();
+        for (const node of nodes) {
+            for (const nodeInfo of node.data.nodeInfos ?? []) {
+                const cluster = getClusterForNode(nodeInfo);
 
-        for (const graphNode of graphNodes) {
-            const nodeInfos = graphContents.contentNodes.find(
-                (n) => n.id === graphNode.id,
-            )?.data.nodeInfos;
-            if (!nodeInfos) {
-                continue;
-            }
-            for (const nodeInfo of nodeInfos) {
-                const clusterName = getClusterForNode(nodeInfo);
-                if (clusterName) {
-                    const members = clusters.get(clusterName) ?? [];
-                    if (!clusters.has(clusterName)) {
-                        clusters.set(clusterName, members);
-                    }
-                    members.push(graphNode.position);
+                if (!cluster) {
+                    continue;
                 }
+                let mapGroup = groups.get(cluster);
+                if (!mapGroup) {
+                    mapGroup = [];
+                    groups.set(cluster, mapGroup);
+                }
+                mapGroup.push(node);
             }
         }
 
-        for (const [clusterName, clusterMembers] of clusters.entries()) {
-            const rect = getClusterRect(
-                clusterMembers.map((p) => ({ position: p })),
-            );
-            flow.updateNode(getGraphIdForCluster(clusterName), { ...rect });
-        }
-    }
+        return groups;
+    }, [nodes]);
 
     const getViewCenterInFlow = (offset?: XYPosition): XYPosition => {
         if (!containerRef.current) {
@@ -439,7 +229,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                     <VSCodeButton
                         onClick={() =>
                             // Insert a new node in the center of the view
-                            props.onNodeAdded(
+                            addNode(
                                 getViewCenterInFlow({
                                     x: -NodeSize.width / 2,
                                     y: -NodeSize.height / 2,
@@ -453,7 +243,7 @@ export function GraphViewInProvider(props: GraphViewProps) {
                         onClick={() =>
                             // Insert a new sticky note in the center of the
                             // view
-                            props.onStickyNoteAdded(
+                            addStickyNote(
                                 getViewCenterInFlow({
                                     x: -NodeSize.width / 2,
                                     y: -NodeSize.height / 2,
@@ -467,35 +257,26 @@ export function GraphViewInProvider(props: GraphViewProps) {
                 {currentNodeGroup && (
                     <NodeGroupView
                         currentNodeGroup={currentNodeGroup}
-                        graphContents={graphContents}
                         onClose={() => setCurrentNodeGroup(null)}
-                        selectedNodeGroupMember={selectedNodes[0]}
-                        onNodeOpened={props.onNodeOpened}
-                        onNodeDeleted={props.onNodeDeleted}
-                        onNodeHeadersUpdated={props.onNodeHeadersUpdated}
-                        onSelectionChanged={(s) =>
-                            setSelectedNodes(s !== null ? [s] : [])
-                        }
                     />
                 )}
                 <ReactFlow
-                    nodes={[
-                        ...graphContents.clusterNodes,
-                        ...graphContents.contentNodes,
-                    ]}
-                    edges={graphContents.edges}
+                    nodes={nodes}
+                    edges={edges}
                     nodeTypes={nodeTypes}
                     minZoom={MinZoom}
                     maxZoom={MaxZoom}
                     edgesFocusable={false}
                     nodesConnectable={false}
-                    onNodeDrag={onNodeDrag}
                     onNodeDragStop={onNodeDragStop}
                     selectNodesOnDrag={true}
                     selectionKeyCode={"Shift"}
+                    multiSelectionKeyCode={"Shift"}
+                    selectionMode={SelectionMode.Partial}
                     nodesDraggable={interactive}
-                    onNodesChange={onNodesChange}
-                    onSelectionChange={onSelectionChange}
+                    onNodesChange={applyNodeChanges}
+                    viewport={viewport}
+                    onViewportChange={setViewport}
                     fitView
                     proOptions={{ hideAttribution: true }}
                 >
@@ -566,16 +347,133 @@ export function GraphViewInProvider(props: GraphViewProps) {
                             />
                         </ButtonGroup>
                     </Panel>
+                    <ViewportPortal>
+                        {[...groups.entries()].map(
+                            ([groupID, memberNodes], i) => (
+                                <GroupView
+                                    key={i}
+                                    groupID={groupID}
+                                    memberNodes={memberNodes}
+                                />
+                            ),
+                        )}
+                    </ViewportPortal>
                 </ReactFlow>
             </div>
         </>
     );
 }
 
-export default function GraphView(props: GraphViewProps) {
+function GroupView(props: {
+    groupID: string;
+    memberNodes: GraphNode<YarnNodeData>[];
+}) {
+    const boundingBox = getBoundingBox(props.memberNodes, undefined, NodeSize);
+
+    type DragState = {
+        startPosition: XYPosition;
+    } | null;
+
+    const [dragState, setDragState] = useState<DragState>(null);
+
+    const moverRef = useRef<HTMLDivElement>(null);
+
+    const { screenToFlowPosition } = useReactFlow();
+
+    const { updatePositions, applyNodeChanges } = useGraphViewState();
+
+    return (
+        <div
+            style={{
+                width: boundingBox.size.width,
+                height: boundingBox.size.height,
+
+                top: boundingBox.position.y,
+                left: boundingBox.position.x,
+
+                touchAction: "auto",
+                pointerEvents: "all",
+                zIndex: -1,
+            }}
+            className={clsx(
+                "quest-group",
+                "bg-grey-300/10 dark:border-grey-400 rounded-regular outline-grey-300 absolute cursor-pointer border-2 font-semibold backdrop-blur-[3px]",
+            )}
+        >
+            <div
+                className={clsx(
+                    "nopan dark:bg-grey-300/10 bg-grey-600/10 p-2",
+                    {
+                        "cursor-grab": dragState == null,
+                        "cursor-grabbing": dragState != null,
+                    },
+                )}
+                onPointerDown={(e) => {
+                    if (e.button !== 0) {
+                        // Only allow dragging with the primary button
+                        return;
+                    }
+                    moverRef?.current?.setPointerCapture(e.pointerId);
+                    const flowPos = screenToFlowPosition({
+                        x: e.clientX,
+                        y: e.clientY,
+                    });
+                    setDragState({ startPosition: flowPos });
+                }}
+                onPointerMove={(e) => {
+                    if (dragState == null) {
+                        return;
+                    }
+                    const newPosition = screenToFlowPosition({
+                        x: e.clientX,
+                        y: e.clientY,
+                    });
+                    const delta: XYPosition = {
+                        x: newPosition.x - dragState.startPosition.x,
+                        y: newPosition.y - dragState.startPosition.y,
+                    };
+
+                    // console.log(delta);
+                    if (delta.x == 0 && delta.y == 0) {
+                        return;
+                    }
+
+                    const moves = props.memberNodes.map<NodePositionChange>(
+                        (n) => ({
+                            type: "position",
+                            id: n.id,
+                            position: {
+                                x: n.position.x + delta.x,
+                                y: n.position.y + delta.y,
+                            },
+                            dragging: true,
+                        }),
+                    );
+                    applyNodeChanges(moves);
+
+                    setDragState({ startPosition: newPosition });
+                }}
+                onPointerUp={(e) => {
+                    moverRef?.current?.releasePointerCapture(e.pointerId);
+                    if (dragState) {
+                        setDragState(null);
+                        updatePositions(
+                            props.memberNodes.map((n) => [n.id, n.position]),
+                        );
+                    }
+                }}
+                ref={moverRef}
+            >
+                {props.groupID}
+            </div>
+        </div>
+    );
+}
+
+export default function GraphView() {
     return (
         <ReactFlowProvider>
-            <GraphViewInProvider {...props} />
+            <GraphViewInProvider />
         </ReactFlowProvider>
     );
 }
