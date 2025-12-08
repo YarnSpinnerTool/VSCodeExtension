@@ -39,7 +39,7 @@
         "vscode:prepublish_debug": "npm run buildDebug",
         "vscode:prepublish": "npm run buildProduction && rimraf webviews/node_modules",
         "buildExtension": "tsc -p ./src/tsconfig.json && cp src/runner.html out/",
-        "buildWebViewDevelopment": "webpack --mode=development -c ./webview/webpack.config.js",
+        "buildWebViewDevelopment": "webpack --mode=development -c ./webview/webpack.config.js; npm --prefix webviews run build",
         "buildWebViewProduction": "webpack --mode=production -c ./webview/webpack.config.js; npm --prefix webviews run build",
         "buildVSCodeDevelopment": "npm run buildExtension && npm run buildWebViewDevelopment",
         "buildVSCodeProduction": "npm run buildExtension && npm run buildWebViewProduction",
