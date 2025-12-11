@@ -186,7 +186,6 @@ export class YarnSpinnerPreviewPanel {
         const watcher = workspace.createFileSystemWatcher(
             new RelativePattern(extensionUri, "webviews/build/preview/*"),
         );
-        commands.executeCommand("workbench.action.webview.reloadWebviewAction");
         const reloadWebViews = async () => {
             await commands.executeCommand(
                 "workbench.action.webview.reloadWebviewAction",
