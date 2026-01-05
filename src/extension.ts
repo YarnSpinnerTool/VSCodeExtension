@@ -753,6 +753,67 @@ async function launchLanguageServer(
         ),
     );
 
+    context.subscriptions.push(vscode.commands.registerCommand("yarnspinner.tag-lines", async () => {
+
+        const uri = await getOrChooseProjectUri();
+        if (!uri) {
+            return;
+        }
+
+        const params: languageClient.ExecuteCommandParams = {
+            command: "yarnspinner.tag-lines",
+            arguments: [
+                uri.toString()
+            ]
+        };
+
+        let request: Promise<languageClient.WorkspaceEdit> = client.sendRequest(languageClient.ExecuteCommandRequest.type, params);
+        request.then(result => {
+            try{
+                
+            var workspaceEdit = new vscode.WorkspaceEdit(); 
+            var documentChanges = result.documentChanges ?? [];
+            for (const documentChange of documentChanges) {
+                const docEdit = documentChange as languageClient.TextDocumentEdit;
+                if (!docEdit) {
+                    continue;
+                }
+                // Parse the uri string into a vscode.Uri
+                const documentUri = vscode.Uri.parse(docEdit.textDocument.uri);
+                for(const edit of docEdit.edits) {
+
+                    // Convert the language server Range to a vscode.Range
+                    const editRange = new vscode.Range(
+                        edit.range.start.line, edit.range.start.character,
+                        edit.range.end.line, edit.range.end.character
+                    );
+        
+                    // Add the replacement
+                    workspaceEdit.replace(documentUri, editRange, edit.newText);
+                }
+            }
+            if(documentChanges.length == 0) {
+                vscode.window.showInformationMessage(`All lines in the file are already tagged.`);
+                return;
+            }
+            vscode.workspace.applyEdit(workspaceEdit).then(done => 
+                { 
+                    if (!done) {
+                        vscode.window.showErrorMessage("Unable to add tags to lines.");
+                        return;
+                    }
+                    vscode.window.showInformationMessage(`Tagged lines successfully!`);
+                }
+            ); // Apply the workspace edit returned by the server
+            } catch (error: any) {
+             vscode.window.showErrorMessage(`Unable to add tags to lines: ${error?.message}`);
+            }
+            
+        }).catch(error =>{
+            vscode.window.showErrorMessage("Error in the language server: " + error.toString());
+        });
+    }));
+
     // Enable commands that depend upon the language server being online and the above commands being registered
     vscode.commands.executeCommand(
         "setContext",
