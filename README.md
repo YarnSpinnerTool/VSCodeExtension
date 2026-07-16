@@ -1,4 +1,4 @@
-# Yarn Spinner for Visual Studio Code
+# Yarn Spinner for Visual Studio Code (Legacy - new version available elsewhere)
 
 
 > [!NOTE]
