@@ -21,6 +21,11 @@ jobs:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
+        # Allow write permissions to push a tag to github when the commit contains '[release]'
+        # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions
+        permissions:
+          contents: write
+
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
             # Check out the repo
@@ -97,3 +102,11 @@ jobs:
                   VSCE_PAT: ${{ secrets.VSCE_PAT }}
               run: |
                   npx vsce publish ${{ env.RELEASE_FLAG }}  -i ${{github.workspace}}/yarn-spinner-${{steps.version.outputs.MajorMinorCommits}}.vsix
+
+            #  If is a push, and the commit message does contain the string
+            #  '[release]', tag as release.
+            - name: Tag release
+              if: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[release]' ) }}
+              run: |
+                  git tag ${{ steps.version.outputs.MajorMinorCommits }}
+                  git push origin ${{ steps.version.outputs.MajorMinorCommits }}
