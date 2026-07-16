@@ -1,5 +1,9 @@
 # Yarn Spinner for Visual Studio Code
 
+
+> [!NOTE]
+> This is the repository for the old version of the Yarn Spinner for Visual Studio Code Extension. The new version is available on [the Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=SecretLab.yarn-spinner) and [the OpenVSX Registry](https://open-vsx.org/extension/YarnSpinner/yarn-spinner). The new version of the Yarn Spinner for Visual Studio Code Extension will be available in an open repository at [YarnSpinnerTool/YarnSpinner-VSCode](https://github.com/yarnSpinnerTool/YarnSpinner-VSCode) later in 2026.
+
 > [!TIP]
 > To get Yarn Spinner, and support the team behind it, buy a copy for Unity from [the Yarn Spinner Itch.io Store](https://yarnspinner.itch.io) or from [the Unity Asset Store](https://assetstore.unity.com/packages/tools/behavior-ai/yarn-spinner-for-unity-267061), or check out the [Yarn Spinner Documentation](https://docs.yarnspinner.dev) to install from Git.
 
