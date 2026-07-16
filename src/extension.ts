@@ -609,6 +609,20 @@ async function launchLanguageServer(
         }),
     );
 
+    // perform a compilation and return the output (used to export to other VSCode extensions)
+    // Error handling / user-facing error messaging handled by the caller
+    context.subscriptions.push(
+        vscode.commands.registerCommand("yarnspinner.exportWorkspace", () => {
+            let compileResult: Promise<YarnData | null> =
+                compileWorkspace(client);
+
+            return compileResult
+                .then((result) => {
+                    return result;
+                });
+        }),
+    );
+
     // ask the LSP to make a graph file and then save that
     // recording strings extraction command
     context.subscriptions.push(
